@@ -22,8 +22,8 @@ class Supervisor_model extends CI_Model {
 		$query = $this->db->query($sql, $username);
 		$row = $query->row_array();
 
-		if($row){
-			if(password_verify($password, $row['password'])){
+		if ($row) {
+			if (password_verify($password, $row['password'])) {
 				unset($row['password']);
 				return $row;
 			} else{
