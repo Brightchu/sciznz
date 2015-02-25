@@ -1035,4 +1035,11 @@ body .markdown-body
 <ol>
 <li>Use <code>defined('SAE_APPNAME')</code> to detect environment</li>
 <li>Config <code>$db['default']</code> and <code>$db['slave']</code> to Master / Slave database</li>
+</ol>
+<h2 id="3-adapt-log-class"><a name="user-content-3-adapt-log-class" href="#3-adapt-log-class" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>3. Adapt Log class</h2>
+<ol>
+<li>Edit application/config/config.php (assume no MY_*.php in the directory)<br />
+<pre><code>$config['subclass_prefix'] = defined('SAE_APPNAME') ? 'SAE_' : 'MY_';
+</code></pre></li>
+<li>Extend Log.php to SAE_Log.php</li>
 </ol></article></body></html>

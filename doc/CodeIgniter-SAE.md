@@ -24,3 +24,11 @@ handle:
 ---
 1. Use `defined('SAE_APPNAME')` to detect environment
 2. Config `$db['default']` and `$db['slave']` to Master / Slave database
+
+3. Adapt Log class
+---
+1. Edit application/config/config.php (assume no MY_*.php in the directory)
+```
+$config['subclass_prefix'] = defined('SAE_APPNAME') ? 'SAE_' : 'MY_';
+```
+2. Extend Log.php to SAE_Log.php
