@@ -56,7 +56,6 @@ $config['subclass_prefix'] = defined('SAE_APPNAME') ? 'SAE_' : 'MY_';
 ```
 class Kvdb extends SaeKV {}
 ```
-
 2. Others
 ```
 class Kvdb extends Redis {}
