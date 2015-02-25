@@ -32,3 +32,8 @@ handle:
 $config['subclass_prefix'] = defined('SAE_APPNAME') ? 'SAE_' : 'MY_';
 ```
 2. Extend Log.php to SAE_Log.php
+
+4. Create Kvdb class
+---
+1. Extend class `SaeKV` on SAE environment
+2. Extend class `Redis` for others
