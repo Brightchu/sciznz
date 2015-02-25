@@ -9,12 +9,12 @@ Patch and Config for CodeIgniter on SAE
 	2. Add rewrite handle in config.yaml
 	```
 	handle:
-	- rewrite: if (!-e) goto "/index.php/%{QUERY_STRING}"
+	- rewrite: if (!-d && !-f) goto "/index.php/%{QUERY_STRING}"
 	```
 	3. Deny privacy folder access in config.yaml
 	```
 	handle:
-	- rewrite: if (%{REQUEST_URI} ~ "/application") goto "/index.php/%{QUERY_STRING}"
-	- rewrite: if (%{REQUEST_URI} ~ "/system") goto "/index.php/%{QUERY_STRING}"
-	- rewrite: if (%{REQUEST_URI} ~ "/doc") goto "/index.php/%{QUERY_STRING}"
+	- rewrite: if (%{REQUEST_URI} ~ "/application") goto "/index.php/%{QUERY_STRING}"  
+	- rewrite: if (%{REQUEST_URI} ~ "/system") goto "/index.php/%{QUERY_STRING}"  
+	- rewrite: if (%{REQUEST_URI} ~ "/doc") goto "/index.php/%{QUERY_STRING}"  
 	```

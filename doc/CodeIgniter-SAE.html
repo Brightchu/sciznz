@@ -1022,13 +1022,13 @@ body .markdown-body
 </code></pre></li>
 <li>Add rewrite handle in config.yaml<br />
 <pre><code>handle:
-- rewrite: if (!-e) goto &quot;/index.php/%{QUERY_STRING}&quot;
+- rewrite: if (!-d &amp;&amp; !-f) goto &quot;/index.php/%{QUERY_STRING}&quot;
 </code></pre></li>
 <li>Deny privacy folder access in config.yaml<br />
 <pre><code>handle:
-- rewrite: if (%{REQUEST_URI} ~ &quot;/application&quot;) goto &quot;/index.php/%{QUERY_STRING}&quot;
-- rewrite: if (%{REQUEST_URI} ~ &quot;/system&quot;) goto &quot;/index.php/%{QUERY_STRING}&quot;
-- rewrite: if (%{REQUEST_URI} ~ &quot;/doc&quot;) goto &quot;/index.php/%{QUERY_STRING}&quot;
+- rewrite: if (%{REQUEST_URI} ~ &quot;/application&quot;) goto &quot;/index.php/%{QUERY_STRING}&quot;  
+- rewrite: if (%{REQUEST_URI} ~ &quot;/system&quot;) goto &quot;/index.php/%{QUERY_STRING}&quot;  
+- rewrite: if (%{REQUEST_URI} ~ &quot;/doc&quot;) goto &quot;/index.php/%{QUERY_STRING}&quot;  
 </code></pre></li>
 </ol>
 </li>
