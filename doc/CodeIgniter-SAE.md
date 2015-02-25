@@ -60,3 +60,8 @@ class Kvdb extends SaeKV {}
 ```
 class Kvdb extends Redis {}
 ```
+
+6. Create Nsession class
+---
+1. CodeIgniter didn't use PHP native session, and its session class failed because SAE disabled local IO.
+2. application/libraries/Nsession.php
