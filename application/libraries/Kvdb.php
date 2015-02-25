@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 if (defined('SAE_APPNAME')){
 	class Kvdb extends SaeKV {
-		function __construct()
+		public function __construct()
 		{
 			parent::__construct();
 			$this->init();

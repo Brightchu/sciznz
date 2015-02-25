@@ -3,3 +3,64 @@
 img#dummy{
 	width: 100%;
 }
+
+body {
+	background-color: #eee;
+	font-family: "Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "Hiragino Sans GB", "Source Han Sans CN", "Source Han Sans SC", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+}
+
+img#logoBox{
+	display: block;
+	margin: 2% auto 0;
+	@media (orientation:landscape) {
+		width: 12%;
+	}
+	@media (orientation:portrait) {
+		width: 50%;
+	}
+}
+
+#loginForm {
+	@media (orientation:landscape) {
+		width: 50%;
+	}
+	margin: 2% auto 0;
+	padding: 2rem;
+	background-color: white;
+	box-shadow: 0 0 0.5rem #CCC;
+	input{
+		font-size: 2rem;
+		height: 4.5rem;
+	}
+	input[type="text"] {
+		margin-top: 2rem;
+		border-bottom-right-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+	input[type="password"] {
+		margin-top: -1px;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+	}
+	button#submit{
+		margin: 3rem 0 2rem;
+	}
+}
+
+#sideBar{
+	@media (orientation:landscape) {
+		position: fixed;
+		width: 20%;
+		top: 10%;
+		left: 5%;
+	}
+}
+
+#infoBoard{
+	@media (orientation:landscape) {
+		position: absolute;
+		top: 10%;
+		left: 30%;
+		width: 65%;
+	}
+}
