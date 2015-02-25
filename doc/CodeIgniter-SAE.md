@@ -10,7 +10,7 @@ $config['index_page'] = '';
 2. Add rewrite handle in config.yaml
 ```
 handle:
-- rewrite: if (!-d && !-f) goto "/index.php/%{QUERY_STRING}"
+- rewrite: if (!-d && !-f) goto "/index.php/%{REQUEST_URI}"
 ```
 
 2. Optimize config.yaml
@@ -18,9 +18,9 @@ handle:
 1. Deny privacy folder access
 ```
 handle:
-- rewrite: if (%{REQUEST_URI} ~ "^/system") goto "/index.php/%{QUERY_STRING}"
-- rewrite: if (%{REQUEST_URI} ~ "^/application") goto "/index.php/%{QUERY_STRING}"
-- rewrite: if (%{REQUEST_URI} ~ "^/doc") goto "/index.php/%{QUERY_STRING}"
+- rewrite: if (%{REQUEST_URI} ~ "^/system") goto "/index.php/%{REQUEST_URI}"
+- rewrite: if (%{REQUEST_URI} ~ "^/application") goto "/index.php/%{REQUEST_URI}"
+- rewrite: if (%{REQUEST_URI} ~ "^/doc") goto "/index.php/%{REQUEST_URI}"
 ```
 2. Compress text response
 ```
