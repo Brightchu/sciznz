@@ -2,8 +2,10 @@ name: scicompass
 version: 1
 
 handle:
-- rewrite: if (!-d && !-f) goto "/index.php/%{QUERY_STRING}"
-- rewrite: if(%{REQUEST_URI} ~ "/application" || %{REQUEST_URI} ~ "/system" || %{REQUEST_URI} ~ "/doc") goto "/index.php/%{QUERY_STRING}"
+- rewrite: if (!-e) goto "/index.php/%{QUERY_STRING}"
+- rewrite: if (%{REQUEST_URI} ~ "/application") goto "/index.php/%{QUERY_STRING}"
+- rewrite: if (%{REQUEST_URI} ~ "/system") goto "/index.php/%{QUERY_STRING}"
+- rewrite: if (%{REQUEST_URI} ~ "/doc") goto "/index.php/%{QUERY_STRING}"
 - compress:  if ( out_header["Content-type"] ~ "text/css" ) compress
 - compress:  if ( out_header["Content-type"] ~ "text/javascript" ) compress
 - compress:  if ( out_header["Content-type"] ~ "text/html" ) compress
