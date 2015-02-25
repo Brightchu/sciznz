@@ -1024,27 +1024,50 @@ body .markdown-body
 <pre><code>handle:
 - rewrite: if (!-d &amp;&amp; !-f) goto &quot;/index.php/%{QUERY_STRING}&quot;
 </code></pre></li>
-<li>Deny privacy folder access in config.yaml<br />
+</ol>
+<h2 id="2-optimize-configyaml"><a name="user-content-2-optimize-configyaml" href="#2-optimize-configyaml" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>2. Optimize config.yaml</h2>
+<ol>
+<li>Deny privacy folder access<br />
 <pre><code>handle:
-- rewrite: if (%{REQUEST_URI} ~ &quot;/application&quot;) goto &quot;/index.php/%{QUERY_STRING}&quot;
-- rewrite: if (%{REQUEST_URI} ~ &quot;/system&quot;) goto &quot;/index.php/%{QUERY_STRING}&quot;
-- rewrite: if (%{REQUEST_URI} ~ &quot;/doc&quot;) goto &quot;/index.php/%{QUERY_STRING}&quot;
+- rewrite: if (%{REQUEST_URI} ~ &quot;^/system&quot;) goto &quot;/index.php/%{QUERY_STRING}&quot;
+- rewrite: if (%{REQUEST_URI} ~ &quot;^/application&quot;) goto &quot;/index.php/%{QUERY_STRING}&quot;
+- rewrite: if (%{REQUEST_URI} ~ &quot;^/doc&quot;) goto &quot;/index.php/%{QUERY_STRING}&quot;
+</code></pre></li>
+<li>Compress text response<br />
+<pre><code>handle:
+- compress:  if ( out_header[&quot;Content-type&quot;] ~ &quot;text/css&quot; ) compress
+- compress:  if ( out_header[&quot;Content-type&quot;] ~ &quot;text/javascript&quot; ) compress
+- compress:  if ( out_header[&quot;Content-type&quot;] ~ &quot;text/html&quot; ) compress
+- compress:  if ( out_header[&quot;Content-type&quot;] ~ &quot;text/plain&quot; ) compress
+</code></pre></li>
+<li>Direct static folder access<br />
+<pre><code>handlers:
+- url: /static/
+  static_path: static
 </code></pre></li>
 </ol>
-<h2 id="2-set-up-database"><a name="user-content-2-set-up-database" href="#2-set-up-database" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>2. Set up Database</h2>
+<h2 id="3-set-up-database"><a name="user-content-3-set-up-database" href="#3-set-up-database" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>3. Set up Database</h2>
 <ol>
 <li>Use <code>defined('SAE_APPNAME')</code> to detect environment</li>
 <li>Config <code>$db['default']</code> and <code>$db['slave']</code> to Master / Slave database</li>
 </ol>
-<h2 id="3-adapt-log-class"><a name="user-content-3-adapt-log-class" href="#3-adapt-log-class" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>3. Adapt Log class</h2>
+<h2 id="4-adapt-log-class"><a name="user-content-4-adapt-log-class" href="#4-adapt-log-class" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>4. Adapt Log class</h2>
 <ol>
 <li>Edit application/config/config.php (assume no MY_*.php in the directory)<br />
 <pre><code>$config['subclass_prefix'] = defined('SAE_APPNAME') ? 'SAE_' : 'MY_';
 </code></pre></li>
 <li>Extend Log.php to SAE_Log.php</li>
 </ol>
-<h2 id="4-create-kvdb-class"><a name="user-content-4-create-kvdb-class" href="#4-create-kvdb-class" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>4. Create Kvdb class</h2>
+<h2 id="5-create-kvdb-class"><a name="user-content-5-create-kvdb-class" href="#5-create-kvdb-class" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>5. Create Kvdb class</h2>
 <ol>
-<li>Extend class <code>SaeKV</code> on SAE environment</li>
-<li>Extend class <code>Redis</code> for others</li>
+<li>
+<p>SAE<br />
+<pre><code>class Kvdb extends SaeKV {}
+</code></pre></p>
+</li>
+<li>
+<p>Others<br />
+<pre><code>class Kvdb extends Redis {}
+</code></pre></p>
+</li>
 </ol></article></body></html>
