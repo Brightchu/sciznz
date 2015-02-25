@@ -61,27 +61,98 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 $active_group = 'default';
-$query_builder = TRUE;
+$query_builder = FALSE;
 
-$db['default'] = array(
-	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => '',
-	'password' => '',
-	'database' => '',
-	'dbdriver' => 'mysqli',
-	'dbprefix' => '',
-	'pconnect' => FALSE,
-	'db_debug' => TRUE,
-	'cache_on' => FALSE,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'autoinit' => TRUE,
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
-	'failover' => array(),
-	'save_queries' => TRUE
-);
+if(defined('SAE_APPNAME')){
+	$db['default'] = array(
+		'dsn'	=> '',
+		'hostname' => SAE_MYSQL_HOST_M,
+		'username' => SAE_MYSQL_USER,
+		'password' => SAE_MYSQL_PASS,
+		'database' => SAE_MYSQL_DB,
+		'port' => SAE_MYSQL_PORT,
+		'dbdriver' => 'mysqli',
+		'dbprefix' => '',
+		'pconnect' => FALSE,
+		'db_debug' => TRUE,
+		'cache_on' => FALSE,
+		'cachedir' => '',
+		'char_set' => 'utf8',
+		'dbcollat' => 'utf8_general_ci',
+		'swap_pre' => '',
+		'autoinit' => FALSE,
+		'encrypt' => FALSE,
+		'compress' => FALSE,
+		'stricton' => TRUE,
+		'failover' => array(),
+		'save_queries' => FALSE
+	);
+	$db['slave'] = array(
+		'dsn'	=> '',
+		'hostname' => SAE_MYSQL_HOST_S,
+		'username' => SAE_MYSQL_USER,
+		'password' => SAE_MYSQL_PASS,
+		'database' => SAE_MYSQL_DB,
+		'port' => SAE_MYSQL_PORT,
+		'dbdriver' => 'mysqli',
+		'dbprefix' => '',
+		'pconnect' => FALSE,
+		'db_debug' => TRUE,
+		'cache_on' => FALSE,
+		'cachedir' => '',
+		'char_set' => 'utf8',
+		'dbcollat' => 'utf8_general_ci',
+		'swap_pre' => '',
+		'autoinit' => FALSE,
+		'encrypt' => FALSE,
+		'compress' => FALSE,
+		'stricton' => TRUE,
+		'failover' => array(),
+		'save_queries' => FALSE
+	);
+} else{
+	$db['default'] = array(
+		'dsn'	=> '',
+		'hostname' => 'localhost',
+		'username' => 'www-data',
+		'password' => '',
+		'database' => 'www-data',
+		'dbdriver' => 'mysqli',
+		'dbprefix' => '',
+		'pconnect' => FALSE,
+		'db_debug' => TRUE,
+		'cache_on' => FALSE,
+		'cachedir' => '',
+		'char_set' => 'utf8',
+		'dbcollat' => 'utf8_general_ci',
+		'swap_pre' => '',
+		'autoinit' => FALSE,
+		'encrypt' => FALSE,
+		'compress' => FALSE,
+		'stricton' => TRUE,
+		'failover' => array(),
+		'save_queries' => FALSE
+	);
+	$db['slave'] = array(
+		'dsn'	=> '',
+		'hostname' => 'localhost',
+		'username' => 'www-data',
+		'password' => '',
+		'database' => 'www-data',
+		'dbdriver' => 'mysqli',
+		'dbprefix' => '',
+		'pconnect' => FALSE,
+		'db_debug' => TRUE,
+		'cache_on' => FALSE,
+		'cachedir' => '',
+		'char_set' => 'utf8',
+		'dbcollat' => 'utf8_general_ci',
+		'swap_pre' => '',
+		'autoinit' => FALSE,
+		'encrypt' => FALSE,
+		'compress' => FALSE,
+		'stricton' => TRUE,
+		'failover' => array(),
+		'save_queries' => FALSE
+	);
+}

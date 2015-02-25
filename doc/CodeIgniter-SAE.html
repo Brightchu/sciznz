@@ -1015,8 +1015,8 @@ body .markdown-body
   }
 }
 </style><title>CodeIgniter-SAE</title></head><body><article class="markdown-body"><h1 id="patch-and-config-for-codeigniter-on-sae"><a name="user-content-patch-and-config-for-codeigniter-on-sae" href="#patch-and-config-for-codeigniter-on-sae" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Patch and Config for CodeIgniter on SAE</h1>
+<h2 id="1-set-up-url-rewrite"><a name="user-content-1-set-up-url-rewrite" href="#1-set-up-url-rewrite" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>1. Set up URL Rewrite</h2>
 <ol>
-<li>Set up URL Rewrite<ol>
 <li>Edit application/config/config.php<br />
 <pre><code>$config['index_page'] = '';
 </code></pre></li>
@@ -1026,10 +1026,13 @@ body .markdown-body
 </code></pre></li>
 <li>Deny privacy folder access in config.yaml<br />
 <pre><code>handle:
-- rewrite: if (%{REQUEST_URI} ~ &quot;/application&quot;) goto &quot;/index.php/%{QUERY_STRING}&quot;  
-- rewrite: if (%{REQUEST_URI} ~ &quot;/system&quot;) goto &quot;/index.php/%{QUERY_STRING}&quot;  
-- rewrite: if (%{REQUEST_URI} ~ &quot;/doc&quot;) goto &quot;/index.php/%{QUERY_STRING}&quot;  
+- rewrite: if (%{REQUEST_URI} ~ &quot;/application&quot;) goto &quot;/index.php/%{QUERY_STRING}&quot;
+- rewrite: if (%{REQUEST_URI} ~ &quot;/system&quot;) goto &quot;/index.php/%{QUERY_STRING}&quot;
+- rewrite: if (%{REQUEST_URI} ~ &quot;/doc&quot;) goto &quot;/index.php/%{QUERY_STRING}&quot;
 </code></pre></li>
 </ol>
-</li>
+<h2 id="2-set-up-database"><a name="user-content-2-set-up-database" href="#2-set-up-database" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>2. Set up Database</h2>
+<ol>
+<li>Use <code>defined('SAE_APPNAME')</code> to detect environment</li>
+<li>Config <code>$db['default']</code> and <code>$db['slave']</code> to Master / Slave database</li>
 </ol></article></body></html>
