@@ -2,3 +2,6 @@
 *.html
 *.css
 *.js
+
+# Backup files
+*~
