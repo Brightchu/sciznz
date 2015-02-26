@@ -1,4 +1,11 @@
 <?php
+/**
+ * CodeIgniter for SAE
+ * Kvdb Class
+ *
+ * @package	CodeIgniter
+ * @author Yuzo
+ */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 if (defined('SAE_APPNAME')){
@@ -27,7 +34,7 @@ if (defined('SAE_APPNAME')){
 			if($this->exists($key)){
 				return $this->set($key, $value);
 			} else{
-				return False;
+				return FALSE;
 			}
 		}
 

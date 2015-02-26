@@ -1,4 +1,11 @@
 <?php
+/**
+ * CodeIgniter for SAE
+ * Nsession Class
+ *
+ * @package	CodeIgniter
+ * @author Yuzo
+ */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Nsession {

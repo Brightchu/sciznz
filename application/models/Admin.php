@@ -13,7 +13,7 @@ class Admin extends CI_Model {
 	 * Check privilege of a login attempt
 	 * @param	string	$username
 	 * @param	string	$password
-	 * @return  array  name, privilege
+	 * @return  array   $name, $privilege
 	 * @return	bool    FALSE, if falied
 	 */
 	public function login($username, $password)
@@ -23,7 +23,7 @@ class Admin extends CI_Model {
 		$row = $query->row_array();
 
 		if ($row) {
-			if (password_verify($password, $row['password'])) {
+			if (password_verify($username.$password, $row['password'])) {
 				unset($row['password']);
 				return $row;
 			} else{

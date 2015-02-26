@@ -6,7 +6,7 @@ class Supervisor extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->library('nsession');
+		$this->load->library(array('nsession', 'parser'));
 		$this->load->model('admin');
 	}
 
@@ -21,16 +21,16 @@ class Supervisor extends CI_Controller {
 
 	public function login()
 	{
-		if ($this->input->method() == 'post') {
+		if ($this->input->method() === 'post') {
 			$result = $this->admin->login($this->input->post('username'), $this->input->post('password'));
 			if ($result) {
 				$this->nsession->set_data($result);
 				$this->output->set_header('Location: /supervisor/');
 			} else{
-				echo "false";
+				$this->parser->parse('SupervisorLogin.html', array('error' => array(array('' => ''))));
 			}
 		} else{
-			$this->load->view('SupervisorLogin.html');
+			$this->parser->parse('SupervisorLogin.html', array('error' => array()));
 		}
 	}
 }

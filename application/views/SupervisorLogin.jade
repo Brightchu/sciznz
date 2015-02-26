@@ -12,8 +12,11 @@ html
 		link(rel="icon" type="image/png" sizes="256x256" href="/static/img/logo.png")
 	body
 		div.container
-			img#logoBox(src="/static/img/logo.png")
+			img#logoBox(src="/static/img/logo-landscape.png")
 			form#loginForm(action="/supervisor/login/" method="post")
+				{error}
+				div(class="alert alert-danger" role="alert" id="error-tip") 账号密码有误
+				{/error}
 				h2 管理员登录
 				input(type="text" name="username" class="form-control" placeholder="账号" required autofocus)
 				input(type="password" name="password" class="form-control" placeholder="密码" required)

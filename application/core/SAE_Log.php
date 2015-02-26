@@ -2,7 +2,7 @@
 /**
  * CodeIgniter for SAE
  * Logging Class
- * 
+ *
  * @package	CodeIgniter
  * @author Yuzo
  */
