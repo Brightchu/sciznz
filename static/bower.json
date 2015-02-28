@@ -1,5 +1,5 @@
 {
-	"name": "iportal",
+	"name": "scicompass",
 	"description": "scicompass",
 	"version": "0.0.1",
 	"homepage": "scicompass.sinaapp.com",
@@ -9,7 +9,11 @@
 		"jquery": "x",
 		"angular": "x",
 		"bootstrap": "x",
+		"angular-route": "x",
+		"angular-resource": "x",
+		"angular-animate": "x",
+		"angular-ui-utils": "x",
 		"angular-bootstrap": "x",
-		"angular-ui-utils": "x"
+		"animate.css": "x"
 	}
 }
