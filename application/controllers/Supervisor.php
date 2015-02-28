@@ -41,7 +41,7 @@ class Supervisor extends CI_Controller {
 	{
 		switch ($this->input->method()) {
 			case 'get':
-				$this->output->set_content_type('application/json')->set_output(json_encode($this->admin->query()));
+				$this->output->set_json($this->admin->query());
 				break;
 
 			case 'post':

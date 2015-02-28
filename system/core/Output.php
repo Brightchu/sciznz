@@ -776,4 +776,16 @@ class CI_Output {
 		}
 	}
 
+	// --------------------------------------------------------------------
+
+	/**
+	 * JSON output
+	 *
+	 * with JSON_NUMERIC_CHECK enabled
+	 */
+	public function set_json($data)
+	{
+		$this->set_content_type('application/json')->set_output(json_encode($data, JSON_NUMERIC_CHECK));
+	}
+
 }

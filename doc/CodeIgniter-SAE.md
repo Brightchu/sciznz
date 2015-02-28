@@ -65,3 +65,7 @@ class Kvdb extends Redis {}
 ---
 1. CodeIgniter didn't use PHP native session, and its session class failed because SAE disabled local IO.
 2. application/libraries/Nsession.php
+
+7. Add set_json to CI_Output
+---
+1. system/core/Output.php is patched with one new function `set_json`
