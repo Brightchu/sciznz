@@ -3,7 +3,8 @@
 supervisorApp = angular.module('supervisorApp', [
 	'ngRoute',
 	'ngAnimate',
-	'supervisorCtrl'
+	'supervisorCtrl',
+	'supervisorService'
 ])
 
 supervisorApp.config(['$routeProvider', ($routeProvider)->

@@ -19,5 +19,7 @@ supervisorCtrl.controller 'AccordionCtrl', ($scope)->
 			entry.removeClass('active')
 			angular.element(this).addClass('active')
 
-supervisorCtrl.controller 'overViewCtrl', ($scope)->
-	
+supervisorCtrl.controller 'overViewCtrl', ['$scope', 'Admin', ($scope, Admin)->
+	data = Admin.delete()
+	console.log(data)
+]

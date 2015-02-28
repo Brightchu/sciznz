@@ -33,4 +33,14 @@ class Admin extends CI_Model {
 			return FALSE;
 		}
 	}
+
+	/**
+	 * Retrive all admin
+	 * @return  array   $name, $privilege
+	 */
+	public function query()
+	{
+		$sql = 'SELECT `ID`, `privilege`, `name`, `username`, `phone`, `email`, `credit` FROM `supervisor`';
+		return $this->db->query($sql)->result_array();
+	}
 }

@@ -9,15 +9,17 @@ class Supervisor extends CI_Controller {
 		$this->load->library(array('nsession', 'parser'));
 		$this->load->model('admin');
 		$this->load->helper('url');
+
+		if (uri_string() !== 'supervisor/login') {
+			if (!$this->nsession->exists('name')) {
+				redirect('/supervisor/login/');
+			}
+		}
 	}
 
 	public function index()
 	{
-		if ($this->nsession->exists('name')) {
-			$this->load->view('Supervisor.html');
-		} else{
-			redirect('/supervisor/login/');
-		}
+		$this->load->view('Supervisor.html');
 	}
 
 	public function login()
@@ -32,6 +34,19 @@ class Supervisor extends CI_Controller {
 			}
 		} else{
 			$this->parser->parse('SupervisorLogin.html', array('error' => array()));
+		}
+	}
+
+	public function admin()
+	{
+		switch ($this->input->method()) {
+			case 'get':
+				$this->output->set_content_type('application/json')->set_output(json_encode($this->admin->query()));
+				break;
+
+			case 'post':
+				$this->output->set_output('TODO');
+				break;
 		}
 	}
 }
