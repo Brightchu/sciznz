@@ -10,8 +10,7 @@ supervisorApp = angular.module('supervisorApp', [
 supervisorApp.config(['$routeProvider', ($routeProvider)->
 	$routeProvider.
 	when('/', {
-		templateUrl: '/static/partial/supervisor/overview.html',
-		controller: 'overViewCtrl'
+		templateUrl: '/static/partial/supervisor/overview.html'
 	}).
 	when('/visitor', {
 		templateUrl: '/static/partial/supervisor/visitor.html'
@@ -60,6 +59,10 @@ supervisorApp.config(['$routeProvider', ($routeProvider)->
 	}).
 	when('/status', {
 		templateUrl: '/static/partial/supervisor/status.html'
+	}).
+	when('/admin', {
+		templateUrl: '/static/partial/supervisor/admin.html'
+		controller: 'adminCtrl'
 	}).
 	otherwise({
 		redirectTo: '/'

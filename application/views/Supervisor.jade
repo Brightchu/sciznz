@@ -10,11 +10,13 @@ html
 		link(rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css")
 		link(rel="stylesheet" href="/static/css/supervisor/style.css")
 		link(rel="stylesheet" href="/static/bower_components/animate.css/animate.min.css")
+		link(rel="stylesheet" href="/static/bower_components/angular-ui-grid/ui-grid.min.css")
 		script(src="/static/bower_components/angular/angular.js")
 		script(src="/static/bower_components/angular-route/angular-route.js")
 		script(src="/static/bower_components/angular-resource/angular-resource.js")
 		script(src="/static/bower_components/angular-animate/angular-animate.js")
 		script(src="/static/bower_components/angular-bootstrap/ui-bootstrap-tpls.js")
+		script(src="/static/bower_components/angular-ui-grid/ui-grid.js")
 		script(src="/static/js/supervisor/app.js")
 		script(src="/static/js/supervisor/controller.js")
 		script(src="/static/js/supervisor/service.js")
@@ -41,7 +43,7 @@ html
 					p
 						a(href="#/category") 仪器分类
 					p
-						a(href="#/keyword") 分类关键词
+						a(href="#/keyword") 仪器关键词
 				accordion-group(heading="机构管理")
 					p
 						a(href="#/institute") 机构管理
@@ -64,5 +66,8 @@ html
 						a(href="#/order") 订单管理
 					p
 						a(href="#/status") 订单状态
+				accordion-group(heading="管理员")
+					p
+						a(href="#/admin") 管理员
 
 		div#main(class="view-frame" ng-view)
