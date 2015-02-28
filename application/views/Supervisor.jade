@@ -1,0 +1,60 @@
+doctype html
+html(ng-app="supervisor")
+	head
+		meta(charset="utf-8")
+		meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+		meta(name="description" content="管理员 - 科学指南针")
+		meta(name="renderer" content="webkit")
+		meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=no")
+		title 管理员 - 科学指南针
+		link(rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css")
+		link(rel="stylesheet" href="/static/css/supervisor/style.css")
+		script(src="/static/bower_components/angular/angular.min.js")
+		script(src="/static/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js")
+		script(src="/static/js/supervisor/controller.js")
+		link(rel="icon" type="image/png" sizes="256x256" href="/static/img/logo.png")
+
+	body
+		div#sidebar(ng-controller="AccordionCtrl")
+			accordion
+				accordion-group(heading="数据中心", is-open="isFirstOpen")
+					p
+						a 全局
+					p
+						a 访客统计
+					p
+						a 预约统计
+					p
+						a 支付统计
+				accordion-group(heading="前台管理")
+					p
+						a 首页图标
+					p
+						a 首页栏目
+				accordion-group(heading="分类管理")
+					p
+						a 仪器分类
+					p
+						a 分类关键词
+				accordion-group(heading="机构管理")
+					p
+						a 机构管理
+					p
+						a 机构审核
+					p
+						a 操作员管理
+				accordion-group(heading="仪器管理")
+					p
+						a 仪器管理
+					p
+						a 机构审核
+				accordion-group(heading="用户管理")
+					p
+						a 用户管理
+					p
+						a 用户级别
+				accordion-group(heading="订单管理")
+					p
+						a 订单管理
+					p
+						a 订单状态
