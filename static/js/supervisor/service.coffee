@@ -2,10 +2,10 @@
 
 supervisorService = angular.module('supervisorService', ['ngResource'])
 
-supervisorService.factory('Admin', ($resource)->
+supervisorService.factory('Admin', ['$resource', ($resource)->
 	$resource('/supervisor/admin/', {}, {
-		put: {
+		update: {
 			method: 'PUT'
 		}
 	})
-)
+])

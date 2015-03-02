@@ -1,11 +1,6 @@
 'use strict'
 
-supervisorApp = angular.module('supervisorApp', [
-	'ngRoute',
-	'ngAnimate',
-	'supervisorCtrl',
-	'supervisorService'
-])
+supervisorApp = angular.module('supervisorApp', ['ngRoute', 'ngAnimate', 'supervisorCtrl', 'supervisorService'])
 
 supervisorApp.config(['$routeProvider', ($routeProvider)->
 	$routeProvider.

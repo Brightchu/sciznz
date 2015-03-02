@@ -23,7 +23,7 @@ class Admin extends CI_Model {
 		$row = $query->row_array();
 
 		if ($row) {
-			if (password_verify($username.$password, $row['password'])) {
+			if (password_verify($password, $row['password'])) {
 				unset($row['password']);
 				return $row;
 			} else{
@@ -43,4 +43,47 @@ class Admin extends CI_Model {
 		$sql = 'SELECT `ID`, `privilege`, `name`, `username`, `phone`, `email`, `credit` FROM `supervisor`';
 		return $this->db->query($sql)->result_array();
 	}
+
+	/**
+	 * Update an admin
+	 * @param 	array $row
+	 * @return 	bool
+	 */
+	public function update($row)
+	{
+		if (isset($row['password'])) {
+			$sql = 'UPDATE `supervisor` SET `privilege`=?, `name`=?, `username`=?, `password`=?, `phone`=?, `email`=?, `credit`=? WHERE `ID` = ?';
+			$data = array($row['privilege'], $row['name'], $row['username'], password_hash($row['password'], PASSWORD_BCRYPT), $row['phone'], $row['email'], $row['credit'], $row['ID']);
+			return $this->db->query($sql, $data);
+		} else {
+			$sql = 'UPDATE `supervisor` SET `privilege`=?, `name`=?, `username`=?, `phone`=?, `email`=?, `credit`=? WHERE `ID` = ?';
+			$data = array($row['privilege'], $row['name'], $row['username'], $row['phone'], $row['email'], $row['credit'], $row['ID']);
+			return $this->db->query($sql, $data);
+		}
+	}
+
+	/**
+	 * Save an admin
+	 * @param 	array $row
+	 * @return 	bool
+	 */
+	public function save($row)
+	{
+		$sql = 'INSERT INTO `supervisor`(`privilege`, `name`, `username`, `password`, `phone`, `email`, `credit`) VALUES (?, ?, ?, ?, ?, ?, ?)';
+		$data = array($row['privilege'], $row['name'], $row['username'], password_hash($row['password'], PASSWORD_BCRYPT), $row['phone'], $row['email'], $row['credit']);
+		return $this->db->query($sql, $data);
+	}
+
+	/**
+	 * Delete an admin
+	 * @param 	array $row
+	 * @return 	bool
+	 */
+	public function delete($row)
+	{
+		$sql = 'DELETE FROM `supervisor` WHERE `ID` = ?';
+		$data = array($row['ID']);
+		return $this->db->query($sql, $data);
+	}
+
 }

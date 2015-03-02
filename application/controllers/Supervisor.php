@@ -44,8 +44,19 @@ class Supervisor extends CI_Controller {
 				$this->output->set_json($this->admin->query());
 				break;
 
+			case 'put':
+				$result = $this->admin->update($this->input->json());
+				$this->output->set_status_header($result ? 200 : 403);
+				break;
+
 			case 'post':
-				$this->output->set_output('TODO');
+				$result = $this->admin->save($this->input->json());
+				$this->output->set_status_header($result ? 200 : 403);
+				break;
+
+			case 'delete':
+				$result = $this->admin->delete($this->input->get());
+				$this->output->set_status_header($result ? 200 : 403);
 				break;
 		}
 	}

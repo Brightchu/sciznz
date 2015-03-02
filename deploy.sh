@@ -8,7 +8,9 @@ jade application/views/*.jade
 jade static/partial/supervisor/*.jade
 
 # compress
-#uglifyjs static/js/script.js --mangle --compress --screw-ie8 -o static/js/script.js
-#uglifyjs static/js/supervisor/controller.js --mangle --compress --screw-ie8 -o static/js/supervisor/controller.js
+uglifyjs static/js/script.js --mangle --compress --screw-ie8 -o static/js/script.js
+uglifyjs static/js/supervisor/app.js --mangle --compress --screw-ie8 -o static/js/supervisor/app.js
+uglifyjs static/js/supervisor/controller.js --mangle --compress --screw-ie8 -o static/js/supervisor/controller.js
+uglifyjs static/js/supervisor/service.js --mangle --compress --screw-ie8 -o static/js/supervisor/service.js
 
 echo "The files are ready to deploy."
