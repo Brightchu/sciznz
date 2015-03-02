@@ -68,4 +68,8 @@ class Kvdb extends Redis {}
 
 7. Add set_json to CI_Output
 ---
-1. system/core/Output.php is patched with one new function `set_json`
+1. system/core/Output.php is patched with one new function `set_json()`
+
+7. Add json to CI_Output
+---
+1. system/core/Inputput.php is patched with one new function `json()`
