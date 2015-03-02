@@ -18,37 +18,29 @@ supervisorCtrl.controller 'AccordionCtrl', ['$scope', '$location', ($scope, $loc
 		$($(link.parent().parent().parent().parent().children()[0]).children()[0]).children().click()
 ]
 
-supervisorCtrl.controller 'peopleAdminCtrl', ['$scope', 'Admin', ($scope, Admin)->
+supervisorCtrl.controller 'peopleUserCtrl', ['$scope', 'User', ($scope, User)->
 	$scope.gridOptions =
 		enableFiltering: true
 		columnDefs: [
-			{name: 'ID', enableCellEdit: false},
-			{name: 'privilege'},
-			{name: 'name'},
-			{name: 'username'},
-			{name: 'password'},
-			{name: 'phone'},
-			{name: 'email'},
-			{name: 'credit'},
+			{name: 'ID', enableCellEdit: false}
+			{name: 'name'}
+			{name: 'username'}
+			{name: 'password'}
+			{name: 'phone'}
+			{name: 'email'}
+			{name: 'credit'}
 		]
-		data: Admin.query()
+		data: User.query()
 
 	$scope.addRow = ->
 		$scope.gridOptions.data.push
 			'ID': 'New'
-			'privilege': ''
-			'name': ''
-			'username': ''
-			'password': ''
-			'phone': ''
-			'email': ''
-			'credit': ''
 
 	$scope.saveRow = (row)->
 		if row.ID == 'New'
-			promise = Admin.save(row)
+			promise = User.save(row)
 		else
-			promise = Admin.update(row)
+			promise = User.update(row)
 		$scope.gridApi.rowEdit.setSavePromise(row, promise.$promise)
 
 	$scope.flushDirtyRows = ->
@@ -56,7 +48,7 @@ supervisorCtrl.controller 'peopleAdminCtrl', ['$scope', 'Admin', ($scope, Admin)
 
 	$scope.deleteRow = ->
 		row = $scope.gridApi.cellNav.getFocusedCell().row.entity
-		Admin.delete(row)
+		User.delete(row)
 
 		index = $scope.gridOptions.data.indexOf(row)
 		$scope.gridOptions.data.splice(index, 1)
@@ -70,27 +62,20 @@ supervisorCtrl.controller 'peopleOperatorCtrl', ['$scope', 'Staff', ($scope, Sta
 	$scope.gridOptions =
 		enableFiltering: true
 		columnDefs: [
-			{name: 'ID', enableCellEdit: false},
-			{name: 'orgID'},
-			{name: 'name'},
-			{name: 'username'},
-			{name: 'password'},
-			{name: 'phone'},
-			{name: 'email'},
-			{name: 'credit'},
+			{name: 'ID', enableCellEdit: false}
+			{name: 'orgID'}
+			{name: 'name'}
+			{name: 'username'}
+			{name: 'password'}
+			{name: 'phone'}
+			{name: 'email'}
+			{name: 'credit'}
 		]
 		data: Staff.query()
 
 	$scope.addRow = ->
 		$scope.gridOptions.data.push
 			'ID': 'New'
-			'orgID': ''
-			'name': ''
-			'username': ''
-			'password': ''
-			'phone': ''
-			'email': ''
-			'credit': ''
 
 	$scope.saveRow = (row)->
 		if row.ID == 'New'
@@ -105,6 +90,47 @@ supervisorCtrl.controller 'peopleOperatorCtrl', ['$scope', 'Staff', ($scope, Sta
 	$scope.deleteRow = ->
 		row = $scope.gridApi.cellNav.getFocusedCell().row.entity
 		Staff.delete(row)
+
+		index = $scope.gridOptions.data.indexOf(row)
+		$scope.gridOptions.data.splice(index, 1)
+
+	$scope.gridOptions.onRegisterApi = (gridApi)->
+		$scope.gridApi = gridApi
+		gridApi.rowEdit.on.saveRow($scope, $scope.saveRow)
+]
+
+supervisorCtrl.controller 'peopleSupervisorCtrl', ['$scope', 'Admin', ($scope, Admin)->
+	$scope.gridOptions =
+		enableFiltering: true
+		columnDefs: [
+			{name: 'ID', enableCellEdit: false}
+			{name: 'privilege'}
+			{name: 'name'}
+			{name: 'username'}
+			{name: 'password'}
+			{name: 'phone'}
+			{name: 'email'}
+			{name: 'credit'}
+		]
+		data: Admin.query()
+
+	$scope.addRow = ->
+		$scope.gridOptions.data.push
+			'ID': 'New'
+
+	$scope.saveRow = (row)->
+		if row.ID == 'New'
+			promise = Admin.save(row)
+		else
+			promise = Admin.update(row)
+		$scope.gridApi.rowEdit.setSavePromise(row, promise.$promise)
+
+	$scope.flushDirtyRows = ->
+		$scope.gridApi.rowEdit.flushDirtyRows()
+
+	$scope.deleteRow = ->
+		row = $scope.gridApi.cellNav.getFocusedCell().row.entity
+		Admin.delete(row)
 
 		index = $scope.gridOptions.data.indexOf(row)
 		$scope.gridOptions.data.splice(index, 1)

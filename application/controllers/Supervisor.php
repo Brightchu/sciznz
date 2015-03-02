@@ -39,7 +39,59 @@ class Supervisor extends CI_Controller {
 		}
 	}
 
-	public function admin()
+	public function peopleUser()
+	{
+		$this->load->model('user');
+
+		switch ($this->input->method()) {
+			case 'get':
+				$this->output->set_json($this->user->query());
+				break;
+
+			case 'put':
+				$result = $this->user->update($this->input->json());
+				$this->output->set_status_header($result ? 200 : 403);
+				break;
+
+			case 'post':
+				$result = $this->user->save($this->input->json());
+				$this->output->set_status_header($result ? 200 : 403);
+				break;
+
+			case 'delete':
+				$result = $this->user->delete($this->input->get('ID'));
+				$this->output->set_status_header($result ? 200 : 403);
+				break;
+		}
+	}
+
+	public function peopleOperator()
+	{
+		$this->load->model('staff');
+
+		switch ($this->input->method()) {
+			case 'get':
+				$this->output->set_json($this->staff->query());
+				break;
+
+			case 'put':
+				$result = $this->staff->update($this->input->json());
+				$this->output->set_status_header($result ? 200 : 403);
+				break;
+
+			case 'post':
+				$result = $this->staff->save($this->input->json());
+				$this->output->set_status_header($result ? 200 : 403);
+				break;
+
+			case 'delete':
+				$result = $this->staff->delete($this->input->get('ID'));
+				$this->output->set_status_header($result ? 200 : 403);
+				break;
+		}
+	}
+
+	public function peopleSupervisor()
 	{
 		$this->load->model('admin');
 
@@ -65,29 +117,4 @@ class Supervisor extends CI_Controller {
 		}
 	}
 
-	public function staff()
-	{
-		$this->load->model('staff');
-
-		switch ($this->input->method()) {
-			case 'get':
-				$this->output->set_json($this->staff->query());
-				break;
-
-			case 'put':
-				$result = $this->staff->update($this->input->json());
-				$this->output->set_status_header($result ? 200 : 403);
-				break;
-
-			case 'post':
-				$result = $this->staff->save($this->input->json());
-				$this->output->set_status_header($result ? 200 : 403);
-				break;
-
-			case 'delete':
-				$result = $this->staff->delete($this->input->get('ID'));
-				$this->output->set_status_header($result ? 200 : 403);
-				break;
-		}
-	}
 }

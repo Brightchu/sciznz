@@ -1,8 +1,9 @@
 'use strict'
 
 supervisorService = angular.module('supervisorService', ['ngResource'])
-supervisorService.factory('Admin', ['$resource', ($resource)->
-	$resource('/supervisor/admin/', {}, {
+
+supervisorService.factory('User', ['$resource', ($resource)->
+	$resource('/supervisor/peopleUser/', {}, {
 		update: {
 			method: 'PUT'
 		}
@@ -10,7 +11,15 @@ supervisorService.factory('Admin', ['$resource', ($resource)->
 ])
 
 supervisorService.factory('Staff', ['$resource', ($resource)->
-	$resource('/supervisor/staff/', {}, {
+	$resource('/supervisor/peopleOperator/', {}, {
+		update: {
+			method: 'PUT'
+		}
+	})
+])
+
+supervisorService.factory('Admin', ['$resource', ($resource)->
+	$resource('/supervisor/peopleSupervisor/', {}, {
 		update: {
 			method: 'PUT'
 		}
