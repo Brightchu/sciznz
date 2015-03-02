@@ -4,7 +4,8 @@
 angular.element.prototype.click = ->
 	clickEvent = document.createEvent('MouseEvent')
 	clickEvent.initEvent('click', true, true)
-	this[0].dispatchEvent(clickEvent)
+	for element in this
+		element.dispatchEvent(clickEvent)
 
 window.$ = angular.element
 

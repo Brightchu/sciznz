@@ -18,19 +18,11 @@ supervisorCtrl.controller 'AccordionCtrl', ['$scope', '$location', ($scope, $loc
 		$($(link.parent().parent().parent().parent().children()[0]).children()[0]).children().click()
 ]
 
-supervisorCtrl.controller 'peopleUserCtrl', ['$scope', 'User', ($scope, User)->
+gridBuilder = ($scope, Model, columnDefs)->
 	$scope.gridOptions =
 		enableFiltering: true
-		columnDefs: [
-			{name: 'ID', enableCellEdit: false}
-			{name: 'name'}
-			{name: 'username'}
-			{name: 'password'}
-			{name: 'phone'}
-			{name: 'email'}
-			{name: 'credit'}
-		]
-		data: User.query()
+		columnDefs: columnDefs
+		data: Model.query()
 
 	$scope.addRow = ->
 		$scope.gridOptions.data.push
@@ -38,9 +30,9 @@ supervisorCtrl.controller 'peopleUserCtrl', ['$scope', 'User', ($scope, User)->
 
 	$scope.saveRow = (row)->
 		if row.ID == 'New'
-			promise = User.save(row)
+			promise = Model.save(row)
 		else
-			promise = User.update(row)
+			promise = Model.update(row)
 		$scope.gridApi.rowEdit.setSavePromise(row, promise.$promise)
 
 	$scope.flushDirtyRows = ->
@@ -48,7 +40,7 @@ supervisorCtrl.controller 'peopleUserCtrl', ['$scope', 'User', ($scope, User)->
 
 	$scope.deleteRow = ->
 		row = $scope.gridApi.cellNav.getFocusedCell().row.entity
-		User.delete(row)
+		Model.delete(row)
 
 		index = $scope.gridOptions.data.indexOf(row)
 		$scope.gridOptions.data.splice(index, 1)
@@ -56,86 +48,41 @@ supervisorCtrl.controller 'peopleUserCtrl', ['$scope', 'User', ($scope, User)->
 	$scope.gridOptions.onRegisterApi = (gridApi)->
 		$scope.gridApi = gridApi
 		gridApi.rowEdit.on.saveRow($scope, $scope.saveRow)
+
+supervisorCtrl.controller 'peopleUserCtrl', ['$scope', 'User', ($scope, User)->
+	gridBuilder.call(this, $scope, User, [
+		{name: 'ID', enableCellEdit: false}
+		{name: 'name'}
+		{name: 'username'}
+		{name: 'password'}
+		{name: 'phone'}
+		{name: 'email'}
+		{name: 'credit'}
+	])
 ]
 
 supervisorCtrl.controller 'peopleOperatorCtrl', ['$scope', 'Staff', ($scope, Staff)->
-	$scope.gridOptions =
-		enableFiltering: true
-		columnDefs: [
-			{name: 'ID', enableCellEdit: false}
-			{name: 'orgID'}
-			{name: 'name'}
-			{name: 'username'}
-			{name: 'password'}
-			{name: 'phone'}
-			{name: 'email'}
-			{name: 'credit'}
-		]
-		data: Staff.query()
-
-	$scope.addRow = ->
-		$scope.gridOptions.data.push
-			'ID': 'New'
-
-	$scope.saveRow = (row)->
-		if row.ID == 'New'
-			promise = Staff.save(row)
-		else
-			promise = Staff.update(row)
-		$scope.gridApi.rowEdit.setSavePromise(row, promise.$promise)
-
-	$scope.flushDirtyRows = ->
-		$scope.gridApi.rowEdit.flushDirtyRows()
-
-	$scope.deleteRow = ->
-		row = $scope.gridApi.cellNav.getFocusedCell().row.entity
-		Staff.delete(row)
-
-		index = $scope.gridOptions.data.indexOf(row)
-		$scope.gridOptions.data.splice(index, 1)
-
-	$scope.gridOptions.onRegisterApi = (gridApi)->
-		$scope.gridApi = gridApi
-		gridApi.rowEdit.on.saveRow($scope, $scope.saveRow)
+	gridBuilder.call(this, $scope, Staff, [
+		{name: 'ID', enableCellEdit: false}
+		{name: 'orgID'}
+		{name: 'name'}
+		{name: 'username'}
+		{name: 'password'}
+		{name: 'phone'}
+		{name: 'email'}
+		{name: 'credit'}
+	])
 ]
 
 supervisorCtrl.controller 'peopleSupervisorCtrl', ['$scope', 'Admin', ($scope, Admin)->
-	$scope.gridOptions =
-		enableFiltering: true
-		columnDefs: [
-			{name: 'ID', enableCellEdit: false}
-			{name: 'privilege'}
-			{name: 'name'}
-			{name: 'username'}
-			{name: 'password'}
-			{name: 'phone'}
-			{name: 'email'}
-			{name: 'credit'}
-		]
-		data: Admin.query()
-
-	$scope.addRow = ->
-		$scope.gridOptions.data.push
-			'ID': 'New'
-
-	$scope.saveRow = (row)->
-		if row.ID == 'New'
-			promise = Admin.save(row)
-		else
-			promise = Admin.update(row)
-		$scope.gridApi.rowEdit.setSavePromise(row, promise.$promise)
-
-	$scope.flushDirtyRows = ->
-		$scope.gridApi.rowEdit.flushDirtyRows()
-
-	$scope.deleteRow = ->
-		row = $scope.gridApi.cellNav.getFocusedCell().row.entity
-		Admin.delete(row)
-
-		index = $scope.gridOptions.data.indexOf(row)
-		$scope.gridOptions.data.splice(index, 1)
-
-	$scope.gridOptions.onRegisterApi = (gridApi)->
-		$scope.gridApi = gridApi
-		gridApi.rowEdit.on.saveRow($scope, $scope.saveRow)
+	gridBuilder.call(this, $scope, Admin, [
+		{name: 'ID', enableCellEdit: false}
+		{name: 'privilege'}
+		{name: 'name'}
+		{name: 'username'}
+		{name: 'password'}
+		{name: 'phone'}
+		{name: 'email'}
+		{name: 'credit'}
+	])
 ]
