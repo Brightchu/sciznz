@@ -8,66 +8,49 @@ angular.element.prototype.click = ->
 
 window.$ = angular.element
 
-# glue module
+# glue modules
 supervisorApp = angular.module('supervisorApp', ['ngRoute', 'ngAnimate', 'supervisorCtrl', 'supervisorService'])
 supervisorApp.config(['$routeProvider', ($routeProvider)->
-	$routeProvider.
-	when('/', {
-		templateUrl: '/static/partial/supervisor/overview.html'
-	}).
-	when('/visitor', {
-		templateUrl: '/static/partial/supervisor/visitor.html'
-	}).
-	when('/booking', {
-		templateUrl: '/static/partial/supervisor/booking.html'
-	}).
-	when('/pay', {
-		templateUrl: '/static/partial/supervisor/pay.html'
-	}).
-	when('/icon', {
-		templateUrl: '/static/partial/supervisor/icon.html'
-	}).
-	when('/content', {
-		templateUrl: '/static/partial/supervisor/content.html'
-	}).
-	when('/category', {
-		templateUrl: '/static/partial/supervisor/category.html'
-	}).
-	when('/keyword', {
-		templateUrl: '/static/partial/supervisor/keyword.html'
-	}).
-	when('/institute', {
-		templateUrl: '/static/partial/supervisor/institute.html'
-	}).
-	when('/verify', {
-		templateUrl: '/static/partial/supervisor/verify.html'
-	}).
-	when('/operator', {
-		templateUrl: '/static/partial/supervisor/operator.html'
-	}).
-	when('/instrument', {
-		templateUrl: '/static/partial/supervisor/instrument.html'
-	}).
-	when('/permit', {
-		templateUrl: '/static/partial/supervisor/permit.html'
-	}).
-	when('/user', {
-		templateUrl: '/static/partial/supervisor/user.html'
-	}).
-	when('/level', {
-		templateUrl: '/static/partial/supervisor/level.html'
-	}).
-	when('/order', {
-		templateUrl: '/static/partial/supervisor/order.html'
-	}).
-	when('/status', {
-		templateUrl: '/static/partial/supervisor/status.html'
-	}).
-	when('/admin', {
-		templateUrl: '/static/partial/supervisor/admin.html'
-		controller: 'adminCtrl'
-	}).
-	otherwise({
-		redirectTo: '/'
-	});
+	$routeProvider.when('/data-overview'
+		templateUrl: '/static/partial/supervisor/data-overview.html'
+	).when('/data-visitor'
+		templateUrl: '/static/partial/supervisor/data-visitor.html'
+	).when('/data-booking'
+		templateUrl: '/static/partial/supervisor/data-booking.html'
+	).when('/data-payment'
+		templateUrl: '/static/partial/supervisor/data-payment.html'
+	).when('/front-admin'
+		templateUrl: '/static/partial/supervisor/front-admin.html'
+	).when('/class-admin'
+		templateUrl: '/static/partial/supervisor/class-admin.html'
+	).when('/class-arg'
+		templateUrl: '/static/partial/supervisor/class-arg.html'
+	).when('/class-keyword'
+		templateUrl: '/static/partial/supervisor/class-keyword.html'
+	).when('/model-admin'
+		templateUrl: '/static/partial/supervisor/model-admin.html'
+	).when('/model-arg'
+		templateUrl: '/static/partial/supervisor/model-arg.html'
+	).when('/model-keyword'
+		templateUrl: '/static/partial/supervisor/model-keyword.html'
+	).when('/device-admin'
+		templateUrl: '/static/partial/supervisor/device-admin.html'
+	).when('/device-arg'
+		templateUrl: '/static/partial/supervisor/device-arg.html'
+	).when('/device-keyword'
+		templateUrl: '/static/partial/supervisor/device-keyword.html'
+	).when('/org-admin'
+		templateUrl: '/static/partial/supervisor/org-admin.html'
+	).when('/people-user'
+		templateUrl: '/static/partial/supervisor/people-user.html'
+	).when('/people-operator'
+		templateUrl: '/static/partial/supervisor/people-operator.html'
+	).when('/people-admin'
+		templateUrl: '/static/partial/supervisor/people-admin.html'
+		controller: 'peopleAdminCtrl'
+	).when('/booking-admin'
+		templateUrl: '/static/partial/supervisor/booking-admin.html'
+	).otherwise(
+		redirectTo: '/data-overview'
+	)
 ])

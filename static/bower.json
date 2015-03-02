@@ -6,7 +6,6 @@
 	"license": "Apache License",
 	"private": true,
 	"dependencies": {
-		"jquery": "x",
 		"angular": "x",
 		"bootstrap": "x",
 		"angular-route": "x",
@@ -15,6 +14,7 @@
 		"angular-ui-utils": "x",
 		"angular-bootstrap": "x",
 		"angular-ui-grid": "x",
-		"animate.css": "x"
+		"animate.css": "x",
+		"fonts.css": "x"
 	}
 }

@@ -8,66 +8,67 @@ html
 		meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=no")
 		title 管理员 - 科学指南针
 		link(rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css")
-		link(rel="stylesheet" href="/static/css/supervisor/style.css")
 		link(rel="stylesheet" href="/static/bower_components/animate.css/animate.min.css")
 		link(rel="stylesheet" href="/static/bower_components/angular-ui-grid/ui-grid.min.css")
-		script(src="/static/bower_components/angular/angular.js")
-		script(src="/static/bower_components/angular-route/angular-route.js")
-		script(src="/static/bower_components/angular-resource/angular-resource.js")
-		script(src="/static/bower_components/angular-animate/angular-animate.js")
-		script(src="/static/bower_components/angular-bootstrap/ui-bootstrap-tpls.js")
-		script(src="/static/bower_components/angular-ui-grid/ui-grid.js")
-		script(src="/static/js/supervisor/app.js")
-		script(src="/static/js/supervisor/controller.js")
-		script(src="/static/js/supervisor/service.js")
+		link(rel="stylesheet" href="/static/bower_components/fonts.css/fonts.css")
+		link(rel="stylesheet" href="/static/css/supervisor/style.css")
+		script(src="/static/bower_components/angular/angular.min.js")
+		script(src="/static/bower_components/angular-route/angular-route.min.js")
+		script(src="/static/bower_components/angular-resource/angular-resource.min.js")
+		script(src="/static/bower_components/angular-animate/angular-animate.min.js")
+		script(src="/static/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js")
+		script(src="/static/bower_components/angular-ui-grid/ui-grid.min.js")
+		script(src="/static/js/supervisor.js")
 		link(rel="icon" type="image/png" sizes="256x256" href="/static/img/logo.png")
 
-	body(ng-app="supervisorApp")
+	body.font-hei(ng-app="supervisorApp")
 		div#sidebar(ng-controller="AccordionCtrl")
 			accordion
 				accordion-group(heading="数据中心")
 					p
-						a(href="#/") 全局
+						a(href="#/data-overview") 全局
 					p
-						a(href="#/visitor") 访客统计
+						a(href="#/data-visitor") 访客统计
 					p
-						a(href="#/booking") 预约统计
+						a(href="#/data-booking") 预约统计
 					p
-						a(href="#/pay") 支付统计
+						a(href="#/data-payment") 支付统计
 				accordion-group(heading="前台管理")
 					p
-						a(href="#/icon") 首页图标
-					p
-						a(href="#/content") 首页栏目
+						a(href="#/front-admin") 前台管理
 				accordion-group(heading="分类管理")
 					p
-						a(href="#/category") 仪器分类
+						a(href="#/class-admin") 分类管理
 					p
-						a(href="#/keyword") 仪器关键词
-				accordion-group(heading="机构管理")
+						a(href="#/class-arg") 类别参数
 					p
-						a(href="#/institute") 机构管理
+						a(href="#/class-keyword") 类别关键词
+				accordion-group(heading="型号管理")
 					p
-						a(href="#/verify") 机构审核
+						a(href="#/model-admin") 型号管理
 					p
-						a(href="#/operator") 操作员管理
+						a(href="#/model-arg") 型号参数
+					p
+						a(href="#/model-keyword") 型号关键词
 				accordion-group(heading="仪器管理")
 					p
-						a(href="#/instrument") 仪器管理
+						a(href="#/device-admin") 仪器管理
 					p
-						a(href="#/permit") 仪器审核
-				accordion-group(heading="用户管理")
+						a(href="#/device-arg") 仪器参数
 					p
-						a(href="#/user") 用户管理
+						a(href="#/device-keyword") 仪器关键词
+				accordion-group(heading="机构管理")
 					p
-						a(href="#/level") 用户级别
-				accordion-group(heading="订单管理")
+						a(href="#/org-admin") 机构管理
+				accordion-group(heading="人员管理")
 					p
-						a(href="#/order") 订单管理
+						a(href="#/people-user") 用户管理
 					p
-						a(href="#/status") 订单状态
-				accordion-group(heading="管理员")
+						a(href="#/people-operator") 操作员管理
 					p
-						a(href="#/admin") 管理员
+						a(href="#/people-admin") 管理员管理
+				accordion-group(heading="预约管理")
+					p
+						a(href="#/booking-admin") 预约管理
 
 		div#main(class="view-frame" ng-view)

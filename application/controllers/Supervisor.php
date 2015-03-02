@@ -55,7 +55,7 @@ class Supervisor extends CI_Controller {
 				break;
 
 			case 'delete':
-				$result = $this->admin->delete($this->input->get());
+				$result = $this->admin->delete($this->input->get('ID'));
 				$this->output->set_status_header($result ? 200 : 403);
 				break;
 		}

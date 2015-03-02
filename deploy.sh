@@ -1,16 +1,12 @@
 #!/bin/bash
 # compile
-coffee --compile static/js/*.coffee
-coffee --compile static/js/supervisor/*.coffee
+coffee --join static/js/supervisor.js --compile static/js/supervisor/app.coffee static/js/supervisor/controller.coffee static/js/supervisor/service.coffee
 lessc -x static/css/style.less static/css/style.css
 lessc -x static/css/supervisor/style.less static/css/supervisor/style.css
 jade application/views/*.jade
 jade static/partial/supervisor/*.jade
 
 # compress
-uglifyjs static/js/script.js --mangle --compress --screw-ie8 -o static/js/script.js
-uglifyjs static/js/supervisor/app.js --mangle --compress --screw-ie8 -o static/js/supervisor/app.js
-uglifyjs static/js/supervisor/controller.js --mangle --compress --screw-ie8 -o static/js/supervisor/controller.js
-uglifyjs static/js/supervisor/service.js --mangle --compress --screw-ie8 -o static/js/supervisor/service.js
+uglifyjs static/js/supervisor.js --mangle --compress --screw-ie8 -o static/js/supervisor.js
 
 echo "The files are ready to deploy."

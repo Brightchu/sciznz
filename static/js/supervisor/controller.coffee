@@ -18,7 +18,7 @@ supervisorCtrl.controller 'AccordionCtrl', ['$scope', '$location', ($scope, $loc
 		$($(link.parent().parent().parent().parent().children()[0]).children()[0]).children().click()
 ]
 
-supervisorCtrl.controller 'adminCtrl', ['$scope', 'Admin', ($scope, Admin)->
+supervisorCtrl.controller 'peopleAdminCtrl', ['$scope', 'Admin', ($scope, Admin)->
 	$scope.gridOptions =
 		enableFiltering: true
 		columnDefs: [
