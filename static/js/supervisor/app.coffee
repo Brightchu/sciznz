@@ -45,6 +45,7 @@ supervisorApp.config(['$routeProvider', ($routeProvider)->
 		templateUrl: '/static/partial/supervisor/people-user.html'
 	).when('/people-operator'
 		templateUrl: '/static/partial/supervisor/people-operator.html'
+		controller: 'peopleOperatorCtrl'
 	).when('/people-admin'
 		templateUrl: '/static/partial/supervisor/people-admin.html'
 		controller: 'peopleAdminCtrl'

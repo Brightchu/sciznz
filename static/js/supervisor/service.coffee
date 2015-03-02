@@ -8,3 +8,11 @@ supervisorService.factory('Admin', ['$resource', ($resource)->
 		}
 	})
 ])
+
+supervisorService.factory('Staff', ['$resource', ($resource)->
+	$resource('/supervisor/staff/', {}, {
+		update: {
+			method: 'PUT'
+		}
+	})
+])

@@ -26,17 +26,15 @@ class Admin extends CI_Model {
 			if (password_verify($password, $row['password'])) {
 				unset($row['password']);
 				return $row;
-			} else{
-				return FALSE;
 			}
-		} else{
-			return FALSE;
 		}
+
+		return FALSE;
 	}
 
 	/**
 	 * Retrive all admin
-	 * @return  array   $name, $privilege
+	 * @return  array
 	 */
 	public function query()
 	{
@@ -79,11 +77,10 @@ class Admin extends CI_Model {
 	 * @param 	array $row
 	 * @return 	bool
 	 */
-	public function delete($row)
+	public function delete($ID)
 	{
 		$sql = 'DELETE FROM `supervisor` WHERE `ID` = ?';
-		$data = array($row['ID']);
-		return $this->db->query($sql, $data);
+		return $this->db->query($sql, $ID);
 	}
 
 }
