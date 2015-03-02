@@ -1,7 +1,15 @@
 'use strict'
 
-supervisorApp = angular.module('supervisorApp', ['ngRoute', 'ngAnimate', 'supervisorCtrl', 'supervisorService'])
+# syntactic sugar
+angular.element.prototype.click = ->
+	clickEvent = document.createEvent('MouseEvent')
+	clickEvent.initEvent('click', true, true)
+	this[0].dispatchEvent(clickEvent)
 
+window.$ = angular.element
+
+# glue module
+supervisorApp = angular.module('supervisorApp', ['ngRoute', 'ngAnimate', 'supervisorCtrl', 'supervisorService'])
 supervisorApp.config(['$routeProvider', ($routeProvider)->
 	$routeProvider.
 	when('/', {
