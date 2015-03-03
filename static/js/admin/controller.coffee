@@ -175,7 +175,7 @@ adminCtrl.controller 'instituteAdmin', ['$scope', 'Institute', ($scope, Institut
 	])
 ]
 
-adminCtrl.controller 'peopleUserCtrl', ['$scope', 'User', ($scope, User)->
+adminCtrl.controller 'peopleUser', ['$scope', 'User', ($scope, User)->
 	$scope.title = '用户管理'
 	gridBuilder.call(this, $scope, User, [
 		{name: 'ID', enableCellEdit: false}
@@ -188,7 +188,7 @@ adminCtrl.controller 'peopleUserCtrl', ['$scope', 'User', ($scope, User)->
 	])
 ]
 
-adminCtrl.controller 'peopleStaffCtrl', ['$scope', 'Operator', ($scope, Operator)->
+adminCtrl.controller 'peopleStaff', ['$scope', 'Operator', ($scope, Operator)->
 	$scope.title = '操作员管理'
 	gridBuilder.call(this, $scope, Operator, [
 		{name: 'ID', enableCellEdit: false}
@@ -202,7 +202,7 @@ adminCtrl.controller 'peopleStaffCtrl', ['$scope', 'Operator', ($scope, Operator
 	])
 ]
 
-adminCtrl.controller 'peopleAdminCtrl', ['$scope', 'Supervisor', ($scope, Supervisor)->
+adminCtrl.controller 'peopleAdmin', ['$scope', 'Supervisor', ($scope, Supervisor)->
 	$scope.title = '监督员管理'
 	gridBuilder.call(this, $scope, Supervisor, [
 		{name: 'ID', enableCellEdit: false}
