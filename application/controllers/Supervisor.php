@@ -39,82 +39,45 @@ class Supervisor extends CI_Controller {
 		}
 	}
 
-	public function peopleUser()
+	protected function handler($name)
 	{
-		$this->load->model('user');
+		$this->load->model($name);
 
 		switch ($this->input->method()) {
 			case 'get':
-				$this->output->set_json($this->user->query());
+				$this->output->set_json($this->$name->query());
 				break;
 
 			case 'put':
-				$result = $this->user->update($this->input->json());
+				$result = $this->$name->update($this->input->json());
 				$this->output->set_status_header($result ? 200 : 403);
 				break;
 
 			case 'post':
-				$result = $this->user->save($this->input->json());
+				$result = $this->$name->save($this->input->json());
 				$this->output->set_status_header($result ? 200 : 403);
 				break;
 
 			case 'delete':
-				$result = $this->user->delete($this->input->get('ID'));
+				$result = $this->$name->delete($this->input->get('ID'));
 				$this->output->set_status_header($result ? 200 : 403);
 				break;
 		}
+	}
+
+	public function peopleUser()
+	{
+		$this->handler('user');
 	}
 
 	public function peopleOperator()
 	{
-		$this->load->model('staff');
-
-		switch ($this->input->method()) {
-			case 'get':
-				$this->output->set_json($this->staff->query());
-				break;
-
-			case 'put':
-				$result = $this->staff->update($this->input->json());
-				$this->output->set_status_header($result ? 200 : 403);
-				break;
-
-			case 'post':
-				$result = $this->staff->save($this->input->json());
-				$this->output->set_status_header($result ? 200 : 403);
-				break;
-
-			case 'delete':
-				$result = $this->staff->delete($this->input->get('ID'));
-				$this->output->set_status_header($result ? 200 : 403);
-				break;
-		}
+		$this->handler('staff');
 	}
 
 	public function peopleSupervisor()
 	{
-		$this->load->model('admin');
-
-		switch ($this->input->method()) {
-			case 'get':
-				$this->output->set_json($this->admin->query());
-				break;
-
-			case 'put':
-				$result = $this->admin->update($this->input->json());
-				$this->output->set_status_header($result ? 200 : 403);
-				break;
-
-			case 'post':
-				$result = $this->admin->save($this->input->json());
-				$this->output->set_status_header($result ? 200 : 403);
-				break;
-
-			case 'delete':
-				$result = $this->admin->delete($this->input->get('ID'));
-				$this->output->set_status_header($result ? 200 : 403);
-				break;
-		}
+		$this->handler('admin');
 	}
 
 }
