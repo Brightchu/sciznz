@@ -50,6 +50,7 @@ gridBuilder = ($scope, Model, columnDefs)->
 		gridApi.rowEdit.on.saveRow($scope, $scope.saveRow)
 
 supervisorCtrl.controller 'peopleUserCtrl', ['$scope', 'User', ($scope, User)->
+	$scope.title = '用户管理'
 	gridBuilder.call(this, $scope, User, [
 		{name: 'ID', enableCellEdit: false}
 		{name: 'name'}
@@ -62,6 +63,7 @@ supervisorCtrl.controller 'peopleUserCtrl', ['$scope', 'User', ($scope, User)->
 ]
 
 supervisorCtrl.controller 'peopleOperatorCtrl', ['$scope', 'Staff', ($scope, Staff)->
+	$scope.title = '操作员管理'
 	gridBuilder.call(this, $scope, Staff, [
 		{name: 'ID', enableCellEdit: false}
 		{name: 'orgID'}
@@ -75,6 +77,7 @@ supervisorCtrl.controller 'peopleOperatorCtrl', ['$scope', 'Staff', ($scope, Sta
 ]
 
 supervisorCtrl.controller 'peopleSupervisorCtrl', ['$scope', 'Admin', ($scope, Admin)->
+	$scope.title = '监督员管理'
 	gridBuilder.call(this, $scope, Admin, [
 		{name: 'ID', enableCellEdit: false}
 		{name: 'privilege'}
