@@ -15,7 +15,7 @@ class Model_keyword extends CI_Model {
 	 */
 	public function query()
 	{
-		$sql = 'SELECT `ID`, `categoryID`, `name`, `weight` FROM `model_keyword`';
+		$sql = 'SELECT `ID`, `modelID`, `name`, `rank` FROM `model_keyword`';
 		return $this->db->query($sql)->result_array();
 	}
 
@@ -26,8 +26,8 @@ class Model_keyword extends CI_Model {
 	 */
 	public function update($row)
 	{
-		$sql = 'UPDATE `model_keyword` SET `categoryID`=?, `name`=?, `weight`=? WHERE `ID` = ?';
-		$data = array($row['categoryID'], $row['name'], $row['weight'], $row['ID']);
+		$sql = 'UPDATE `model_keyword` SET `modelID`=?, `name`=?, `rank`=? WHERE `ID` = ?';
+		$data = array($row['modelID'], $row['name'], $row['rank'], $row['ID']);
 		return $this->db->query($sql, $data);
 	}
 
@@ -38,8 +38,8 @@ class Model_keyword extends CI_Model {
 	 */
 	public function save($row)
 	{
-		$sql = 'INSERT INTO `model_keyword`(`categoryID`, `name`, `weight`) VALUES (?, ?, ?)';
-		$data = array($row['categoryID'], $row['name'], $row['weight']);
+		$sql = 'INSERT INTO `model_keyword`(`modelID`, `name`, `rank`) VALUES (?, ?, ?)';
+		$data = array($row['modelID'], $row['name'], $row['rank']);
 		return $this->db->query($sql, $data);
 	}
 

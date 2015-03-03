@@ -64,7 +64,7 @@ adminCtrl.controller 'categoryField', ['$scope', 'CategoryField', ($scope, Categ
 		{name: 'ID', enableCellEdit: false}
 		{name: 'categoryID'}
 		{name: 'name'}
-		{name: 'weight'}
+		{name: 'rank'}
 	])
 ]
 
@@ -74,7 +74,7 @@ adminCtrl.controller 'categoryKeyword', ['$scope', 'CategoryKeyword', ($scope, C
 		{name: 'ID', enableCellEdit: false}
 		{name: 'categoryID'}
 		{name: 'name'}
-		{name: 'level'}
+		{name: 'rank'}
 	])
 ]
 
@@ -92,7 +92,7 @@ adminCtrl.controller 'modelField', ['$scope', 'ModelField', ($scope, ModelField)
 	$scope.title = '型号参数'
 	gridBuilder.call(this, $scope, ModelField, [
 		{name: 'ID', enableCellEdit: false}
-		{name: 'categoryID'}
+		{name: 'modelID'}
 		{name: 'name'}
 		{name: 'value'}
 	])
@@ -102,9 +102,9 @@ adminCtrl.controller 'modelKeyword', ['$scope', 'ModelKeyword', ($scope, ModelKe
 	$scope.title = '型号关键词'
 	gridBuilder.call(this, $scope, ModelKeyword, [
 		{name: 'ID', enableCellEdit: false}
-		{name: 'categoryID'}
+		{name: 'modelID'}
 		{name: 'name'}
-		{name: 'weight'}
+		{name: 'rank'}
 	])
 ]
 

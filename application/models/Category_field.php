@@ -15,7 +15,7 @@ class Category_field extends CI_Model {
 	 */
 	public function query()
 	{
-		$sql = 'SELECT `ID`, `categoryID`, `name`, `weight` FROM `category_field`';
+		$sql = 'SELECT `ID`, `categoryID`, `name`, `rank` FROM `category_field`';
 		return $this->db->query($sql)->result_array();
 	}
 
@@ -26,8 +26,8 @@ class Category_field extends CI_Model {
 	 */
 	public function update($row)
 	{
-		$sql = 'UPDATE `category_field` SET `categoryID`=?, `name`=?, `weight`=? WHERE `ID` = ?';
-		$data = array($row['categoryID'], $row['name'], $row['weight'], $row['ID']);
+		$sql = 'UPDATE `category_field` SET `categoryID`=?, `name`=?, `rank`=? WHERE `ID` = ?';
+		$data = array($row['categoryID'], $row['name'], $row['rank'], $row['ID']);
 		return $this->db->query($sql, $data);
 	}
 
@@ -38,8 +38,8 @@ class Category_field extends CI_Model {
 	 */
 	public function save($row)
 	{
-		$sql = 'INSERT INTO `category_field`(`categoryID`, `name`, `weight`) VALUES (?, ?, ?)';
-		$data = array($row['categoryID'], $row['name'], $row['weight']);
+		$sql = 'INSERT INTO `category_field`(`categoryID`, `name`, `rank`) VALUES (?, ?, ?)';
+		$data = array($row['categoryID'], $row['name'], $row['rank']);
 		return $this->db->query($sql, $data);
 	}
 
