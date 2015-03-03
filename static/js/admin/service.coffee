@@ -42,6 +42,10 @@ adminService.factory('DeviceKeyword', ['$resource', ($resource)->
 	$resource('/admin/deviceKeyword/')
 ])
 
+adminService.factory('Institute', ['$resource', ($resource)->
+	$resource('/admin/instituteAdmin/')
+])
+
 adminService.factory('User', ['$resource', ($resource)->
 	$resource('/admin/peopleUser/')
 ])

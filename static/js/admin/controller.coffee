@@ -145,6 +145,16 @@ adminCtrl.controller 'deviceKeyword', ['$scope', 'DeviceKeyword', ($scope, Devic
 	])
 ]
 
+adminCtrl.controller 'instituteAdmin', ['$scope', 'Institute', ($scope, Institute)->
+	$scope.title = '机构管理'
+	gridBuilder.call(this, $scope, Institute, [
+		{name: 'ID', enableCellEdit: false}
+		{name: 'chief'}
+		{name: 'name'}
+		{name: 'info'}
+	])
+]
+
 adminCtrl.controller 'peopleUserCtrl', ['$scope', 'User', ($scope, User)->
 	$scope.title = '用户管理'
 	gridBuilder.call(this, $scope, User, [

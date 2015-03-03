@@ -110,6 +110,11 @@ class Admin extends CI_Controller {
 		$this->handler('device_keyword');
 	}
 
+	public function instituteAdmin()
+	{
+		$this->handler('institute');
+	}
+
 	public function peopleUser()
 	{
 		$this->handler('user');
