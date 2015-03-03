@@ -49,6 +49,26 @@ gridBuilder = ($scope, Model, columnDefs)->
 		$scope.gridApi = gridApi
 		gridApi.rowEdit.on.saveRow($scope, $scope.saveRow)
 
+adminCtrl.controller 'dataOverview', ['$scope', ($scope)->
+	$scope.title = '全局'
+]
+
+adminCtrl.controller 'dataVisitor', ['$scope', ($scope)->
+	$scope.title = '访客统计'
+]
+
+adminCtrl.controller 'dataBooking', ['$scope', ($scope)->
+	$scope.title = '预约统计'
+]
+
+adminCtrl.controller 'dataPayment', ['$scope', ($scope)->
+	$scope.title = '支付统计'
+]
+
+adminCtrl.controller 'frontAdmin', ['$scope', ($scope)->
+	$scope.title = '前台管理'
+]
+
 adminCtrl.controller 'categoryAdmin', ['$scope', 'Category', ($scope, Category)->
 	$scope.title = '分类管理'
 	gridBuilder.call(this, $scope, Category, [
@@ -194,4 +214,8 @@ adminCtrl.controller 'peopleAdminCtrl', ['$scope', 'Supervisor', ($scope, Superv
 		{name: 'email'}
 		{name: 'credit'}
 	])
+]
+
+adminCtrl.controller 'bookingAdmin', ['$scope', ($scope)->
+	$scope.title = '预约管理'
 ]
