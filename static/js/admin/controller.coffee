@@ -78,6 +78,36 @@ adminCtrl.controller 'categoryKeyword', ['$scope', 'CategoryKeyword', ($scope, C
 	])
 ]
 
+adminCtrl.controller 'modelAdmin', ['$scope', 'Model', ($scope, Model)->
+	$scope.title = '型号管理'
+	gridBuilder.call(this, $scope, Model, [
+		{name: 'ID', enableCellEdit: false}
+		{name: 'categoryID'}
+		{name: 'name'}
+		{name: 'info'}
+	])
+]
+
+adminCtrl.controller 'modelField', ['$scope', 'ModelField', ($scope, ModelField)->
+	$scope.title = '型号参数'
+	gridBuilder.call(this, $scope, ModelField, [
+		{name: 'ID', enableCellEdit: false}
+		{name: 'categoryID'}
+		{name: 'name'}
+		{name: 'value'}
+	])
+]
+
+adminCtrl.controller 'modelKeyword', ['$scope', 'ModelKeyword', ($scope, ModelKeyword)->
+	$scope.title = '型号关键词'
+	gridBuilder.call(this, $scope, ModelKeyword, [
+		{name: 'ID', enableCellEdit: false}
+		{name: 'categoryID'}
+		{name: 'name'}
+		{name: 'weight'}
+	])
+]
+
 adminCtrl.controller 'peopleUserCtrl', ['$scope', 'User', ($scope, User)->
 	$scope.title = '用户管理'
 	gridBuilder.call(this, $scope, User, [

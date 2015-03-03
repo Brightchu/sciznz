@@ -80,6 +80,21 @@ class Admin extends CI_Controller {
 		$this->handler('category_keyword');
 	}
 
+	public function modelAdmin()
+	{
+		$this->handler('model');
+	}
+
+	public function modelField()
+	{
+		$this->handler('model_field');
+	}
+
+	public function modelKeyword()
+	{
+		$this->handler('model_keyword');
+	}
+
 	public function peopleUser()
 	{
 		$this->handler('user');

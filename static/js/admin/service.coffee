@@ -18,6 +18,30 @@ adminService.factory('CategoryKeyword', ['$resource', ($resource)->
 	$resource('/admin/categoryKeyword/')
 ])
 
+adminService.factory('Model', ['$resource', ($resource)->
+	$resource('/admin/modelAdmin/')
+])
+
+adminService.factory('ModelField', ['$resource', ($resource)->
+	$resource('/admin/modelField/')
+])
+
+adminService.factory('ModelKeyword', ['$resource', ($resource)->
+	$resource('/admin/modelKeyword/')
+])
+
+adminService.factory('Device', ['$resource', ($resource)->
+	$resource('/admin/deviceAdmin/')
+])
+
+adminService.factory('DeviceField', ['$resource', ($resource)->
+	$resource('/admin/deviceField/')
+])
+
+adminService.factory('DeviceKeyword', ['$resource', ($resource)->
+	$resource('/admin/deviceKeyword/')
+])
+
 adminService.factory('User', ['$resource', ($resource)->
 	$resource('/admin/peopleUser/')
 ])
