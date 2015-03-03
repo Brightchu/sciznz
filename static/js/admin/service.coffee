@@ -6,6 +6,10 @@ adminService.config(['$resourceProvider', ($resourceProvider)->
 		method: 'PUT'
 ])
 
+adminService.factory('Category', ['$resource', ($resource)->
+	$resource('/admin/categoryAdmin/')
+])
+
 adminService.factory('User', ['$resource', ($resource)->
 	$resource('/admin/peopleUser/')
 ])

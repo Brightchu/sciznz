@@ -49,6 +49,15 @@ gridBuilder = ($scope, Model, columnDefs)->
 		$scope.gridApi = gridApi
 		gridApi.rowEdit.on.saveRow($scope, $scope.saveRow)
 
+adminCtrl.controller 'categoryAdmin', ['$scope', 'Category', ($scope, Category)->
+	$scope.title = '分类管理'
+	gridBuilder.call(this, $scope, Category, [
+		{name: 'ID', enableCellEdit: false}
+		{name: 'name'}
+		{name: 'info'}
+	])
+]
+
 adminCtrl.controller 'peopleUserCtrl', ['$scope', 'User', ($scope, User)->
 	$scope.title = '用户管理'
 	gridBuilder.call(this, $scope, User, [
