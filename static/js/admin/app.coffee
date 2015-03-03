@@ -1,13 +1,12 @@
 'use strict'
 
 # syntactic sugar
-angular.element.prototype.click = ->
+window.$ = angular.element
+window.$.prototype.click = ->
 	clickEvent = document.createEvent('MouseEvent')
 	clickEvent.initEvent('click', true, true)
 	for element in this
 		element.dispatchEvent(clickEvent)
-
-window.$ = angular.element
 
 # glue modules
 adminApp = angular.module('adminApp', ['ngRoute', 'ngAnimate', 'adminCtrl', 'adminService'])
