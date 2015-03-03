@@ -108,6 +108,43 @@ adminCtrl.controller 'modelKeyword', ['$scope', 'ModelKeyword', ($scope, ModelKe
 	])
 ]
 
+adminCtrl.controller 'deviceAdmin', ['$scope', 'Device', ($scope, Device)->
+	$scope.title = '仪器管理'
+	gridBuilder.call(this, $scope, Device, [
+		{name: 'ID', enableCellEdit: false}
+		{name: 'modelID'}
+		{name: 'instituteID'}
+		{name: 'city'}
+		{name: 'location'}
+		{name: 'address'}
+		{name: 'price'}
+		{name: 'unit'}
+		{name: 'credit'}
+		{name: 'info'}
+		{name: 'online'}
+	])
+]
+
+adminCtrl.controller 'deviceField', ['$scope', 'DeviceField', ($scope, DeviceField)->
+	$scope.title = '仪器参数'
+	gridBuilder.call(this, $scope, DeviceField, [
+		{name: 'ID', enableCellEdit: false}
+		{name: 'deviceID'}
+		{name: 'name'}
+		{name: 'value'}
+	])
+]
+
+adminCtrl.controller 'deviceKeyword', ['$scope', 'DeviceKeyword', ($scope, DeviceKeyword)->
+	$scope.title = '仪器关键词'
+	gridBuilder.call(this, $scope, DeviceKeyword, [
+		{name: 'ID', enableCellEdit: false}
+		{name: 'deviceID'}
+		{name: 'name'}
+		{name: 'rank'}
+	])
+]
+
 adminCtrl.controller 'peopleUserCtrl', ['$scope', 'User', ($scope, User)->
 	$scope.title = '用户管理'
 	gridBuilder.call(this, $scope, User, [

@@ -95,6 +95,21 @@ class Admin extends CI_Controller {
 		$this->handler('model_keyword');
 	}
 
+	public function deviceAdmin()
+	{
+		$this->handler('device');
+	}
+
+	public function deviceField()
+	{
+		$this->handler('device_field');
+	}
+
+	public function deviceKeyword()
+	{
+		$this->handler('device_keyword');
+	}
+
 	public function peopleUser()
 	{
 		$this->handler('user');
