@@ -11,17 +11,17 @@ html
 		link(rel="stylesheet" href="/static/bower_components/animate.css/animate.min.css")
 		link(rel="stylesheet" href="/static/bower_components/angular-ui-grid/ui-grid.min.css")
 		link(rel="stylesheet" href="/static/bower_components/fonts.css/fonts.css")
-		link(rel="stylesheet" href="/static/css/supervisor/style.css")
+		link(rel="stylesheet" href="/static/css/admin.css")
 		script(src="/static/bower_components/angular/angular.min.js")
 		script(src="/static/bower_components/angular-route/angular-route.min.js")
 		script(src="/static/bower_components/angular-resource/angular-resource.min.js")
 		script(src="/static/bower_components/angular-animate/angular-animate.min.js")
 		script(src="/static/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js")
 		script(src="/static/bower_components/angular-ui-grid/ui-grid.min.js")
-		script(src="/static/js/supervisor.js")
+		script(src="/static/js/admin.js")
 		link(rel="icon" type="image/png" sizes="256x256" href="/static/img/logo.png")
 
-	body.font-hei(ng-app="supervisorApp")
+	body.font-hei(ng-app="adminApp")
 		div#sidebar(ng-controller="AccordionCtrl")
 			accordion
 				accordion-group(heading="数据中心")
@@ -64,9 +64,9 @@ html
 					p
 						a(href="#/people-user") 用户管理
 					p
-						a(href="#/people-operator") 操作员管理
+						a(href="#/people-staff") 操作员管理
 					p
-						a(href="#/people-supervisor") 监督员管理
+						a(href="#/people-admin") 监督员管理
 				accordion-group(heading="预约管理")
 					p
 						a(href="#/booking-admin") 预约管理

@@ -1,7 +1,7 @@
 'use strict'
 
-supervisorCtrl = angular.module('supervisorCtrl', ['ui.bootstrap', 'ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav'])
-supervisorCtrl.controller 'AccordionCtrl', ['$scope', '$location', ($scope, $location)->
+adminCtrl = angular.module('adminCtrl', ['ui.bootstrap', 'ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav'])
+adminCtrl.controller 'AccordionCtrl', ['$scope', '$location', ($scope, $location)->
 	$(document).ready ->
 		heading = $(document.querySelectorAll('.panel-heading'))
 		heading.on 'click', ->
@@ -49,7 +49,7 @@ gridBuilder = ($scope, Model, columnDefs)->
 		$scope.gridApi = gridApi
 		gridApi.rowEdit.on.saveRow($scope, $scope.saveRow)
 
-supervisorCtrl.controller 'peopleUserCtrl', ['$scope', 'User', ($scope, User)->
+adminCtrl.controller 'peopleUserCtrl', ['$scope', 'User', ($scope, User)->
 	$scope.title = '用户管理'
 	gridBuilder.call(this, $scope, User, [
 		{name: 'ID', enableCellEdit: false}
@@ -62,9 +62,9 @@ supervisorCtrl.controller 'peopleUserCtrl', ['$scope', 'User', ($scope, User)->
 	])
 ]
 
-supervisorCtrl.controller 'peopleOperatorCtrl', ['$scope', 'Staff', ($scope, Staff)->
+adminCtrl.controller 'peopleStaffCtrl', ['$scope', 'Operator', ($scope, Operator)->
 	$scope.title = '操作员管理'
-	gridBuilder.call(this, $scope, Staff, [
+	gridBuilder.call(this, $scope, Operator, [
 		{name: 'ID', enableCellEdit: false}
 		{name: 'orgID'}
 		{name: 'name'}
@@ -76,9 +76,9 @@ supervisorCtrl.controller 'peopleOperatorCtrl', ['$scope', 'Staff', ($scope, Sta
 	])
 ]
 
-supervisorCtrl.controller 'peopleSupervisorCtrl', ['$scope', 'Admin', ($scope, Admin)->
+adminCtrl.controller 'peopleAdminCtrl', ['$scope', 'Supervisor', ($scope, Supervisor)->
 	$scope.title = '监督员管理'
-	gridBuilder.call(this, $scope, Admin, [
+	gridBuilder.call(this, $scope, Supervisor, [
 		{name: 'ID', enableCellEdit: false}
 		{name: 'privilege'}
 		{name: 'name'}

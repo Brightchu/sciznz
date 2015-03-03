@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admin extends CI_Model {
+class Supervisor extends CI_Model {
 
 	public function __construct()
 	{
@@ -33,7 +33,7 @@ class Admin extends CI_Model {
 	}
 
 	/**
-	 * Retrive all admin
+	 * Retrive all supervisor
 	 * @return  array
 	 */
 	public function query()
@@ -43,7 +43,7 @@ class Admin extends CI_Model {
 	}
 
 	/**
-	 * Update an admin
+	 * Update an supervisor
 	 * @param 	array $row
 	 * @return 	bool
 	 */
@@ -61,7 +61,7 @@ class Admin extends CI_Model {
 	}
 
 	/**
-	 * Save an admin
+	 * Save an supervisor
 	 * @param 	array $row
 	 * @return 	bool
 	 */
@@ -73,7 +73,7 @@ class Admin extends CI_Model {
 	}
 
 	/**
-	 * Delete an admin
+	 * Delete an supervisor
 	 * @param 	array $row
 	 * @return 	bool
 	 */

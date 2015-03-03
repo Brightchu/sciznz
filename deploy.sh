@@ -1,12 +1,12 @@
 #!/bin/bash
 # compile
-coffee --join static/js/supervisor.js --compile static/js/supervisor/app.coffee static/js/supervisor/controller.coffee static/js/supervisor/service.coffee
+coffee --join static/js/admin.js --compile static/js/admin/app.coffee static/js/admin/controller.coffee static/js/admin/service.coffee
 lessc -x static/css/style.less static/css/style.css
-lessc -x static/css/supervisor/style.less static/css/supervisor/style.css
+lessc -x static/css/admin.less static/css/admin.css
 jade application/views/*.jade
-jade static/partial/supervisor/*.jade
+jade static/partial/admin/*.jade
 
 # compress
-uglifyjs static/js/supervisor.js --mangle --compress --screw-ie8 -o static/js/supervisor.js
+uglifyjs static/js/admin.js --mangle --compress --screw-ie8 -o static/js/admin.js
 
 echo "The files are ready to deploy."

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Supervisor extends CI_Controller {
+class Admin extends CI_Controller {
 
 	public function __construct()
 	{
@@ -9,33 +9,33 @@ class Supervisor extends CI_Controller {
 		$this->load->library('nsession');
 		$this->load->helper('url');
 
-		if (uri_string() !== 'supervisor/login') {
+		if (uri_string() !== 'admin/login') {
 			if (!$this->nsession->exists('name')) {
-				redirect('/supervisor/login/');
+				redirect('/admin/login/');
 			}
 		}
 	}
 
 	public function index()
 	{
-		$this->load->view('Supervisor.html');
+		$this->load->view('admin.html');
 	}
 
 	public function login()
 	{
-		$this->load->model('admin');
+		$this->load->model('supervisor');
 		$this->load->library('parser');
 
 		if ($this->input->method() === 'post') {
-			$result = $this->admin->login($this->input->post('username'), $this->input->post('password'));
+			$result = $this->supervisor->login($this->input->post('username'), $this->input->post('password'));
 			if ($result) {
 				$this->nsession->set_data($result);
-				redirect('/supervisor/');
+				redirect('/admin/');
 			} else{
-				$this->parser->parse('SupervisorLogin.html', array('error' => array(array('' => ''))));
+				$this->parser->parse('adminLogin.html', array('error' => array(array('' => ''))));
 			}
 		} else{
-			$this->parser->parse('SupervisorLogin.html', array('error' => array()));
+			$this->parser->parse('adminLogin.html', array('error' => array()));
 		}
 	}
 
@@ -70,14 +70,14 @@ class Supervisor extends CI_Controller {
 		$this->handler('user');
 	}
 
-	public function peopleOperator()
+	public function peopleStaff()
 	{
-		$this->handler('staff');
+		$this->handler('operator');
 	}
 
-	public function peopleSupervisor()
+	public function peopleAdmin()
 	{
-		$this->handler('admin');
+		$this->handler('supervisor');
 	}
 
 }

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Staff extends CI_Model {
+class Operator extends CI_Model {
 
 	public function __construct()
 	{
@@ -33,7 +33,7 @@ class Staff extends CI_Model {
 	}
 
 	/**
-	 * Retrive all staff
+	 * Retrive all operator
 	 * @return  array
 	 */
 	public function query()
@@ -43,7 +43,7 @@ class Staff extends CI_Model {
 	}
 
 	/**
-	 * Update a staff
+	 * Update a operator
 	 * @param 	array $row
 	 * @return 	bool
 	 */
@@ -61,7 +61,7 @@ class Staff extends CI_Model {
 	}
 
 	/**
-	 * Save an staff
+	 * Save an operator
 	 * @param 	array $row
 	 * @return 	bool
 	 */
@@ -73,7 +73,7 @@ class Staff extends CI_Model {
 	}
 
 	/**
-	 * Delete an staff
+	 * Delete an operator
 	 * @param 	array $row
 	 * @return 	bool
 	 */
