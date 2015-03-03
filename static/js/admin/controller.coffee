@@ -68,6 +68,16 @@ adminCtrl.controller 'categoryField', ['$scope', 'CategoryField', ($scope, Categ
 	])
 ]
 
+adminCtrl.controller 'categoryKeyword', ['$scope', 'CategoryKeyword', ($scope, CategoryKeyword)->
+	$scope.title = '类别关键词'
+	gridBuilder.call(this, $scope, CategoryKeyword, [
+		{name: 'ID', enableCellEdit: false}
+		{name: 'categoryID'}
+		{name: 'name'}
+		{name: 'level'}
+	])
+]
+
 adminCtrl.controller 'peopleUserCtrl', ['$scope', 'User', ($scope, User)->
 	$scope.title = '用户管理'
 	gridBuilder.call(this, $scope, User, [
