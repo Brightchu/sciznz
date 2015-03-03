@@ -10,6 +10,10 @@ adminService.factory('Category', ['$resource', ($resource)->
 	$resource('/admin/categoryAdmin/')
 ])
 
+adminService.factory('CategoryField', ['$resource', ($resource)->
+	$resource('/admin/categoryField/')
+])
+
 adminService.factory('User', ['$resource', ($resource)->
 	$resource('/admin/peopleUser/')
 ])

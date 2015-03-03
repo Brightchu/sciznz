@@ -74,7 +74,7 @@ class Operator extends CI_Model {
 
 	/**
 	 * Delete an operator
-	 * @param 	array $row
+	 * @param 	int $ID
 	 * @return 	bool
 	 */
 	public function delete($ID)

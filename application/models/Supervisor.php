@@ -74,7 +74,7 @@ class Supervisor extends CI_Model {
 
 	/**
 	 * Delete an supervisor
-	 * @param 	array $row
+	 * @param 	int $ID
 	 * @return 	bool
 	 */
 	public function delete($ID)

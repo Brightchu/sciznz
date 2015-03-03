@@ -70,6 +70,11 @@ class Admin extends CI_Controller {
 		$this->handler('category');
 	}
 
+	public function categoryField()
+	{
+		$this->handler('category_field');
+	}
+
 	public function peopleUser()
 	{
 		$this->handler('user');

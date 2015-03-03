@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Category extends CI_Model {
+class Category_field extends CI_Model {
 
 	public function __construct()
 	{
@@ -10,47 +10,47 @@ class Category extends CI_Model {
 	}
 
 	/**
-	 * Retrive all category
+	 * Retrive all category_field
 	 * @return  array
 	 */
 	public function query()
 	{
-		$sql = 'SELECT `ID`, `name`, `info` FROM `category`';
+		$sql = 'SELECT `ID`, `categoryID`, `name`, `weight` FROM `category_field`';
 		return $this->db->query($sql)->result_array();
 	}
 
 	/**
-	 * Update a category
+	 * Update a category_field
 	 * @param 	array $row
 	 * @return 	bool
 	 */
 	public function update($row)
 	{
-		$sql = 'UPDATE `category` SET `name`=?, `info`=? WHERE `ID` = ?';
-		$data = array($row['name'], $row['info'], $row['ID']);
+		$sql = 'UPDATE `category_field` SET `categoryID`=?, `name`=?, `weight`=? WHERE `ID` = ?';
+		$data = array($row['categoryID'], $row['name'], $row['weight'], $row['ID']);
 		return $this->db->query($sql, $data);
 	}
 
 	/**
-	 * Save an category
+	 * Save an category_field
 	 * @param 	array $row
 	 * @return 	bool
 	 */
 	public function save($row)
 	{
-		$sql = 'INSERT INTO `category`(`name`, `info`) VALUES (?, ?)';
-		$data = array($row['name'], $row['info']);
+		$sql = 'INSERT INTO `category_field`(`categoryID`, `name`, `weight`) VALUES (?, ?, ?)';
+		$data = array($row['categoryID'], $row['name'], $row['weight']);
 		return $this->db->query($sql, $data);
 	}
 
 	/**
-	 * Delete an category
+	 * Delete an category_field
 	 * @param 	int $ID
 	 * @return 	bool
 	 */
 	public function delete($ID)
 	{
-		$sql = 'DELETE FROM `category` WHERE `ID` = ?';
+		$sql = 'DELETE FROM `category_field` WHERE `ID` = ?';
 		return $this->db->query($sql, $ID);
 	}
 
