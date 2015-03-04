@@ -1,48 +1,51 @@
 @charset "utf-8";
 
-img#dummy{
-	width: 100%;
+nav {
+	position: fixed;
+	height: 8rem;
+	width: 100vw;
+	background-color: rgba(49, 176, 230, 0.85);
+	img#logo {
+		margin-left: 7rem;
+		margin-top: 0.5rem;
+		height: 7rem;
+	}
+	ul {
+		float: right;
+		margin-right: 3rem;
+		li {
+			display: inline-block;
+			font-size: 2.5rem;
+			line-height: 8rem;
+			color: white;
+			margin-right: 3rem;
+			&#category{
+				cursor: pointer;
+			}
+		}
+	}
 }
 
-body {
-	background-color: #DDD;
-	font-family: "Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "Hiragino Sans GB", "Source Han Sans CN", "Source Han Sans SC", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+.disable-select() {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
-img#logoBox{
-	display: block;
-	margin: 5% auto 2%;
-	@media (orientation:landscape) {
-		width: 40%;
-	}
-	@media (orientation:portrait) {
-		width: 80%;
-	}
-}
-
-#loginForm {
-	@media (orientation:landscape) {
-		width: 50%;
-	}
-	margin: 2% auto 0;
-	padding: 2rem;
-	background-color: white;
-	box-shadow: 0 0 0.5rem #CCC;
-	input{
-		font-size: 2rem;
-		height: 4.5rem;
-	}
-	input[type="text"] {
-		margin-top: 2rem;
-		border-bottom-right-radius: 0;
-		border-bottom-left-radius: 0;
-	}
-	input[type="password"] {
-		margin-top: -1px;
-		border-top-left-radius: 0;
-		border-top-right-radius: 0;
-	}
-	button#submit{
-		margin: 3rem 0 2rem;
+section#welcome{
+	width: 100vw;
+	height: 100vh;
+	background-image: url(http://scicompass-res.stor.sinaapp.com/banner/bg.png);
+	background-size: cover;
+	div#slogan {
+		text-align: center;
+		padding-top: 42vh;
+		font-size: 4.5vw;
+		color: white;
+		.disable-select;
+		p:last-child {
+			font-size: 2.5vw;
+		}
 	}
 }

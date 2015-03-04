@@ -10,8 +10,26 @@ html
 		meta(name="apple-mobile-web-app-capable" content="yes")
 		title 首页 - 科学指南针
 		link(rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css")
+		link(rel="stylesheet" href="/static/bower_components/animate.css/animate.min.css")
+		link(rel="stylesheet" href="/static/bower_components/fonts.css/fonts.css")
 		link(rel="stylesheet" href="/static/css/style.css")
+		script(src="/static/bower_components/angular/angular.min.js")
+		script(src="/static/bower_components/angular-route/angular-route.min.js")
+		script(src="/static/bower_components/angular-resource/angular-resource.min.js")
+		script(src="/static/bower_components/angular-animate/angular-animate.min.js")
+		script(src="/static/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js")
+		script(src="/static/js/script.js")
 		link(rel="icon" type="image/png" sizes="256x256" href="/static/img/logo.png")
 
-	body
-		img#dummy(src="http://scicompass-res.stor.sinaapp.com/banner/home.png")
+	body.font-hei(ng-app="sciApp")
+		nav
+			img#logo(src="/static/img/logo-landscape.png")
+			ul
+				li#category(ng-controller="navCtrl" ng-mouseenter="enter()" ng-mouseleave="leave()") 仪器分类
+				li 所有型号
+				li 注册/登录
+
+		section#welcome
+			div#slogan
+				p 现在，你也可以看得那么清楚
+				p @科学指南针
