@@ -12,7 +12,7 @@ class Portal extends CI_Model {
 	/**
 	 * Retrive all info
 	 *
-	 * This method is quite costy, need cache
+	 * This method is quite costly, need cache
 	 * @return  mixed
 	 */
 	public function query()
@@ -32,9 +32,7 @@ class Portal extends CI_Model {
 				if (isset($row['field'])) {
 					// Push field(may be duplicate) to keyword
 					if (!isset($keyword[$row['field']])) {
-						$keyword[$row['field']] = array(
-							'type' => 'field'
-						);
+						$keyword[$row['field']] = 'field';
 					}
 					// End keyword
 
@@ -46,10 +44,7 @@ class Portal extends CI_Model {
 				$category[$name] = $row;
 
 				// Push category(never duplicate) to keyword
-				$keyword[$name] = array(
-					'type' => 'category',
-					'ID' => $row['ID']
-				);
+				$keyword[$name] = 'category';
 				// End keyword
 			}
 		}
@@ -66,10 +61,7 @@ class Portal extends CI_Model {
 				$group[$row['rank']][$row['name']] = array();
 
 				// Push group(never duplicate) to keyword
-				$keyword[$row['name']] = array(
-					'type' => 'group',
-					'ID' => $row['ID']
-				);
+				$keyword[$row['name']] = 'group';
 				// End keyword
 			}
 
