@@ -1,0 +1,43 @@
+@charset "utf-8";
+
+body {
+	background-color: #DDD;
+}
+
+img#logoBox{
+	display: block;
+	margin: 5% auto 2%;
+	@media (orientation:landscape) {
+		width: 40%;
+	}
+	@media (orientation:portrait) {
+		width: 80%;
+	}
+}
+
+#loginForm {
+	@media (orientation:landscape) {
+		width: 50%;
+	}
+	margin: 2% auto 0;
+	padding: 2rem;
+	background-color: white;
+	box-shadow: 0 0 0.5rem #CCC;
+	input{
+		font-size: 2rem;
+		height: 4.5rem;
+	}
+	input[type="text"] {
+		margin-top: 2rem;
+		border-bottom-right-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+	input[type="password"] {
+		margin-top: -1px;
+		border-top-left-radius: 0;
+		border-top-right-radius: 0;
+	}
+	button#submit{
+		margin: 3rem 0 2rem;
+	}
+}
