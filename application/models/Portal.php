@@ -36,6 +36,22 @@ class Portal extends CI_Model {
 		}
 		$data['category'] = $category;
 
+		$group = array();
+		$sql = 'SELECT `categoryID`, `name`, `rank` FROM `category_keyword`';
+
+		foreach ($this->db->query($sql)->result_array() as $index => $row) {
+			if(!isset($group[$row['rank']])) {
+				$group[$row['rank']] = array();
+			}
+
+			if(!isset($group[$row['rank']][$row['name']])) {
+				$group[$row['rank']][$row['name']] = array();
+			}
+
+			$group[$row['rank']][$row['name']][] = $row['categoryID'];
+		}
+
+		$data['group'] = array_values($group);
 		return $data;
 	}
 
