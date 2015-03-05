@@ -11,19 +11,22 @@ body {
 	user-select: none;
 }
 
-header#welcome{
-	width: 100%;
-	height: 80vh;
+.shadow() {
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+header {
+	height: 75vh;
 	background-image: url(http://scicompass-res.stor.sinaapp.com/banner/bg.png);
 	background-size: cover;
 	div#slogan {
+		.disable-select();
 		text-align: center;
-		padding-top: 40vh;
-		font-size: 4.5vw;
-		color: white;
-		.disable-select;
+		padding-top: 30vh;
+		font-size: 6rem;
+		color: #FFF;
 		p:last-child {
-			font-size: 2.5vw;
+			font-size: 3rem;
 		}
 	}
 }
@@ -31,22 +34,22 @@ header#welcome{
 nav {
 	margin-top: -10vh;
 	height: 10vh;
-	width: 100%;
 	background-color: rgba(49, 176, 230, 0.85);
 	img#logo {
-		margin-left: 5vw;
-		margin-top: 0.5vh;
+		margin: 0.5vh 5vw;
 		height: 9vh;
+		cursor: pointer;
 	}
 	ul {
 		float: right;
-		margin-right: 5vh;
+		margin-right: 4rem;
+		font-size: 2rem;
+		line-height: 10vh;
+		color: #FFF;
 		li {
 			display: inline-block;
-			font-size: 3vh;
-			line-height: 10vh;
-			color: white;
-			margin-right: 4vh;
+			margin-right: 4rem;
+			cursor: pointer;
 		}
 	}
 }
@@ -54,78 +57,86 @@ nav {
 nav.ui-scrollfix {
 	position: fixed;
 	top: 10vh;
-	width: 100%;
 	height: 10vh;
+	width: 100%;
 }
 
-div#tip {
+div#main {
 	margin: 5vh 0 0 5vw;
-	width: 15vw;
-	height: 6vh;
-	background-color: rgba(49, 176, 230, 0.85);
-	color: white;
-	line-height: 6vh;
-	text-align: center;
-	font-size: 2rem;
-	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
-}
-
-div#line {
-	height: 3px;
-	margin-left: 5vw;
-	width: 90vw;
-	background-color: rgba(49, 176, 230, 0.85);
-}
-
-div#entry {
-	width: 15vw;
-	padding: 1rem 0;
-	position: absolute;
-	margin-left: 5vw;
-	background-color: rgba(0, 0, 0, 0.8);
-	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
-	z-index: -10;
-	div {
-		padding: 0.5rem 0;
-		padding-left: 1rem;
-		p {
-			color: #FFF;
-			font-size: 2rem;
-		}
-		p:last-child {
-			font-size: 1.2rem;
-			color: #EEE;
-		}
+	div#title {
+		width: 15vw;
+		line-height: 4rem;
+		text-align: center;
+		font-size: 2rem;
+		color: white;
+		background-color: rgba(49, 176, 230, 0.85);
+		.shadow();
 	}
-}
 
-div#content {
-	margin-left: 20vw;
-	background-color: #FFF;
-	width: 80vw;
-	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
-	padding: 2rem;
-	width: 75vw;
-	.group {
-		margin-bottom: 4rem;
-		p {
-			font-size: 2rem;
-		}
-		hr {
-			margin: 1.5rem 0 1rem;
-		}
-		ul {
-			list-style: none;
-			padding-left: 0;
-			li {
-				display: inline-block;
-				margin: 0 2rem;
+	div#line {
+		height: 3px;
+		width: 90vw;
+		background-color: rgba(49, 176, 230, 0.85);
+		.shadow();
+	}
+
+	div#pair {
+		font-size: 0;
+		div#outline {
+			vertical-align: top;
+			display: inline-block;
+			width: 15vw;
+			padding: 0.5rem 0;
+			background-color: rgba(0, 0, 0, 0.8);
+			.shadow();
+			div.item {
+				padding: 0.5rem 1rem;
+				cursor: pointer;
+				transition: all 0.5s;
+				&:hover {
+					background-color: rgba(0, 0, 0, 0.4);
+				}
+				p {
+					font-size: 2rem;
+					color: #FFF;
+				}
+				ul {
+					font-size: 1.25rem;
+					list-style: none;
+					padding-left: 0;
+					color: #EEE;
+					li {
+						display: inline-block;
+						margin-right: 0.5rem;
+					}
+				}
 			}
-			li:after {
-				content: "";
-			}
-			li:last-child:after {
-				content: "";
+		}
+
+		div#detail {
+			vertical-align: top;
+			display: inline-block;
+			padding: 2rem;
+			width: 75vw;
+			background-color: #FFF;
+			.shadow();
+			div.item {
+				margin-bottom: 2rem;
+				p {
+					font-size: 2rem;
+				}
+				hr {
+					margin: 1rem 0;
+				}
+				ul {
+					font-size: 1.25rem;
+					list-style: none;
+					padding-left: 0;
+					li {
+						display: inline-block;
+						margin: 0 2rem 1rem;
+					}
+				}
 			}
 		}
 	}

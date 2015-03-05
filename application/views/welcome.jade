@@ -23,7 +23,7 @@ html
 		link(rel="icon" type="image/png" sizes="256x256" href="/static/img/logo.png")
 
 	body.font-hei(ng-app="sciApp" ng-controller="welcomeCtrl")
-		header#welcome
+		header
 			div#slogan
 				p 现在，你也可以看得那么清楚
 				p @科学指南针
@@ -33,64 +33,21 @@ html
 			ul
 				li 注册/登录
 
-		div#tip 全部仪器分类
-		div#line
-		div#entry
-			div
-				p 分析仪器
-				p 薄层色谱 凝胶色谱 超临界色谱
-			div
-				p 物性测试仪器设备
-				p 薄层色谱 凝胶色谱 超临界色谱
-			div
-				p 生命科学仪器及设备
-				p 薄层色谱 凝胶色谱 超临界色谱
-			div 
-				p 光学仪器
-				p 薄层色谱 凝胶色谱 超临界色谱
-		
-		div#content
-			div.group
-				p 薄层色谱
-				hr 
-				ul
-					li 薄层色谱
-					li 凝胶色谱
-					li 超临界色谱
-					li 薄层色谱
-					li 凝胶色谱
-					li 超临界色谱
-					li 凝胶色谱
-					li 超临界色谱
-				div.group
-				p 薄层色谱
-				hr 
-				ul
-					li 薄层色谱
-					li 凝胶色谱
-					li 超临界色谱
-					li 薄层色谱
-					li 凝胶色谱
-					li 超临界色谱
-			div.group
-				p 薄层色谱
-				hr 
-				ul
-					li 薄层色谱
-					li 凝胶色谱
-					li 超临界色谱
-					li 薄层色谱
-					li 凝胶色谱
-					li 超临界色谱
-			
-			div.group
-				p 薄层色谱
-				hr 
-				ul
-					li 薄层色谱
-					li 凝胶色谱
-					li 超临界色谱
-					li 薄层色谱
-					li 凝胶色谱
-					li 超临界色谱
+		div#main
+			div#title 全部仪器分类
+			div#line
+			div#pair
+				div#outline
+					div.item(ng-repeat="group in groups" ng-mouseenter="$parent.contentgroup = group.child" )
+						p {{group.name}}
+						ul
+							li(ng-repeat="example in group.example") {{example}}
+				
+				div#detail
+					div.item(ng-repeat="child in contentgroup")
+						p {{child.name}}
+						hr 
+						ul
+							li(ng-repeat="name in child.child") {{name}}
+
 		div#fill
