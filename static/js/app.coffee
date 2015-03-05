@@ -9,4 +9,4 @@ window.$.prototype.click = ->
 		element.dispatchEvent(clickEvent)
 
 # glue modules
-sciApp = angular.module('sciApp', ['ngRoute', 'ngAnimate', 'sciCtrl'])
+sciApp = angular.module('sciApp', ['ngRoute', 'ngAnimate', 'ui.utils', 'sciCtrl', 'sciService'])

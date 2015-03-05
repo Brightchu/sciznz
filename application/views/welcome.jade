@@ -17,19 +17,80 @@ html
 		script(src="/static/bower_components/angular-route/angular-route.min.js")
 		script(src="/static/bower_components/angular-resource/angular-resource.min.js")
 		script(src="/static/bower_components/angular-animate/angular-animate.min.js")
+		script(src="/static/bower_components/angular-ui-utils/ui-utils.min.js")
 		script(src="/static/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js")
 		script(src="/static/js/script.js")
 		link(rel="icon" type="image/png" sizes="256x256" href="/static/img/logo.png")
 
-	body.font-hei(ng-app="sciApp")
-		nav
-			img#logo(src="/static/img/logo-landscape.png")
-			ul
-				li#category(ng-controller="navCtrl" ng-mouseenter="enter()" ng-mouseleave="leave()") 仪器分类
-				li 所有型号
-				li 注册/登录
-
-		section#welcome
+	body.font-hei(ng-app="sciApp" ng-controller="welcomeCtrl")
+		header#welcome
 			div#slogan
 				p 现在，你也可以看得那么清楚
 				p @科学指南针
+
+		nav(ui-scrollfix)
+			img#logo(src="/static/img/logo-landscape.png")
+			ul
+				li 注册/登录
+
+		div#tip 全部仪器分类
+		div#line
+		div#entry
+			div
+				p 分析仪器
+				p 薄层色谱 凝胶色谱 超临界色谱
+			div
+				p 物性测试仪器设备
+				p 薄层色谱 凝胶色谱 超临界色谱
+			div
+				p 生命科学仪器及设备
+				p 薄层色谱 凝胶色谱 超临界色谱
+			div 
+				p 光学仪器
+				p 薄层色谱 凝胶色谱 超临界色谱
+		
+		div#content
+			div.group
+				p 薄层色谱
+				hr 
+				ul
+					li 薄层色谱
+					li 凝胶色谱
+					li 超临界色谱
+					li 薄层色谱
+					li 凝胶色谱
+					li 超临界色谱
+					li 凝胶色谱
+					li 超临界色谱
+				div.group
+				p 薄层色谱
+				hr 
+				ul
+					li 薄层色谱
+					li 凝胶色谱
+					li 超临界色谱
+					li 薄层色谱
+					li 凝胶色谱
+					li 超临界色谱
+			div.group
+				p 薄层色谱
+				hr 
+				ul
+					li 薄层色谱
+					li 凝胶色谱
+					li 超临界色谱
+					li 薄层色谱
+					li 凝胶色谱
+					li 超临界色谱
+			
+			div.group
+				p 薄层色谱
+				hr 
+				ul
+					li 薄层色谱
+					li 凝胶色谱
+					li 超临界色谱
+					li 薄层色谱
+					li 凝胶色谱
+					li 超临界色谱
+		div#fill
