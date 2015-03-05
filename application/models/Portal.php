@@ -18,7 +18,6 @@ class Portal extends CI_Model {
 	public function query()
 	{
 		$data = array();
-		$keyword = array();
 
 		$category = array();
 		$sql = 'SELECT `category`.`ID`, `category`.`name`, `category`.`info`, `category_field`.`name` AS `field` FROM `category` LEFT JOIN `category_field` ON `category`.`ID` = `category_field`.`categoryID` ORDER BY `category_field`.`rank` ASC';
@@ -26,51 +25,23 @@ class Portal extends CI_Model {
 			if (isset($category[$row['name']])) {
 				$category[$row['name']]['field'][] = $row['field'];
 			} else {
-				$name = $row['name'];
-				unset($row['name']);
-
 				if (isset($row['field'])) {
-					// Push field(may be duplicate) to keyword
-					if (!isset($keyword[$row['field']])) {
-						$keyword[$row['field']] = 'field';
-					}
-					// End keyword
-
 					$row['field'] = array($row['field']);
 				} else {
 					$row['field'] = array();
 				}
 
+				$name = $row['name'];
+				unset($row['name']);
 				$category[$name] = $row;
-
-				// Push category(never duplicate) to keyword
-				$keyword[$name] = 'category';
-				// End keyword
 			}
 		}
 		$data['category'] = $category;
 
-		$group = array();
-		$sql = 'SELECT `category_keyword`.`name`, `category_keyword`.`rank`, `category`.`name` AS `category`, `category`.`ID` FROM `category_keyword` JOIN `category` ON `category_keyword`.`categoryID` = `category`.`ID`';
-		foreach ($this->db->query($sql)->result_array() as $row) {
-			if(!isset($group[$row['rank']])) {
-				$group[$row['rank']] = array();
-			}
+		$sql = 'SELECT `value` FROM `config` WHERE `key` = "group"';
+		$group = $this->db->query($sql)->row_array();
 
-			if(!isset($group[$row['rank']][$row['name']])) {
-				$group[$row['rank']][$row['name']] = array();
-
-				// Push group(never duplicate) to keyword
-				$keyword[$row['name']] = 'group';
-				// End keyword
-			}
-
-			$group[$row['rank']][$row['name']][] = $row['category'];
-		}
-
-		$data['group'] = $group;
-
-		$data['keyword'] = $keyword;
+		$data['group'] = json_decode($group['value'], TRUE);
 		return $data;
 	}
 
