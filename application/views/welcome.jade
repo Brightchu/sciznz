@@ -38,16 +38,16 @@ html
 			div#line
 			div#pair
 				div#outline
-					div.item(ng-repeat="group in groups" ng-mouseenter="$parent.contentgroup = group.child" )
-						p {{group.name}}
+					div.item(ng-repeat="item in group" ng-mouseenter="$parent.currentGroup = item.child" )
+						p {{item.name}}
 						ul
-							li(ng-repeat="example in group.example") {{example}}
-				
+							li(ng-repeat="example in item.example") {{example}}
+
 				div#detail
-					div.item(ng-repeat="child in contentgroup")
-						p {{child.name}}
+					div.item(ng-repeat="item in currentGroup")
+						p {{item.name}}
 						hr 
 						ul
-							li(ng-repeat="name in child.child") {{name}}
+							li(ng-repeat="category in item.child") {{category}}
 
 		div#fill
