@@ -65,8 +65,19 @@ adminCtrl.controller 'dataPayment', ['$scope', ($scope)->
 	$scope.title = '支付统计'
 ]
 
-adminCtrl.controller 'frontAdmin', ['$scope', ($scope)->
+adminCtrl.controller 'frontAdmin', ['$scope', '$http', ($scope, $http)->
 	$scope.title = '前台管理'
+	$scope.editor = new JSONEditor(document.querySelector('#jsoneditor'))
+
+	path = '/admin/groupAdmin'
+
+	$http.get(path).success (data)->
+		$scope.editor.set(data)
+
+	$scope.save = ->
+		$http.put(path, $scope.editor.get()).success ->
+			alert('保存成功')
+
 ]
 
 adminCtrl.controller 'categoryAdmin', ['$scope', 'Category', ($scope, Category)->

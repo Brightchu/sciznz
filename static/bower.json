@@ -15,6 +15,7 @@
 		"angular-bootstrap": "x",
 		"angular-ui-grid": "x",
 		"animate.css": "x",
-		"fonts.css": "x"
+		"fonts.css": "x",
+		"jsoneditor": "x"
 	}
 }

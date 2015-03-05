@@ -80,6 +80,22 @@ class Admin extends CI_Controller {
 		$this->handler('category_keyword');
 	}
 
+	public function groupAdmin()
+	{
+		$this->load->model('group');
+
+		switch ($this->input->method()) {
+			case 'get':
+				$this->output->set_content_type('application/json')->set_output($this->group->get());
+				break;
+
+			case 'put':
+				$result = $this->group->set(file_get_contents('php://input'));
+				$this->output->set_status_header($result ? 200 : 403);
+				break;
+		}
+	}
+
 	public function modelAdmin()
 	{
 		$this->handler('model');

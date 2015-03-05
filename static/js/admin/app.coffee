@@ -24,7 +24,7 @@ adminApp.config(['$routeProvider', ($routeProvider)->
 		templateUrl: '/static/partial/admin/generic-blank.html'
 		controller: 'dataPayment'
 	).when('/front-admin'
-		templateUrl: '/static/partial/admin/generic-blank.html'
+		templateUrl: '/static/partial/admin/generic-json.html'
 		controller: 'frontAdmin'
 	).when('/category-admin'
 		templateUrl: '/static/partial/admin/generic-table.html'
