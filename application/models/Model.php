@@ -26,7 +26,7 @@ class Model extends CI_Model {
 	 */
 	public function update($row)
 	{
-		$sql = 'UPDATE `model` SET `categoryID`=?, `vendor`, `name`=?, `info`=? WHERE `ID` = ?';
+		$sql = 'UPDATE `model` SET `categoryID`=?, `vendor`=?, `name`=?, `info`=? WHERE `ID` = ?';
 		$data = array($row['categoryID'], $row['vendor'], $row['name'], $row['info'], $row['ID']);
 		return $this->db->query($sql, $data);
 	}
