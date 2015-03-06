@@ -83,9 +83,11 @@ class Admin extends CI_Controller {
 
 	public function frontCache()
 	{
+		$this->load->model('portal');
+
 		switch ($this->input->method()) {
 			case 'put':
-				//
+				$this->portal->update();
 				break;
 		}
 	}

@@ -79,7 +79,7 @@ adminCtrl.controller 'frontGroup', ['$scope', 'FrontGroup', ($scope, FrontGroup)
 ]
 
 adminCtrl.controller 'frontCache', ['$scope', 'FrontCache', ($scope, FrontCache)->
-	$scope.rebuild = ->
+	$scope.update = ->
 		FrontCache.update().$promise.then ->
 			alert('重建缓存成功')
 ]

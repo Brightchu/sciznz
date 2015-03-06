@@ -6,7 +6,39 @@ class Portal extends CI_Model {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->database('slave');
+		$this->load->library('kvdb');
+	}
+
+	/**
+	 * Retrive all info from cache
+	 *
+	 * @return  encoded string json
+	 */
+	public function query()
+	{
+		return $this->kvdb->get('cache_query');
+	}
+
+	/**
+	 * Retrive cache date
+	 *
+	 * @return  string
+	 */
+	public function query_date()
+	{
+		return $this->kvdb->get('cache_query_date');
+	}
+
+	/**
+	 * Update cache
+	 *
+	 * @return  bool
+	 */
+	public function update()
+	{
+		$this->kvdb->set('cache_query', json_encode($this->_query(), TRUE));
+		$this->kvdb->set('cache_query_date', gmdate('D, d M Y H:i:s T'));
+		return TRUE;
 	}
 
 	/**
@@ -15,8 +47,10 @@ class Portal extends CI_Model {
 	 * This method is quite costly, need cache
 	 * @return  mixed
 	 */
-	public function query()
+	protected function _query()
 	{
+		$this->load->database('slave');
+
 		$data = array();
 
 		$category = array();
