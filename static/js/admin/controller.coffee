@@ -78,6 +78,12 @@ adminCtrl.controller 'frontGroup', ['$scope', 'FrontGroup', ($scope, FrontGroup)
 
 ]
 
+adminCtrl.controller 'frontCache', ['$scope', 'FrontCache', ($scope, FrontCache)->
+	$scope.rebuild = ->
+		FrontCache.update().$promise.then ->
+			alert('重建缓存成功')
+]
+
 adminCtrl.controller 'categoryAdmin', ['$scope', 'Category', ($scope, Category)->
 	$scope.title = '分类管理'
 	gridBuilder.call(this, $scope, Category, [

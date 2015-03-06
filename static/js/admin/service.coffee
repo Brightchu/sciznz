@@ -10,6 +10,10 @@ adminService.factory('FrontGroup', ['$resource', ($resource)->
 	$resource('/admin/frontGroup')
 ])
 
+adminService.factory('FrontCache', ['$resource', ($resource)->
+	$resource('/admin/frontCache')
+])
+
 adminService.factory('Category', ['$resource', ($resource)->
 	$resource('/admin/categoryAdmin')
 ])

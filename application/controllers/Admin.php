@@ -81,6 +81,15 @@ class Admin extends CI_Controller {
 		}
 	}
 
+	public function frontCache()
+	{
+		switch ($this->input->method()) {
+			case 'put':
+				//
+				break;
+		}
+	}
+
 	public function categoryAdmin()
 	{
 		$this->handler('category');
