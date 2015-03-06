@@ -15,7 +15,7 @@ class Category extends CI_Model {
 	 */
 	public function query()
 	{
-		$sql = 'SELECT `ID`, `name`, `info` FROM `category`';
+		$sql = 'SELECT `ID`, `name`, `field`, `info` FROM `category`';
 		return $this->db->query($sql)->result_array();
 	}
 
@@ -26,8 +26,8 @@ class Category extends CI_Model {
 	 */
 	public function update($row)
 	{
-		$sql = 'UPDATE `category` SET `name`=?, `info`=? WHERE `ID` = ?';
-		$data = array($row['name'], $row['info'], $row['ID']);
+		$sql = 'UPDATE `category` SET `name`=?, `field`=?, `info`=? WHERE `ID` = ?';
+		$data = array($row['name'], $row['field'], $row['info'], $row['ID']);
 		return $this->db->query($sql, $data);
 	}
 
@@ -38,8 +38,8 @@ class Category extends CI_Model {
 	 */
 	public function save($row)
 	{
-		$sql = 'INSERT INTO `category`(`name`, `info`) VALUES (?, ?)';
-		$data = array($row['name'], $row['info']);
+		$sql = 'INSERT INTO `category`(`name`, `field`, `info`) VALUES (?, ?, ?)';
+		$data = array($row['name'], $row['field'], $row['info']);
 		return $this->db->query($sql, $data);
 	}
 

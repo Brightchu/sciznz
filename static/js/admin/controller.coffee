@@ -65,6 +65,12 @@ adminCtrl.controller 'dataPayment', ['$scope', ($scope)->
 	$scope.title = '支付统计'
 ]
 
+adminCtrl.controller 'frontCache', ['$scope', 'FrontCache', ($scope, FrontCache)->
+	$scope.update = ->
+		FrontCache.update().$promise.then ->
+			alert('重建缓存成功')
+]
+
 adminCtrl.controller 'frontGroup', ['$scope', 'FrontGroup', ($scope, FrontGroup)->
 	$scope.title = '分组管理'
 	$scope.editor = new JSONEditor(document.querySelector('#jsoneditor'))
@@ -78,38 +84,13 @@ adminCtrl.controller 'frontGroup', ['$scope', 'FrontGroup', ($scope, FrontGroup)
 
 ]
 
-adminCtrl.controller 'frontCache', ['$scope', 'FrontCache', ($scope, FrontCache)->
-	$scope.update = ->
-		FrontCache.update().$promise.then ->
-			alert('重建缓存成功')
-]
-
-adminCtrl.controller 'categoryAdmin', ['$scope', 'Category', ($scope, Category)->
+adminCtrl.controller 'frontCategory', ['$scope', 'FrontCategory', ($scope, FrontCategory)->
 	$scope.title = '分类管理'
-	gridBuilder.call(this, $scope, Category, [
+	gridBuilder.call(this, $scope, FrontCategory, [
 		{name: 'ID', enableCellEdit: false}
 		{name: 'name'}
+		{name: 'field'}
 		{name: 'info'}
-	])
-]
-
-adminCtrl.controller 'categoryField', ['$scope', 'CategoryField', ($scope, CategoryField)->
-	$scope.title = '类别参数'
-	gridBuilder.call(this, $scope, CategoryField, [
-		{name: 'ID', enableCellEdit: false}
-		{name: 'categoryID'}
-		{name: 'name'}
-		{name: 'rank'}
-	])
-]
-
-adminCtrl.controller 'categoryKeyword', ['$scope', 'CategoryKeyword', ($scope, CategoryKeyword)->
-	$scope.title = '类别关键词'
-	gridBuilder.call(this, $scope, CategoryKeyword, [
-		{name: 'ID', enableCellEdit: false}
-		{name: 'categoryID'}
-		{name: 'name'}
-		{name: 'rank'}
 	])
 ]
 

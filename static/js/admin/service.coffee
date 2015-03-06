@@ -6,24 +6,16 @@ adminService.config(['$resourceProvider', ($resourceProvider)->
 		method: 'PUT'
 ])
 
-adminService.factory('FrontGroup', ['$resource', ($resource)->
-	$resource('/admin/frontGroup')
-])
-
 adminService.factory('FrontCache', ['$resource', ($resource)->
 	$resource('/admin/frontCache')
 ])
 
-adminService.factory('Category', ['$resource', ($resource)->
-	$resource('/admin/categoryAdmin')
+adminService.factory('FrontGroup', ['$resource', ($resource)->
+	$resource('/admin/frontGroup')
 ])
 
-adminService.factory('CategoryField', ['$resource', ($resource)->
-	$resource('/admin/categoryField')
-])
-
-adminService.factory('CategoryKeyword', ['$resource', ($resource)->
-	$resource('/admin/categoryKeyword')
+adminService.factory('FrontCategory', ['$resource', ($resource)->
+	$resource('/admin/frontCategory')
 ])
 
 adminService.factory('Model', ['$resource', ($resource)->

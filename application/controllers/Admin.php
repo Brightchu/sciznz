@@ -65,6 +65,17 @@ class Admin extends CI_Controller {
 		}
 	}
 
+	public function frontCache()
+	{
+		$this->load->model('portal');
+
+		switch ($this->input->method()) {
+			case 'put':
+				$this->portal->update();
+				break;
+		}
+	}
+
 	public function frontGroup()
 	{
 		$this->load->model('group');
@@ -81,30 +92,9 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function frontCache()
-	{
-		$this->load->model('portal');
-
-		switch ($this->input->method()) {
-			case 'put':
-				$this->portal->update();
-				break;
-		}
-	}
-
-	public function categoryAdmin()
+	public function frontCategory()
 	{
 		$this->handler('category');
-	}
-
-	public function categoryField()
-	{
-		$this->handler('category_field');
-	}
-
-	public function categoryKeyword()
-	{
-		$this->handler('category_keyword');
 	}
 
 	public function modelAdmin()
