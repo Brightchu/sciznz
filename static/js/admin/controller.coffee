@@ -65,17 +65,15 @@ adminCtrl.controller 'dataPayment', ['$scope', ($scope)->
 	$scope.title = '支付统计'
 ]
 
-adminCtrl.controller 'frontAdmin', ['$scope', '$http', ($scope, $http)->
-	$scope.title = '前台管理'
+adminCtrl.controller 'frontGroup', ['$scope', 'FrontGroup', ($scope, FrontGroup)->
+	$scope.title = '分组管理'
 	$scope.editor = new JSONEditor(document.querySelector('#jsoneditor'))
 
-	path = '/admin/groupAdmin'
-
-	$http.get(path).success (data)->
+	FrontGroup.query().$promise.then (data)->
 		$scope.editor.set(data)
 
 	$scope.save = ->
-		$http.put(path, $scope.editor.get()).success ->
+		FrontGroup.update($scope.editor.get()).$promise.then ->
 			alert('保存成功')
 
 ]

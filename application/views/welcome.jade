@@ -13,13 +13,6 @@ html
 		link(rel="stylesheet" href="/static/bower_components/animate.css/animate.min.css")
 		link(rel="stylesheet" href="/static/bower_components/fonts.css/fonts.css")
 		link(rel="stylesheet" href="/static/css/style.css")
-		script(src="/static/bower_components/angular/angular.min.js")
-		script(src="/static/bower_components/angular-route/angular-route.min.js")
-		script(src="/static/bower_components/angular-resource/angular-resource.min.js")
-		script(src="/static/bower_components/angular-animate/angular-animate.min.js")
-		script(src="/static/bower_components/angular-ui-utils/ui-utils.min.js")
-		script(src="/static/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js")
-		script(src="/static/js/script.js")
 		link(rel="icon" type="image/png" sizes="256x256" href="/static/img/logo.png")
 
 	body.font-hei(ng-app="sciApp" ng-controller="welcomeCtrl")
@@ -51,3 +44,11 @@ html
 							li(ng-repeat="category in item.child") {{category}}
 
 		div#fill
+
+		script(src="/static/bower_components/angular/angular.min.js")
+		script(src="/static/bower_components/angular-route/angular-route.min.js")
+		script(src="/static/bower_components/angular-resource/angular-resource.min.js")
+		script(src="/static/bower_components/angular-animate/angular-animate.min.js")
+		script(src="/static/bower_components/angular-ui-utils/ui-utils.min.js")
+		script(src="/static/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js")
+		script(src="/static/js/script.js")

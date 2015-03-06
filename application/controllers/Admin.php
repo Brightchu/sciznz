@@ -65,22 +65,7 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function categoryAdmin()
-	{
-		$this->handler('category');
-	}
-
-	public function categoryField()
-	{
-		$this->handler('category_field');
-	}
-
-	public function categoryKeyword()
-	{
-		$this->handler('category_keyword');
-	}
-
-	public function groupAdmin()
+	public function frontGroup()
 	{
 		$this->load->model('group');
 
@@ -94,6 +79,21 @@ class Admin extends CI_Controller {
 				$this->output->set_status_header($result ? 200 : 403);
 				break;
 		}
+	}
+
+	public function categoryAdmin()
+	{
+		$this->handler('category');
+	}
+
+	public function categoryField()
+	{
+		$this->handler('category_field');
+	}
+
+	public function categoryKeyword()
+	{
+		$this->handler('category_keyword');
 	}
 
 	public function modelAdmin()
