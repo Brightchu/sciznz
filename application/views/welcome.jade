@@ -31,17 +31,17 @@ html
 			div#line
 			div#pair
 				div#outline
-					div.item(ng-repeat="item in group" ng-mouseenter="$parent.currentGroup = item.child" )
-						p {{item.name}}
+					div.item(ng-repeat="topGroup in group" ng-mouseenter="$parent.currentGroup = topGroup.child" )
+						p {{topGroup.name}}
 						ul
-							li(ng-repeat="example in item.example") {{example}}
+							li(ng-repeat="example in topGroup.example") {{example}}
 
 				div#detail
-					div.item(ng-repeat="item in currentGroup")
-						p {{item.name}}
+					div.item(ng-repeat="subGroup in currentGroup")
+						p {{subGroup.name}}
 						hr 
 						ul
-							li(ng-repeat="category in item.child") {{category}}
+							li(ng-repeat="category in subGroup.child") {{category}}
 
 		div#fill
 
