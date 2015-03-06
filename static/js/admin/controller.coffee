@@ -118,6 +118,7 @@ adminCtrl.controller 'modelAdmin', ['$scope', 'Model', ($scope, Model)->
 	gridBuilder.call(this, $scope, Model, [
 		{name: 'ID', enableCellEdit: false}
 		{name: 'categoryID'}
+		{name: 'vendor'}
 		{name: 'name'}
 		{name: 'info'}
 	])
