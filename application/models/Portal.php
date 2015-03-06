@@ -36,24 +36,42 @@ class Portal extends CI_Model {
 	 */
 	public function update()
 	{
-		$this->kvdb->set('cache_query', json_encode($this->_query(), TRUE));
+		$this->kvdb->set('cache_query', json_encode($this->build(), TRUE));
 		$this->kvdb->set('cache_query_date', gmdate('D, d M Y H:i:s T'));
 		return TRUE;
 	}
 
 	/**
-	 * Retrive all info
+	 * Build all info
 	 *
 	 * This method is quite costly, need cache
 	 * @return  mixed
 	 */
-	protected function _query()
+	protected function build()
 	{
 		$this->load->database('slave');
 
-		$data = array();
+		$data = array(
+			'group' => $this->group(),
+			'category' => $this->category(),
+			'model' => $this->model(),
+		);
 
+		return $data;
+	}
+
+	protected function group()
+	{
+		$sql = 'SELECT `value` FROM `config` WHERE `key` = "group"';
+		$group = $this->db->query($sql)->row_array();
+
+		return json_decode($group['value'], TRUE);
+	}
+
+	protected function category()
+	{
 		$category = array();
+
 		$sql = 'SELECT `category`.`ID`, `category`.`name`, `category`.`info`, `category_field`.`name` AS `field` FROM `category` LEFT JOIN `category_field` ON `category`.`ID` = `category_field`.`categoryID` ORDER BY `category_field`.`rank` ASC';
 		foreach ($this->db->query($sql)->result_array() as $row) {
 			if (isset($category[$row['name']])) {
@@ -70,13 +88,15 @@ class Portal extends CI_Model {
 				$category[$name] = $row;
 			}
 		}
-		$data['category'] = $category;
 
-		$sql = 'SELECT `value` FROM `config` WHERE `key` = "group"';
-		$group = $this->db->query($sql)->row_array();
-
-		$data['group'] = json_decode($group['value'], TRUE);
-		return $data;
+		return $category;
 	}
 
+	protected function model()
+	{
+		$model = array();
+
+
+		return $model;
+	}
 }
