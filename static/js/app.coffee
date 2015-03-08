@@ -29,7 +29,13 @@ sciApp.config(['$routeProvider', ($routeProvider)->
 	$routeProvider.when('/'
 		templateUrl: '/static/partial/home.html'
 		controller: 'homeCtrl'
+	).when('/category/'
+		templateUrl: '/static/partial/category.html',
+		controller: 'categoryCtrl'
 	).when('/category/:categoryName'
+		templateUrl: '/static/partial/category.html',
+		controller: 'categoryCtrl'
+	).when('/model/'
 		templateUrl: '/static/partial/category.html',
 		controller: 'categoryCtrl'
 	).otherwise(

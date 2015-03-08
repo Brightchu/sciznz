@@ -28,9 +28,14 @@ html
 
 		div#main
 			div#titleGroup
-				div(class="title red") 全部仪器分类
-				div(class="title yellow") 型号列表
-				div(class="title green") 设备列表
+				div(class="title red")
+					a(href="#/") 全部仪器分类
+				div(class="title yellow")
+					a(href="#/category") 型号列表
+				div(class="title green")
+					a(href="#/model") 仪器列表
+				div(class="title blue")
+					a(href="#/model") 热门仪器
 			div#line
 			div#pair(class="view-frame" ng-view)
 

@@ -1,6 +1,9 @@
 div#outline
-	div.item(ng-repeat="model in category")
-		p {{model.vendor}} - {{model.name}}
+	accordion
+		accordion-group(ng-repeat="group in subgroup" heading="{{group.name}}")
+			p(ng-repeat="category in group.child")
+				a(href="#/category/{{category}}") {{category}}
+
 
 div#detail
 	div.item(ng-repeat="subGroup in currentGroup")

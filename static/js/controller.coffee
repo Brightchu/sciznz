@@ -7,12 +7,16 @@ sciCtrl.controller 'homeCtrl', ['$scope', ($scope)->
 ]
 
 sciCtrl.controller 'categoryCtrl', ['$scope', '$routeParams', ($scope, $routeParams)->
-	categoryMap = JSON.parse(localStorage.getItem('categoryMap'))
-	$scope.categoryName = $routeParams.categoryName
-	thisID = categoryMap[$routeParams.categoryName]
-	thisCategory = JSON.parse(localStorage.getItem('model')).filter (value)->
-		return value.categoryID == thisID
+	console.log($routeParams)
+	if $routeParams.categoryName?
+		categoryMap = JSON.parse(localStorage.getItem('categoryMap'))
+		$scope.categoryName = $routeParams.categoryName
+		thisID = categoryMap[$routeParams.categoryName]
+		thisCategory = JSON.parse(localStorage.getItem('model')).filter (value)->
+			return value.categoryID == thisID
 
-	$scope.category = thisCategory
-	console.log(thisCategory)
+		$scope.category = thisCategory
+		console.log(thisCategory)
+	else
+		$scope.subgroup = JSON.parse(localStorage.getItem('subgroup'))
 ]
