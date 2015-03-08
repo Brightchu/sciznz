@@ -55,6 +55,7 @@ class Portal extends CI_Model {
 			'group' => $this->group(),
 			'category' => $this->category(),
 			'model' => $this->model(),
+			'device' => $this->device()
 		);
 
 		return $data;
@@ -86,7 +87,33 @@ class Portal extends CI_Model {
 
 	protected function model()
 	{
-		$model = array();
+		$sql = 'SELECT `ID`, `categoryID`, `vendor`, `name`, `field`, `info` FROM `model`';
+		$model = $this->db->query($sql)->result_array();
+
+		foreach ($model as $index => $row) {
+			if (empty($row['field'])) {
+				$model[$index]['field'] = array();
+			} else {
+				$model[$index]['field'] = json_decode($row['field'], TRUE);
+			}
+		}
+
 		return $model;
+	}
+
+	protected function device()
+	{
+		$sql = 'SELECT `ID`, `modelID`, `instituteID`, `city`, `location`, `address`, `price`, `unit`, `field`, `info`, `credit`, `online` FROM `device`';
+		$device = $this->db->query($sql)->result_array();
+
+		foreach ($device as $index => $row) {
+			if (empty($row['field'])) {
+				$device[$index]['field'] = array();
+			} else {
+				$device[$index]['field'] = json_decode($row['field'], TRUE);
+			}
+		}
+
+		return $device;
 	}
 }
