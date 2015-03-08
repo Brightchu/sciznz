@@ -18,28 +18,12 @@ adminService.factory('FrontCategory', ['$resource', ($resource)->
 	$resource('/admin/frontCategory')
 ])
 
-adminService.factory('Model', ['$resource', ($resource)->
-	$resource('/admin/modelAdmin')
+adminService.factory('FrontModel', ['$resource', ($resource)->
+	$resource('/admin/frontModel')
 ])
 
-adminService.factory('ModelField', ['$resource', ($resource)->
-	$resource('/admin/modelField')
-])
-
-adminService.factory('ModelKeyword', ['$resource', ($resource)->
-	$resource('/admin/modelKeyword')
-])
-
-adminService.factory('Device', ['$resource', ($resource)->
-	$resource('/admin/deviceAdmin')
-])
-
-adminService.factory('DeviceField', ['$resource', ($resource)->
-	$resource('/admin/deviceField')
-])
-
-adminService.factory('DeviceKeyword', ['$resource', ($resource)->
-	$resource('/admin/deviceKeyword')
+adminService.factory('FrontDevice', ['$resource', ($resource)->
+	$resource('/admin/frontDevice')
 ])
 
 adminService.factory('Institute', ['$resource', ($resource)->

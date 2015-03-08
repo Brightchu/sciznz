@@ -97,34 +97,14 @@ class Admin extends CI_Controller {
 		$this->handler('category');
 	}
 
-	public function modelAdmin()
+	public function frontModel()
 	{
 		$this->handler('model');
 	}
 
-	public function modelField()
-	{
-		$this->handler('model_field');
-	}
-
-	public function modelKeyword()
-	{
-		$this->handler('model_keyword');
-	}
-
-	public function deviceAdmin()
+	public function frontDevice()
 	{
 		$this->handler('device');
-	}
-
-	public function deviceField()
-	{
-		$this->handler('device_field');
-	}
-
-	public function deviceKeyword()
-	{
-		$this->handler('device_keyword');
 	}
 
 	public function instituteAdmin()

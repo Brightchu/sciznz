@@ -15,7 +15,7 @@ class Device extends CI_Model {
 	 */
 	public function query()
 	{
-		$sql = 'SELECT `ID`, `modelID`, `instituteID`, `city`, `location`, `address`, `price`, `unit`, `credit`, `info`, `online` FROM `device`';
+		$sql = 'SELECT `ID`, `modelID`, `instituteID`, `city`, `location`, `address`, `price`, `unit`, `field`, `info`, `credit`, `online` FROM `device`';
 		return $this->db->query($sql)->result_array();
 	}
 
@@ -26,8 +26,8 @@ class Device extends CI_Model {
 	 */
 	public function update($row)
 	{
-		$sql = 'UPDATE `device` SET `modelID`=?, `instituteID`=?, `city`=?, `location`=?, `address`=?, `price`=?, `unit`=?, `credit`=?, `info`=?, `online`=? WHERE `ID` = ?';
-		$data = array($row['modelID'], $row['instituteID'], $row['city'], $row['location'], $row['address'], $row['price'], $row['unit'], $row['credit'], $row['info'], $row['online'], $row['ID']);
+		$sql = 'UPDATE `device` SET `modelID`=?, `instituteID`=?, `city`=?, `location`=?, `address`=?, `price`=?, `unit`=?, `field`=?, `info`=?, `credit`=?, `online`=? WHERE `ID` = ?';
+		$data = array($row['modelID'], $row['instituteID'], $row['city'], $row['location'], $row['address'], $row['price'], $row['unit'], $row['field'], $row['info'], $row['credit'], $row['online'], $row['ID']);
 		return $this->db->query($sql, $data);
 	}
 
@@ -38,8 +38,8 @@ class Device extends CI_Model {
 	 */
 	public function save($row)
 	{
-		$sql = 'INSERT INTO `device`(`modelID`, `instituteID`, `city`, `location`, `address`, `price`, `unit`, `credit`, `info`, `online`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-		$data = array($row['modelID'], $row['instituteID'], $row['city'], $row['location'], $row['address'], $row['price'], $row['unit'], $row['credit'], $row['info'], $row['online']);
+		$sql = 'INSERT INTO `device`(`modelID`, `instituteID`, `city`, `location`, `address`, `price`, `unit`, `field`, `info`, `credit`, `online`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+		$data = array($row['modelID'], $row['instituteID'], $row['city'], $row['location'], $row['address'], $row['price'], $row['unit'], $row['field'], $row['info'], $row['credit'], $row['online']);
 		return $this->db->query($sql, $data);
 	}
 
