@@ -70,22 +70,14 @@ class Portal extends CI_Model {
 
 	protected function category()
 	{
-		$category = array();
+		$sql = 'SELECT `ID`, `name`, `field`, `info` FROM `category`';
+		$category = $this->db->query($sql)->result_array();
 
-		$sql = 'SELECT `category`.`ID`, `category`.`name`, `category`.`info`, `category_field`.`name` AS `field` FROM `category` LEFT JOIN `category_field` ON `category`.`ID` = `category_field`.`categoryID` ORDER BY `category_field`.`rank` ASC';
-		foreach ($this->db->query($sql)->result_array() as $row) {
-			if (isset($category[$row['name']])) {
-				$category[$row['name']]['field'][] = $row['field'];
+		foreach ($category as $index => $row) {
+			if (empty($row['field'])) {
+				$category[$index]['field'] = array();
 			} else {
-				if (isset($row['field'])) {
-					$row['field'] = array($row['field']);
-				} else {
-					$row['field'] = array();
-				}
-
-				$name = $row['name'];
-				unset($row['name']);
-				$category[$name] = $row;
+				$category[$index]['field'] = json_decode($row['field'], TRUE);
 			}
 		}
 
@@ -95,8 +87,6 @@ class Portal extends CI_Model {
 	protected function model()
 	{
 		$model = array();
-
-
 		return $model;
 	}
 }
