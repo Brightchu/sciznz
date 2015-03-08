@@ -13,4 +13,6 @@ sciCtrl.controller 'categoryCtrl', ['$scope', '$routeParams', ($scope, $routePar
 	thisCategory = JSON.parse(localStorage.getItem('model')).filter (value)->
 		return value.categoryID == thisID
 
+	$scope.category = thisCategory
+	console.log(thisCategory)
 ]

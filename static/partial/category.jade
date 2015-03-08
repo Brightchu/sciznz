@@ -1,8 +1,11 @@
-link(rel="stylesheet" href="/static/css/category.css")
-nav
-	img#logo(src="/static/img/logo-landscape.png")
-	ul
-		li 注册/登录
+div#outline
+	div.item(ng-repeat="model in category")
+		p {{model.vendor}} - {{model.name}}
 
-div#main
-	div#title {{categoryName}}
+div#detail
+	div.item(ng-repeat="subGroup in currentGroup")
+		p {{subGroup.name}}
+		hr 
+		ul
+			li(ng-repeat="category in subGroup.child")
+				a(href="#/category/{{category}}") {{category}}

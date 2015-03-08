@@ -12,10 +12,27 @@ html
 		link(rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css")
 		link(rel="stylesheet" href="/static/bower_components/animate.css/animate.min.css")
 		link(rel="stylesheet" href="/static/bower_components/fonts.css/fonts.css")
+		link(rel="stylesheet" href="/static/css/style.css")
 		link(rel="icon" type="image/png" sizes="256x256" href="/static/img/logo.png")
 
 	body.font-hei(ng-app="sciApp")
-		div#view(class="view-frame" ng-view)
+		nav(ui-scrollfix)
+			img#logo(src="/static/img/logo-landscape.png")
+			ul
+				li 注册/登录
+
+		header
+			div#slogan
+				p 现在，你也可以看得那么清楚
+				p @科学指南针
+
+		div#main
+			div#titleGroup
+				div(class="title red") 全部仪器分类
+				div(class="title yellow") 型号列表
+				div(class="title green") 设备列表
+			div#line
+			div#pair(class="view-frame" ng-view)
 
 		div#fill
 

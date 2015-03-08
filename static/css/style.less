@@ -1,10 +1,27 @@
 @charset "utf-8";
 
-@blue: rgba(49, 176, 230, 0.85);
+@nav: rgba(88, 98, 247, 0.8);
+@red: rgba(237, 40, 43, 1);
+@yellow: rgba(249, 188, 0, 1);
+@green: rgba(0, 169, 88, 1);
+@blue: rgba(88, 98, 247, 1);
 @shadow: rgba(0, 0, 0, 0.15);
 
 body {
 	background-color: #F5F5F5;
+}
+
+div.red {
+	background-color: @red;
+}
+div.yellow {
+	background-color: @yellow;
+}
+div.green {
+	background-color: @green;
+}
+div.blue {
+	background-color: @blue;
 }
 
 .disable-select() {
@@ -35,9 +52,11 @@ header {
 }
 
 nav {
-	margin-top: -10vh;
+	position: absolute;
+	top: 65vh;
 	height: 10vh;
-	background-color: @blue;
+	width: 100%;
+	background-color: @nav;
 	img#logo {
 		margin: 0.5vh 5vw;
 		height: 9vh;
@@ -59,27 +78,30 @@ nav {
 
 nav.ui-scrollfix {
 	position: fixed;
-	top: 10vh;
+	top: 0;
 	height: 10vh;
 	width: 100%;
 }
 
 div#main {
 	margin: 10vh 0 0 5vw;
-	div#title {
-		width: 15vw;
-		line-height: 4rem;
-		text-align: center;
-		font-size: 2rem;
-		color: white;
-		background-color: @blue;
-		.shadow();
+	div#titleGroup {
+		font-size: 0;
+		div.title {
+			width: 15vw;
+			line-height: 4rem;
+			text-align: center;
+			font-size: 2rem;
+			color: white;
+			display: inline-block;
+			.shadow();
+		}
 	}
 
 	div#line {
 		height: 3px;
 		width: 90vw;
-		background-color: @blue;
+		background-color: @red;
 		.shadow();
 	}
 
