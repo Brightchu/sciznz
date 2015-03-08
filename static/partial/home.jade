@@ -1,0 +1,28 @@
+link(rel="stylesheet" href="/static/css/style.css")
+header
+	div#slogan
+		p 现在，你也可以看得那么清楚
+		p @科学指南针
+
+nav(ui-scrollfix)
+	img#logo(src="/static/img/logo-landscape.png")
+	ul
+		li 注册/登录
+
+div#main
+	div#title 全部仪器分类
+	div#line
+	div#pair
+		div#outline
+			div.item(ng-repeat="topGroup in group" ng-mouseenter="$parent.currentGroup = topGroup.child" )
+				p {{topGroup.name}}
+				ul
+					li(ng-repeat="example in topGroup.example") {{example}}
+
+		div#detail
+			div.item(ng-repeat="subGroup in currentGroup")
+				p {{subGroup.name}}
+				hr 
+				ul
+					li(ng-repeat="category in subGroup.child")
+						a(href="#/category/{{category}}") {{category}}

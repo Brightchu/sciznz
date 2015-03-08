@@ -58,6 +58,12 @@ class Portal extends CI_Model {
 			'device' => $this->device()
 		);
 
+		$categoryMap = array();
+		foreach ($data['category'] as $item) {
+			$categoryMap[$item['name']] = $item['ID'];
+		}
+		$data['categoryMap'] = $categoryMap;
+
 		return $data;
 	}
 
@@ -116,4 +122,5 @@ class Portal extends CI_Model {
 
 		return $device;
 	}
+
 }

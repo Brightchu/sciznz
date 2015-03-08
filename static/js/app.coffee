@@ -1,15 +1,18 @@
 'use strict'
 
+fresh = !Boolean(localStorage.length)
 req = new XMLHttpRequest()
 req.open('GET', '/api/query')
+req.overrideMimeType('application/json')
 req.onerror = ->
 	alert('XMLHttpRequest Error!')
 req.onload = ->
-	data = JSON.parse(this.responseText)
-	first = !Boolean(localStorage.length)
-	for key, value of data
-		localStorage.setItem(key, JSON.stringify(value))
-	location.reload() if first
+	if this.status == 200
+		for key, value of JSON.parse(this.responseText)
+			localStorage.setItem(key, JSON.stringify(value))
+		localStorage.setItem('Last-Modified', this.getResponseHeader('Last-Modified'))
+		location.reload() if fresh
+req.setRequestHeader('If-Modified-Since', localStorage.getItem('Last-Modified')) if not fresh
 req.send()
 
 # syntactic sugar
@@ -22,3 +25,14 @@ window.$.prototype.click = ->
 
 # glue modules
 sciApp = angular.module('sciApp', ['ngRoute', 'ngAnimate', 'ui.utils', 'sciCtrl', 'sciService'])
+sciApp.config(['$routeProvider', ($routeProvider)->
+	$routeProvider.when('/'
+		templateUrl: '/static/partial/home.html'
+		controller: 'homeCtrl'
+	).when('/category/:categoryName'
+		templateUrl: '/static/partial/category.html',
+		controller: 'categoryCtrl'
+	).otherwise(
+		redirectTo: '/'
+	)
+])
