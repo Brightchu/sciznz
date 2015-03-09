@@ -38,6 +38,39 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
+ * CodeIgniter CAPTCHA Helper For SAE
+ *
+ * @package		CodeIgniter
+ * @subpackage	Helpers
+ * @category	Helpers
+ * @link		http://apidoc.sinaapp.com/sae/SaeVCode.html
+ */
+
+// ------------------------------------------------------------------------
+
+if ( ! function_exists('create_captcha') AND defined('SAE_APPNAME'))
+{
+	/**
+	 * Create CAPTCHA On SAE
+	 * Using SAE native Vcode service
+	 * by defualt, Vcode is made up of upper case words and numbers
+	 *
+	 *
+	 * @access	public
+	 * @return	array
+	 */
+	function create_captcha()
+	{
+		$vcode = new SaeVCode();
+		if ($vcode === false){
+			log_message('error',$vcode->errno().': '.$vcode->errmsg());
+		}
+		$question = $vcode->question();
+		return array('word' => $vcode->answer(), 'image' =>$question['img_url'] );
+	}
+}
+
+/**
  * CodeIgniter CAPTCHA Helper
  *
  * @package		CodeIgniter
@@ -64,8 +97,8 @@ if ( ! function_exists('create_captcha'))
 	{
 		$defaults = array(
 			'word'		=> '',
-			'img_path'	=> '',
-			'img_url'	=> '',
+			'img_path'	=> '/tmp/',
+			'img_url'	=> '/captcha/',
 			'img_width'	=> '150',
 			'img_height'	=> '30',
 			'font_path'	=> '',

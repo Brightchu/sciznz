@@ -52,3 +52,4 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'entry';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['captcha/(:any)'] = 'captcha/index/$1';
