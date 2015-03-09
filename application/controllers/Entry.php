@@ -8,10 +8,4 @@ class Entry extends CI_Controller {
 		$this->load->view('entry.html');
 	}
 
-	public function test()
-	{
-		$this->load->helper('captcha');
-		$cap = create_captcha();
-		var_dump($cap);
-	}
 }

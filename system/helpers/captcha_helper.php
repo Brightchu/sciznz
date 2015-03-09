@@ -43,7 +43,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @package		CodeIgniter
  * @subpackage	Helpers
  * @category	Helpers
- * @link		http://apidoc.sinaapp.com/sae/SaeVCode.html
+ * @link		http://apidoc.sinaapp.com/class-SaeVCode.html
  */
 
 // ------------------------------------------------------------------------

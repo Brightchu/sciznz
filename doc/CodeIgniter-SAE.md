@@ -70,6 +70,10 @@ class Kvdb extends Redis {}
 ---
 1. system/core/Output.php is patched with one new function `set_json()`
 
-7. Add json to CI_Input
+8. Add json to CI_Input
 ---
 1. system/core/Input.php is patched with one new function `json()`
+
+9. Adapt create_captcha()
+---
+1. system/helpers/captcha_helper.php will use SAE native Vcode service if applicable
