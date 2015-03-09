@@ -5,9 +5,20 @@ div#outline
 				a(href="#/category/{{category}}") {{category}}
 
 div#detail
-	div.item(ng-repeat="subGroup in currentGroup")
-		p {{subGroup.name}}
-		hr 
-		ul
-			li(ng-repeat="category in subGroup.child")
-				a(href="#/category/{{category}}") {{category}}
+	div#title {{categoryName}}
+	div#filterTip 显示参数:
+
+	div#filter
+		label(class="checkbox-inline" ng-repeat="feature in field")
+			input(type="checkbox" ng-model="feature.checked")
+			| {{feature.name}}
+
+	table
+		tr
+			th 厂商
+			th 型号
+			th(ng-repeat="feature in field" ng-if="feature.checked") {{feature.name}}
+		tr(ng-repeat="model in modelList")
+			td {{model.vendor}}
+			td {{model.name}}
+			td(ng-repeat="feature in field" ng-if="feature.checked") {{model.field[feature.name]}}

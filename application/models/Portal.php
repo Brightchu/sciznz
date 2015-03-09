@@ -58,12 +58,6 @@ class Portal extends CI_Model {
 			'device' => $this->device()
 		);
 
-		$categoryMap = array();
-		foreach ($data['category'] as $item) {
-			$categoryMap[$item['name']] = $item['ID'];
-		}
-		$data['categoryMap'] = $categoryMap;
-
 		$grouplist = array();
 		foreach ($data['group'] as $item) {
 			foreach ($item['child'] as $subitem) {

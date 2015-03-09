@@ -13,15 +13,6 @@ sciCtrl.controller 'categoryCtrl', ['$scope', '$routeParams', ($scope, $routePar
 	if not $routeParams.categoryName?
 		$routeParams.categoryName = $scope.grouplist[0].name
 
-	categoryMap = JSON.parse(localStorage.getItem('categoryMap'))
-	$scope.categoryName = $routeParams.categoryName
-	thisID = categoryMap[$routeParams.categoryName]
-	thisCategory = JSON.parse(localStorage.getItem('model')).filter (value)->
-		return value.categoryID == thisID
-
-	$scope.category = thisCategory
-	console.log(thisCategory)
-
 	$(document).ready ->
 		heading = $(document.querySelectorAll('.panel-heading'))
 		heading.on 'click', ->
@@ -36,4 +27,24 @@ sciCtrl.controller 'categoryCtrl', ['$scope', '$routeParams', ($scope, $routePar
 		link = $(document.querySelector("[href='#/category/#{$routeParams.categoryName}']"))
 		link.parent().click()
 		$($(link.parent().parent().parent().parent().children()[0]).children()[0]).children().click()
+
+	categoryMap = JSON.parse(localStorage.getItem('categoryMap'))
+	thisCategory = JSON.parse(localStorage.getItem('category')).filter (value)->
+		return value.name == $routeParams.categoryName
+
+	$scope.categoryName = $routeParams.categoryName
+	thisID = thisCategory[0].ID
+
+	fieldMap = {}
+	for field in thisCategory[0].field
+		fieldMap[field] =
+			name: field
+			checked: true
+
+	$scope.field = fieldMap
+
+	modelList = JSON.parse(localStorage.getItem('model')).filter (value)->
+		return value.categoryID == thisID
+
+	$scope.modelList = modelList
 ]

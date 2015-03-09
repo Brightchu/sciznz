@@ -16,7 +16,6 @@ class Api extends CI_Controller {
 		if ($cache_date === $this->input->get_request_header('If-Modified-Since')) {
 			$this->output->set_status_header(304);
 		} else {
-			$this->input->get_request_header('If-Modified-Since');
 			$this->output->set_header('Cache-Control: public');
 			$this->output->set_header('Last-Modified: ' . $cache_date);
 			$this->output->set_content_type('application/json');
