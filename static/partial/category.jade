@@ -18,7 +18,11 @@ div#detail
 			th 厂商
 			th 型号
 			th(ng-repeat="feature in field" ng-if="feature.checked") {{feature.name}}
-		tr(ng-repeat="model in modelList")
+			th 预约
+	
+		tr(ng-repeat="model in modelList" ng-click="jump(model)")
 			td {{model.vendor}}
 			td {{model.name}}
 			td(ng-repeat="feature in field" ng-if="feature.checked") {{model.field[feature.name]}}
+			td
+				button(class="btn btn-primary") 查看仪器

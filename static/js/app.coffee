@@ -36,8 +36,11 @@ sciApp.config(['$routeProvider', ($routeProvider)->
 		templateUrl: '/static/partial/category.html',
 		controller: 'categoryCtrl'
 	).when('/model/'
-		templateUrl: '/static/partial/category.html',
-		controller: 'categoryCtrl'
+		templateUrl: '/static/partial/model.html',
+		controller: 'modelCtrl'
+	).when('/model/:vendor/:name'
+		templateUrl: '/static/partial/model.html',
+		controller: 'modelCtrl'
 	).otherwise(
 		redirectTo: '/'
 	)

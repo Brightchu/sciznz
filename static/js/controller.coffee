@@ -11,7 +11,7 @@ sciCtrl.controller 'categoryCtrl', ['$scope', '$routeParams', ($scope, $routePar
 	$(document.querySelector('#line')).css('background-color', 'rgb(249, 188, 0)')
 	$scope.grouplist = JSON.parse(localStorage.getItem('grouplist'))
 	if not $routeParams.categoryName?
-		$routeParams.categoryName = $scope.grouplist[0].name
+		$routeParams.categoryName = $scope.grouplist[0].child[0]
 
 	$(document).ready ->
 		heading = $(document.querySelectorAll('.panel-heading'))
@@ -47,4 +47,32 @@ sciCtrl.controller 'categoryCtrl', ['$scope', '$routeParams', ($scope, $routePar
 		return value.categoryID == thisID
 
 	$scope.modelList = modelList
+
+	$scope.jump = (model)->
+		location.hash = "/model/#{model.vendor}/#{model.name}"
+]
+
+sciCtrl.controller 'modelCtrl', ['$scope', '$routeParams', ($scope, $routeParams)->
+	$(document.querySelector('#line')).css('background-color', 'rgb(0, 169, 88)')
+	if not $routeParams.vendor?
+		$routeParams.vendor = JSON.parse(localStorage.getItem('model'))[0].vendor
+	if not $routeParams.name?
+		$routeParams.name = JSON.parse(localStorage.getItem('model'))[0].name
+	thisModel = JSON.parse(localStorage.getItem('model')).filter (value)->
+		return value.vendor == $routeParams.vendor and value.name == $routeParams.name
+	thisID = thisModel[0].ID
+	thisCategoryID = thisModel[0].categoryID
+	thisCategory = JSON.parse(localStorage.getItem('category')).filter (value)->
+		return value.ID == thisCategoryID
+	thisCategoryModel = JSON.parse(localStorage.getItem('model')).filter (value)->
+		return value.categoryID == thisCategoryID
+	deviceList = JSON.parse(localStorage.getItem('device')).filter (value)->
+		return value.modelID == thisID
+	thisCategoryName = thisCategory[0].name
+
+	$scope.modelName = "#{$routeParams.vendor} - #{$routeParams.name}"
+	$scope.category = thisCategoryName
+	$scope.modelList = thisCategoryModel
+	$scope.isFirstOpen = true
+	$scope.deviceList = deviceList
 ]
