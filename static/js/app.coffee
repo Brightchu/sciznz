@@ -1,6 +1,6 @@
 'use strict'
 
-fresh = !Boolean(localStorage.length)
+ever = Boolean(localStorage.length)
 req = new XMLHttpRequest()
 req.open('GET', '/api/query')
 req.overrideMimeType('application/json')
@@ -8,11 +8,11 @@ req.onerror = ->
 	alert('XMLHttpRequest Error!')
 req.onload = ->
 	if this.status == 200
+		localStorage.setItem('Last-Modified', this.getResponseHeader('Last-Modified'))
 		for key, value of JSON.parse(this.responseText)
 			localStorage.setItem(key, JSON.stringify(value))
-		localStorage.setItem('Last-Modified', this.getResponseHeader('Last-Modified'))
-		location.reload() if fresh
-req.setRequestHeader('If-Modified-Since', localStorage.getItem('Last-Modified')) if not fresh
+		location.reload() if not ever
+req.setRequestHeader('If-Modified-Since', localStorage.getItem('Last-Modified')) if ever
 req.send()
 
 # syntactic sugar

@@ -1,11 +1,13 @@
 @charset "utf-8";
 
 @nav: rgba(88, 98, 247, 0.8);
-@red: rgba(237, 40, 43, 1);
-@yellow: rgba(249, 188, 0, 1);
-@green: rgba(0, 169, 88, 1);
-@blue: rgba(88, 98, 247, 1);
+@red: rgb(237, 40, 43);
+@yellow: rgb(249, 188, 0);
+@green: rgb(0, 169, 88);
+@blue: rgb(88, 98, 247);
 @shadow: rgba(0, 0, 0, 0.15);
+@grey: #333;
+@darkgrey: #222;
 
 body {
 	background-color: #F5F5F5;
@@ -100,7 +102,6 @@ div#main {
 			text-align: center;
 			font-size: 2rem;
 			display: inline-block;
-			.shadow();
 			a {
 				color: white;
 			}
@@ -110,7 +111,6 @@ div#main {
 	div#line {
 		height: 4px;
 		width: 90vw;
-		background-color: @red;
 		.shadow();
 	}
 
@@ -121,14 +121,14 @@ div#main {
 			display: inline-block;
 			width: 15vw;
 			padding: 0.5rem 0;
-			background-color: rgba(0, 0, 0, 0.8);
+			background-color: @grey;
 			.shadow();
 			div.item {
 				padding: 0.5rem 1rem;
 				cursor: pointer;
 				transition: all 0.5s;
 				&:hover {
-					background-color: rgba(0, 0, 0, 0.4);
+					background-color: @darkgrey;
 				}
 				p {
 					font-size: 2rem;
@@ -219,6 +219,20 @@ div#main {
 			background-color: #0074A2;
 		}
 	}
+}
+
+// Animation
+.animation (@parameter) {
+	-webkit-animation: @parameter;
+	animation: @parameter;
+}
+
+.view-frame.ng-enter {
+	.animation(0.5s fadeIn);
+}
+
+.view-frame.ng-leave {
+	.animation(0.5s fadeOut);
 }
 
 div#fill {

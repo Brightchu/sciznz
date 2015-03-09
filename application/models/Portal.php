@@ -64,13 +64,13 @@ class Portal extends CI_Model {
 		}
 		$data['categoryMap'] = $categoryMap;
 
-		$subgroup = array();
+		$grouplist = array();
 		foreach ($data['group'] as $item) {
 			foreach ($item['child'] as $subitem) {
-				$subgroup[] = $subitem;
+				$grouplist[] = $subitem;
 			}
 		}
-		$data['subgroup'] = $subgroup;
+		$data['grouplist'] = $grouplist;
 
 		return $data;
 	}

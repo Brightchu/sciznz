@@ -1,9 +1,8 @@
 div#outline
 	accordion
-		accordion-group(ng-repeat="group in subgroup" heading="{{group.name}}")
+		accordion-group(ng-repeat="group in grouplist" heading="{{group.name}}")
 			p(ng-repeat="category in group.child")
 				a(href="#/category/{{category}}") {{category}}
-
 
 div#detail
 	div.item(ng-repeat="subGroup in currentGroup")
