@@ -1,6 +1,41 @@
 'use strict'
 
 sciCtrl = angular.module('sciCtrl', ['ui.bootstrap'])
+sciCtrl.controller 'navCtrl', ['$scope', '$modal', ($scope, $modal)->
+	storageName = localStorage.getItem('name')
+	if storageName
+		$scope.name = storageName
+	else
+		$scope.name = '登录 / 注册'
+
+	$scope.open = ->
+		modalInstance = $modal.open
+			templateUrl: '/static/partial/login.html'
+			controller: 'loginCtrl'
+			size: 'sm'
+			windowClass: 'login'
+
+		modalInstance.result.then (res)->
+			name = ''
+			for k, v of res
+				if typeof(v) == 'string'
+					name += v
+			localStorage.setItem('name', name)
+			$scope.name = name
+]
+
+sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'Login', ($scope, $modalInstance, Login)->
+	$scope.signin = ->
+		form = 
+			username: $scope.username
+			password: $scope.password
+		pro = Login.save(form).$promise
+		pro.catch (res)->
+			$scope.error = true
+		pro.then (res)->
+			$modalInstance.close(res)
+]
+
 sciCtrl.controller 'homeCtrl', ['$scope', ($scope)->
 	$(document.querySelector('#line')).css('background-color', 'rgb(237, 40, 43)')
 	$scope.group = JSON.parse(localStorage.getItem('group'))

@@ -18,7 +18,7 @@ class User extends CI_Model {
 	 */
 	public function login($username, $password)
 	{
-		$sql = 'SELECT `name`, `password` FROM `user` WHERE `username` = ?';
+		$sql = 'SELECT `ID`, `name`, `password` FROM `user` WHERE `username` = ?';
 		$query = $this->db->query($sql, $username);
 		$row = $query->row_array();
 

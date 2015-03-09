@@ -1,0 +1,12 @@
+.modal-header
+	h3.modal-title 加入科学指南针
+	p 立刻解决实验难题
+
+.modal-body
+	div(class="alert alert-danger" ng-if="error") 用户名密码错误
+	input(type="text" ng-model="username" class="form-control" placeholder="账号" required autofocus)
+	input(type="password" ng-model="password" class="form-control" placeholder="密码" required)
+
+.modal-footer
+	button.btn.btn-info(ng-click='signup()' style="float: left") 注册
+	button.btn.btn-primary(ng-click='signin()') 登录

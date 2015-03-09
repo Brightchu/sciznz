@@ -16,10 +16,10 @@ html
 		link(rel="icon" type="image/png" sizes="256x256" href="/static/img/logo.png")
 
 	body.font-hei(ng-app="sciApp")
-		nav(ui-scrollfix)
+		nav(ui-scrollfix ng-controller="navCtrl")
 			img#logo(src="/static/img/logo-landscape.png")
 			ul
-				li 注册/登录
+				li(ng-click="open()") {{name}}
 
 		header
 			div#slogan
