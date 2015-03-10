@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-@nav: rgba(88, 98, 247, 0.8);
+@nav: rgba(18, 87, 163, 0.75);
 @red: rgb(237, 40, 43);
 @yellow: rgb(249, 188, 0);
 @green: rgb(0, 169, 88);
@@ -52,38 +52,21 @@ ul {
 	box-shadow: 1px 1px 3px @shadow;
 }
 
-header {
-	height: 75vh;
-	background-image: url(/static/img/bg.png);
-	background-size: cover;
-	div#slogan {
-		.disable-select();
-		text-align: center;
-		padding-top: 30vh;
-		font-size: 6rem;
-		color: #FFF;
-		p:last-child {
-			font-size: 3rem;
-		}
-	}
-}
-
 nav {
-	position: absolute;
-	top: 65vh;
-	height: 10vh;
+	position: fixed;
+	top: 0;
+	height: 6rem;
 	width: 100%;
 	background-color: @nav;
 	img#logo {
-		margin: 0.5vh 5vw;
-		height: 9vh;
-		cursor: pointer;
+		margin: 0.5rem 8rem;
+		height: 5rem;
 	}
 	ul {
 		float: right;
 		margin-right: 4rem;
 		font-size: 2rem;
-		line-height: 10vh;
+		line-height: 6rem;
 		color: #FFF;
 		li {
 			display: inline-block;
@@ -93,11 +76,20 @@ nav {
 	}
 }
 
-nav.ui-scrollfix {
-	position: fixed;
-	top: 0;
-	height: 10vh;
-	width: 100%;
+header {
+	height: 80vh;
+	background-image: url(/static/img/bg.jpg);
+	background-size: cover;
+	div#slogan {
+		.disable-select();
+		text-align: center;
+		padding-top: 40vh;
+		font-size: 6rem;
+		color: #FFF;
+		p:last-child {
+			font-size: 3rem;
+		}
+	}
 }
 
 .login {
@@ -295,5 +287,5 @@ div#main {
 }
 
 div#fill {
-	height: 200vh;
+	height: 40vh;
 }
