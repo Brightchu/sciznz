@@ -25,18 +25,27 @@ class Admin extends CI_Controller {
 	{
 		$this->load->model('supervisor');
 		$this->load->library('parser');
+		$this->load->helper('captcha');
+
+		$error = array();
 
 		if ($this->input->method() === 'post') {
-			$result = $this->supervisor->login($this->input->post('username'), $this->input->post('password'));
-			if ($result) {
-				$this->nsession->set_data($result);
-				redirect('/admin/');
-			} else{
-				$this->parser->parse('adminLogin.html', array('error' => array(array('' => ''))));
+			if ($this->nsession->get('captcha') === strtoupper($this->input->post('captcha'))) {
+				$result = $this->supervisor->login($this->input->post('username'), $this->input->post('password'));
+				if ($result) {
+					$this->nsession->set_data($result);
+					redirect('/admin/');
+				} else{
+					$error = array(array('text' => '账号密码有误'));
+				}
+			} else {
+				$error = array(array('text' => '验证码有误'));
 			}
-		} else{
-			$this->parser->parse('adminLogin.html', array('error' => array()));
 		}
+
+		$cap = create_captcha();
+		$this->nsession->set('captcha', strtoupper($cap['word']));
+		$this->parser->parse('adminLogin.html', array('error' => $error, 'src' => $cap['image']));
 	}
 
 	protected function handler($name)

@@ -48,7 +48,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 // ------------------------------------------------------------------------
 
-if ( ! function_exists('create_captcha') AND defined('SAE_APPNAME'))
+if ( ! function_exists('create_captcha') && defined('SAE_APPNAME'))
 {
 	/**
 	 * Create CAPTCHA On SAE
@@ -278,9 +278,8 @@ if ( ! function_exists('create_captcha'))
 			return FALSE;
 		}
 
-		$img = '<img '.($img_id === '' ? '' : 'id="'.$img_id.'"').' src="'.$img_url.$img_filename.'" style="width: '.$img_width.'; height: '.$img_height .'; border: 0;" alt=" " />';
 		ImageDestroy($im);
 
-		return array('word' => $word, 'time' => $now, 'image' => $img, 'filename' => $img_filename);
+		return array('word' => $word, 'time' => $now, 'image' => $img_url.$img_filename, 'filename' => $img_filename);
 	}
 }
