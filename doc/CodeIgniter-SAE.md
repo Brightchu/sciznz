@@ -77,3 +77,7 @@ class Kvdb extends Redis {}
 9. Adapt create_captcha()
 ---
 1. system/helpers/captcha_helper.php will use SAE native Vcode service if applicable
+
+10. Adapt Mail class
+---
+1. system/libraries/Email.php will use SAE native Mail service if applicable

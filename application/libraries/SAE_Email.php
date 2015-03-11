@@ -43,8 +43,6 @@ class SAE_Email extends CI_Email {
 
 	public function send($auto_clear = TRUE)
 	{
-		$_from = explode(' ', $this->_headers['From']);
-
 		$this->_sae_mail->setOpt(array(
 			'from' => $this->smtp_user,
 			'to' => $this->_headers['To'],
@@ -58,7 +56,7 @@ class SAE_Email extends CI_Email {
 			'content_type' => $this->mailtype,
 			'charset' => $this->charset,
 			'tls' => !empty($this->smtp_crypto),
-			'nickname' => $_from[0]
+			'nickname' => substr($this->_headers['From'], substr($from, 0, strpos($from, ' ')))
 		));
 
 		if ($this->_sae_mail->send()) {
