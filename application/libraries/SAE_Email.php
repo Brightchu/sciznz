@@ -46,7 +46,7 @@ class SAE_Email extends CI_Email {
 		$this->_sae_mail->setOpt(array(
 			'from' => $this->smtp_user,
 			'to' => $this->_headers['To'],
-			'cc' => implode($this->_cc_array, ', '),
+			'cc' => implode(', ', $this->_cc_array),
 			'smtp_host' => $this->smtp_host,
 			'smtp_port' => $this->smtp_port,
 			'smtp_username' => $this->smtp_user,
