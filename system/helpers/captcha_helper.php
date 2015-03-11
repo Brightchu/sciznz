@@ -66,7 +66,7 @@ if ( ! function_exists('create_captcha') && defined('SAE_APPNAME'))
 			log_message('error',$vcode->errno().': '.$vcode->errmsg());
 		}
 		$question = $vcode->question();
-		return array('word' => $vcode->answer(), 'image' =>$question['img_url'] );
+		return array('word' => $vcode->answer(), 'image' => str_replace('http://', '//', $question['img_url']));
 	}
 }
 
