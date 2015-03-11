@@ -983,16 +983,23 @@ class CI_Upload {
 			$this->upload_path = str_replace('\\', '/', realpath($this->upload_path));
 		}
 
-		if ( ! is_dir($this->upload_path))
+		if (defined('SAE_APPNAME'))
 		{
-			$this->set_error('upload_no_filepath');
-			return FALSE;
+			$this->upload_path = 'saestor://' . $this->upload_path;
 		}
-
-		if ( ! is_really_writable($this->upload_path))
+		else
 		{
-			$this->set_error('upload_not_writable');
-			return FALSE;
+			if ( ! is_dir($this->upload_path))
+			{
+				$this->set_error('upload_no_filepath');
+				return FALSE;
+			}
+
+			if ( ! is_really_writable($this->upload_path))
+			{
+				$this->set_error('upload_not_writable');
+				return FALSE;
+			}
 		}
 
 		$this->upload_path = preg_replace('/(.+?)\/*$/', '\\1/',  $this->upload_path);

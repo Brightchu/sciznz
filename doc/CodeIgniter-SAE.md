@@ -81,3 +81,7 @@ class Kvdb extends Redis {}
 10. Adapt Mail class
 ---
 1. system/libraries/Email.php will use SAE native Mail service if applicable
+
+11. Patch Upload library
+---
+1. Bypass `is_dir()` check and add `saestor://` prefix on SAE in method `validate_upload_path()`
