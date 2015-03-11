@@ -9,6 +9,3 @@ RewriteRule ^(.*)$ /index.php?/$1 [L]
 
 RewriteCond %{REQUEST_URI} ^/application
 RewriteRule ^(.*)$ /index.php?/$1 [L]
-
-RewriteCond %{REQUEST_URI} ^/doc
-RewriteRule ^(.*)$ /index.php?/$1 [L]

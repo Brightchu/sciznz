@@ -27,16 +27,16 @@ class SAE_Email extends CI_Email {
 
 	public function __construct($config = array())
 	{
-		parent::__construct($config);
 		$this->_sae_mail = new SaeMail();
+		parent::__construct($config);
 
 		log_message('info', 'SAE Email Class Initialized');
 	}
 
 	public function clear($clear_attachments = FALSE)
 	{
-		parent::clear($clear_attachments);
 		$this->_sae_mail->clean();
+		parent::clear($clear_attachments);
 
 		return TRUE;
 	}
@@ -46,7 +46,7 @@ class SAE_Email extends CI_Email {
 		$this->_sae_mail->setOpt(array(
 			'from' => $this->smtp_user,
 			'to' => $this->_headers['To'],
-			'cc' => $this->_headers['Cc'],
+			'cc' => implode($this->_cc_array, ', '),
 			'smtp_host' => $this->smtp_host,
 			'smtp_port' => $this->smtp_port,
 			'smtp_username' => $this->smtp_user,
@@ -56,7 +56,7 @@ class SAE_Email extends CI_Email {
 			'content_type' => $this->mailtype,
 			'charset' => $this->charset,
 			'tls' => !empty($this->smtp_crypto),
-			'nickname' => substr($this->_headers['From'], substr($from, 0, strpos($from, ' ')))
+			'nickname' => substr($this->_headers['From'], 0, strpos($this->_headers['From'], ' '))
 		));
 
 		if ($this->_sae_mail->send()) {
