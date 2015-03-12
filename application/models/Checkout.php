@@ -53,7 +53,7 @@ class Checkout extends CI_Model {
 
 		$data = array(
 			'hierarchy' => $this->hierarchy(),
-			'content' => $this->content(),
+			'data' => $this->data(),
 		);
 
 		return $data;
@@ -67,19 +67,19 @@ class Checkout extends CI_Model {
 		return json_decode($row['value'], TRUE);
 	}
 
-	protected function content()
+	protected function data()
 	{
-		$sql = 'SELECT * FROM `content`';
-		$content = $this->db->query($sql)->result_array();
+		$sql = 'SELECT * FROM `data`';
+		$data = $this->db->query($sql)->result_array();
 
-		foreach ($content as $index => $row) {
-			$content[$index]['field'] = json_decode($row['field'], TRUE);
-			$content[$index]['subfield'] = json_decode($row['subfield'], TRUE);
-			$content[$index]['field'] = array_merge($content[$index]['field'], $content[$index]['subfield']);
-			unset($content[$index]['subfield']);
+		foreach ($data as $index => $row) {
+			$data[$index]['field'] = json_decode($row['field'], TRUE);
+			$data[$index]['subfield'] = json_decode($row['subfield'], TRUE);
+			$data[$index]['field'] = array_merge($data[$index]['field'], $data[$index]['subfield']);
+			unset($data[$index]['subfield']);
 		}
 
-		return $content;
+		return $data;
 	}
 
 }
