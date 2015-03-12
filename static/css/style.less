@@ -1,33 +1,19 @@
 @charset "utf-8";
 
-@nav: rgba(18, 87, 163, 0.75);
-@red: rgb(237, 40, 43);
-@yellow: rgb(249, 188, 0);
-@green: rgb(0, 169, 88);
-@blue: rgb(88, 98, 247);
+@bg: #F5F5F5;
+@text: #333;
+@white: #FFF;
+@nav: rgba(0, 0, 0, 0.6);
 @shadow: rgba(0, 0, 0, 0.15);
 @grey: #333;
 @darkgrey: #222;
 
 body {
-	background-color: #F5F5F5;
-}
-
-div.red {
-	background-color: @red;
-}
-div.yellow {
-	background-color: @yellow;
-}
-div.green {
-	background-color: @green;
-}
-div.blue {
-	background-color: @blue;
+	background-color: @bg;
 }
 
 a {
-	color: #333;
+	color: @text;
 	&:hover {
 		text-decoration: none;
 	}
@@ -54,220 +40,41 @@ ul {
 
 nav {
 	position: fixed;
-	top: 0;
 	height: 6rem;
-	width: 100%;
+	width: 100vw;
 	background-color: @nav;
 	img#logo {
-		margin: 0.5rem 8rem;
+		margin-top: 0.5rem;
+		margin-left: 8vw;
 		height: 5rem;
 	}
 	ul {
 		float: right;
-		margin-right: 4rem;
+		margin-right: 3vw;
 		font-size: 2rem;
 		line-height: 6rem;
-		color: #FFF;
+		color: @white;
 		li {
-			display: inline-block;
-			margin-right: 4rem;
+			margin-right: 3vw;
 			cursor: pointer;
 		}
 	}
 }
 
-header {
-	height: 80vh;
+div#main {
+	height: 100vh;
 	background-image: url(/static/img/bg.jpg);
 	background-size: cover;
 	div#slogan {
 		.disable-select();
 		text-align: center;
-		padding-top: 40vh;
-		font-size: 6rem;
+		padding-top: 30vh;
 		color: #FFF;
-		p:last-child {
-			font-size: 3rem;
+		p.big {
+			font-size: 4.5vw;
 		}
-	}
-}
-
-.login {
-	.modal-header {
-		text-align: center;
-	}
-	.modal-body {
-		padding: 0;
-		input {
-			width: 100%;
-			border-radius: 0;
-			border: 0;
-			height: 4rem;
-		}
-		label {
-			float: left;
-		}
-	}
-}
-
-div#main {
-	margin: 10vh 0 0 5vw;
-	div#titleGroup {
-		font-size: 0;
-		div.title {
-			width: 15vw;
-			line-height: 4rem;
-			text-align: center;
-			font-size: 2rem;
-			display: inline-block;
-			a {
-				color: white;
-			}
-		}
-	}
-
-	div#line {
-		height: 4px;
-		width: 90vw;
-		.shadow();
-	}
-
-	div#pair {
-		font-size: 0;
-		div#outline {
-			vertical-align: top;
-			display: inline-block;
-			width: 15vw;
-			padding: 0.5rem 0;
-			background-color: @grey;
-			.shadow();
-			div.item {
-				padding: 0.5rem 1rem;
-				cursor: pointer;
-				transition: all 0.5s;
-				&:hover {
-					background-color: @darkgrey;
-				}
-				p {
-					font-size: 2rem;
-					color: #FFF;
-				}
-				ul {
-					font-size: 1.25rem;
-					list-style: none;
-					padding-left: 0;
-					color: #EEE;
-					li {
-						display: inline-block;
-						margin-right: 0.5rem;
-					}
-				}
-			}
-		}
-
-		div#detail {
-			vertical-align: top;
-			display: inline-block;
-			padding: 2rem;
-			width: 75vw;
-			background-color: #FFF;
-			font-size: 1.5rem;
-			.shadow();
-			div#title {
-				font-size: 2rem;
-			}
-			div.item {
-				margin-bottom: 2rem;
-				p {
-					font-size: 2rem;
-				}
-				hr {
-					margin: 1rem 0;
-				}
-				ul {
-					font-size: 1.25rem;
-					li {
-						display: inline-block;
-						margin: 0 2rem 1rem;
-					}
-				}
-			}
-			div#filterTip {
-				margin-top: 1rem;
-				margin-right: 1rem;
-				display: inline-block;
-			}
-			div#filter {
-				display: inline-block;
-			}
-			table {
-				margin-top: 3rem;
-				width: 100%;
-				border-collapse: collapse;
-				transition: all 0.2s;
-				tr {
-					cursor: pointer;
-				}
-				tr:hover {
-					background-color: #FAFAFA;
-				}
-				th {
-					border: 1px solid #CCC;
-					background-color: #EEE;
-					padding: 1rem;
-				}
-				td {
-					border-top: 1px solid #CCC;
-					border-bottom: 1px solid #CCC;
-					padding: 1rem;
-					overflow: auto;
-				}
-			}
-		}
-	}
-}
-
-.panel-group {
-	border: 0;
-	.panel {
-		border: 0;
-		.panel-heading {
-			border: 0;
-			background-color: rgba(0, 0, 0, 0.8);
-			.panel-title {
-				border: 0;
-				color: #EEE;
-				a {
-					text-decoration: none;
-				}
-			}
-		}
-		.panel-collapse {
-			border: 0;
-			.panel-body {
-				border: 0;
-				background-color: #333;
-				p{
-					font-size: 1.25rem;
-					cursor: pointer;
-					a {
-						color: #EEE;
-						text-decoration: none;
-					}
-					&:hover {
-						a {
-							color: #2EA2CC;
-						}
-					}
-					&.active {
-						font-weight: bold;
-					}
-				}
-
-			}
-		}
-		.open {
-			background-color: #0074A2;
+		p.small {
+			font-size: 2vw;
 		}
 	}
 }
@@ -284,8 +91,4 @@ div#main {
 
 .view-frame.ng-leave {
 	.animation(0.5s fadeOut);
-}
-
-div#fill {
-	height: 40vh;
 }

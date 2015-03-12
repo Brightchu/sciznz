@@ -17,11 +17,6 @@ req.send()
 
 # syntactic sugar
 window.$ = angular.element
-window.$.prototype.click = ->
-	clickEvent = document.createEvent('MouseEvent')
-	clickEvent.initEvent('click', true, true)
-	for element in this
-		element.dispatchEvent(clickEvent)
 
 # glue modules
 sciApp = angular.module('sciApp', ['ngRoute', 'ngAnimate', 'ui.utils', 'sciCtrl', 'sciService'])
@@ -29,18 +24,6 @@ sciApp.config(['$routeProvider', ($routeProvider)->
 	$routeProvider.when('/'
 		templateUrl: '/static/partial/home.html'
 		controller: 'homeCtrl'
-	).when('/category/'
-		templateUrl: '/static/partial/category.html',
-		controller: 'categoryCtrl'
-	).when('/category/:categoryName'
-		templateUrl: '/static/partial/category.html',
-		controller: 'categoryCtrl'
-	).when('/model/'
-		templateUrl: '/static/partial/model.html',
-		controller: 'modelCtrl'
-	).when('/model/:vendor/:name'
-		templateUrl: '/static/partial/model.html',
-		controller: 'modelCtrl'
 	).otherwise(
 		redirectTo: '/'
 	)
