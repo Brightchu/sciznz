@@ -10,6 +10,7 @@ handle:
 - compress:  if ( out_header["Content-type"] ~ "text/javascript" ) compress
 - compress:  if ( out_header["Content-type"] ~ "text/html" ) compress
 - compress:  if ( out_header["Content-type"] ~ "text/plain" ) compress
+- compress:  if ( out_header["Content-type"] ~ "application/json" ) compress
 
 handlers:
 - url: /static/
