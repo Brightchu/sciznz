@@ -1,27 +1,49 @@
 'use strict'
 
 sciFilter = angular.module('sciFilter', [])
+_filter = JSON.parse(localStorage.getItem('filter'))
 sciFilter.filter 'listFilter', ->
-	filter = JSON.parse(localStorage.getItem('filter'))
+	(data, filterModel)->
+		#filter address
+		if filterModel.address != '全部地点'
+			data = data.filter (value)->
+				return value.address == filterModel.address
 
-	(array, filterModel)->
+		# by pass all group
 		if filterModel.group == '全部类别'
-			return array
+			return data
 
+		# filter subgroup
 		if filterModel.subgroup == '全部子类'
-			result = array.filter (value)->
-				return value.category in filter[filterModel.group]
+			data = data.filter (value)->
+				return value.category in _filter[filterModel.group]
 		else
-			result = array.filter (value)->
-				return value.category in filter[filterModel.subgroup]
-		return result
+			data = data.filter (value)->
+				return value.category in _filter[filterModel.subgroup]
+
+		# filter model
+		if filterModel.model != '全部型号'
+			data = data.filter (value)->
+				return value.category == filterModel.model
+
+		return data
 
 sciFilter.filter 'subgroupFilter', ->
-	(array, filterModel)->
+	(data, filterModel)->
 		if filterModel.group == '全部类别'
 			return
 
-		group = array.filter (value)->
+		group = data.filter (value)->
 			return value.name == filterModel.group
 
 		return group[0].child
+
+sciFilter.filter 'modelFilter', ->
+	(data, filterModel)->
+		if filterModel.group == '全部类别'
+			return
+
+		if filterModel.subgroup == '全部子类'
+			return _filter[filterModel.group]
+
+		return _filter[filterModel.subgroup]

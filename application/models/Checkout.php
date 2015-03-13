@@ -78,6 +78,11 @@ class Checkout extends CI_Model {
 		}
 		$result['data'] = $data;
 
+		// address
+		$sql = 'SELECT DISTINCT `address` FROM `device`';
+		$address = array_column($this->db->query($sql)->result_array(), 'address');
+		$result['address'] = $address;
+
 		return $result;
 	}
 }

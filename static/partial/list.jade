@@ -3,17 +3,31 @@ div#list
 		div.row
 			div.key
 				span.glyphicon.glyphicon-list
-				span.type 仪器类别
+				span.type 仪器类别：
 			div.value
 				label.btn.btn-sm.btn-default(ng-model="filterModel.group" btn-radio="'全部类别'") 全部类别
 				label.btn.btn-sm.btn-default(ng-repeat="group in groupList" ng-model="filterModel.group" btn-radio="'{{group.name}}'") {{group.name}}
 		div.row
 			div.key
-				span.glyphicon.glyphicon-list
-				span.type 仪器子类
+				span.glyphicon.glyphicon-th
+				span.type 仪器子类：
 			div.value
 				label.btn.btn-sm.btn-default(ng-model="filterModel.subgroup" btn-radio="'全部子类'") 全部子类
 				label.btn.btn-sm.btn-default(ng-repeat="subgroup in groupList | subgroupFilter:filterModel" ng-model="filterModel.subgroup" btn-radio="'{{subgroup.name}}'") {{subgroup.name}}
+		div.row
+			div.key
+				span.glyphicon.glyphicon-th
+				span.type 仪器型号：
+			div.value
+				label.btn.btn-sm.btn-default(ng-model="filterModel.model" btn-radio="'全部型号'") 全部型号
+				label.btn.btn-sm.btn-default(ng-repeat="model in groupList | modelFilter:filterModel" ng-model="filterModel.model" btn-radio="'{{model}}'") {{model}}
+		div.row
+			div.key
+				span.glyphicon.glyphicon-flag
+				span.type 仪器地点：
+			div.value
+				label.btn.btn-sm.btn-default(ng-model="filterModel.address" btn-radio="'全部地点'") 全部地点
+				label.btn.btn-sm.btn-default(ng-repeat="address in addressList" ng-model="filterModel.address" btn-radio="'{{address}}'") {{address}}
 
 	div#content
 		div.device(ng-repeat="device in deviceList | listFilter:filterModel")
