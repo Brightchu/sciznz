@@ -1,7 +1,22 @@
 div#list
 	div#filter
+		div.row
+			div.key
+				span.glyphicon.glyphicon-list
+				span.type 仪器类别
+			div.value
+				label.btn.btn-sm.btn-default(ng-model="filterModel.group" btn-radio="'全部类别'") 全部类别
+				label.btn.btn-sm.btn-default(ng-repeat="group in groupList" ng-model="filterModel.group" btn-radio="'{{group.name}}'") {{group.name}}
+		div.row
+			div.key
+				span.glyphicon.glyphicon-list
+				span.type 仪器子类
+			div.value
+				label.btn.btn-sm.btn-default(ng-model="filterModel.subgroup" btn-radio="'全部子类'") 全部子类
+				label.btn.btn-sm.btn-default(ng-repeat="subgroup in groupList | subgroupFilter:filterModel" ng-model="filterModel.subgroup" btn-radio="'{{subgroup.name}}'") {{subgroup.name}}
+
 	div#content
-		div.device(ng-repeat="device in deviceList")
+		div.device(ng-repeat="device in deviceList | listFilter:filterModel")
 			img.shot(src="/static/img/device.jpg")
 			div.info
 				p.row
@@ -14,8 +29,9 @@ div#list
 				p.row
 					span.glyphicon.glyphicon-tag
 					span.model {{device.vendor}} - {{device.model}}
-				p.row
+				p.row(ng-click="isCollapsed = !isCollapsed")
 					label.btn.btn-info.btn-xs(ng-repeat="(key, value) in device.field") {{key}} {{value}}
+				div(collapse="isCollapsed") {{device.info}}
 			div.action
 				div.group
 					label.btn.btn-default.btn-block.price {{device.price}}元 / {{device.unit}}

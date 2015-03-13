@@ -12,7 +12,11 @@ sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', ($scope, $rootScope)->
 ]
 
 sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', ($scope, $rootScope)->
-	$scope.groupSelected = $rootScope.groupSelected || '全部仪器'
+	$scope.groupList = JSON.parse(localStorage.getItem('hierarchy'))
 	$scope.deviceList = JSON.parse(localStorage.getItem('data'))
-	console.log($scope.deviceList)
+	$scope.isCollapsed = true
+
+	$scope.filterModel =
+		group: $rootScope.groupSelected || '全部类别'
+		subgroup: '全部子类'
 ]

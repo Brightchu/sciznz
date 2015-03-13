@@ -19,7 +19,7 @@ req.send()
 window.$ = angular.element
 
 # glue modules
-sciApp = angular.module('sciApp', ['ngRoute', 'ngAnimate', 'ui.utils', 'sciCtrl', 'sciService'])
+sciApp = angular.module('sciApp', ['ngRoute', 'ngAnimate', 'ui.utils', 'sciCtrl', 'sciService', 'sciFilter'])
 sciApp.config(['$routeProvider', ($routeProvider)->
 	$routeProvider.when('/'
 		templateUrl: '/static/partial/home.html'

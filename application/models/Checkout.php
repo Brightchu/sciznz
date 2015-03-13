@@ -50,34 +50,34 @@ class Checkout extends CI_Model {
 	protected function build()
 	{
 		$this->load->database('slave');
+		$result = array();
 
-		$data = array(
-			'hierarchy' => $this->hierarchy(),
-			'data' => $this->data(),
-		);
-
-		return $data;
-	}
-
-	protected function hierarchy()
-	{
+		// hierarchy
 		$sql = 'SELECT `value` FROM `config` WHERE `key` = "hierarchy"';
 		$row = $this->db->query($sql)->row_array();
+		$result['hierarchy'] = json_decode($row['value'], TRUE);
 
-		return json_decode($row['value'], TRUE);
-	}
+		// filter
+		$filter = array();
+		foreach ($result['hierarchy'] as $group) {
+			$ingroup = array();
+			foreach ($group['child'] as $subgroup) {
+				$filter[$subgroup['name']] = $subgroup['child'];
+				$ingroup = array_merge($ingroup, $subgroup['child']);
+			}
+			$filter[$group['name']] = $ingroup;
+		}
+		$result['filter'] = $filter;
 
-	protected function data()
-	{
+		// data
 		$sql = 'SELECT * FROM `data`';
 		$data = $this->db->query($sql)->result_array();
-
 		foreach ($data as $index => $row) {
 			$data[$index]['field'] = array_merge(json_decode($row['field'], TRUE), json_decode($row['subfield'], TRUE));
 			unset($data[$index]['subfield']);
 		}
+		$result['data'] = $data;
 
-		return $data;
+		return $result;
 	}
-
 }
