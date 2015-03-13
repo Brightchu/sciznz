@@ -3,11 +3,13 @@
 @bg: #F5F5F5;
 @text: #333;
 @white: #FFF;
-@lightwhite: rgba(255, 255, 255, 0.8);
+@lightwhite: rgba(255, 255, 255, 0.7);
+@darkwhite: rgba(255, 255, 255, 0.4);
 @green: #35BDB2;
 @lightgreen: rgba(53, 189, 178, 0.95);
 @grey: rgba(0, 0, 0, 0.4);
 @darkgrey: rgba(0, 0, 0, 0.6);
+@lightblue: #31B0D5;
 @blue: #337AB7;
 @nav: rgba(0, 0, 0, 0.5);
 
@@ -41,8 +43,13 @@ ul {
 	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
 }
 
+span.glyphicon {
+	margin-right: 0.5rem;
+}
+
 nav {
 	position: fixed;
+	top: 0;
 	height: 6rem;
 	width: 100vw;
 	background-color: @nav;
@@ -64,10 +71,18 @@ nav {
 	}
 }
 
-div#view {
+div#bg {
+	position: fixed;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
 	background-image: url(/static/img/bg.jpg);
 	background-size: cover;
 	background-position: fixed;
+	z-index: -1;
+}
+
+div#view {
 	div#home {
 		height: 100vh;
 		div#slogan {
@@ -108,7 +123,68 @@ div#view {
 		}
 	}
 	div#list {
-		height: 100vh;
+		width: 75vw;
+		margin: 12rem auto 0;
+		background-color: @darkwhite;
+		div#content {
+			border-radius: 1rem;
+			div.device {
+				margin: 1rem 0;
+				background-color: @lightwhite;
+				img.shot {
+					width: 12vw;
+					display: inline-block;
+					vertical-align: top;
+					margin: 2rem;
+					box-shadow: 0 0 3px #FFF;
+				}
+				div.info {
+					width: 45vw;
+					display: inline-block;
+					vertical-align: top;
+					margin-top: 2rem;
+					margin-left: 1rem;
+					p.row {
+						font-size: 1.6rem;
+						span.category {
+							font-size: 2rem;
+							font-weight: bold;
+							margin-right: 4rem;
+						}
+						span.address {
+							margin-right: 2rem;
+						}
+						span.glyphicon {
+							color: @lightblue;
+						}
+						span.model {
+							font-size: 1.8rem;
+						}
+						label.btn-xs {
+							margin-right: 1rem;
+						}
+					}
+					div.split {
+						height: 1px;
+						background-color: @grey;
+						margin: 0 -2rem 1rem;
+						box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+					}
+				}
+				div.action {
+					display: inline-block;
+					margin-left: 1rem;
+					width: 13vw;
+					div.group {
+						width: 10vw;
+						margin: 7rem auto 0;
+						label.btn {
+							margin: 2rem auto;
+						}
+					}
+				}
+			}
+		}
 	}
 }
 

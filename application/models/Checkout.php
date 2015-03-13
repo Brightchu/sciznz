@@ -73,9 +73,7 @@ class Checkout extends CI_Model {
 		$data = $this->db->query($sql)->result_array();
 
 		foreach ($data as $index => $row) {
-			$data[$index]['field'] = json_decode($row['field'], TRUE);
-			$data[$index]['subfield'] = json_decode($row['subfield'], TRUE);
-			$data[$index]['field'] = array_merge($data[$index]['field'], $data[$index]['subfield']);
+			$data[$index]['field'] = array_merge(json_decode($row['field'], TRUE), json_decode($row['subfield'], TRUE));
 			unset($data[$index]['subfield']);
 		}
 

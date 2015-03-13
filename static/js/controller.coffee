@@ -13,5 +13,6 @@ sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', ($scope, $rootScope)->
 
 sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', ($scope, $rootScope)->
 	$scope.groupSelected = $rootScope.groupSelected || '全部仪器'
-	console.log($scope.groupSelected)
+	$scope.deviceList = JSON.parse(localStorage.getItem('data'))
+	console.log($scope.deviceList)
 ]
