@@ -24,6 +24,9 @@ sciApp.config(['$routeProvider', ($routeProvider)->
 	$routeProvider.when('/'
 		templateUrl: '/static/partial/home.html'
 		controller: 'homeCtrl'
+	).when('/list'
+		templateUrl: '/static/partial/list.html'
+		controller: 'listCtrl'
 	).otherwise(
 		redirectTo: '/'
 	)

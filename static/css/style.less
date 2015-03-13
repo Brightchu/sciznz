@@ -3,10 +3,13 @@
 @bg: #F5F5F5;
 @text: #333;
 @white: #FFF;
-@nav: rgba(0, 0, 0, 0.6);
-@shadow: rgba(0, 0, 0, 0.15);
-@grey: #333;
-@darkgrey: #222;
+@lightwhite: rgba(255, 255, 255, 0.8);
+@green: #35BDB2;
+@lightgreen: rgba(53, 189, 178, 0.95);
+@grey: rgba(0, 0, 0, 0.4);
+@darkgrey: rgba(0, 0, 0, 0.6);
+@blue: #337AB7;
+@nav: rgba(0, 0, 0, 0.5);
 
 body {
 	background-color: @bg;
@@ -35,7 +38,7 @@ ul {
 }
 
 .shadow() {
-	box-shadow: 1px 1px 3px @shadow;
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
 }
 
 nav {
@@ -61,21 +64,51 @@ nav {
 	}
 }
 
-div#main {
-	height: 100vh;
+div#view {
 	background-image: url(/static/img/bg.jpg);
 	background-size: cover;
-	div#slogan {
-		.disable-select();
-		text-align: center;
-		padding-top: 30vh;
-		color: #FFF;
-		p.big {
-			font-size: 4.5vw;
+	background-position: fixed;
+	div#home {
+		height: 100vh;
+		div#slogan {
+			.disable-select();
+			text-align: center;
+			padding-top: 40vh;
+			color: @white;
+			p.big {
+				font-size: 4.5vw;
+			}
 		}
-		p.small {
-			font-size: 2vw;
+		div#box {
+			display: table;
+			margin: 5vh auto 0;
+			color: @white;
+			font-size: 18px;
+			p#tip {
+				font-size: 2rem;
+				text-align: center;
+				span.icon {
+					margin-right: 1rem;
+				}
+			}
+			hr#line {
+				margin: 0;
+			}
+			div#row {
+				padding: 1rem;
+				text-align: center;
+				div.key {
+					display: inline-block;
+					margin-right: 1rem;
+				}
+				div.value {
+					display: inline-block;
+				}
+			}
 		}
+	}
+	div#list {
+		height: 100vh;
 	}
 }
 

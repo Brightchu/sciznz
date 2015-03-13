@@ -1,0 +1,14 @@
+div#home
+	div#slogan
+		p.big 现在，你也可以看得那么清楚
+	div#box
+		p#tip
+			span.glyphicon.glyphicon-search.icon
+			span 想用什么？
+		hr#line
+		div#row
+			div.key
+				span.glyphicon.glyphicon-list
+			div.value.btn-group
+				label.btn.btn-lg.btn-primary 全部仪器
+				label.btn.btn-lg.btn-primary(ng-repeat="group in groupList") {{group.name}}
