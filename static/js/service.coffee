@@ -8,6 +8,7 @@ sciService.config(['$resourceProvider', ($resourceProvider)->
 
 sciService.factory 'data', ['$http', ($http)->
 	data = JSON.parse(localStorage.getItem('data')) || {}
+	never = !Boolean(data)
 
 	promise = $http
 		method: 'GET'
@@ -20,7 +21,7 @@ sciService.factory 'data', ['$http', ($http)->
 		data = body
 		localStorage.setItem('data', JSON.stringify(body))
 		localStorage.setItem('Last-Modified', headers('Last-Modified'))
-		location.reload()
+		location.reload() if never
 
 	promise.error (body, status)->
 		if status != 304
