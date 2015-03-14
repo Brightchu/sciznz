@@ -50,8 +50,10 @@ div#list
 				p.row
 					span.glyphicon.glyphicon-tag
 					span.model {{device.vendor}} - {{device.model}}
-				p.row(ng-click="isCollapsed = !isCollapsed")
+				p.row
 					label.btn.btn-info.btn-xs(ng-repeat="(key, value) in device.field") {{key}} {{value}}
+					label.btn.btn-default.btn-xs.toggle(ng-click="isCollapsed = !isCollapsed") 更多信息
+						span.caret
 				div(collapse="isCollapsed") {{device.info}}
 			div.action
 				div.group
