@@ -2,6 +2,9 @@
 
 _data = JSON.parse(localStorage.getItem('data'))
 
+if not _data?
+	data = {}
+
 req = new XMLHttpRequest()
 req.open('GET', '/api/query')
 req.overrideMimeType('application/json')
