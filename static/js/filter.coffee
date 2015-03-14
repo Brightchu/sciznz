@@ -4,27 +4,36 @@ sciFilter = angular.module('sciFilter', [])
 
 sciFilter.filter 'listFilter', ['data', (data)->
 	(array, filterModel)->
-		#filter address
-		if filterModel.address != '全部地点'
-			array = array.filter (value)->
-				return value.address == filterModel.address
+		# build condition
+		condition = {}
+		condition['category'] = filterModel.category if filterModel.category != '全部款式'
+		condition['address'] = filterModel.address if filterModel.address != '全部地点'
 
-		# by pass all group
-		if filterModel.group == '全部类别'
-			return array || array
+		array = array.filter (value)->
+			for name, want of condition
+				if value[name] != want
+					return false
 
-		# filter subgroup
-		if filterModel.subgroup == '全部子类'
+			return true
+
+		# build condition
+		condition = {}
+		condition['group'] = filterModel.group if filterModel.group != '全部类别'
+		condition['subgroup'] = filterModel.subgroup if filterModel.subgroup != '全部子类'
+
+		array = array.filter (value)->
+			for name, want of condition
+				return false if value.category not in data.keyword[want]
+
+			return true
+
+		if filterModel.group != '全部类别' and filterModel.subgroup == '全部子类'
 			array = array.filter (value)->
 				return value.category in data.keyword[filterModel.group]
-		else
+
+		if filterModel.subgroup != '全部子类'
 			array = array.filter (value)->
 				return value.category in data.keyword[filterModel.subgroup]
-
-		# filter category
-		if filterModel.category != '全部款式'
-			array = array.filter (value)->
-				return value.category == filterModel.category
 
 		# filter field
 		# build condition
@@ -44,10 +53,17 @@ sciFilter.filter 'listFilter', ['data', (data)->
 		return array
 ]
 
+sciFilter.filter 'moreFilter', ->
+	(array, more)->
+		return array.slice(0, 7) if array
+
 sciFilter.filter 'subgroupFilter', ['data', (data)->
+	allSubGroup = data.child.map (value)->
+		return {"name": value}
+
 	(array, filterModel)->
 		if filterModel.group == '全部类别'
-			return
+			return allSubGroup
 
 		group = array.filter (value)->
 			return value.name == filterModel.group
@@ -57,8 +73,8 @@ sciFilter.filter 'subgroupFilter', ['data', (data)->
 
 sciFilter.filter 'categoryFilter', ['data', (data)->
 	(array, filterModel)->
-		if filterModel.group == '全部类别'
-			return
+		if filterModel.group == '全部类别' and filterModel.subgroup == '全部子类'
+			return data.category
 
 		if filterModel.subgroup == '全部子类'
 			return data.keyword[filterModel.group]

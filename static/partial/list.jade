@@ -13,14 +13,14 @@ div#list
 				span.type 仪器子类：
 			div.value
 				label.btn.btn-sm.btn-default(ng-model="filterModel.subgroup" btn-radio="'全部子类'") 全部子类
-				label.btn.btn-sm.btn-default(ng-repeat="subgroup in groupList | subgroupFilter:filterModel" ng-model="filterModel.subgroup" btn-radio="'{{subgroup.name}}'") {{subgroup.name}}
+				label.btn.btn-sm.btn-default(ng-repeat="subgroup in groupList | subgroupFilter:filterModel | moreFilter:more" ng-model="filterModel.subgroup" btn-radio="'{{subgroup.name}}'") {{subgroup.name}}
 		div.row
 			div.key
 				span.glyphicon.glyphicon-th-large
 				span.type 仪器款式：
 			div.value
 				label.btn.btn-sm.btn-default(ng-model="filterModel.category" btn-radio="'全部款式'") 全部款式
-				label.btn.btn-sm.btn-default(ng-repeat="category in groupList | categoryFilter:filterModel" ng-model="filterModel.category" btn-radio="'{{category}}'") {{category}}
+				label.btn.btn-sm.btn-default(ng-repeat="category in groupList | categoryFilter:filterModel | moreFilter:more" ng-model="filterModel.category" btn-radio="'{{category}}'") {{category}}
 		div.row
 			div.key
 				span.glyphicon.glyphicon-flag

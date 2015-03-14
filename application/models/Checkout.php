@@ -57,17 +57,23 @@ class Checkout extends CI_Model {
 		$row = $this->db->query($sql)->row_array();
 		$result['hierarchy'] = json_decode($row['value'], TRUE);
 
-		// keyword
+		// keyword, child and category
 		$keyword = array();
+		$child = array();
+		$category = array();
 		foreach ($result['hierarchy'] as $group) {
 			$ingroup = array();
 			foreach ($group['child'] as $subgroup) {
+				$child[] = $subgroup['name'];
 				$keyword[$subgroup['name']] = $subgroup['child'];
 				$ingroup = array_merge($ingroup, $subgroup['child']);
 			}
 			$keyword[$group['name']] = $ingroup;
+			$category = array_merge($category, $ingroup);
 		}
 		$result['keyword'] = $keyword;
+		$result['child'] = $child;
+		$result['category'] = $category;
 
 		// device
 		$sql = 'SELECT `device`.`ID`, `device`.`city`, `institute`.`name` AS `institute`, `device`.`address`, `category`.`name` AS `category`, `model`.`vendor`, `model`.`name` AS `model`, `device`.`price`, `device`.`unit`, `model`.`field`, `device`.`field` AS `subfield`, `device`.`info`, `device`.`credit` FROM `device` JOIN `institute` ON `device`.`instituteID` = `institute`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` on `model`.`categoryID` = `category`.`ID`';
