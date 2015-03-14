@@ -1,20 +1,23 @@
 'use strict'
 
-sciCtrl = angular.module('sciCtrl', ['ui.bootstrap'])
+sciCtrl = angular.module('sciCtrl', ['ui.bootstrap', 'ui.utils'])
 
-sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', ($scope, $rootScope)->
-	$scope.groupList = _data.hierarchy
+sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootScope, data)->
+	$rootScope.setGroupList = (hierarchy)->
+		$scope.groupList = hierarchy
 
 	$(document).ready ->
 		$(document.querySelectorAll('label')).on 'click', ->
 			$rootScope.groupSelected = $(this).text()
 			location.hash = '#list'
+
+	$rootScope.setGroupList(data.hierarchy)
 ]
 
-sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', ($scope, $rootScope)->
-	$scope.groupList = _data.hierarchy
-	$scope.deviceList = _data.device
-	$scope.addressList = _data.address
+sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootScope, data)->
+	$scope.groupList = data.hierarchy
+	$scope.deviceList = data.device
+	$scope.addressList = data.address
 	$scope.isCollapsed = true
 	$rootScope.field = {}
 

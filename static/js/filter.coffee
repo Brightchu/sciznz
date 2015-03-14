@@ -1,28 +1,29 @@
 'use strict'
 
 sciFilter = angular.module('sciFilter', [])
-sciFilter.filter 'listFilter', ->
-	(data, filterModel)->
+
+sciFilter.filter 'listFilter', ['data', (data)->
+	(array, filterModel)->
 		#filter address
 		if filterModel.address != '全部地点'
-			data = data.filter (value)->
+			array = array.filter (value)->
 				return value.address == filterModel.address
 
 		# by pass all group
 		if filterModel.group == '全部类别'
-			return data || data
+			return array || array
 
 		# filter subgroup
 		if filterModel.subgroup == '全部子类'
-			data = data.filter (value)->
-				return value.category in _data.keyword[filterModel.group]
+			array = array.filter (value)->
+				return value.category in data.keyword[filterModel.group]
 		else
-			data = data.filter (value)->
-				return value.category in _data.keyword[filterModel.subgroup]
+			array = array.filter (value)->
+				return value.category in data.keyword[filterModel.subgroup]
 
 		# filter category
 		if filterModel.category != '全部款式'
-			data = data.filter (value)->
+			array = array.filter (value)->
 				return value.category == filterModel.category
 
 		# filter field
@@ -33,41 +34,44 @@ sciFilter.filter 'listFilter', ->
 				condition[name] = want
 
 		# do filter field
-		data = data.filter (value)->
+		array = array.filter (value)->
 			for name, want of condition
 				if value.field[name] != want
 					return false
 
 			return true
 
-		return data
+		return array
+]
 
-sciFilter.filter 'subgroupFilter', ->
-	(data, filterModel)->
+sciFilter.filter 'subgroupFilter', ['data', (data)->
+	(array, filterModel)->
 		if filterModel.group == '全部类别'
 			return
 
-		group = data.filter (value)->
+		group = array.filter (value)->
 			return value.name == filterModel.group
 
 		return group[0].child
+]
 
-sciFilter.filter 'categoryFilter', ->
-	(data, filterModel)->
+sciFilter.filter 'categoryFilter', ['data', (data)->
+	(array, filterModel)->
 		if filterModel.group == '全部类别'
 			return
 
 		if filterModel.subgroup == '全部子类'
-			return _data.keyword[filterModel.group]
+			return data.keyword[filterModel.group]
 
-		return _data.keyword[filterModel.subgroup]
+		return data.keyword[filterModel.subgroup]
+]
 
-sciFilter.filter 'fieldFilter', ['$rootScope', ($rootScope)->
-	(data, filterModel)->
+sciFilter.filter 'fieldFilter', ['$rootScope', 'data', ($rootScope, data)->
+	(array, filterModel)->
 		if filterModel.category == '全部款式'
 			return
 
-		deviceList = _data.device.filter (value)->
+		deviceList = data.device.filter (value)->
 			return value.category == filterModel.category
 
 		field = {}
@@ -84,7 +88,5 @@ sciFilter.filter 'fieldFilter', ['$rootScope', ($rootScope)->
 			if not filterModel.field[item]?
 				filterModel.field[item] = '全部取值'
 
-		console.log(filterModel)
 		return $rootScope.field
-
 ]
