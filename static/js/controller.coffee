@@ -3,7 +3,7 @@
 sciCtrl = angular.module('sciCtrl', ['ui.bootstrap'])
 
 sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', ($scope, $rootScope)->
-	$scope.groupList = JSON.parse(localStorage.getItem('hierarchy'))
+	$scope.groupList = _data.hierarchy
 
 	$(document).ready ->
 		$(document.querySelectorAll('label')).on 'click', ->
@@ -12,14 +12,16 @@ sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', ($scope, $rootScope)->
 ]
 
 sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', ($scope, $rootScope)->
-	$scope.groupList = JSON.parse(localStorage.getItem('hierarchy'))
-	$scope.deviceList = JSON.parse(localStorage.getItem('data'))
-	$scope.addressList = JSON.parse(localStorage.getItem('address'))
+	$scope.groupList = _data.hierarchy
+	$scope.deviceList = _data.device
+	$scope.addressList = _data.address
 	$scope.isCollapsed = true
+	$rootScope.field = {}
 
 	$scope.filterModel =
 		group: $rootScope.groupSelected || '全部类别'
 		subgroup: '全部子类'
 		address: '全部地点'
-		model: '全部型号'
+		category: '全部款式'
+
 ]

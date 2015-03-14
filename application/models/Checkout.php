@@ -57,26 +57,26 @@ class Checkout extends CI_Model {
 		$row = $this->db->query($sql)->row_array();
 		$result['hierarchy'] = json_decode($row['value'], TRUE);
 
-		// filter
-		$filter = array();
+		// keyword
+		$keyword = array();
 		foreach ($result['hierarchy'] as $group) {
 			$ingroup = array();
 			foreach ($group['child'] as $subgroup) {
-				$filter[$subgroup['name']] = $subgroup['child'];
+				$keyword[$subgroup['name']] = $subgroup['child'];
 				$ingroup = array_merge($ingroup, $subgroup['child']);
 			}
-			$filter[$group['name']] = $ingroup;
+			$keyword[$group['name']] = $ingroup;
 		}
-		$result['filter'] = $filter;
+		$result['keyword'] = $keyword;
 
-		// data
-		$sql = 'SELECT * FROM `data`';
-		$data = $this->db->query($sql)->result_array();
-		foreach ($data as $index => $row) {
-			$data[$index]['field'] = array_merge(json_decode($row['field'], TRUE), json_decode($row['subfield'], TRUE));
-			unset($data[$index]['subfield']);
+		// device
+		$sql = 'SELECT `device`.`ID`, `device`.`city`, `institute`.`name` AS `institute`, `device`.`address`, `category`.`name` AS `category`, `model`.`vendor`, `model`.`name` AS `model`, `device`.`price`, `device`.`unit`, `model`.`field`, `device`.`field` AS `subfield`, `device`.`info`, `device`.`credit` FROM `device` JOIN `institute` ON `device`.`instituteID` = `institute`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` on `model`.`categoryID` = `category`.`ID`';
+		$device = $this->db->query($sql)->result_array();
+		foreach ($device as $index => $row) {
+			$device[$index]['field'] = array_merge(json_decode($row['field'], TRUE), json_decode($row['subfield'], TRUE));
+			unset($device[$index]['subfield']);
 		}
-		$result['data'] = $data;
+		$result['device'] = $device;
 
 		// address
 		$sql = 'SELECT DISTINCT `address` FROM `device`';

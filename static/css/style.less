@@ -8,7 +8,7 @@
 @green: #35BDB2;
 @lightgreen: rgba(53, 189, 178, 0.95);
 @grey: rgba(0, 0, 0, 0.4);
-@darkgrey: rgba(0, 0, 0, 0.6);
+@darkgrey: rgba(0, 0, 0, 0.4);
 @lightblue: #31B0D5;
 @blue: #337AB7;
 @nav: rgba(0, 0, 0, 0.5);
@@ -129,14 +129,16 @@ div#view {
 		div#filter {
 			padding: 2rem 4rem;
 			font-size: 1.5rem;
+			color: @white;
+			background-color: @darkgrey;
 			div.row {
 				margin-bottom: 1rem;
 				div.key {
 					display: inline-block;
 					margin-right: 1rem;
+					min-width: 12rem;
 					span.type {
 						font-size: 1.8rem;
-						font-weight: bold;
 					}
 				}
 				div.value {

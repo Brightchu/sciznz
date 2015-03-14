@@ -16,11 +16,11 @@ div#list
 				label.btn.btn-sm.btn-default(ng-repeat="subgroup in groupList | subgroupFilter:filterModel" ng-model="filterModel.subgroup" btn-radio="'{{subgroup.name}}'") {{subgroup.name}}
 		div.row
 			div.key
-				span.glyphicon.glyphicon-th
-				span.type 仪器型号：
+				span.glyphicon.glyphicon-th-large
+				span.type 仪器款式：
 			div.value
-				label.btn.btn-sm.btn-default(ng-model="filterModel.model" btn-radio="'全部型号'") 全部型号
-				label.btn.btn-sm.btn-default(ng-repeat="model in groupList | modelFilter:filterModel" ng-model="filterModel.model" btn-radio="'{{model}}'") {{model}}
+				label.btn.btn-sm.btn-default(ng-model="filterModel.category" btn-radio="'全部款式'") 全部款式
+				label.btn.btn-sm.btn-default(ng-repeat="category in groupList | categoryFilter:filterModel" ng-model="filterModel.category" btn-radio="'{{category}}'") {{category}}
 		div.row
 			div.key
 				span.glyphicon.glyphicon-flag
@@ -28,6 +28,13 @@ div#list
 			div.value
 				label.btn.btn-sm.btn-default(ng-model="filterModel.address" btn-radio="'全部地点'") 全部地点
 				label.btn.btn-sm.btn-default(ng-repeat="address in addressList" ng-model="filterModel.address" btn-radio="'{{address}}'") {{address}}
+		div.row(ng-repeat="(key, values) in groupList | fieldFilter:filterModel")
+			div.key
+				span.glyphicon.glyphicon-wrench
+				span.type {{key}}：
+			div.value
+				label.btn.btn-sm.btn-default(ng-model="filterModel[key]" btn-radio="'全部取值'") 全部取值
+				label.btn.btn-sm.btn-default(ng-repeat="(value, _) in values" ng-model="filterModel[key]" btn-radio="'{{value}}'") {{value}}
 
 	div#content
 		div.device(ng-repeat="device in deviceList | listFilter:filterModel")
