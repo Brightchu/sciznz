@@ -6,7 +6,7 @@ sciService.config(['$resourceProvider', ($resourceProvider)->
 		method: 'PUT'
 ])
 
-sciService.factory 'data', ['$http', '$rootScope', ($http, $rootScope)->
+sciService.factory 'data', ['$http', ($http)->
 	data = JSON.parse(localStorage.getItem('data')) || {}
 
 	promise = $http
@@ -20,7 +20,7 @@ sciService.factory 'data', ['$http', '$rootScope', ($http, $rootScope)->
 		data = body
 		localStorage.setItem('data', JSON.stringify(body))
 		localStorage.setItem('Last-Modified', headers('Last-Modified'))
-		$rootScope.setGroupList(body.hierarchy)
+		location.reload()
 
 	promise.error (body, status)->
 		if status != 304

@@ -3,15 +3,12 @@
 sciCtrl = angular.module('sciCtrl', ['ui.bootstrap', 'ui.utils'])
 
 sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootScope, data)->
-	$rootScope.setGroupList = (hierarchy)->
-		$scope.groupList = hierarchy
+	$scope.groupList = data.hierarchy
 
 	$(document).ready ->
 		$(document.querySelectorAll('label')).on 'click', ->
 			$rootScope.groupSelected = $(this).text()
 			location.hash = '#list'
-
-	$rootScope.setGroupList(data.hierarchy)
 ]
 
 sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootScope, data)->
