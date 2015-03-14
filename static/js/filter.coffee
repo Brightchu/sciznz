@@ -55,6 +55,7 @@ sciFilter.filter 'listFilter', ['data', (data)->
 
 sciFilter.filter 'moreFilter', ->
 	(array, more)->
+		more = array.slice(7) if array
 		return array.slice(0, 7) if array
 
 sciFilter.filter 'subgroupFilter', ['data', (data)->

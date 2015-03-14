@@ -25,4 +25,8 @@ sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootSc
 		category: '全部款式'
 		field: {}
 
+	allSubGroup = data.child.map (value)->
+		return {"name": value}
+
+	$scope.moreSubGroup = allSubGroup
 ]

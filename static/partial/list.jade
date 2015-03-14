@@ -13,7 +13,7 @@ div#list
 				span.type 仪器子类：
 			div.value
 				label.btn.btn-sm.btn-default(ng-model="filterModel.subgroup" btn-radio="'全部子类'") 全部子类
-				label.btn.btn-sm.btn-default(ng-repeat="subgroup in groupList | subgroupFilter:filterModel | moreFilter:more" ng-model="filterModel.subgroup" btn-radio="'{{subgroup.name}}'") {{subgroup.name}}
+				label.btn.btn-sm.btn-default(ng-repeat="subgroup in groupList | subgroupFilter:filterModel | moreFilter:moreSubGroup" ng-model="filterModel.subgroup" btn-radio="'{{subgroup.name}}'") {{subgroup.name}}
 		div.row
 			div.key
 				span.glyphicon.glyphicon-th-large
