@@ -23,5 +23,6 @@ sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', ($scope, $rootScope)->
 		subgroup: '全部子类'
 		address: '全部地点'
 		category: '全部款式'
+		field: {}
 
 ]

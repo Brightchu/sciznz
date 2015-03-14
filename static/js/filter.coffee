@@ -25,6 +25,21 @@ sciFilter.filter 'listFilter', ->
 			data = data.filter (value)->
 				return value.category == filterModel.category
 
+		# filter field
+		# build condition
+		condition = {}
+		for name, want of filterModel.field
+			if want != '全部取值'
+				condition[name] = want
+
+		# do filter field
+		data = data.filter (value)->
+			for name, want of condition
+				if value.field[name] != want
+					return false
+
+			return true
+
 		return data
 
 sciFilter.filter 'subgroupFilter', ->
@@ -66,8 +81,8 @@ sciFilter.filter 'fieldFilter', ['$rootScope', ($rootScope)->
 			$rootScope.field = field
 
 		for item of deviceList[0].field
-			if not filterModel[item]?
-				filterModel[item] = '全部取值'
+			if not filterModel.field[item]?
+				filterModel.field[item] = '全部取值'
 
 		console.log(filterModel)
 		return $rootScope.field
