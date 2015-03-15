@@ -17,6 +17,7 @@ sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootSc
 	$scope.addressList = data.address
 	$scope.isCollapsed = true
 	$scope.showMoreSubGroup = false
+	$scope.showMoreCategory = false
 	$rootScope.field = {}
 
 	$scope.filterModel =
@@ -27,4 +28,5 @@ sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootSc
 		field: {}
 
 	$scope.moreSubGroup = []
+	$scope.moreCateogory = []
 ]
