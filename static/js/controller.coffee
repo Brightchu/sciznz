@@ -16,6 +16,7 @@ sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootSc
 	$scope.deviceList = data.device
 	$scope.addressList = data.address
 	$scope.isCollapsed = true
+	$scope.showMoreSubGroup = false
 	$rootScope.field = {}
 
 	$scope.filterModel =
@@ -25,8 +26,5 @@ sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootSc
 		category: '全部款式'
 		field: {}
 
-	allSubGroup = data.child.map (value)->
-		return {"name": value}
-
-	$scope.moreSubGroup = allSubGroup
+	$scope.moreSubGroup = []
 ]

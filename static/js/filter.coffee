@@ -54,9 +54,21 @@ sciFilter.filter 'listFilter', ['data', (data)->
 ]
 
 sciFilter.filter 'moreFilter', ->
-	(array, more)->
-		more = array.slice(7) if array
+	(array)->
 		return array.slice(0, 7) if array
+
+sciFilter.filter 'moreSubGroupFilter', ->
+	(array, $scope)->
+		slices = []
+		if $scope.showMoreSubGroup
+			for i in [7...array.length] by 7
+				slices.push(array[i...i+7])
+
+		if not angular.equals($scope.moreSubGroup, slices)
+			$scope.moreSubGroup = slices
+
+		return array[0...7]
+
 
 sciFilter.filter 'subgroupFilter', ['data', (data)->
 	allSubGroup = data.child.map (value)->
