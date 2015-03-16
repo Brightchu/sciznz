@@ -74,17 +74,6 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function frontCache()
-	{
-		$this->load->model('checkout');
-
-		switch ($this->input->method()) {
-			case 'put':
-				$this->checkout->update();
-				break;
-		}
-	}
-
 	public function frontGroup()
 	{
 		$this->load->model('group');
@@ -114,6 +103,17 @@ class Admin extends CI_Controller {
 	public function frontDevice()
 	{
 		$this->handler('device');
+	}
+
+	public function cache()
+	{
+		$this->load->model('checkout');
+
+		switch ($this->input->method()) {
+			case 'put':
+				$this->checkout->update();
+				break;
+		}
 	}
 
 	public function instituteAdmin()

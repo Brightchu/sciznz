@@ -65,9 +65,9 @@ adminCtrl.controller 'dataPayment', ['$scope', ($scope)->
 	$scope.title = '支付统计'
 ]
 
-adminCtrl.controller 'frontCache', ['$scope', 'FrontCache', ($scope, FrontCache)->
+adminCtrl.controller 'cacheUpdate', ['$scope', 'Cache', ($scope, Cache)->
 	$scope.update = ->
-		FrontCache.update().$promise.then ->
+		Cache.update().$promise.then ->
 			alert('重建缓存成功')
 ]
 

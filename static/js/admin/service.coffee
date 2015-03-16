@@ -6,10 +6,6 @@ adminService.config(['$resourceProvider', ($resourceProvider)->
 		method: 'PUT'
 ])
 
-adminService.factory('FrontCache', ['$resource', ($resource)->
-	$resource('/admin/frontCache')
-])
-
 adminService.factory('FrontGroup', ['$resource', ($resource)->
 	$resource('/admin/frontGroup')
 ])
@@ -24,6 +20,10 @@ adminService.factory('FrontModel', ['$resource', ($resource)->
 
 adminService.factory('FrontDevice', ['$resource', ($resource)->
 	$resource('/admin/frontDevice')
+])
+
+adminService.factory('Cache', ['$resource', ($resource)->
+	$resource('/admin/cache')
 ])
 
 adminService.factory('Institute', ['$resource', ($resource)->
