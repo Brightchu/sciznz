@@ -465,7 +465,6 @@ class CI_Email {
 				}
 			}
 		}
-		$this->clear();
 
 		$this->_smtp_auth = ! ($this->smtp_user === '' && $this->smtp_pass === '');
 
@@ -475,7 +474,7 @@ class CI_Email {
 	// --------------------------------------------------------------------
 
 	/**
-	 * Initialize the Email Data
+	 * Reset the Email Data
 	 *
 	 * @param	bool
 	 * @return	CI_Email
@@ -492,9 +491,6 @@ class CI_Email {
 		$this->_bcc_array	= array();
 		$this->_headers		= array();
 		$this->_debug_msg	= array();
-
-		$this->set_header('User-Agent', $this->useragent);
-		$this->set_header('Date', $this->_set_date());
 
 		if ($clear_attachments !== FALSE)
 		{
@@ -1261,6 +1257,8 @@ class CI_Email {
 	 */
 	protected function _build_headers()
 	{
+		$this->set_header('User-Agent', $this->useragent);
+		$this->set_header('Date', $this->_set_date());
 		$this->set_header('X-Sender', $this->clean_email($this->_headers['From']));
 		$this->set_header('X-Mailer', $this->useragent);
 		$this->set_header('X-Priority', $this->_priorities[$this->priority]);

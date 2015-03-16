@@ -27,26 +27,33 @@ class SAE_Email extends CI_Email {
 
 	public function __construct($config = array())
 	{
-		$this->_sae_mail = new SaeMail();
 		parent::__construct($config);
+		$this->_sae_mail = new SaeMail();
 
 		log_message('info', 'SAE Email Class Initialized');
 	}
 
 	public function clear($clear_attachments = FALSE)
 	{
-		$this->_sae_mail->clean();
 		parent::clear($clear_attachments);
+		$this->_sae_mail->clean();
 
-		return TRUE;
+		return $this;
 	}
 
+	/**
+	 * Adaptively send Email
+	 *
+	 * Omit the cc option which is seldom used
+	 * Use SAE native mail service with smtp as fallback
+	 *
+	 * @var	object
+	 */
 	public function send($auto_clear = TRUE)
 	{
 		$this->_sae_mail->setOpt(array(
 			'from' => $this->smtp_user,
 			'to' => $this->_headers['To'],
-			'cc' => implode(', ', $this->_cc_array),
 			'smtp_host' => $this->smtp_host,
 			'smtp_port' => $this->smtp_port,
 			'smtp_username' => $this->smtp_user,
@@ -59,15 +66,20 @@ class SAE_Email extends CI_Email {
 			'nickname' => substr($this->_headers['From'], 0, strpos($this->_headers['From'], ' '))
 		));
 
-		if ($this->_sae_mail->send()) {
-			if ($auto_clear) {
-				$this->clear();
-			}
-			return TRUE;
-		} else {
+		$result = $this->_sae_mail->send();
+		if ( ! $result)
+		{
 			$this->_set_error_message($this->_sae_mail->errmsg());
 			log_message('error', 'Mail service error: ' . $this->_sae_mail->errno() . ' ' . $this->_sae_mail->errmsg());
-			return FALSE;
+
+			$result = parent::send(FALSE);
 		}
+
+		if ($result && $auto_clear)
+		{
+			$this->clear();
+		}
+
+		return $result;
 	}
 }
