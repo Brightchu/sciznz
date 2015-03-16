@@ -6,20 +6,22 @@ class Supervisormail extends CI_Model {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->library('parser');
 		$this->load->library('email');
 		$this->email->from('scicompass@sina.com', 'SciCompass');
 	}
 
 	/**
-	 * Notify a supervisor to verify the email address
+	 * Notify a new supervisor
 	 * @param 	array $row
 	 * @return 	bool
 	 */
 	public function register($row)
 	{
+		$row['datetime'] = date(DATE_RSS);
 		$this->email->to($row['email']);
-		$this->email->subject('[SciCompass] Activate Admin email address');
-		$this->email->message(json_encode($row, JSON_NUMERIC_CHECK));
+		$this->email->subject('SciCompass notification');
+		$this->email->message($this->parser->parse('adminRegisterMail.html', $row, TRUE));
 		return $this->email->send();
 	}
 }
