@@ -70,7 +70,11 @@ class Supervisor extends CI_Model {
 	{
 		$sql = 'INSERT INTO `supervisor`(`privilege`, `name`, `username`, `password`, `phone`, `email`, `credit`) VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$data = array($row['privilege'], $row['name'], $row['username'], password_hash($row['password'], PASSWORD_BCRYPT), $row['phone'], $row['email'], $row['credit']);
-		return $this->db->query($sql, $data) && $this->supervisormail->register($row);
+		$result = $this->db->query($sql, $data);
+		if ($result) {
+			$this->supervisormail->register($row);
+		}
+		return $result;
 	}
 
 	/**

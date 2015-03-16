@@ -7,6 +7,7 @@ class User extends CI_Model {
 	{
 		parent::__construct();
 		$this->load->database();
+		$this->load->model('usermail');
 	}
 
 	/**
@@ -69,7 +70,11 @@ class User extends CI_Model {
 	{
 		$sql = 'INSERT INTO `user`(`name`, `username`, `password`, `phone`, `email`, `credit`) VALUES (?, ?, ?, ?, ?, ?)';
 		$data = array($row['name'], $row['username'], password_hash($row['password'], PASSWORD_BCRYPT), $row['phone'], $row['email'], $row['credit']);
-		return $this->db->query($sql, $data);
+		$result = $this->db->query($sql, $data);
+		if ($result) {
+			$this->usermail->register($row);
+		}
+		return $result;
 	}
 
 	/**
