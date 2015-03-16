@@ -8,7 +8,7 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-if (defined('SAE_APPNAME')){
+if (defined('SAE_APPNAME')) {
 	class Kvdb extends SaeKV {
 		public function __construct()
 		{
@@ -36,7 +36,7 @@ if (defined('SAE_APPNAME')){
 
 		public function mget($ary)
 		{
-			return array_combine($ary, $this->mGet($ary));
+			return array_combine($ary, parent::mGet($ary));
 		}
 
 		/**
@@ -45,7 +45,7 @@ if (defined('SAE_APPNAME')){
 		public function pkrget($prefix_key, $count = 100, $start_key = '')
 		{
 			$it = NULL;
-			return $this->mget($this->scan($it, $prefix_key . '*', $count))
+			return $this->mget($this->scan($it, $prefix_key . '*', $count));
 		}
 	}
 }
