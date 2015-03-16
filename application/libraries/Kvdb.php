@@ -31,16 +31,21 @@ if (defined('SAE_APPNAME')){
 
 		public function replace($key, $value)
 		{
-			if($this->exists($key)){
-				return $this->set($key, $value);
-			} else{
-				return FALSE;
-			}
+			return (bool) $this->getSet($key, $value);
 		}
 
 		public function mget($ary)
 		{
-			return $this->mGet($ary);
+			return array_combine($ary, $this->mGet($ary));
+		}
+
+		/**
+		 * $start_key hasn't implemented
+		 */
+		public function pkrget($prefix_key, $count = 100, $start_key = '')
+		{
+			$it = NULL;
+			return $this->mget($this->scan($it, $prefix_key . '*', $count))
 		}
 	}
 }
