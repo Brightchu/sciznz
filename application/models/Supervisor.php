@@ -7,6 +7,7 @@ class Supervisor extends CI_Model {
 	{
 		parent::__construct();
 		$this->load->database();
+		$this->load->model('supervisormail');
 	}
 
 	/**
@@ -43,7 +44,7 @@ class Supervisor extends CI_Model {
 	}
 
 	/**
-	 * Update an supervisor
+	 * Update a supervisor
 	 * @param 	array $row
 	 * @return 	bool
 	 */
@@ -61,7 +62,7 @@ class Supervisor extends CI_Model {
 	}
 
 	/**
-	 * Save an supervisor
+	 * Save a supervisor
 	 * @param 	array $row
 	 * @return 	bool
 	 */
@@ -69,11 +70,11 @@ class Supervisor extends CI_Model {
 	{
 		$sql = 'INSERT INTO `supervisor`(`privilege`, `name`, `username`, `password`, `phone`, `email`, `credit`) VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$data = array($row['privilege'], $row['name'], $row['username'], password_hash($row['password'], PASSWORD_BCRYPT), $row['phone'], $row['email'], $row['credit']);
-		return $this->db->query($sql, $data);
+		return $this->db->query($sql, $data) && $this->supervisormail->register($row);
 	}
 
 	/**
-	 * Delete an supervisor
+	 * Delete a supervisor
 	 * @param 	int $ID
 	 * @return 	bool
 	 */
