@@ -2,6 +2,32 @@
 
 sciCtrl = angular.module('sciCtrl', ['ui.bootstrap', 'ui.utils'])
 
+sciCtrl.controller 'navCtrl', ['$scope', '$modal', ($scope, $modal)->
+	$scope.login = ->
+		$(document.querySelector('body')).addClass('blur')
+		modalInstance = $modal.open
+			templateUrl: '/static/partial/login.html'
+			controller: 'loginCtrl'
+			size: 'sm'
+			windowClass: 'login'
+			backdropClass: 'loginBack'
+
+		modalInstance.result.then (res)->
+			console.log('OK')
+			$(document.querySelector('body')).removeClass('blur')
+			console.log('result')
+
+]
+
+sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', ($scope, $modalInstance)->
+	$scope.signin = ->
+		form =
+			username: $scope.username
+			password: $scope.password
+
+]
+
+
 sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootScope, data)->
 	$scope.groupList = data.hierarchy
 

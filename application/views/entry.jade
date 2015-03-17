@@ -16,11 +16,11 @@ html
 		link(rel="icon" type="image/png" sizes="256x256" href="/static/img/logo.png")
 
 	body.font-hei(ng-app="sciApp")
-		nav
+		nav(ng-controller="navCtrl")
 			a(href="#/")
 				img#logo(src="/static/img/logo-landscape.png")
 			ul
-				li 登录
+				li(ng-click="login()") 登录
 
 		div#bg
 		div#view(class="view-frame" ng-view)
