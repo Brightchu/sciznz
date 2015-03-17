@@ -74,17 +74,17 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function frontGroup()
+	public function frontHierarchy()
 	{
-		$this->load->model('group');
+		$this->load->model('hierarchy');
 
 		switch ($this->input->method()) {
 			case 'get':
-				$this->output->set_content_type('application/json')->set_output($this->group->get());
+				$this->output->set_content_type('application/json')->set_output($this->hierarchy->get());
 				break;
 
 			case 'put':
-				$result = $this->group->set(file_get_contents('php://input'));
+				$result = $this->hierarchy->set(file_get_contents('php://input'));
 				$this->output->set_status_header($result ? 200 : 403);
 				break;
 		}

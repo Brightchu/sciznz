@@ -6,8 +6,8 @@ adminService.config(['$resourceProvider', ($resourceProvider)->
 		method: 'PUT'
 ])
 
-adminService.factory('FrontGroup', ['$resource', ($resource)->
-	$resource('/admin/frontGroup')
+adminService.factory('FrontHierarchy', ['$resource', ($resource)->
+	$resource('/admin/frontHierarchy')
 ])
 
 adminService.factory('FrontCategory', ['$resource', ($resource)->

@@ -65,15 +65,15 @@ adminCtrl.controller 'dataPayment', ['$scope', ($scope)->
 	$scope.title = '支付统计'
 ]
 
-adminCtrl.controller 'frontGroup', ['$scope', 'FrontGroup', ($scope, FrontGroup)->
+adminCtrl.controller 'frontHierarchy', ['$scope', 'FrontHierarchy', ($scope, FrontHierarchy)->
 	$scope.title = '分组管理'
 	$scope.editor = new JSONEditor(document.querySelector('#jsoneditor'))
 
-	FrontGroup.query().$promise.then (data)->
+	FrontHierarchy.query().$promise.then (data)->
 		$scope.editor.set(data)
 
 	$scope.save = ->
-		FrontGroup.update($scope.editor.get()).$promise.then ->
+		FrontHierarchy.update($scope.editor.get()).$promise.then ->
 			alert('保存成功')
 
 ]
