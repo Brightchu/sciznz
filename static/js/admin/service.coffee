@@ -26,6 +26,10 @@ adminService.factory('FrontCache', ['$resource', ($resource)->
 	$resource('/admin/frontCache')
 ])
 
+adminService.factory('CacheAdmin', ['$resource', ($resource)->
+	$resource('/admin/cacheAdmin')
+])
+
 adminService.factory('Institute', ['$resource', ($resource)->
 	$resource('/admin/instituteAdmin')
 ])

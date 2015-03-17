@@ -107,11 +107,25 @@ class Admin extends CI_Controller {
 
 	public function frontCache()
 	{
-		$this->load->model('kvcache');
+		$this->handler('kvcache');
+	}
 
+	public function cacheAdmin()
+	{
+		$this->load->model('kvadmin');
 		switch ($this->input->method()) {
+			case 'get':
+				$this->output->set_json($this->kvadmin->query());
+				break;
+
 			case 'put':
-				$this->kvcache->update();
+				$result = $this->kvadmin->update($this->input->json());
+				$this->output->set_status_header($result ? 200 : 403);
+				break;
+
+			case 'delete':
+				$result = $this->kvadmin->delete($this->input->get('key'));
+				$this->output->set_status_header($result ? 200 : 403);
 				break;
 		}
 	}

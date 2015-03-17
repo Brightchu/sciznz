@@ -124,6 +124,37 @@ adminCtrl.controller 'frontCache', ['$scope', 'FrontCache', ($scope, FrontCache)
 			alert('重建缓存成功')
 ]
 
+adminCtrl.controller 'cacheAdmin', ['$scope', 'CacheAdmin', ($scope, CacheAdmin)->
+	$scope.title = '缓存管理'
+
+	$scope.gridOptions =
+		enableFiltering: true
+		data: CacheAdmin.query()
+
+	$scope.addRow = ->
+		$scope.gridOptions.data.push
+			'key': 'New'
+
+	$scope.saveRow = (row)->
+		promise = CacheAdmin.update(row)
+		$scope.gridApi.rowEdit.setSavePromise(row, promise.$promise)
+
+	$scope.flushDirtyRows = ->
+		$scope.gridApi.rowEdit.flushDirtyRows()
+
+	$scope.deleteRow = ->
+		row = $scope.gridApi.cellNav.getFocusedCell().row.entity
+		CacheAdmin.delete
+			'key': row.key
+
+		index = $scope.gridOptions.data.indexOf(row)
+		$scope.gridOptions.data.splice(index, 1)
+
+	$scope.gridOptions.onRegisterApi = (gridApi)->
+		$scope.gridApi = gridApi
+		gridApi.rowEdit.on.saveRow($scope, $scope.saveRow)
+]
+
 adminCtrl.controller 'instituteAdmin', ['$scope', 'Institute', ($scope, Institute)->
 	$scope.title = '机构管理'
 	gridBuilder.call(this, $scope, Institute, [

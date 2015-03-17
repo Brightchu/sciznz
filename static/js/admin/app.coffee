@@ -39,7 +39,7 @@ adminApp.config(['$routeProvider', ($routeProvider)->
 		templateUrl: '/static/partial/admin/front-cache.html'
 		controller: 'frontCache'
 	).when('/cache-admin'
-		templateUrl: '/static/partial/admin/cache-admin.html'
+		templateUrl: '/static/partial/admin/generic-table.html'
 		controller: 'cacheAdmin'
 	).when('/institute-admin'
 		templateUrl: '/static/partial/admin/generic-table.html'
