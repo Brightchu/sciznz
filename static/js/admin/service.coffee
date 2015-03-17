@@ -22,8 +22,8 @@ adminService.factory('FrontDevice', ['$resource', ($resource)->
 	$resource('/admin/frontDevice')
 ])
 
-adminService.factory('Cache', ['$resource', ($resource)->
-	$resource('/admin/cache')
+adminService.factory('FrontCache', ['$resource', ($resource)->
+	$resource('/admin/frontCache')
 ])
 
 adminService.factory('Institute', ['$resource', ($resource)->

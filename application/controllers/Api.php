@@ -10,8 +10,8 @@ class Api extends CI_Controller {
 
 	public function query()
 	{
-		$this->load->model('checkout');
-		$cache_date = $this->checkout->query_date();
+		$this->load->model('kvcache');
+		$cache_date = $this->kvcache->query_date();
 
 		if ($cache_date === $this->input->get_request_header('If-Modified-Since')) {
 			$this->output->set_status_header(304);
@@ -19,7 +19,7 @@ class Api extends CI_Controller {
 			$this->output->set_header('Cache-Control: public');
 			$this->output->set_header('Last-Modified: ' . $cache_date);
 			$this->output->set_content_type('application/json');
-			$this->output->set_output($this->checkout->query());
+			$this->output->set_output($this->kvcache->query());
 		}
 	}
 

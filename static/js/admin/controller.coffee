@@ -65,12 +65,6 @@ adminCtrl.controller 'dataPayment', ['$scope', ($scope)->
 	$scope.title = '支付统计'
 ]
 
-adminCtrl.controller 'cacheUpdate', ['$scope', 'Cache', ($scope, Cache)->
-	$scope.update = ->
-		Cache.update().$promise.then ->
-			alert('重建缓存成功')
-]
-
 adminCtrl.controller 'frontGroup', ['$scope', 'FrontGroup', ($scope, FrontGroup)->
 	$scope.title = '分组管理'
 	$scope.editor = new JSONEditor(document.querySelector('#jsoneditor'))
@@ -122,6 +116,12 @@ adminCtrl.controller 'frontDevice', ['$scope', 'FrontDevice', ($scope, FrontDevi
 		{name: 'credit'}
 		{name: 'online'}
 	])
+]
+
+adminCtrl.controller 'frontCache', ['$scope', 'FrontCache', ($scope, FrontCache)->
+	$scope.update = ->
+		FrontCache.update().$promise.then ->
+			alert('重建缓存成功')
 ]
 
 adminCtrl.controller 'instituteAdmin', ['$scope', 'Institute', ($scope, Institute)->

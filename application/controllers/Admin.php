@@ -105,13 +105,13 @@ class Admin extends CI_Controller {
 		$this->handler('device');
 	}
 
-	public function cache()
+	public function frontCache()
 	{
-		$this->load->model('checkout');
+		$this->load->model('kvcache');
 
 		switch ($this->input->method()) {
 			case 'put':
-				$this->checkout->update();
+				$this->kvcache->update();
 				break;
 		}
 	}
