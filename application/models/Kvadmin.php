@@ -17,7 +17,7 @@ class Kvadmin extends CI_Model {
 	public function query()
 	{
 		$collection = array();
-		foreach ($this->kvdb->pkrget('') as $key => $value) {
+		foreach ($this->kvdb->pkrget('', Kvdb::MAX_PKRGET_SIZE) as $key => $value) {
 			$collection[] = array(
 				'key' => $key,
 				'value' => $value,

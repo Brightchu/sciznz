@@ -18,6 +18,13 @@ if (defined('SAE_APPNAME')) {
 	}
 } else{
 	class Kvdb extends Redis {
+
+		const EMPTY_PREFIXKEY  = '';
+		const MAX_MGET_SIZE  = 32;
+		const MAX_PKRGET_SIZE  = 100;
+		const MAX_KEY_LENGTH   = 200;
+		const MAX_VALUE_LENGTH = 4194304;
+
 		public function __construct()
 		{
 			parent::__construct();
@@ -42,7 +49,7 @@ if (defined('SAE_APPNAME')) {
 		/**
 		 * $start_key hasn't implemented
 		 */
-		public function pkrget($prefix_key, $count = 100, $start_key = '')
+		public function pkrget($prefix_key, $count, $start_key = '')
 		{
 			$it = NULL;
 			return $this->mget($this->scan($it, $prefix_key . '*', $count));
