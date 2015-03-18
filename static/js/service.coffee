@@ -7,8 +7,15 @@ sciService.config(['$resourceProvider', ($resourceProvider)->
 ])
 
 sciService.factory 'data', ['$http', ($http)->
-	data = JSON.parse(localStorage.getItem('data')) || {}
-	never = !Boolean(data)
+	data = JSON.parse(localStorage.getItem('data'))
+	if not data
+		data =
+			hierarchy: []
+			keyword: {}
+			child: []
+			category: []
+			device: []
+			address: []
 
 	promise = $http
 		method: 'GET'
@@ -18,14 +25,19 @@ sciService.factory 'data', ['$http', ($http)->
 		responseType: 'json'
 
 	promise.success (body, status, headers)->
-		data = body
+		for key, value of body
+			if angular.isArray(value)
+				[].push.apply(data[key], value)
+			else
+				for k, v of value
+					data[key][k] = v
+
 		localStorage.setItem('data', JSON.stringify(body))
 		localStorage.setItem('Last-Modified', headers('Last-Modified'))
-		location.reload() if never
 
 	promise.error (body, status)->
 		if status != 304
-			alert('XMLHttpRequest Error!')
+			console.warn('XMLHttpRequest Error!')
 
 	return data
 ]
