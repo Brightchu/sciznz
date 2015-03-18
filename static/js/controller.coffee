@@ -40,10 +40,9 @@ sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', ($scope, $m
 sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootScope, data)->
 	$scope.groupList = data.hierarchy
 
-	$(document).ready ->
-		$(document.querySelectorAll('label')).on 'click', ->
-			$rootScope.groupSelected = $(this).text()
-			location.hash = '#list'
+	$scope.onEntry = ->
+		$rootScope.groupSelected = $(this).text()
+		location.hash = '#list'
 ]
 
 sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootScope, data)->

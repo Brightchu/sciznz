@@ -10,5 +10,5 @@ div#home
 			div.key
 				span.glyphicon.glyphicon-list
 			div.value.btn-group
-				label.btn.btn-lg.btn-primary 全部类别
-				label.btn.btn-lg.btn-primary(ng-repeat="group in groupList") {{group.name}}
+				label.btn.btn-lg.btn-primary(ng-click='onEntry()') 全部类别
+				label.btn.btn-lg.btn-primary(ng-repeat='group in groupList' ng-click='onEntry()') {{group.name}}
