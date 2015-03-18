@@ -29,3 +29,7 @@ sciService.factory 'data', ['$http', ($http)->
 
 	return data
 ]
+
+sciService.factory('User', ['$resource', ($resource)->
+	$resource('/api/user')
+])

@@ -20,7 +20,7 @@ html
 			a(href="#/")
 				img#logo(src="/static/img/logo-landscape.png")
 			ul
-				li(ng-click="login()") 登录
+				li(ng-click="open()") {{name}}
 
 		div#bg
 		div#view(class="view-frame" ng-view)
@@ -29,6 +29,7 @@ html
 		script(src="/static/bower_components/angular-route/angular-route.min.js")
 		script(src="/static/bower_components/angular-resource/angular-resource.min.js")
 		script(src="/static/bower_components/angular-animate/angular-animate.min.js")
+		script(src="/static/bower_components/angular-cookies/angular-cookies.min.js")
 		script(src="/static/bower_components/angular-ui-utils/ui-utils.min.js")
 		script(src="/static/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js")
 		script(src="/static/js/script.js")

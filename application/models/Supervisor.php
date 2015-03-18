@@ -19,7 +19,7 @@ class Supervisor extends CI_Model {
 	 */
 	public function login($username, $password)
 	{
-		$sql = 'SELECT `name`, `password`, `privilege` FROM `supervisor` WHERE `username` = ?';
+		$sql = 'SELECT `ID`, `name`, `password`, `privilege` FROM `supervisor` WHERE `username` = ?';
 		$query = $this->db->query($sql, $username);
 		$row = $query->row_array();
 

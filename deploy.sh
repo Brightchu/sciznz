@@ -24,6 +24,7 @@ find . -name "*.coffee" -exec rm -fv {} \;
 find . -name "*.less" -exec rm -fv {} \;
 find . -name "*.jade" -exec rm -fv {} \;
 find . -name "*.md" -exec rm -fv {} \;
+find . -name "*.json" -exec rm -fv {} \;
 find . -name "*.sh" -exec rm -fv {} \;
 
 #deploy

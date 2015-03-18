@@ -1,10 +1,17 @@
 'use strict'
 
-sciCtrl = angular.module('sciCtrl', ['ui.bootstrap', 'ui.utils'])
+sciCtrl = angular.module('sciCtrl', ['ngCookies', 'ui.bootstrap', 'ui.utils'])
 
-sciCtrl.controller 'navCtrl', ['$scope', '$modal', ($scope, $modal)->
-	$scope.login = ->
-		$(document.querySelector('body')).addClass('blur')
+sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', ($scope, $modal, $cookies)->
+	$scope.name = $cookies.name || '登录'
+
+	$scope.open = ->
+		if $cookies.name?
+			alert('Logined')
+		else
+			login()
+
+	login = ->
 		modalInstance = $modal.open
 			templateUrl: '/static/partial/login.html'
 			controller: 'loginCtrl'
@@ -13,18 +20,20 @@ sciCtrl.controller 'navCtrl', ['$scope', '$modal', ($scope, $modal)->
 			backdropClass: 'loginBack'
 
 		modalInstance.result.then (res)->
-			console.log('OK')
-			$(document.querySelector('body')).removeClass('blur')
-			console.log('result')
-
+			$scope.name = res.name
 ]
 
-sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', ($scope, $modalInstance)->
+sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', ($scope, $modalInstance, User)->
 	$scope.signin = ->
 		form =
 			username: $scope.username
 			password: $scope.password
 
+		result = User.update(form).$promise
+		result.catch (res)->
+			$scope.error = true
+		result.then (res)->
+			$modalInstance.close(res)
 ]
 
 

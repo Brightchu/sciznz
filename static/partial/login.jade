@@ -3,9 +3,11 @@
 	p 让实验更轻松
 
 .modal-body
-	div(class="alert alert-danger" ng-if="error") 用户名密码错误
-	input(type="text" ng-model="username" class="form-control" placeholder="账号" required autofocus)
-	input(type="password" ng-model="password" class="form-control" placeholder="密码" required)
+	div(class="alert alert-danger" ng-if="error") 用户名密码有误
+	form
+		input(type="text" ng-model="username" class="form-control" placeholder="账号" required autofocus)
+		input(type="password" ng-model="password" class="form-control" placeholder="密码" required)
+		button(type="submit" ng-click='login()' style='display: none') 登录
 
 .modal-footer
 	button.btn.btn-info(ng-click='signup()' style="float: left") 注册

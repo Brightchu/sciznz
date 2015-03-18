@@ -23,20 +23,32 @@ class Api extends CI_Controller {
 		}
 	}
 
-	public function login()
+	public function user()
 	{
 		$this->load->model('user');
-		$this->load->library('nsession');
+		$this->load->library('kvdb');
+		$this->load->helper('cookie');
 
-		if ($this->input->method() == 'post') {
-			$result = $this->user->login($this->input->json('username'), $this->input->json('password'));
-			if ($result) {
-				$this->nsession->set_data($result);
-				$this->output->set_status_header(200);
-				$this->output->set_output($result['name']);
-			} else {
-				$this->output->set_status_header(403);
-			}
+		switch ($this->input->method()) {
+			case 'put':
+				$result = $this->user->login($this->input->json('username'), $this->input->json('password'));
+				if ($result) {
+					$result['timestamp'] = time();
+
+					$value = json_encode($result, JSON_NUMERIC_CHECK);
+					$key = sha1($value);
+					$this->kvdb->set('session_' . $key, $value);
+
+					set_cookie('session', $key, 31536000, '', '/', '', TRUE);
+					set_cookie('name', $result['name'], 31536000);
+					$this->output->set_status_header(200);
+					$this->output->set_output(json_encode(array(
+						'name' => $result['name']
+					)));
+				} else {
+					$this->output->set_status_header(403);
+				}
+				break;
 		}
 	}
 }

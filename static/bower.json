@@ -12,6 +12,7 @@
 		"angular-route": "x",
 		"angular-resource": "x",
 		"angular-animate": "x",
+		"angular-cookies": "x",
 		"angular-ui-utils": "x",
 		"angular-bootstrap": "x",
 		"angular-ui-grid": "x",
