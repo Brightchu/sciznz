@@ -66,7 +66,7 @@ adminCtrl.controller 'dataPayment', ['$scope', ($scope)->
 ]
 
 adminCtrl.controller 'frontHierarchy', ['$scope', 'FrontHierarchy', ($scope, FrontHierarchy)->
-	$scope.title = '分组管理'
+	$scope.title = '层级管理'
 	$scope.editor = new JSONEditor(document.querySelector('#jsoneditor'))
 
 	FrontHierarchy.query().$promise.then (data)->
