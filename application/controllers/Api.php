@@ -46,6 +46,34 @@ class Api extends CI_Controller {
 					$this->output->set_status_header(403);
 				}
 				break;
+
+			case 'post':
+				$row = $this->input->json();
+				$row['name'] = $row['username'];
+				$row['email'] = $row['username'];
+				$row['credit'] = 0;
+				$row['phone'] = '';
+
+				$result = $this->user->save($row);
+				if ($result) {
+					$result = array(
+						'ID' => $this->user->db->insert_id(),
+						'name' => $row['name'],
+						'credit' => $row['credit'],
+						'timestamp' => time(),
+					);
+
+					$value = json_encode($result, JSON_NUMERIC_CHECK);
+					$key = sha1($value);
+					$this->kvdb->set('session_' . $key, $value);
+
+					set_cookie('session', $key, 31536000, '', '/', '', TRUE);
+					set_cookie('name', $result['name'], 31536000);
+					$this->output->set_status_header(200);
+				} else {
+					$this->output->set_status_header(403);
+				}
+				break;
 		}
 	}
 }

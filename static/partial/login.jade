@@ -3,9 +3,11 @@
 	p 让实验更轻松
 
 .modal-body
-	div(class="alert alert-danger" ng-if="error") 用户名密码有误
+	div(class="alert alert-danger" ng-if="error") 邮箱密码有误
+	div(class="alert alert-warning" ng-if="warning") 邮箱已被注册，登录试试？
+	div(class="alert alert-success" ng-if="success") 注册成功
 	form
-		input(type="text" ng-model="username" class="form-control" placeholder="账号" required autofocus)
+		input(type="email" ng-model="username" class="form-control" placeholder="邮箱" required autofocus)
 		input(type="password" ng-model="password" class="form-control" placeholder="密码" required)
 		button(type="submit" ng-click='signin()' style='display: none') 登录
 

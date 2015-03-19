@@ -24,7 +24,7 @@ sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', ($scope, $modal, 
 			$scope.name = name
 ]
 
-sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', ($scope, $modalInstance, User)->
+sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout', ($scope, $modalInstance, User, $timeout)->
 	$scope.signin = ->
 		form =
 			username: $scope.username
@@ -39,6 +39,25 @@ sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', ($scope, $m
 				[k, v] = cookie.split('=')
 				cookiePair[k] = v
 			$modalInstance.close(decodeURIComponent(cookiePair['name']))
+
+	$scope.signup = ->
+		form =
+			username: $scope.username
+			password: $scope.password
+
+		result = User.save(form).$promise
+		result.catch ->
+			$scope.warning = true
+		result.then ->
+			$scope.success = true
+			cookiePair = {}
+			for cookie in document.cookie.split('; ')
+				[k, v] = cookie.split('=')
+				cookiePair[k] = v
+
+			$timeout ->
+				$modalInstance.close(decodeURIComponent(cookiePair['name']))
+			, 1000
 ]
 
 sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootScope, data)->
