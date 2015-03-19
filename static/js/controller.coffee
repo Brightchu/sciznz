@@ -19,8 +19,9 @@ sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', ($scope, $modal, 
 			windowClass: 'login'
 			backdropClass: 'loginBack'
 
-		modalInstance.result.then (res)->
-			$scope.name = res.name
+		modalInstance.result.then (name)->
+			$cookies.name = name
+			$scope.name = name
 ]
 
 sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', ($scope, $modalInstance, User)->
@@ -30,12 +31,13 @@ sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', ($scope, $m
 			password: $scope.password
 
 		result = User.update(form).$promise
-		result.catch (res)->
+		result.catch ->
 			$scope.error = true
-		result.then (res)->
-			$modalInstance.close(res)
+		result.then ->
+			cookiePair = document.cookie.split('=')
+			name = cookiePair[cookiePair.indexOf('name') + 1]
+			$modalInstance.close(decodeURIComponent(name))
 ]
-
 
 sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootScope, data)->
 	$scope.groupList = data.hierarchy

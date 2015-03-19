@@ -42,9 +42,6 @@ class Api extends CI_Controller {
 					set_cookie('session', $key, 31536000, '', '/', '', TRUE);
 					set_cookie('name', $result['name'], 31536000);
 					$this->output->set_status_header(200);
-					$this->output->set_output(json_encode(array(
-						'name' => $result['name']
-					)));
 				} else {
 					$this->output->set_status_header(403);
 				}
