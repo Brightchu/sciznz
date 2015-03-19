@@ -37,7 +37,7 @@ sciService.factory 'data', ['$http', ($http)->
 
 	promise.error (body, status)->
 		if status != 304
-			console.warn('XMLHttpRequest Error!')
+			console.warn('synchronize data failed')
 
 	return data
 ]
