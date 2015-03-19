@@ -34,9 +34,11 @@ sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', ($scope, $m
 		result.catch ->
 			$scope.error = true
 		result.then ->
-			cookiePair = document.cookie.split('=')
-			name = cookiePair[cookiePair.indexOf('name') + 1]
-			$modalInstance.close(decodeURIComponent(name))
+			cookiePair = {}
+			for cookie in document.cookie.split('; ')
+				[k, v] = cookie.split('=')
+				cookiePair[k] = v
+			$modalInstance.close(decodeURIComponent(cookiePair['name']))
 ]
 
 sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootScope, data)->
