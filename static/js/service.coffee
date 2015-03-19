@@ -35,6 +35,10 @@ sciService.factory 'data', ['$http', ($http)->
 		localStorage.setItem('data', JSON.stringify(body))
 		localStorage.setItem('Last-Modified', headers('Last-Modified'))
 
+	promise.error (body, status)->
+		if status != 304
+			console.warn('XMLHttpRequest Error!')
+
 	return data
 ]
 
