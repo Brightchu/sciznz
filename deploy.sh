@@ -11,6 +11,7 @@ lessc -x static/css/style.less static/css/style.css
 lessc -x static/css/login.less static/css/login.css
 lessc -x static/css/admin.less static/css/admin.css
 jade application/views/*.jade
+jade application/views/mail/*.jade&
 jade static/partial/*.jade
 jade static/partial/admin/*.jade
 

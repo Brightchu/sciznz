@@ -21,7 +21,7 @@ class Supervisormail extends CI_Model {
 		$row['datetime'] = date(DATE_RSS);
 		$this->email->to($row['email']);
 		$this->email->subject('SciCompass notification');
-		$this->email->message($this->parser->parse('adminRegisterMail.html', $row, TRUE));
+		$this->email->message($this->parser->parse('mail/adminRegister.html', $row, TRUE));
 		return $this->email->send();
 	}
 }

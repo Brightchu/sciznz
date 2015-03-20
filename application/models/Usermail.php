@@ -21,7 +21,7 @@ class Usermail extends CI_Model {
 		$row['datetime'] = date(DATE_RSS);
 		$this->email->to($row['email']);
 		$this->email->subject('Verify Your email address in SciCompass');
-		$this->email->message($this->parser->parse('userRegisterMail.html', $row, TRUE));
+		$this->email->message($this->parser->parse('mail/userRegister.html', $row, TRUE));
 		return $this->email->send();
 	}
 }

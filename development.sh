@@ -3,6 +3,7 @@ coffee --join static/js/admin.js --watch --compile static/js/admin/app.coffee st
 coffee --join static/js/script.js --watch --compile static/js/app.coffee static/js/controller.coffee static/js/service.coffee static/js/filter.coffee&
 
 jade -w -P application/views/*.jade&
+jade -w -P application/views/mail/*.jade&
 jade -w -P static/partial/*.jade&
 jade -w -P static/partial/admin/*.jade&
 
