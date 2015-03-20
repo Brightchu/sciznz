@@ -45,3 +45,7 @@ sciService.factory 'data', ['$http', ($http)->
 sciService.factory('User', ['$resource', ($resource)->
 	$resource('/api/user')
 ])
+
+sciService.factory('Order', ['$resource', ($resource)->
+	$resource('/api/order')
+])

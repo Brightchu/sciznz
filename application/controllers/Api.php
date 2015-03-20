@@ -39,7 +39,7 @@ class Api extends CI_Controller {
 					$key = sha1($value);
 					$this->kvdb->set('session_' . $key, $value);
 
-					set_cookie('session', $key, 31536000, '', '/', '', TRUE);
+					set_cookie('session', $key, 31536000);
 					set_cookie('name', $result['name'], 31536000);
 					$this->output->set_status_header(200);
 				} else {
@@ -67,12 +67,28 @@ class Api extends CI_Controller {
 					$key = sha1($value);
 					$this->kvdb->set('session_' . $key, $value);
 
-					set_cookie('session', $key, 31536000, '', '/', '', TRUE);
+					set_cookie('session', $key, 31536000);
 					set_cookie('name', $result['name'], 31536000);
 					$this->output->set_status_header(200);
 				} else {
 					$this->output->set_status_header(403);
 				}
+				break;
+		}
+	}
+
+	public function order()
+	{
+		$this->load->model('order');
+		$this->load->library('kvdb');
+
+		switch ($this->input->method()) {
+			case 'post':
+				$session = json_decode($this->kvdb->get('session_' . $this->input->cookie('session')), TRUE);
+				$req = $this->input->json();
+				$req['userID'] = $session['ID'];
+				$result = $this->order->book($req);
+				$this->output->set_status_header($result ? 200 : 403);
 				break;
 		}
 	}

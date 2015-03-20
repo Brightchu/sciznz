@@ -91,7 +91,7 @@ sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootSc
 	$scope.moreCateogory = []
 ]
 
-sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', ($scope, $routeParams, data)->
+sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Order', ($scope, $routeParams, data, Order)->
 	thisDeviceID = $routeParams.deviceID
 	thisDevice = null
 	for device in data.device
@@ -109,5 +109,10 @@ sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', ($scope, $ro
 	$scope.maxDate = maxDate
 	$scope.date = minDate
 	$scope.book = ->
-		console.log($scope.date.toUTCString())
+		d = $scope.date
+		post =
+			deviceID: thisDeviceID
+			useDate: "#{d.getFullYear()}-#{d.getMonth()+1}-#{d.getDate()}"
+		Order.save(post).$promise.then ->
+			alert('预约成功')
 ]
