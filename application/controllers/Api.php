@@ -83,6 +83,12 @@ class Api extends CI_Controller {
 		$this->load->library('kvdb');
 
 		switch ($this->input->method()) {
+			case 'get':
+				$deviceID = $this->input->get('deviceID');
+				$useDate = $this->input->get('useDate');
+				$this->output->set_json($this->order->count($deviceID, $useDate));
+				break;
+
 			case 'post':
 				$session = json_decode($this->kvdb->get('session_' . $this->input->cookie('session')), TRUE);
 				$req = $this->input->json();

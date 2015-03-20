@@ -36,6 +36,13 @@ class Order extends CI_Model {
 		return $this->db->query($sql, $ID);
 	}
 
+	public function count($deviceID, $useDate)
+	{
+		$sql = 'SELECT COUNT(*) AS `count` FROM `order` WHERE `deviceID` = ? AND `useDate` = ?';
+		$data = array($deviceID, $useDate);
+		return $this->db->query($sql, $data)->row_array();;
+	}
+
 	public function book($row)
 	{
 		$sql = 'SELECT `device`.`city`, `institute`.`name` AS `institute`, `device`.`address`, `category`.`name` AS `category`, `model`.`vendor`, `model`.`name` AS `model`, `device`.`price`, `device`.`unit` FROM `device` JOIN `institute` ON `device`.`ID` = ? AND `device`.`instituteID` = `institute`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID`';

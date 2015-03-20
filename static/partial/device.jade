@@ -25,10 +25,10 @@ div#device
 		div#stock
 			p.date
 				span.tip 预约日期:
-				span.content {{date | date:'yyyy/MM/dd' }}
+				span.content {{date | date:'yyyy-MM-dd' }}
 			p.left
 				span.tip 余量:
-				span.content 10 位
+				span.content {{10 - stat.count}} 位
 			p.price
 				span.tip 价格:
 				span.content {{device.price}}元 / {{device.unit}}
