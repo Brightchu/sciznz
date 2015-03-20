@@ -92,7 +92,7 @@ sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootSc
 ]
 
 sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Order', '$filter', ($scope, $routeParams, data, Order, $filter)->
-	thisDeviceID = $routeParams.deviceID
+	thisDeviceID = parseInt($routeParams.deviceID)
 	thisDevice = null
 	for device in data.device
 		if device.ID == thisDeviceID
