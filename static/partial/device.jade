@@ -1,0 +1,20 @@
+div#device
+	img.shot(src="/static/img/device.jpg")
+	div.info
+		p.row
+			span.category {{device.category}}
+			span.glyphicon.glyphicon-flag
+			span.address {{device.address}}
+			span.glyphicon.glyphicon-earphone
+			span.institute {{device.institute}}
+		div.split
+		p.row
+			span.glyphicon.glyphicon-tag
+			span.model {{device.vendor}} - {{device.model}}
+		p.row
+			label.btn.btn-info.btn-xs(ng-repeat="(key, value) in device.field") {{key}} {{value}}
+		div {{device.info}}
+	div.action
+		div.group
+			label.btn.btn-default.btn-block.price {{device.price}}元 / {{device.unit}}
+			label.btn.btn-success.btn-block.booking 立即预约

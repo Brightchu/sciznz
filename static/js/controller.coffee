@@ -87,3 +87,13 @@ sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootSc
 	$scope.moreSubGroup = []
 	$scope.moreCateogory = []
 ]
+
+sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', ($scope, $routeParams, data)->
+	thisDeviceID = $routeParams.deviceID
+	thisDevice = null
+	for device in data.device
+		if device.ID == thisDeviceID
+			thisDevice = device
+			break
+	$scope.device = thisDevice
+]

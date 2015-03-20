@@ -12,6 +12,9 @@ sciApp.config(['$routeProvider', ($routeProvider)->
 	).when('/list'
 		templateUrl: '/static/partial/list.html'
 		controller: 'listCtrl'
+	).when('/device/:deviceID'
+		templateUrl: '/static/partial/device.html',
+		controller: 'deviceCtrl'
 	).otherwise(
 		redirectTo: '/'
 	)

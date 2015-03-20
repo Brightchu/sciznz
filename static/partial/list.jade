@@ -70,4 +70,5 @@ div#list
 			div.action
 				div.group
 					label.btn.btn-default.btn-block.price {{device.price}}元 / {{device.unit}}
-					label.btn.btn-success.btn-block.booking 立即预约
+					a(href="#/device/{{device.ID}}")
+						label.btn.btn-success.btn-block.booking 立即预约
