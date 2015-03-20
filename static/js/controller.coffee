@@ -64,7 +64,10 @@ sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootSc
 	$scope.groupList = data.hierarchy
 
 	$scope.onEntry = ->
-		$rootScope.groupSelected = $(this).text()
+		if this.group?
+			$rootScope.groupSelected = this.group.name
+		else
+			$rootScope.groupSelected = '全部类别'
 		location.hash = '#list'
 ]
 
@@ -78,7 +81,7 @@ sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootSc
 	$rootScope.field = {}
 
 	$scope.filterModel =
-		group: $rootScope.groupSelected || '全部类别'
+		group: $rootScope.groupSelected
 		subgroup: '全部子类'
 		address: '全部地点'
 		category: '全部款式'
@@ -96,4 +99,15 @@ sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', ($scope, $ro
 			thisDevice = device
 			break
 	$scope.device = thisDevice
+
+	minDate = new Date()
+	minDate.setDate(minDate.getDate() + 1)
+	maxDate = new Date()
+	maxDate.setDate(maxDate.getDate() + 30)
+
+	$scope.minDate = minDate
+	$scope.maxDate = maxDate
+	$scope.date = minDate
+	$scope.book = ->
+		console.log($scope.date.toUTCString())
 ]

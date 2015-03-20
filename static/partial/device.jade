@@ -14,7 +14,22 @@ div#device
 		p.row
 			label.btn.btn-info.btn-xs(ng-repeat="(key, value) in device.field") {{key}} {{value}}
 		div {{device.info}}
-	div.action
-		div.group
-			label.btn.btn-default.btn-block.price {{device.price}}元 / {{device.unit}}
-			label.btn.btn-success.btn-block.booking 立即预约
+
+	div#booking
+		p.title
+			span.glyphicon.glyphicon-check
+			| 在线预约
+		div.split
+		div#datepicker
+			datepicker.well.well-sm(ng-model='date' min-date='minDate' max-date='maxDate')
+		div#stock
+			p.date
+				span.tip 预约日期:
+				span.content {{date | date:'yyyy/MM/dd' }}
+			p.left
+				span.tip 余量:
+				span.content 10 位
+			p.price
+				span.tip 价格:
+				span.content {{device.price}}元 / {{device.unit}}
+			label.btn.btn-success.btn-block.booking(ng-click="book()") 立即预约
