@@ -14,23 +14,22 @@ class Ucenter extends CI_Controller {
 		$this->load->model('user');
 
 		$session = json_decode($this->kvdb->get('session_' . $this->input->cookie('session')), TRUE);
-		$userID = $session['ID'];
 
 		switch ($this->input->method()) {
 			case 'get':
-				$this->output->set_json($this->user->getInfo($userID));
+				$this->output->set_json($this->user->getInfo($session['ID']));
 				break;
 
 			case 'put':
 				$req = $this->input->json();
-				$req['ID'] = $userID;
+				$req['ID'] = $session['ID'];
 				$result = $this->user->setInfo($req);
 				$this->output->set_status_header($result ? 200 : 403);
 				break;
 
 			case 'post':
 				$req = $this->input->json();
-				$req['ID'] = $userID;
+				$req['ID'] = $session['ID'];
 				$result = $this->user->updatePassword($req);
 				$this->output->set_status_header($result ? 200 : 403);
 				break;

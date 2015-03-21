@@ -20,6 +20,25 @@ ucenterCtrl.controller 'accordionCtrl', ['$scope', '$location', ($scope, $locati
 
 ucenterCtrl.controller 'personalInfoCtrl', ['$scope', 'Info', ($scope, Info)->
 	$scope.info = Info.get()
+	$scope.password = {}
+
+	$scope.updateInfo = ->
+		Info.update($scope.info).$promise.then ->
+			alert('更新信息成功')
+		, ->
+			alert('更新信息失败')
+
+	$scope.updatePassword = ->
+		if $scope.password.newPassword?
+			if $scope.password.newPassword == $scope.password.newPasswordAgain
+				Info.save($scope.password).$promise.then ->
+					alert('修改密码成功')
+				, ->
+					alert('修改密码失败')
+			else
+				alert('两次输入的新密码不一致')
+		else
+			alert('请输入密码')
 ]
 
 ucenterCtrl.controller 'bookingInfoCtrl', ['$scope', ($scope)->

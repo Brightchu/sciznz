@@ -96,7 +96,7 @@ class User extends CI_Model {
 
 	public function setInfo($row)
 	{
-		$sql = 'UPDATE `user` SET `name`=?, `username`=?, `phone`=?, `email`=?, WHERE `ID` = ?';
+		$sql = 'UPDATE `user` SET `name`=?, `username`=?, `phone`=?, `email`=? WHERE `ID` = ?';
 		$data = array($row['name'], $row['username'], $row['phone'], $row['email'], $row['ID']);
 		return $this->db->query($sql, $data);
 	}
@@ -104,7 +104,7 @@ class User extends CI_Model {
 	public function updatePassword($row)
 	{
 		$sql = 'SELECT `password` FROM `user` WHERE `ID` = ?';
-		$query = $this->db->query($sql, $ID);
+		$query = $this->db->query($sql, $row['ID']);
 		$info = $query->row_array();
 
 		if ($info) {

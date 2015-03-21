@@ -7,7 +7,7 @@ sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', ($scope, $modal, 
 
 	$scope.open = ->
 		if $cookies.name?
-			alert('Logined')
+			location.href = '/ucenter'
 		else
 			login()
 
