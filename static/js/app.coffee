@@ -19,3 +19,7 @@ sciApp.config(['$routeProvider', ($routeProvider)->
 		redirectTo: '/'
 	)
 ])
+
+sciApp.config(['$compileProvider', ($compileProvider)->
+	$compileProvider.debugInfoEnabled(false)
+])

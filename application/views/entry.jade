@@ -15,7 +15,7 @@ html
 		link(rel="stylesheet" href="/static/css/style.css")
 		link(rel="icon" type="image/png" sizes="256x256" href="/static/img/logo.png")
 
-	body.font-hei(ng-app="sciApp")
+	body.font-hei(ng-app="sciApp" ng-strict-di)
 		nav(ng-controller="navCtrl")
 			a(href="#/")
 				img#logo(src="/static/img/logo-landscape.png")

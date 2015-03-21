@@ -25,12 +25,13 @@ sciService.factory 'data', ['$http', ($http)->
 		responseType: 'json'
 
 	promise.success (body, status, headers)->
-		for key, value of body
-			if angular.isArray(value)
-				[].push.apply(data[key], value)
-			else
-				for k, v of value
-					data[key][k] = v
+		if not data.hierarchy.length
+			for key, value of body
+				if angular.isArray(value)
+					[].push.apply(data[key], value)
+				else
+					for k, v of value
+						data[key][k] = v
 
 		localStorage.setItem('data', JSON.stringify(body))
 		localStorage.setItem('Last-Modified', headers('Last-Modified'))
