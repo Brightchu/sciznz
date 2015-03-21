@@ -18,8 +18,34 @@ providerCtrl.controller 'accordionCtrl', ['$scope', '$location', ($scope, $locat
 		$($(link.parent().parent().parent().parent().children()[0]).children()[0]).children().click()
 ]
 
-providerCtrl.controller 'messageNewCtrl', ['$scope', ($scope)->
+providerCtrl.controller 'messageNewCtrl', ['$scope', 'Order', ($scope, Order)->
+	$scope.orderList = Order.query()
 
+	$scope.upgrade = ->
+		self = this
+
+		payload =
+			status: self.order.status + 1
+			ID: self.order.ID
+		
+		Order.update(payload).$promise.then ->
+			alert('操作成功')
+			self.order.status += 1
+		, ->
+			alert('操作失败')
+
+	$scope.cancel = ->
+		self = this
+
+		payload =
+			status: 0
+			ID: self.order.ID
+		
+		Order.update(payload).$promise.then ->
+			alert('操作成功')
+			self.order.status = 0
+		, ->
+			alert('操作失败')
 ]
 
 providerCtrl.controller 'deviceTimetableCtrl', ['$scope', ($scope)->

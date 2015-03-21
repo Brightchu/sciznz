@@ -66,4 +66,17 @@ class Order extends CI_Model {
 		$sql = 'SELECT `order`.`ID`, `order`.`deviceID`, `institute`.`name` AS `institute`, `device`.`address`, `category`.`name` AS `category`, `model`.`vendor`, `model`.`name` AS `model`, `order`.`date`, `order`.`useDate`, `order`.`payMethod`, `order`.`transactionID`, `order`.`price`, `order`.`status` FROM `order` JOIN `device` ON `order`.`userID` = ? AND `order`.`deviceID` = `device`.`ID` JOIN `institute` ON `device`.`instituteID` = `institute`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID`';
 		return $this->db->query($sql, $ID)->result_array();
 	}
+
+	public function getUnread($ID)
+	{
+		$sql = 'SELECT `order`.`ID`, `order`.`deviceID`, `device`.`address`, `category`.`name` AS `category`, `model`.`vendor`, `model`.`name` AS `model`, `order`.`date`, `order`.`useDate`, `order`.`payMethod`, `order`.`transactionID`, `order`.`price`, `order`.`status` FROM `order` JOIN `device` ON `device`.`instituteID` = ? AND `order`.`deviceID` = `device`.`ID` JOIN `institute` ON `device`.`instituteID` = `institute`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID`';
+		return $this->db->query($sql, $ID)->result_array();
+	}
+
+	public function setStatus($row)
+	{
+		$sql = 'UPDATE `order` SET `status` = ? WHERE `ID` = ?';
+		$data = array($row['status'], $row['ID']);
+		return $this->db->query($sql, $data);
+	}
 }

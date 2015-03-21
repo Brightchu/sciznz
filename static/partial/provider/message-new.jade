@@ -10,7 +10,9 @@ div.content
 			tr
 				th 订单号
 				th 仪器名称
-				th 提供方
+				th 仪器地址
+				th 仪器厂商
+				th 仪器型号
 				th 下单时间
 				th 预约使用时间
 				th 价格
@@ -22,10 +24,14 @@ div.content
 				td {{order.ID}}
 				td
 					a(href="/#/device/{{order.deviceID}}") {{order.category}}
-				td {{order.institute}}
+				td {{order.address}}
+				td {{order.vendor}}
+				td {{order.model}}
 				td {{order.date}}
 				td {{order.useDate}}
 				td {{order.price}}
 				td {{order.status | statusFilter}}
 				td
-					button(type="button" class="{{order.status | classFilter}}" ng-click="order.status | buttonClickFilter") {{order.status | buttonTextFilter}}
+					div(class="btn-group")
+						button(type="button" class="{{order.status | classFilter}}" ng-click="upgrade()") {{order.status | buttonTextFilter}}
+						button(type="button" ng-if="order.status !== 0" class="btn btn-warning" ng-click="cancel()") 取消

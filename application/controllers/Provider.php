@@ -48,4 +48,21 @@ class Provider extends CI_Controller {
 		$this->parser->parse('providerLogin.html', array('error' => $error, 'src' => $cap['image']));
 	}
 
+	public function order()
+	{
+		$this->load->library('kvdb');
+		$this->load->model('order');
+
+		$ID = $this->nsession->get('ID');
+
+		switch ($this->input->method()) {
+			case 'get':
+				$this->output->set_json($this->order->getUnread($ID));
+				break;
+
+			case 'put':
+				$result = $this->order->setStatus($this->input->json());
+				$this->output->set_status_header($result ? 200 : 403);
+		}
+	}
 }
