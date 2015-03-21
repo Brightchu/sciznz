@@ -10,7 +10,7 @@ class Admin extends CI_Controller {
 		$this->load->helper('url');
 
 		if (uri_string() !== 'admin/login') {
-			if (!$this->nsession->exists('name')) {
+			if (!$this->nsession->exists('privilege')) {
 				redirect('/admin/login/');
 			}
 		}

@@ -75,6 +75,8 @@ adminCtrl.controller 'frontHierarchy', ['$scope', 'FrontHierarchy', ($scope, Fro
 	$scope.save = ->
 		FrontHierarchy.update($scope.editor.get()).$promise.then ->
 			alert('保存成功')
+		, ->
+			alert('保存失败')
 
 ]
 
@@ -122,6 +124,8 @@ adminCtrl.controller 'frontCache', ['$scope', 'FrontCache', ($scope, FrontCache)
 	$scope.update = ->
 		FrontCache.update().$promise.then ->
 			alert('重建缓存成功')
+		, ->
+			alert('重建缓存失败')
 ]
 
 adminCtrl.controller 'cacheAdmin', ['$scope', 'CacheAdmin', ($scope, CacheAdmin)->

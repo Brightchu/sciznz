@@ -10,12 +10,35 @@ class Institute extends CI_Model {
 	}
 
 	/**
+	 * Check privilege of a login attempt
+	 * @param	string	$username
+	 * @param	string	$password
+	 * @return  array   $name, $orgID
+	 * @return	bool    FALSE, if falied
+	 */
+	public function login($username, $password)
+	{
+		$sql = 'SELECT `ID`, `name`, `password` FROM `institute` WHERE `username` = ?';
+		$query = $this->db->query($sql, $username);
+		$row = $query->row_array();
+
+		if ($row) {
+			if (password_verify($password, $row['password'])) {
+				unset($row['password']);
+				return $row;
+			}
+		}
+
+		return FALSE;
+	}
+
+	/**
 	 * Retrive all institute
 	 * @return  array
 	 */
 	public function query()
 	{
-		$sql = 'SELECT `ID`, `chief`, `name`, `info` FROM `institute`';
+		$sql = 'SELECT `ID`, `orgID`, `name`, `username`, `phone`, `email`, `credit` FROM `institute`';
 		return $this->db->query($sql)->result_array();
 	}
 
@@ -26,9 +49,15 @@ class Institute extends CI_Model {
 	 */
 	public function update($row)
 	{
-		$sql = 'UPDATE `institute` SET `chief`=?, `name`=?, `info`=? WHERE `ID` = ?';
-		$data = array($row['chief'], $row['name'], $row['info'], $row['ID']);
-		return $this->db->query($sql, $data);
+		if (isset($row['password'])) {
+			$sql = 'UPDATE `institute` SET `orgID`=?, `name`=?, `username`=?, `password`=?, `phone`=?, `email`=?, `credit`=? WHERE `ID` = ?';
+			$data = array($row['orgID'], $row['name'], $row['username'], password_hash($row['password'], PASSWORD_BCRYPT), $row['phone'], $row['email'], $row['credit'], $row['ID']);
+			return $this->db->query($sql, $data);
+		} else {
+			$sql = 'UPDATE `institute` SET `orgID`=?, `name`=?, `username`=?, `phone`=?, `email`=?, `credit`=? WHERE `ID` = ?';
+			$data = array($row['orgID'], $row['name'], $row['username'], $row['phone'], $row['email'], $row['credit'], $row['ID']);
+			return $this->db->query($sql, $data);
+		}
 	}
 
 	/**
@@ -38,8 +67,8 @@ class Institute extends CI_Model {
 	 */
 	public function save($row)
 	{
-		$sql = 'INSERT INTO `institute`(`chief`, `name`, `info`) VALUES (?, ?, ?)';
-		$data = array($row['chief'], $row['name'], $row['info']);
+		$sql = 'INSERT INTO `institute`(`orgID`, `name`, `username`, `password`, `phone`, `email`, `credit`) VALUES (?, ?, ?, ?, ?, ?, ?)';
+		$data = array($row['orgID'], $row['name'], $row['username'], password_hash($row['password'], PASSWORD_BCRYPT), $row['phone'], $row['email'], $row['credit']);
 		return $this->db->query($sql, $data);
 	}
 
