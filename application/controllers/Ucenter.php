@@ -47,6 +47,9 @@ class Ucenter extends CI_Controller {
 			case 'get':
 				$this->output->set_json($this->order->checkout($session['ID']));
 				break;
+			case 'put':
+				$result = $this->order->setStatus($this->input->json());
+				$this->output->set_status_header($result ? 200 : 403);
 		}
 	}
 }

@@ -34,4 +34,4 @@ div.content
 				td
 					div(class="btn-group")
 						button(type="button" class="{{order.status | classFilter}}" ng-click="upgrade()") {{order.status | buttonTextFilter}}
-						button(type="button" ng-if="order.status !== 0" class="btn btn-warning" ng-click="cancel()") 取消
+						button(type="button" ng-if="order.status !== 0 && order.status !== 6" class="btn btn-warning" ng-click="cancel()") 取消

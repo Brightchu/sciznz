@@ -44,7 +44,30 @@ ucenterCtrl.controller 'personalInfoCtrl', ['$scope', 'Info', ($scope, Info)->
 ucenterCtrl.controller 'bookingInfoCtrl', ['$scope', 'Order', ($scope, Order)->
 	$scope.orderList = Order.query()
 
-	$scope.update = ->
-		console.log('UPDATE')
+	$scope.upgrade = ->
+		self = this
+
+		payload =
+			status: self.order.status + 1
+			ID: self.order.ID
+		
+		Order.update(payload).$promise.then ->
+			alert('操作成功')
+			self.order.status += 1
+		, ->
+			alert('操作失败')
+
+	$scope.cancel = ->
+		self = this
+
+		payload =
+			status: 0
+			ID: self.order.ID
+		
+		Order.update(payload).$promise.then ->
+			alert('操作成功')
+			self.order.status = 0
+		, ->
+			alert('操作失败')
 ]
 

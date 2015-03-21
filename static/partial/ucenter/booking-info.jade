@@ -28,4 +28,6 @@ div.content
 				td {{order.price}}
 				td {{order.status | statusFilter}}
 				td
-					button(type="button" class="{{order.status | classFilter}}" ng-click="order.status | buttonClickFilter") {{order.status | buttonTextFilter}}
+					div(class="btn-group")
+						button(type="button" class="{{order.status | classFilter}}" ng-click="upgrade()") {{order.status | buttonTextFilter}}
+						button(type="button" ng-if="order.status !== 0 && order.status !== 6" class="btn btn-warning" ng-click="cancel()") 取消
