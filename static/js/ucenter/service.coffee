@@ -10,3 +10,6 @@ ucenterService.factory('Info', ['$resource', ($resource)->
 	$resource('/ucenter/info')
 ])
 
+ucenterService.factory('Order', ['$resource', ($resource)->
+	$resource('/ucenter/order')
+])

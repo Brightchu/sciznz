@@ -35,4 +35,18 @@ class Ucenter extends CI_Controller {
 				break;
 		}
 	}
+
+	public function order()
+	{
+		$this->load->library('kvdb');
+		$this->load->model('order');
+
+		$session = json_decode($this->kvdb->get('session_' . $this->input->cookie('session')), TRUE);
+
+		switch ($this->input->method()) {
+			case 'get':
+				$this->output->set_json($this->order->checkout($session['ID']));
+				break;
+		}
+	}
 }

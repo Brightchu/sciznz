@@ -41,7 +41,7 @@ ucenterCtrl.controller 'personalInfoCtrl', ['$scope', 'Info', ($scope, Info)->
 			alert('请输入密码')
 ]
 
-ucenterCtrl.controller 'bookingInfoCtrl', ['$scope', ($scope)->
-	$scope.title = '预约信息'
+ucenterCtrl.controller 'bookingInfoCtrl', ['$scope', 'Order', ($scope, Order)->
+	$scope.orderList = Order.query()
 ]
 

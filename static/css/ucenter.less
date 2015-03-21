@@ -1,5 +1,9 @@
 @charset "utf-8";
 
+body {
+	background-color: #F1F1F1;
+}
+
 div#sidebar{
 	position: fixed;
 	width: 15%;
@@ -79,20 +83,60 @@ div#main{
 	.animation(0.5s fadeOut);
 }
 
-.input-group {
+div.content {
 	width: 100%;
 	height: 100%;
-	background-color: #F1F1F1;
 	padding-left: 2.5vw;
-	#title {
+	p#title {
 		padding-top: 4rem;
 		font-size: 4rem;
-	}
+	}	
+}
+
+
+.input-group {
+	width: 100%;
 	.btn-group {
 		margin: 2rem 0 0;
 	}
 	.tab-content {
 		margin-top: 2rem;
 		margin-left: 2rem;
+	}
+}
+
+table.orderList {
+	width: 95%;
+	color: #333;
+	border-collapse: collapse;
+	box-shadow: 0 0 0.8rem rgba(255, 255, 255, 0.6);
+	tr {
+		transition: all 0.2s;
+	}
+	tr:nth-child(odd) {
+		background-color: #FFFFFF;
+	}
+	tr:nth-child(even) {
+		background-color: #E8EDFF;
+	}
+	tr:hover {
+		background-color: #D0DAFD;
+	}
+	thead {
+		th {
+			border: 1px solid #CCC;
+			background-color: #EEE;
+			padding: 1rem;
+			cursor: pointer;
+			width: 8rem;
+		}
+	}
+	tbody {
+		td {
+			border: 0;
+			padding: 1rem;
+			max-width: 8rem;
+			overflow: auto;
+		}
 	}
 }
