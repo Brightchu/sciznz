@@ -43,5 +43,8 @@ ucenterCtrl.controller 'personalInfoCtrl', ['$scope', 'Info', ($scope, Info)->
 
 ucenterCtrl.controller 'bookingInfoCtrl', ['$scope', 'Order', ($scope, Order)->
 	$scope.orderList = Order.query()
+
+	$scope.update = ->
+		console.log('UPDATE')
 ]
 

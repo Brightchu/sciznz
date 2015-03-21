@@ -9,7 +9,7 @@ window.$.prototype.click = ->
 		element.dispatchEvent(clickEvent)
 
 # glue modules
-ucenterApp = angular.module('ucenterApp', ['ngRoute', 'ngAnimate', 'ucenterCtrl', 'ucenterService'])
+ucenterApp = angular.module('ucenterApp', ['ngRoute', 'ngAnimate', 'ucenterCtrl', 'ucenterService', 'ucenterFilter'])
 ucenterApp.config(['$routeProvider', ($routeProvider)->
 	$routeProvider.when('/personal-info'
 		templateUrl: '/static/partial/ucenter/personal-info.html'

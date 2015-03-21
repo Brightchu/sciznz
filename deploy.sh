@@ -7,7 +7,7 @@ cd /tmp/scicompass/
 # compile
 coffee --join static/js/admin.js --compile static/js/admin/app.coffee static/js/admin/controller.coffee static/js/admin/service.coffee
 coffee --join static/js/script.js --compile static/js/app.coffee static/js/controller.coffee static/js/service.coffee static/js/filter.coffee
-coffee --join static/js/ucenter.js --compile static/js/ucenter/app.coffee static/js/ucenter/controller.coffee static/js/ucenter/service.coffee
+coffee --join static/js/ucenter.js --compile static/js/ucenter/app.coffee static/js/ucenter/controller.coffee static/js/ucenter/service.coffee static/js/ucenter/filter.coffee
 
 lessc -x static/css/style.less static/css/style.css
 lessc -x static/css/login.less static/css/login.css
