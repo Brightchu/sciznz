@@ -1,0 +1,33 @@
+doctype html
+html
+	head
+		meta(charset="utf-8")
+		meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+		meta(name="description" content="用户中心 - 科学指南针")
+		meta(name="renderer" content="webkit")
+		meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=no")
+		title 用户中心 - 科学指南针
+		link(rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css")
+		link(rel="stylesheet" href="/static/bower_components/animate.css/animate.min.css")
+		link(rel="stylesheet" href="/static/bower_components/fonts.css/fonts.css")
+		link(rel="stylesheet" href="/static/css/ucenter.css")
+		link(rel="icon" type="image/png" sizes="256x256" href="/static/img/logo.png")
+
+	body.font-hei(ng-app="ucenterApp")
+		div#sidebar(ng-controller="accordionCtrl")
+			accordion
+				accordion-group(heading="个人信息")
+					p
+						a(href="#/personal-info") 个人信息
+				accordion-group(heading="预约信息")
+					p
+						a(href="#/booking-info") 预约信息
+
+		div#main(class="view-frame" ng-view)
+
+		script(src="/static/bower_components/angular/angular.min.js")
+		script(src="/static/bower_components/angular-route/angular-route.min.js")
+		script(src="/static/bower_components/angular-resource/angular-resource.min.js")
+		script(src="/static/bower_components/angular-animate/angular-animate.min.js")
+		script(src="/static/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js")
+		script(src="/static/js/ucenter.js")

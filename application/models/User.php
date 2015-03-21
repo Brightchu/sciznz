@@ -88,4 +88,33 @@ class User extends CI_Model {
 		return $this->db->query($sql, $ID);
 	}
 
+	public function getInfo($ID)
+	{
+		$sql = 'SELECT `name`, `username`, `phone`, `email`, `credit` FROM `user` WHERE `ID` = ?';
+		return $this->db->query($sql, $ID)->row_array();
+	}
+
+	public function setInfo($row)
+	{
+		$sql = 'UPDATE `user` SET `name`=?, `username`=?, `phone`=?, `email`=?, WHERE `ID` = ?';
+		$data = array($row['name'], $row['username'], $row['phone'], $row['email'], $row['ID']);
+		return $this->db->query($sql, $data);
+	}
+
+	public function updatePassword($row)
+	{
+		$sql = 'SELECT `password` FROM `user` WHERE `ID` = ?';
+		$query = $this->db->query($sql, $ID);
+		$info = $query->row_array();
+
+		if ($info) {
+			if (password_verify($row['oldPassword'], $info['password'])) {
+				$sql = 'UPDATE `user` SET `password`=? WHERE `ID` = ?';
+				$data = array(password_hash($row['newPassword'], PASSWORD_BCRYPT), $row['ID']);
+				return $this->db->query($sql, $data);
+			}
+		}
+
+		return FALSE;
+	}
 }
