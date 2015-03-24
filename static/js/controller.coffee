@@ -124,7 +124,7 @@ sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Order', '$f
 
 	updateRemain(minDate)
 
-	$scope.watch 'date', (name, oldValue, newValue)->
+	$scope.$watch 'date', (name, oldValue, newValue)->
 		updateRemain(newValue)
 		return newValue
 ]
