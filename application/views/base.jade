@@ -12,6 +12,7 @@ html
 		link(rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css")
 		link(rel="stylesheet" href="/static/bower_components/animate.css/animate.min.css")
 		link(rel="stylesheet" href="/static/bower_components/fonts.css/fonts.css")
+		link(rel="stylesheet" href="/static/bower_components/cube.less/css/cube.css")
 		link(rel="stylesheet" href="/static/css/style.css")
 		link(rel="icon" type="image/png" sizes="256x256" href="/static/img/logo.png")
 
@@ -23,7 +24,7 @@ html
 				li(ng-click="open()") {{name}}
 
 		div#bg
-		div#view(class="view-frame" ng-view)
+		div(class="view-frame" ng-view)
 
 		script(src="/static/bower_components/angular/angular.min.js")
 		script(src="/static/bower_components/angular-route/angular-route.min.js")

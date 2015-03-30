@@ -69,6 +69,14 @@ sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootSc
 		else
 			$rootScope.groupSelected = '全部类别'
 		location.hash = '#list'
+
+	$(document).ready ->
+		cubes = document.querySelectorAll(".cube-perspective .cube")
+		Array.prototype.forEach.call cubes, (el, i)->
+			console.log(el.className)
+			setTimeout ->
+				el.className += " hover"
+			, 2111 + i * 400
 ]
 
 sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootScope, data)->
