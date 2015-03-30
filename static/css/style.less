@@ -1,8 +1,7 @@
 @charset "utf-8";
 
 @bg-green: #EDFFF8;
-@nav-green: #20AF74;
-@border-green: #20AF74;
+@green: #20AF74;
 @text: #333;
 @white: #FFF;
 @lightwhite: rgba(255, 255, 255, 0.7);
@@ -44,8 +43,8 @@ nav {
 	top: 0;
 	height: 6rem;
 	width: 100%;
-	box-shadow: 0 0 0.3rem @border-green;
-	color: @nav-green;
+	box-shadow: 0 0 0.3rem @green;
+	color: @green;
 	img#logo {
 		margin: 0 0 0.5rem 5%;
 		height: 5rem;
@@ -54,14 +53,19 @@ nav {
 		font-size: 2rem;
 		line-height: 6rem;
 		li {
+			padding: 0 1.5rem;
+			transition: all 0.5s;
 			cursor: pointer;
+			border-radius: 0.25rem;
+			&:hover {
+				transform: scale(1.1);
+				background-color: @green;
+				color: white;
+			}
 		}
 		&.left {
 			display: inline-block;
 			margin-left: 2%;
-			li {
-				margin-right: 3rem;
-			}
 		}
 		&.right {
 			float: right;

@@ -26,7 +26,6 @@ sciApp.config(['$compileProvider', ($compileProvider)->
 
 sciApp.config(['$translateProvider', ($translateProvider)->
 	$translateProvider.translations 'zh',
-		functionality: '功能'
 		flow: '流程'
 		user: '用户'
 		login: '登录'
