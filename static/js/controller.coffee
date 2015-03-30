@@ -3,7 +3,7 @@
 sciCtrl = angular.module('sciCtrl', ['ngCookies', 'ui.bootstrap', 'ui.utils'])
 
 sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', ($scope, $modal, $cookies)->
-	$scope.name = $cookies.name || '登录'
+	$scope.name = $cookies.name || 'login'
 
 	$scope.open = ->
 		if $cookies.name?
@@ -73,7 +73,6 @@ sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootSc
 	$(document).ready ->
 		cubes = document.querySelectorAll(".cube-perspective .cube")
 		Array.prototype.forEach.call cubes, (el, i)->
-			console.log(el.className)
 			setTimeout ->
 				el.className += " hover"
 			, 2111 + i * 400

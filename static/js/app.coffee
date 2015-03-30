@@ -4,7 +4,7 @@
 window.$ = angular.element
 
 # glue modules
-sciApp = angular.module('sciApp', ['ngRoute', 'ngAnimate', 'sciCtrl', 'sciService', 'sciFilter'])
+sciApp = angular.module('sciApp', ['ngRoute', 'ngAnimate', 'pascalprecht.translate', 'sciCtrl', 'sciService', 'sciFilter'])
 sciApp.config(['$routeProvider', ($routeProvider)->
 	$routeProvider.when('/'
 		templateUrl: '/static/partial/home.html'
@@ -22,4 +22,15 @@ sciApp.config(['$routeProvider', ($routeProvider)->
 
 sciApp.config(['$compileProvider', ($compileProvider)->
 	$compileProvider.debugInfoEnabled(false)
+])
+
+sciApp.config(['$translateProvider', ($translateProvider)->
+	$translateProvider.translations 'zh',
+		functionality: '功能'
+		flow: '流程'
+		user: '用户'
+		login: '登录'
+
+	$translateProvider.preferredLanguage('zh')
+
 ])

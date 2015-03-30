@@ -20,15 +20,19 @@ html
 		nav(ng-controller="navCtrl")
 			a(href="#/")
 				img#logo(src="/static/img/logo-landscape.png")
-			ul
-				li(ng-click="open()") {{name}}
+			ul.left
+				li {{'functionality' | translate}}
+				li {{'flow' | translate}}
+				li {{'user' | translate}}
+			ul.right
+				li(ng-click="open()") {{name | translate}}
 
-		div#bg
 		div(class="view-frame" ng-view)
 
 		script(src="/static/bower_components/angular/angular.min.js")
 		script(src="/static/bower_components/angular-route/angular-route.min.js")
 		script(src="/static/bower_components/angular-resource/angular-resource.min.js")
+		script(src="/static/bower_components/angular-translate/angular-translate.min.js")
 		script(src="/static/bower_components/angular-animate/angular-animate.min.js")
 		script(src="/static/bower_components/angular-cookies/angular-cookies.min.js")
 		script(src="/static/bower_components/angular-ui-utils/ui-utils.min.js")

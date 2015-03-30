@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 @bg-green: #EDFFF8;
-@nav-green: #35BDB2;
+@nav-green: #20AF74;
 @border-green: #20AF74;
 @text: #333;
 @white: #FFF;
@@ -12,7 +12,6 @@
 @darkgrey: rgba(0, 0, 0, 0.4);
 @lightblue: #31B0D5;
 @blue: #337AB7;
-@nav: rgba(0, 0, 0, 0.5);
 
 body {
 	background-color: @bg-green;
@@ -40,42 +39,40 @@ ul {
 	user-select: none;
 }
 
-.shadow() {
-	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
-}
-
-span.glyphicon {
-	margin-right: 0.5rem;
-}
-
 nav {
 	position: fixed;
 	top: 0;
 	height: 6rem;
-	width: 100vw;
-	box-shadow: 0 0 3px @border-green;
+	width: 100%;
+	box-shadow: 0 0 0.3rem @border-green;
 	color: @nav-green;
 	img#logo {
-		margin-top: 0.5rem;
-		margin-left: 8vw;
+		margin: 0 0 0.5rem 5%;
 		height: 5rem;
 	}
 	ul {
-		float: right;
-		margin-right: 3vw;
 		font-size: 2rem;
 		line-height: 6rem;
 		li {
-			margin-right: 3vw;
 			cursor: pointer;
+		}
+		&.left {
+			display: inline-block;
+			margin-left: 2%;
+			li {
+				margin-right: 3rem;
+			}
+		}
+		&.right {
+			float: right;
+			margin-right: 5%;
 		}
 	}
 }
 
 div#home {
-	height: 400vh;
 	div#cube-wrap {
-		height: 400vh;
+		height: 100vh;
 		.cube > * {
 			border-color: rgba(28, 183, 221, .9);
 		}
