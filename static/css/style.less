@@ -14,6 +14,7 @@
 @blue: #337AB7;
 
 body {
+	color: @pure-green;
 	background-color: @bg-green;
 }
 
@@ -45,7 +46,6 @@ nav {
 	height: 6rem;
 	width: 100%;
 	box-shadow: 0 0 0.3rem @green;
-	color: @pure-green;
 	img#logo {
 		margin: 0 0 0.5rem 5%;
 		height: 5rem;
@@ -79,6 +79,7 @@ div#home {
 		height: 400%;
 		width: 100%;
 		top: 0;
+		z-index: -100;
 		.cube > * {
 			border-color: @cube-green;
 		}
@@ -87,7 +88,6 @@ div#home {
 		.disable-select();
 		text-align: center;
 		padding-top: 30vh;
-		color: @pure-green;
 		p.big {
 			font-size: 8rem;
 		}
@@ -122,9 +122,37 @@ div#home {
 			border-radius: 3rem;
 			border: 1px solid @pure-green;
 			padding: 0.8rem 2rem;
-			color: @pure-green;
 			&:hover {
 				background-color: white;
+			}
+		}
+	}
+	div#flow {
+		margin: 12% auto;
+		text-align: center;
+		p#flow-name {
+			font-size: 2.5rem;
+			margin-bottom: 4rem;
+		}
+		.step {
+			display: inline-block;
+			vertical-align: top;
+			width: 20%;
+			height: 30rem;
+			margin: 0 0.5rem;
+			padding: 1rem;
+			transition: all 0.5s;
+			background-color: rgba(255, 255, 255, 0.4);
+			&:hover {
+				background-color: rgba(255, 255, 255, 0.9);
+				transform: scale(1.2);
+			}
+			.glyphicon {
+				margin: 3rem 0;
+				font-size: 7.5vw;
+			}
+			p.name {
+				font-size: 2rem;
 			}
 		}
 	}
