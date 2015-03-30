@@ -42,19 +42,35 @@ div#home
 				p 走，闪人去！
 
 	div#supply
-		p#suppy-name 仪器分布
+		p#suppy-name 多渠道仪器供应，稳定可靠
 		div#rows
 			div.row
 				img(src='/static/3rdparty/zju.png' tooltip='浙江大学')
 				img(src='/static/3rdparty/zju-medicine.png' tooltip='浙江大学医学院')
 				img(src='/static/3rdparty/zjut.png' tooltip='浙江理工大学')
-				img(src='/static/3rdparty/zju-parma.png' tooltip='浙大医药')
+				img(src='/static/3rdparty/jiliang.png' tooltip='中国计量学院')
 				img(src='/static/3rdparty/zju-medicine.png' tooltip='浙江大学医学院')
 				img(src='/static/3rdparty/zjut.png' tooltip='浙江理工大学')
 			div.row
 				img(src='/static/3rdparty/zju-medicine.png' tooltip='浙江大学医学院')
 				img(src='/static/3rdparty/zjut.png' tooltip='浙江理工大学')
-				img(src='/static/3rdparty/zju-parma.png' tooltip='浙大医药')
+				img(src='/static/3rdparty/jiliang.png' tooltip='中国计量学院')
 				img(src='/static/3rdparty/zju-medicine.png' tooltip='浙江大学医学院')
 				img(src='/static/3rdparty/zjut.png' tooltip='浙江理工大学')
 				img(src='/static/3rdparty/zju.png' tooltip='浙江大学')
+
+	div#user
+		p#user-name 实实在在的好处
+		div#comment
+			div.row
+				img(src='/static/3rdparty/fengdahui_140.png' ng-mouseenter="realName='朱旦'; identity='浙江大学光电系博士生'; feeling='科学指南针让我重新发现了实验的乐趣， 整个实验室的效率都大大提高了。'" ng-click="realName='朱旦'; identity='浙江大学光电系博士生'; feeling='科学指南针让我重新发现了实验的乐趣， 整个实验室的效率都大大提高了。'")
+				img(src='/static/3rdparty/huangquanneng_140.png' ng-mouseenter="realName='潘予'; identity='浙江大学光电系博士生'; feeling='整个实验室的效率都大大提高了， 这是一家用心理解科研人的企业。'")
+				img(src='/static/3rdparty/lishengsheng_140.png' ng-mouseenter="realName='朱亮亮'; identity='浙江大学光电系博士生'; feeling='这是一家用心理解科研人的企业， 科学指南针让我重新发现了实验的乐趣。'")
+				img(src='/static/3rdparty/qiuruihen_140.png' ng-mouseenter="realName='黄羽众'; identity='浙江大学光电系博士生'; feeling='科学指南针让我重新发现了实验的乐趣， 这是一家用心理解科研人的企业。'")
+				img(src='/static/3rdparty/whs_140.png' ng-mouseenter="realName='刘冉'; identity='浙江大学光电系博士生'; feeling='这是一家用心理解科研人的企业， 整个实验室的效率都大大提高了。'")
+
+			div.words
+				p.name
+					span.realName {{realName}}
+					span.identity {{identity}}
+				p.feeling {{feeling}}

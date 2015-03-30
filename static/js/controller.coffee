@@ -76,6 +76,9 @@ sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootSc
 			setTimeout ->
 				$(element).addClass('hover')
 			, 500 * index
+
+		$(document.querySelector('div#comment img')).click()
+
 ]
 
 sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootScope, data)->
