@@ -75,7 +75,7 @@ sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootSc
 		Array.prototype.forEach.call cubes, (el, i)->
 			setTimeout ->
 				el.className += " hover"
-			, 2111 + i * 400
+			, 1000 + i * 400
 ]
 
 sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootScope, data)->
