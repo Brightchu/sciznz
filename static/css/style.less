@@ -1,12 +1,13 @@
 @charset "utf-8";
 
+@green: #35BDB2;
+@pure-green: #20AF74;
 @bg-green: #EDFFF8;
-@green: #20AF74;
+@cube-green: rgba(32, 175, 116, 0.5);
 @text: #333;
 @white: #FFF;
 @lightwhite: rgba(255, 255, 255, 0.7);
 @darkwhite: rgba(255, 255, 255, 0.4);
-@green: #35BDB2;
 @grey: rgba(0, 0, 0, 0.4);
 @darkgrey: rgba(0, 0, 0, 0.4);
 @lightblue: #31B0D5;
@@ -44,7 +45,7 @@ nav {
 	height: 6rem;
 	width: 100%;
 	box-shadow: 0 0 0.3rem @green;
-	color: @green;
+	color: @pure-green;
 	img#logo {
 		margin: 0 0 0.5rem 5%;
 		height: 5rem;
@@ -57,7 +58,7 @@ nav {
 			transition: all 0.5s;
 			cursor: pointer;
 			&:hover {
-				background-color: @green;
+				background-color: @pure-green;
 				color: white;
 			}
 		}
@@ -75,48 +76,60 @@ nav {
 div#home {
 	div#cube-wrap {
 		position: absolute;
-		height: 100%;
+		height: 400%;
 		width: 100%;
 		top: 0;
 		.cube > * {
-			border-color: @green;
+			border-color: @cube-green;
 		}
 	}
 	div#slogan {
 		.disable-select();
 		text-align: center;
-		padding-top: 40vh;
-		color: @white;
+		padding-top: 30vh;
+		color: @pure-green;
 		p.big {
-			font-size: 4.5vw;
+			font-size: 8rem;
+		}
+		p.little {
+			font-size: 3rem;
+			letter-spacing: 1rem;
 		}
 	}
-	div#box {
-		display: table;
-		margin: 5vh auto 0;
-		color: @white;
-		font-size: 18px;
-		p#tip {
+	div#action {
+		margin-top: 3rem;
+		text-align: center;
+		.ellipse {
+			display: inline-block;
 			font-size: 2rem;
-			text-align: center;
-			span.icon {
-				margin-right: 1rem;
+			margin: 0 0.5rem;
+			cursor: pointer;
+			transition: all 0.5s;
+		}
+		#go {
+			border-radius: 3rem;
+			background-color: @pure-green;
+			padding: 0.8rem 2rem;
+			color: white;
+			span.glyphicon {
+				margin-left: 1.5rem;
+			}
+			&:hover {
+				opacity: 0.8;
 			}
 		}
-		hr#line {
-			margin: 0;
-		}
-		div#row {
-			padding: 1rem;
-			text-align: center;
-			div.key {
-				display: inline-block;
-				margin-right: 1rem;
-			}
-			div.value {
-				display: inline-block;
+		#view {
+			border-radius: 3rem;
+			border: 1px solid @pure-green;
+			padding: 0.8rem 2rem;
+			color: @pure-green;
+			&:hover {
+				background-color: white;
 			}
 		}
+	}
+	div#fill {
+		height: 300vh;
 	}
 }
 

@@ -72,10 +72,10 @@ sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootSc
 
 	$(document).ready ->
 		cubes = document.querySelectorAll(".cube-perspective .cube")
-		Array.prototype.forEach.call cubes, (el, i)->
+		Array.prototype.forEach.call cubes, (element, index)->
 			setTimeout ->
-				el.className += " hover"
-			, 1000 + i * 400
+				$(element).addClass('hover')
+			, 500 * index
 ]
 
 sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootScope, data)->
