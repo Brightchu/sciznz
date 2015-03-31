@@ -1,8 +1,8 @@
 'use strict'
 
-sciCtrl = angular.module('sciCtrl', ['ngCookies', 'ui.bootstrap', 'ui.utils'])
+sciCtrl = angular.module('sciCtrl', ['ngCookies', 'ui.bootstrap', 'ui.utils', 'duScroll'])
 
-sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', ($scope, $modal, $cookies)->
+sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', '$document', ($scope, $modal, $cookies, $document)->
 	$scope.name = $cookies.name || 'login'
 
 	$scope.open = ->
@@ -22,6 +22,10 @@ sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', ($scope, $modal, 
 		modalInstance.result.then (name)->
 			$cookies.name = name
 			$scope.name = name
+
+	$scope.scrollTo = (selector)->
+		$document.scrollToElementAnimated($(document.querySelector(selector)), 100);
+
 ]
 
 sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout', ($scope, $modalInstance, User, $timeout)->
@@ -60,7 +64,7 @@ sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout',
 			, 1000
 ]
 
-sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootScope, data)->
+sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', '$document', 'data', ($scope, $rootScope, $document, data)->
 	$scope.groupList = data.hierarchy
 
 	$scope.onEntry = ->
@@ -69,6 +73,9 @@ sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootSc
 		else
 			$rootScope.groupSelected = '全部类别'
 		location.hash = '#list'
+
+	$scope.scrollTo = (selector)->
+		$document.scrollToElementAnimated($(document.querySelector(selector)), 100);
 
 	$(document).ready ->
 		cubes = document.querySelectorAll(".cube-perspective .cube")
