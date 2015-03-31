@@ -5,6 +5,7 @@
 @bg-green: #EDFFF8;
 @nav-green: rgba(237, 255, 248, 0.8);
 @cube-green: rgba(32, 175, 116, 0.5);
+@hr-green: rgba(32, 175, 116, 0.3);
 @text: #333;
 @white: #FFF;
 @lightwhite: rgba(255, 255, 255, 0.7);
@@ -232,6 +233,33 @@ div#home {
 					margin: 0 auto;
 					width: 60%;
 				}
+			}
+		}
+	}
+	div#go-again {
+		margin: 8% auto 0;
+		text-align: center;
+		hr {
+			border-color: @hr-green;
+		}
+		div {
+			display: inline-block;
+			font-size: 2.5rem;
+			vertical-align: middle;
+		}
+		#go-bottom {
+			margin-left: 1rem;
+			padding: 0.8rem 2rem;
+			font-size: 2rem;
+			border-radius: 3rem;
+			background-color: @pure-green;
+			color: white;
+			cursor: pointer;
+			span.glyphicon {
+				margin-left: 1.5rem;
+			}
+			&:hover {
+				opacity: 0.8;
 			}
 		}
 	}
