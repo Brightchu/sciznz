@@ -1,57 +1,57 @@
-div#home
-	div#cube-wrap.cube-perspective.cube-unselectable
+#home
+	#cube-wrap.cube-perspective.cube-unselectable
 		each _cube in ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22']
 			span.cube(class='cube-' + _cube)
 				each _i in [1, 2, 3, 4, 5, 6]
 					i
 
-	div#slogan
+	#slogan
 		p.big 科学指南针
 		p.little 让实验更简单
 
-	div#action
-		div#go.ellipse 立即体验
+	#action
+		#go.ellipse 立即体验
 			span.glyphicon.glyphicon-chevron-right
-		div#view.ellipse 查看流程
+		#view.ellipse 查看流程
 
-	div#flow
+	#flow
 		p#flow-name 只需四步！解决仪器难题
-		div#booking.step
+		#booking.step
 			span.glyphicon.glyphicon-pencil
 			p.name 在线预约
-			div.detail
+			.detail
 				p 电脑 / 平板 / 手机 均可预约
 				p 实时显示仪器的空闲时段
-		div#confirm.step
+		#confirm.step
 			span.glyphicon.glyphicon-ok
 			p.name 供应方确认
-			div.detail
+			.detail
 				p 短信 / 微信 / 邮件 总在第一时间
 				p 三小时快速反馈
-		div#payment.step
+		#payment.step
 			span.glyphicon.glyphicon-yen
 			p.name 支付费用
-			div.detail
+			.detail
 				p 在线支付 / 定期结账 灵活选择
 				p 支付宝 / 微信支付 全线接入
-		div#experiment.step
+		#experiment.step
 			span.glyphicon.glyphicon-send
 			p.name 去实验！
-			div.detail
+			.detail
 				p 今天下单，明天即可实验
 				p 走，闪人去！
 
-	div#supply
+	#supply
 		p#suppy-name 多渠道仪器供应，稳定可靠
-		div#rows
-			div.row
+		#rows
+			.row
 				img(src='/static/3rdparty/zju.png' tooltip='浙江大学')
 				img(src='/static/3rdparty/zju-medicine.png' tooltip='浙江大学医学院')
 				img(src='/static/3rdparty/zjut.png' tooltip='浙江理工大学')
 				img(src='/static/3rdparty/jiliang.png' tooltip='中国计量学院')
 				img(src='/static/3rdparty/zju-medicine.png' tooltip='浙江大学医学院')
 				img(src='/static/3rdparty/zjut.png' tooltip='浙江理工大学')
-			div.row
+			.row
 				img(src='/static/3rdparty/zju-medicine.png' tooltip='浙江大学医学院')
 				img(src='/static/3rdparty/zjut.png' tooltip='浙江理工大学')
 				img(src='/static/3rdparty/jiliang.png' tooltip='中国计量学院')
@@ -59,25 +59,25 @@ div#home
 				img(src='/static/3rdparty/zjut.png' tooltip='浙江理工大学')
 				img(src='/static/3rdparty/zju.png' tooltip='浙江大学')
 
-	div#user
+	#user
 		p#user-name 实实在在的口碑
-		div#comment
-			div.row
+		#comment
+			.row
 				img(src='/static/3rdparty/fengdahui_140.png' ng-mouseenter="realName='朱旦'; identity='浙江大学光电系博士生'; feeling='科学指南针让我重新发现了实验的乐趣， 整个实验室的效率都大大提高了。'" ng-click="realName='朱旦'; identity='浙江大学光电系博士生'; feeling='科学指南针让我重新发现了实验的乐趣， 整个实验室的效率都大大提高了。'")
 				img(src='/static/3rdparty/huangquanneng_140.png' ng-mouseenter="realName='潘予'; identity='浙江大学光电系博士生'; feeling='整个实验室的效率都大大提高了， 这是一家用心理解科研人的企业。'")
 				img(src='/static/3rdparty/lishengsheng_140.png' ng-mouseenter="realName='朱亮亮'; identity='浙江大学光电系博士生'; feeling='这是一家用心理解科研人的企业， 科学指南针让我重新发现了实验的乐趣。'")
 				img(src='/static/3rdparty/qiuruihen_140.png' ng-mouseenter="realName='黄羽众'; identity='浙江大学光电系博士生'; feeling='科学指南针让我重新发现了实验的乐趣， 这是一家用心理解科研人的企业。'")
 				img(src='/static/3rdparty/whs_140.png' ng-mouseenter="realName='刘冉'; identity='浙江大学光电系博士生'; feeling='这是一家用心理解科研人的企业， 整个实验室的效率都大大提高了。'")
 
-			div.words
+			.words
 				p.name
 					span.realName {{realName}}
 					span.identity {{identity}}
 				p.feeling {{feeling}}
 
-	div#go-again
+	#go-again
 		hr
-		div#slogan-bottom 科学指南针，让实验更简单
-		div#go-bottom.ellipse 立即体验
+		#slogan-bottom 科学指南针，让实验更简单
+		#go-bottom.ellipse 立即体验
 			span.glyphicon.glyphicon-chevron-right
 		hr
