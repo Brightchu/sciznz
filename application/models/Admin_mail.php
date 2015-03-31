@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Supervisormail extends CI_Model {
+class Admin_mail extends CI_Model {
 
 	public function __construct()
 	{
@@ -12,7 +12,7 @@ class Supervisormail extends CI_Model {
 	}
 
 	/**
-	 * Notify a new supervisor
+	 * Notify a new admin
 	 * @param 	array $row
 	 * @return 	bool
 	 */

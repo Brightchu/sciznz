@@ -23,7 +23,7 @@ class Admin extends CI_Controller {
 
 	public function login()
 	{
-		$this->load->model('supervisor');
+		$this->load->model('admin_model');
 		$this->load->library('parser');
 		$this->load->helper('captcha');
 
@@ -31,7 +31,7 @@ class Admin extends CI_Controller {
 
 		if ($this->input->method() === 'post') {
 			if ($this->nsession->get('captcha') === strtoupper($this->input->post('captcha'))) {
-				$result = $this->supervisor->login($this->input->post('username'), $this->input->post('password'));
+				$result = $this->admin_model->login($this->input->post('username'), $this->input->post('password'));
 				if ($result) {
 					$this->nsession->set_data($result);
 					redirect('/admin/');
@@ -147,7 +147,7 @@ class Admin extends CI_Controller {
 
 	public function peopleAdmin()
 	{
-		$this->handler('supervisor');
+		$this->handler('admin_model');
 	}
 
 }

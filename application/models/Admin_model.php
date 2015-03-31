@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Supervisor extends CI_Model {
+class Admin_model extends CI_Model {
 
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->model('supervisormail');
+		$this->load->model('admin_mail');
 	}
 
 	/**
@@ -19,7 +19,7 @@ class Supervisor extends CI_Model {
 	 */
 	public function login($username, $password)
 	{
-		$sql = 'SELECT `ID`, `name`, `password`, `privilege` FROM `supervisor` WHERE `username` = ?';
+		$sql = 'SELECT `ID`, `name`, `password`, `privilege` FROM `admin` WHERE `username` = ?';
 		$query = $this->db->query($sql, $username);
 		$row = $query->row_array();
 
@@ -34,57 +34,57 @@ class Supervisor extends CI_Model {
 	}
 
 	/**
-	 * Retrive all supervisor
+	 * Retrive all admin
 	 * @return  array
 	 */
 	public function query()
 	{
-		$sql = 'SELECT `ID`, `privilege`, `name`, `username`, `phone`, `email`, `credit` FROM `supervisor`';
+		$sql = 'SELECT `ID`, `privilege`, `name`, `username`, `phone`, `email`, `credit` FROM `admin`';
 		return $this->db->query($sql)->result_array();
 	}
 
 	/**
-	 * Update a supervisor
+	 * Update a admin
 	 * @param 	array $row
 	 * @return 	bool
 	 */
 	public function update($row)
 	{
 		if (isset($row['password'])) {
-			$sql = 'UPDATE `supervisor` SET `privilege`=?, `name`=?, `username`=?, `password`=?, `phone`=?, `email`=?, `credit`=? WHERE `ID` = ?';
+			$sql = 'UPDATE `admin` SET `privilege`=?, `name`=?, `username`=?, `password`=?, `phone`=?, `email`=?, `credit`=? WHERE `ID` = ?';
 			$data = array($row['privilege'], $row['name'], $row['username'], password_hash($row['password'], PASSWORD_BCRYPT), $row['phone'], $row['email'], $row['credit'], $row['ID']);
 			return $this->db->query($sql, $data);
 		} else {
-			$sql = 'UPDATE `supervisor` SET `privilege`=?, `name`=?, `username`=?, `phone`=?, `email`=?, `credit`=? WHERE `ID` = ?';
+			$sql = 'UPDATE `admin` SET `privilege`=?, `name`=?, `username`=?, `phone`=?, `email`=?, `credit`=? WHERE `ID` = ?';
 			$data = array($row['privilege'], $row['name'], $row['username'], $row['phone'], $row['email'], $row['credit'], $row['ID']);
 			return $this->db->query($sql, $data);
 		}
 	}
 
 	/**
-	 * Save a supervisor
+	 * Save a admin
 	 * @param 	array $row
 	 * @return 	bool
 	 */
 	public function save($row)
 	{
-		$sql = 'INSERT INTO `supervisor`(`privilege`, `name`, `username`, `password`, `phone`, `email`, `credit`) VALUES (?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO `admin`(`privilege`, `name`, `username`, `password`, `phone`, `email`, `credit`) VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$data = array($row['privilege'], $row['name'], $row['username'], password_hash($row['password'], PASSWORD_BCRYPT), $row['phone'], $row['email'], $row['credit']);
 		$result = $this->db->query($sql, $data);
 		if ($result) {
-			$this->supervisormail->register($row);
+			$this->admin_mail->register($row);
 		}
 		return $result;
 	}
 
 	/**
-	 * Delete a supervisor
+	 * Delete a admin
 	 * @param 	int $ID
 	 * @return 	bool
 	 */
 	public function delete($ID)
 	{
-		$sql = 'DELETE FROM `supervisor` WHERE `ID` = ?';
+		$sql = 'DELETE FROM `admin` WHERE `ID` = ?';
 		return $this->db->query($sql, $ID);
 	}
 
