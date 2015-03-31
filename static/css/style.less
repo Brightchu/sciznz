@@ -5,7 +5,7 @@
 @bg-green: #EDFFF8;
 @nav-green: rgba(237, 255, 248, 0.8);
 @cube-green: rgba(32, 175, 116, 0.5);
-@hr-green: rgba(32, 175, 116, 0.1);
+@hr-green: rgba(32, 175, 116, 0.15);
 @text: #333;
 @white: #FFF;
 @lightwhite: rgba(255, 255, 255, 0.7);
@@ -24,14 +24,6 @@ a {
 	color: @text;
 	&:hover {
 		text-decoration: none;
-	}
-}
-
-ul {
-	list-style: none;
-	padding-left: 0;
-	li {
-		display: inline-block;
 	}
 }
 
@@ -55,9 +47,12 @@ nav {
 		height: 5rem;
 	}
 	ul {
+		list-style: none;
+		padding-left: 0;
 		font-size: 2rem;
 		line-height: 6rem;
 		li {
+			display: inline-block;
 			padding: 0 1.5rem;
 			transition: all 0.5s;
 			cursor: pointer;
@@ -80,7 +75,7 @@ nav {
 #home {
 	#cube-wrap {
 		position: absolute;
-		height: 400%;
+		height: 300%;
 		width: 100%;
 		top: 0;
 		z-index: -100;
@@ -131,7 +126,7 @@ nav {
 		}
 	}
 	#flow {
-		margin: 12% auto 0;
+		margin-top: 12%;
 		text-align: center;
 		p#flow-name {
 			font-size: 2.5rem;
@@ -160,7 +155,7 @@ nav {
 		}
 	}
 	#supply {
-		margin: 8% auto 0;
+		margin-top: 8%;
 		text-align: center;
 		p#suppy-name {
 			font-size: 2.5rem;
@@ -188,7 +183,7 @@ nav {
 		}
 	}
 	#user {
-		margin: 8% auto 0;
+		margin-top: 8%;
 		text-align: center;
 		p#user-name {
 			font-size: 2.5rem;
@@ -237,7 +232,7 @@ nav {
 		}
 	}
 	#go-again {
-		margin: 8% auto 0;
+		margin-top: 8%;
 		text-align: center;
 		hr {
 			border-color: @hr-green;
@@ -261,6 +256,45 @@ nav {
 			&:hover {
 				opacity: 0.8;
 			}
+		}
+	}
+	#about {
+		margin-top: 8%;
+		text-align: center;
+		ul.col {
+			display: inline-block;
+			width: 20%;
+			list-style: none;
+			font-size: 1.8rem;
+			font-weight: bold;
+			li {
+				margin: 0.5rem 0;
+				font-size: 1.5rem;
+				font-weight: normal;
+			}
+			li:first-child {
+				margin-top: 1rem;
+			}
+		}
+	}
+	#contract {
+		margin: 2rem 0 6%;
+		text-align: center;
+		img#logo {
+			height: 5rem;
+		}
+		ul {
+			margin-top: 1rem;
+			list-style: none;
+			padding-left: 0;
+			li {
+				display: inline-block;
+				margin: 0 1rem;
+			}
+		}
+		ul#approve-list {
+			font-size: 1rem;
+			opacity: 0.8;
 		}
 	}
 }
