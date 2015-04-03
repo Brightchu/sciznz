@@ -2,6 +2,7 @@ Science Compass Schema Specification
 ======
 _2015-02-03_
 
+##### This arch has out-dated. Re-write later.
 架构的特点与目的
 ------
 1. 数据无冗余。订单的状态需要不断更新，有时还需要回滚到之前的状态，因而要保证每次更新订单状态时，只修改一处，即更新了整个系统的状态。
