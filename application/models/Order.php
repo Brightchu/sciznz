@@ -32,7 +32,7 @@ class Order extends CI_Model {
 
 	public function delete($ID)
 	{
-		$sql = 'DELETE FROM `institute` WHERE `ID` = ?';
+		$sql = 'DELETE FROM `supply` WHERE `ID` = ?';
 		return $this->db->query($sql, $ID);
 	}
 
@@ -45,7 +45,7 @@ class Order extends CI_Model {
 
 	public function book($row)
 	{
-		$sql = 'SELECT `device`.`city`, `institute`.`name` AS `institute`, `device`.`address`, `category`.`name` AS `category`, `model`.`vendor`, `model`.`name` AS `model`, `device`.`price`, `device`.`unit` FROM `device` JOIN `institute` ON `device`.`ID` = ? AND `device`.`instituteID` = `institute`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID`';
+		$sql = 'SELECT `device`.`city`, `supply`.`name` AS `supply`, `device`.`address`, `category`.`name` AS `category`, `model`.`vendor`, `model`.`name` AS `model`, `device`.`price`, `device`.`unit` FROM `device` JOIN `supply` ON `device`.`ID` = ? AND `device`.`supplyID` = `supply`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID`';
 		$info = $this->db->query($sql, $row['deviceID'])->row_array();
 		$row = array_merge($row, $info);
 
@@ -63,13 +63,13 @@ class Order extends CI_Model {
 
 	public function checkout($ID)
 	{
-		$sql = 'SELECT `order`.`ID`, `order`.`deviceID`, `institute`.`name` AS `institute`, `device`.`address`, `category`.`name` AS `category`, `model`.`vendor`, `model`.`name` AS `model`, `order`.`date`, `order`.`useDate`, `order`.`payMethod`, `order`.`transactionID`, `order`.`price`, `order`.`status` FROM `order` JOIN `device` ON `order`.`userID` = ? AND `order`.`deviceID` = `device`.`ID` JOIN `institute` ON `device`.`instituteID` = `institute`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID`';
+		$sql = 'SELECT `order`.`ID`, `order`.`deviceID`, `supply`.`name` AS `supply`, `device`.`address`, `category`.`name` AS `category`, `model`.`vendor`, `model`.`name` AS `model`, `order`.`date`, `order`.`useDate`, `order`.`payMethod`, `order`.`transactionID`, `order`.`price`, `order`.`status` FROM `order` JOIN `device` ON `order`.`userID` = ? AND `order`.`deviceID` = `device`.`ID` JOIN `supply` ON `device`.`supplyID` = `supply`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID`';
 		return $this->db->query($sql, $ID)->result_array();
 	}
 
 	public function getUnread($ID)
 	{
-		$sql = 'SELECT `order`.`ID`, `order`.`deviceID`, `device`.`address`, `category`.`name` AS `category`, `model`.`vendor`, `model`.`name` AS `model`, `order`.`date`, `order`.`useDate`, `order`.`payMethod`, `order`.`transactionID`, `order`.`price`, `order`.`status` FROM `order` JOIN `device` ON `device`.`instituteID` = ? AND `order`.`deviceID` = `device`.`ID` JOIN `institute` ON `device`.`instituteID` = `institute`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID`';
+		$sql = 'SELECT `order`.`ID`, `order`.`deviceID`, `device`.`address`, `category`.`name` AS `category`, `model`.`vendor`, `model`.`name` AS `model`, `order`.`date`, `order`.`useDate`, `order`.`payMethod`, `order`.`transactionID`, `order`.`price`, `order`.`status` FROM `order` JOIN `device` ON `device`.`supplyID` = ? AND `order`.`deviceID` = `device`.`ID` JOIN `supply` ON `device`.`supplyID` = `supply`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID`';
 		return $this->db->query($sql, $ID)->result_array();
 	}
 

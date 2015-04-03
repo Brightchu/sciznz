@@ -130,9 +130,9 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function instituteAdmin()
+	public function supplyAdmin()
 	{
-		$this->handler('institute');
+		$this->handler('supply');
 	}
 
 	public function peopleUser()

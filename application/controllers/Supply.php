@@ -23,7 +23,7 @@ class Supply extends CI_Controller {
 
 	public function login()
 	{
-		$this->load->model('institute');
+		$this->load->model('supply');
 		$this->load->library('parser');
 		$this->load->helper('captcha');
 
@@ -31,7 +31,7 @@ class Supply extends CI_Controller {
 
 		if ($this->input->method() === 'post') {
 			if ($this->nsession->get('captcha') === strtoupper($this->input->post('captcha'))) {
-				$result = $this->institute->login($this->input->post('username'), $this->input->post('password'));
+				$result = $this->supply->login($this->input->post('username'), $this->input->post('password'));
 				if ($result) {
 					$this->nsession->set_data($result);
 					redirect('/supply/');

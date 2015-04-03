@@ -76,7 +76,7 @@ class Cache extends CI_Model {
 		$result['category'] = $category;
 
 		// device
-		$sql = 'SELECT `device`.`ID`, `device`.`city`, `institute`.`name` AS `institute`, `device`.`address`, `device`.`size`, `category`.`name` AS `category`, `model`.`vendor`, `model`.`name` AS `model`, `device`.`price`, `device`.`unit`, `model`.`field`, `device`.`field` AS `subfield`, `device`.`info`, `device`.`credit` FROM `device` JOIN `institute` ON `device`.`instituteID` = `institute`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID`';
+		$sql = 'SELECT `device`.`ID`, `device`.`city`, `supply`.`name` AS `supply`, `device`.`address`, `device`.`capacity`, `category`.`name` AS `category`, `model`.`vendor`, `model`.`name` AS `model`, `device`.`price`, `device`.`unit`, `model`.`field`, `device`.`field` AS `subfield`, `device`.`info`, `device`.`credit` FROM `device` JOIN `supply` ON `device`.`supplyID` = `supply`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID`';
 		$device = $this->db->query($sql)->result_array();
 		foreach ($device as $index => $row) {
 			$device[$index]['field'] = array_merge(json_decode($row['field'], TRUE), json_decode($row['subfield'], TRUE));
