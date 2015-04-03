@@ -28,7 +28,7 @@ sciService.factory 'data', ['$http', ($http)->
 		if not data.hierarchy.length
 			for key, value of body
 				if angular.isArray(value)
-					[].push.apply(data[key], value)
+					Array.prototype.push.apply(data[key], value)
 				else
 					for k, v of value
 						data[key][k] = v

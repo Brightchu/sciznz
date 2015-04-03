@@ -57,6 +57,17 @@ class Cache extends CI_Model {
 			'device' => $this->device->checkout(),
 		);
 
+		// build contain relationshop
+		$contain = [];
+		foreach ($result['device'] as $device) {
+			if (isset($contain[$device['category']])) {
+				$contain[$device['category']][] = $device['ID'];
+			} else {
+				$contain[$device['category']] = [$device['ID']];
+			}
+		}
+		$result['contain'] = $contain;
+
 		return $result;
 	}
 }
