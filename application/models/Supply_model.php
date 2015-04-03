@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Institute extends CI_Model {
+class Supply_model extends CI_Model {
 
 	public function __construct()
 	{
@@ -18,7 +18,7 @@ class Institute extends CI_Model {
 	 */
 	public function login($username, $password)
 	{
-		$sql = 'SELECT `ID`, `name`, `password` FROM `institute` WHERE `username` = ?';
+		$sql = 'SELECT `ID`, `name`, `password` FROM `supply` WHERE `username` = ?';
 		$query = $this->db->query($sql, $username);
 		$row = $query->row_array();
 
@@ -33,53 +33,53 @@ class Institute extends CI_Model {
 	}
 
 	/**
-	 * Retrive all institute
+	 * Retrive all supply
 	 * @return  array
 	 */
 	public function query()
 	{
-		$sql = 'SELECT `ID`, `orgID`, `name`, `username`, `phone`, `email`, `credit` FROM `institute`';
+		$sql = 'SELECT `ID`, `orgID`, `name`, `username`, `phone`, `email`, `credit` FROM `supply`';
 		return $this->db->query($sql)->result_array();
 	}
 
 	/**
-	 * Update a institute
+	 * Update a supply
 	 * @param 	array $row
 	 * @return 	bool
 	 */
 	public function update($row)
 	{
 		if (isset($row['password'])) {
-			$sql = 'UPDATE `institute` SET `orgID`=?, `name`=?, `username`=?, `password`=?, `phone`=?, `email`=?, `credit`=? WHERE `ID` = ?';
+			$sql = 'UPDATE `supply` SET `orgID`=?, `name`=?, `username`=?, `password`=?, `phone`=?, `email`=?, `credit`=? WHERE `ID` = ?';
 			$data = array($row['orgID'], $row['name'], $row['username'], password_hash($row['password'], PASSWORD_BCRYPT), $row['phone'], $row['email'], $row['credit'], $row['ID']);
 			return $this->db->query($sql, $data);
 		} else {
-			$sql = 'UPDATE `institute` SET `orgID`=?, `name`=?, `username`=?, `phone`=?, `email`=?, `credit`=? WHERE `ID` = ?';
+			$sql = 'UPDATE `supply` SET `orgID`=?, `name`=?, `username`=?, `phone`=?, `email`=?, `credit`=? WHERE `ID` = ?';
 			$data = array($row['orgID'], $row['name'], $row['username'], $row['phone'], $row['email'], $row['credit'], $row['ID']);
 			return $this->db->query($sql, $data);
 		}
 	}
 
 	/**
-	 * Save an institute
+	 * Save an supply
 	 * @param 	array $row
 	 * @return 	bool
 	 */
 	public function save($row)
 	{
-		$sql = 'INSERT INTO `institute`(`orgID`, `name`, `username`, `password`, `phone`, `email`, `credit`) VALUES (?, ?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO `supply`(`orgID`, `name`, `username`, `password`, `phone`, `email`, `credit`) VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$data = array($row['orgID'], $row['name'], $row['username'], password_hash($row['password'], PASSWORD_BCRYPT), $row['phone'], $row['email'], $row['credit']);
 		return $this->db->query($sql, $data);
 	}
 
 	/**
-	 * Delete an institute
+	 * Delete an supply
 	 * @param 	int $ID
 	 * @return 	bool
 	 */
 	public function delete($ID)
 	{
-		$sql = 'DELETE FROM `institute` WHERE `ID` = ?';
+		$sql = 'DELETE FROM `supply` WHERE `ID` = ?';
 		return $this->db->query($sql, $ID);
 	}
 

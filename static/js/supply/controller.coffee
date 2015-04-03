@@ -1,7 +1,7 @@
 'use strict'
 
-providerCtrl = angular.module('providerCtrl', ['ui.bootstrap'])
-providerCtrl.controller 'accordionCtrl', ['$scope', '$location', ($scope, $location)->
+supplyCtrl = angular.module('supplyCtrl', ['ui.bootstrap'])
+supplyCtrl.controller 'accordionCtrl', ['$scope', '$location', ($scope, $location)->
 	$(document).ready ->
 		heading = $(document.querySelectorAll('.panel-heading'))
 		heading.on 'click', ->
@@ -18,7 +18,7 @@ providerCtrl.controller 'accordionCtrl', ['$scope', '$location', ($scope, $locat
 		$($(link.parent().parent().parent().parent().children()[0]).children()[0]).children().click()
 ]
 
-providerCtrl.controller 'messageNewCtrl', ['$scope', 'Order', ($scope, Order)->
+supplyCtrl.controller 'messageNewCtrl', ['$scope', 'Order', ($scope, Order)->
 	$scope.orderList = Order.query()
 
 	$scope.upgrade = ->
@@ -48,6 +48,6 @@ providerCtrl.controller 'messageNewCtrl', ['$scope', 'Order', ($scope, Order)->
 			alert('操作失败')
 ]
 
-providerCtrl.controller 'deviceTimetableCtrl', ['$scope', ($scope)->
+supplyCtrl.controller 'deviceTimetableCtrl', ['$scope', ($scope)->
 
 ]

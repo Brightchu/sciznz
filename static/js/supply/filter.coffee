@@ -1,7 +1,7 @@
 'use strict'
 
-providerFilter = angular.module('providerFilter', [])
-providerFilter.filter 'statusFilter', ->
+supplyFilter = angular.module('supplyFilter', [])
+supplyFilter.filter 'statusFilter', ->
 	name =
 		1: '等待提供方确认'
 		2: '等待用户付款'
@@ -13,7 +13,7 @@ providerFilter.filter 'statusFilter', ->
 	(value)->
 		return name[value]
 
-providerFilter.filter 'classFilter', ->
+supplyFilter.filter 'classFilter', ->
 	name =
 		1: 'btn btn-success'
 		2: 'btn btn-default disabled'
@@ -25,7 +25,7 @@ providerFilter.filter 'classFilter', ->
 	(value)->
 		return name[value]
 
-providerFilter.filter 'buttonTextFilter', ->
+supplyFilter.filter 'buttonTextFilter', ->
 	name =
 		1: '确认'
 		2: '等待'

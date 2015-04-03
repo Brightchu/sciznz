@@ -9,13 +9,13 @@ window.$.prototype.click = ->
 		element.dispatchEvent(clickEvent)
 
 # glue modules
-providerApp = angular.module('providerApp', ['ngRoute', 'ngAnimate', 'providerCtrl', 'providerService', 'providerFilter'])
-providerApp.config(['$routeProvider', ($routeProvider)->
+supplyApp = angular.module('supplyApp', ['ngRoute', 'ngAnimate', 'supplyCtrl', 'supplyService', 'supplyFilter'])
+supplyApp.config(['$routeProvider', ($routeProvider)->
 	$routeProvider.when('/message-new'
-		templateUrl: '/static/partial/provider/message-new.html'
+		templateUrl: '/static/partial/supply/message-new.html'
 		controller: 'messageNewCtrl'
 	).when('/device-timetable'
-		templateUrl: '/static/partial/provider/device-timetable.html'
+		templateUrl: '/static/partial/supply/device-timetable.html'
 		controller: 'deviceTimetableCtrl'
 	).otherwise(
 		redirectTo: '/message-new'
