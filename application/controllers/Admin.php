@@ -27,7 +27,7 @@ class Admin extends CI_Controller {
 		$this->load->library('parser');
 		$this->load->helper('captcha');
 
-		$error = array();
+		$error = [];
 
 		if ($this->input->method() === 'post') {
 			if ($this->nsession->get('captcha') === strtoupper($this->input->post('captcha'))) {
@@ -107,7 +107,7 @@ class Admin extends CI_Controller {
 
 	public function frontCache()
 	{
-		$this->handler('kvcache');
+		$this->handler('cache');
 	}
 
 	public function cacheAdmin()

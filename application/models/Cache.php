@@ -49,45 +49,13 @@ class Cache extends CI_Model {
 	 */
 	protected function build()
 	{
-		$this->load->database('slave');
-		$result = array();
+		$this->load->model('hierarchy');
+		$this->load->model('device');
 
-		// hierarchy
-		$sql = 'SELECT `value` FROM `config` WHERE `key` = "hierarchy"';
-		$row = $this->db->query($sql)->row_array();
-		$result['hierarchy'] = json_decode($row['value'], TRUE);
-
-		// keyword, child and category
-		$keyword = array();
-		$child = array();
-		$category = array();
-		foreach ($result['hierarchy'] as $group) {
-			$ingroup = array();
-			foreach ($group['child'] as $subgroup) {
-				$child[] = $subgroup['name'];
-				$keyword[$subgroup['name']] = $subgroup['child'];
-				$ingroup = array_merge($ingroup, $subgroup['child']);
-			}
-			$keyword[$group['name']] = $ingroup;
-			$category = array_merge($category, $ingroup);
-		}
-		$result['keyword'] = $keyword;
-		$result['child'] = $child;
-		$result['category'] = $category;
-
-		// device
-		$sql = 'SELECT `device`.`ID`, `device`.`city`, `supply`.`name` AS `supply`, `device`.`address`, `device`.`capacity`, `category`.`name` AS `category`, `model`.`vendor`, `model`.`name` AS `model`, `device`.`price`, `device`.`unit`, `model`.`field`, `device`.`field` AS `subfield`, `device`.`info`, `device`.`credit` FROM `device` JOIN `supply` ON `device`.`supplyID` = `supply`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID`';
-		$device = $this->db->query($sql)->result_array();
-		foreach ($device as $index => $row) {
-			$device[$index]['field'] = array_merge(json_decode($row['field'], TRUE), json_decode($row['subfield'], TRUE));
-			unset($device[$index]['subfield']);
-		}
-		$result['device'] = $device;
-
-		// address
-		$sql = 'SELECT DISTINCT `address` FROM `device`';
-		$address = array_column($this->db->query($sql)->result_array(), 'address');
-		$result['address'] = $address;
+		$result = array(
+			'hierarchy' => $this->hierarchy->checkout(),
+			'device' => $this->device->checkout(),
+		);
 
 		return $result;
 	}

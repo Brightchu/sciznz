@@ -16,8 +16,7 @@ class Hierarchy extends CI_Model {
 	public function get()
 	{
 		$sql = 'SELECT `value` FROM `config` WHERE `key` = "hierarchy"';
-		$data = $this->db->query($sql)->row_array();
-		return $data['value'];
+		return $this->db->query($sql)->row_array()['value'];
 	}
 
 	/**
@@ -31,4 +30,10 @@ class Hierarchy extends CI_Model {
 		return $this->db->query($sql, $data);
 	}
 
+	public function checkout()
+	{
+		$sql = 'SELECT `value` FROM `config` WHERE `key` = "hierarchy"';
+		$row = $this->db->query($sql)->row_array();
+		return json_decode($row['value'], TRUE);
+	}
 }

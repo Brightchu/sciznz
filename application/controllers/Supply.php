@@ -27,7 +27,7 @@ class Supply extends CI_Controller {
 		$this->load->library('parser');
 		$this->load->helper('captcha');
 
-		$error = array();
+		$error = [];
 
 		if ($this->input->method() === 'post') {
 			if ($this->nsession->get('captcha') === strtoupper($this->input->post('captcha'))) {
