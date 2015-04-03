@@ -21,3 +21,4 @@ Backend arch
 * *controller* just like commander while *model* like solider.
 * Do authentication, account verification, and any other bussiness logic in controller.
 * Model only responsible for do one thing at a time, so NEVER call another model in a model.
+* Avoid use similar meaning but different words, we are not doing TOEFL.
