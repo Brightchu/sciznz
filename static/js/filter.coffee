@@ -62,9 +62,9 @@ sciFilter.filter 'featureFilter', ['$filter', ($filter)->
 		_memo = memo[filterModel.domain]
 		if not _memo?
 			_all = []
-			if filterModel.domain == $filter('translate')('all')
-				for _, domain of hierarchy
-					for feature of domain
+			if filterModel.domain == $filter('translate')('nolimit')
+				for _, featureList of hierarchy
+					for feature of featureList
 						_all.push(feature)
 			else
 				for feature of hierarchy[filterModel.domain]
@@ -83,18 +83,44 @@ sciFilter.filter 'featureFilter', ['$filter', ($filter)->
 		return _memo.self
 ]
 
-'''
-sciFilter.filter 'categoryFilter', ['data', (data)->
-	(array, filterModel)->
-		if filterModel.group == '全部类别' and filterModel.subgroup == '全部子类'
-			return data.category
 
-		if filterModel.subgroup == '全部子类'
-			return data.keyword[filterModel.group]
+sciFilter.filter 'categoryFilter', ['$filter', ($filter)->
+	memo = {}
 
-		return data.keyword[filterModel.subgroup]
+	(hierarchy, filterModel, $scope)->
+		_memo = memo[filterModel.feature]
+		if not _memo?
+			_all = {}
+
+			_global = []
+			for domain, domainFeature of hierarchy
+				_domain = []
+				for feature, featureCategory of domainFeature
+					_all[feature] = featureCategory
+					_domain = Array.prototype.concat(_domain, featureCategory)
+
+				_all[domain] = _domain
+				_global = Array.prototype.concat(_global, _domain)
+
+			_all[$filter('translate')('nolimit')] = _global
+
+			for name, list of _all
+				_memo =
+					self: list[0...7]
+					more: []
+
+				for i in [7...list.length] by 7
+					_memo.more.push(list[i...i+7])
+
+				memo[name] = _memo
+
+			_memo = memo[filterModel.feature]
+
+		$scope.moreCategory = _memo.more
+		return _memo.self
 ]
 
+'''
 sciFilter.filter 'fieldFilter', ['$rootScope', 'data', ($rootScope, data)->
 	(array, filterModel)->
 		if filterModel.category == '全部款式'

@@ -94,13 +94,13 @@ sciCtrl.controller 'listCtrl', ['$scope', '$filter', 'data', ($scope, $filter, d
 	$scope.contain = data.contain
 	$scope.isCollapsed = true
 	$scope.hideMoreFeature = true
-	$scope.showMoreCategory = false
+	$scope.hideMoreCategory = true
 
 	$scope.filterModel =
-		domain: $filter('translate')('all')
-		feature: $filter('translate')('all')
-		address: $filter('translate')('all')
-		category: $filter('translate')('all')
+		domain: $filter('translate')('nolimit')
+		feature: $filter('translate')('nolimit')
+		address: $filter('translate')('nolimit')
+		category: $filter('translate')('nolimit')
 		field: {}
 
 	$scope.moreSubGroup = []
