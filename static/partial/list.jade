@@ -3,32 +3,36 @@ div#list
 		div.row
 			div.key
 				span.glyphicon.glyphicon-list
-				span.type 仪器类别：
+				span.type 领域：
 			div.value
-				label.btn.btn-sm.btn-default(ng-model="filterModel.group" btn-radio="'全部类别'") 全部类别
-				label.btn.btn-sm.btn-default(ng-repeat="group in groupList" ng-model="filterModel.group" btn-radio="'{{group.name}}'") {{group.name}}
+				label.btn.btn-sm.btn-default(ng-model="filterModel.domain" btn-radio="'全部'") 全部
+				label.btn.btn-sm.btn-default(ng-repeat="(domain, _) in hierarchy" ng-model="filterModel.domain" btn-radio="'{{domain}}'") {{domain}}
+
 		div.row
 			div.key
 				span.glyphicon.glyphicon-th
-				span.type 仪器子类：
+				span.type 性质：
 			div.value
-				label.btn.btn-sm.btn-default(ng-model="filterModel.subgroup" btn-radio="'全部子类'") 全部子类
-				label.btn.btn-sm.btn-default(ng-repeat="subgroup in groupList | subgroupFilter:filterModel | moreSubGroupFilter:this" ng-model="filterModel.subgroup" btn-radio="'{{subgroup.name}}'") {{subgroup.name}}
+				label.btn.btn-sm.btn-default(ng-model="filterModel.feature" btn-radio="'全部'") 全部
+				label.btn.btn-sm.btn-default(ng-repeat="(feature, _) in hierarchy | featureFilter:filterModel" ng-model="filterModel.feature" btn-radio="'{{feature}}'") {{feature}}
 				label.btn.btn-sm.btn-default(ng-click="showMoreSubGroup = !showMoreSubGroup") 更多
 					span.caret
+	//
 		div.row(ng-repeat="moreRow in moreSubGroup track by $index")
 			div.key
 			div.value
 				label.btn.btn-sm.btn-default(ng-repeat="subgroup in moreRow" ng-model="filterModel.subgroup" btn-radio="'{{subgroup.name}}'") {{subgroup.name}}
+
 		div.row
 			div.key
 				span.glyphicon.glyphicon-th-large
-				span.type 仪器款式：
+				span.type 类别：
 			div.value
-				label.btn.btn-sm.btn-default(ng-model="filterModel.category" btn-radio="'全部款式'") 全部款式
+				label.btn.btn-sm.btn-default(ng-model="filterModel.category" btn-radio="'全部'") 全部
 				label.btn.btn-sm.btn-default(ng-repeat="category in groupList | categoryFilter:filterModel | moreCategoryFilter:this" ng-model="filterModel.category" btn-radio="'{{category}}'") {{category}}
 				label.btn.btn-sm.btn-default(ng-click="showMoreCategory = !showMoreCategory") 更多
 					span.caret
+
 		div.row(ng-repeat="moreRow in moreCategory track by $index")
 			div.key
 			div.value
@@ -36,18 +40,19 @@ div#list
 		div.row
 			div.key
 				span.glyphicon.glyphicon-flag
-				span.type 仪器地点：
+				span.type 地点：
 			div.value
-				label.btn.btn-sm.btn-default(ng-model="filterModel.address" btn-radio="'全部地点'") 全部地点
+				label.btn.btn-sm.btn-default(ng-model="filterModel.address" btn-radio="'全部'") 全部
 				label.btn.btn-sm.btn-default(ng-repeat="address in addressList" ng-model="filterModel.address" btn-radio="'{{address}}'") {{address}}
+
 		div.row(ng-repeat="(key, values) in groupList | fieldFilter:filterModel")
 			div.key
 				span.glyphicon.glyphicon-wrench
 				span.type {{key}}：
 			div.value
-				label.btn.btn-sm.btn-default(ng-model="filterModel.field[key]" btn-radio="'全部取值'") 全部取值
+				label.btn.btn-sm.btn-default(ng-model="filterModel.field[key]" btn-radio="'全部'") 全部
 				label.btn.btn-sm.btn-default(ng-repeat="(value, _) in values" ng-model="filterModel.field[key]" btn-radio="'{{value}}'") {{value}}
-
+//
 	div#content
 		div.device(ng-repeat="device in deviceList | listFilter:filterModel")
 			img.shot(src="/static/img/device.jpg")

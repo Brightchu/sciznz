@@ -101,7 +101,6 @@ nav {
 			display: inline-block;
 			font-size: 2rem;
 			margin: 0 0.5rem;
-			cursor: pointer;
 			transition: all 0.5s;
 		}
 		#go {
@@ -120,6 +119,7 @@ nav {
 			border-radius: 3rem;
 			border: 1px solid @pure-green;
 			padding: 0.8rem 2rem;
+			cursor: pointer;
 			&:hover {
 				background-color: white;
 			}
@@ -331,6 +331,9 @@ nav {
 		font-size: 1.5rem;
 		color: @white;
 		background-color: @darkgrey;
+		.glyphicon {
+			margin-right: 0.5rem;
+		}
 		.row {
 			margin-bottom: 1rem;
 			.key {

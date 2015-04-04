@@ -88,20 +88,19 @@ sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', '$document', 'data', ($s
 
 ]
 
-sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', 'data', ($scope, $rootScope, data)->
-	$scope.groupList = data.hierarchy
-	$scope.deviceList = data.device
-	$scope.addressList = data.address
+sciCtrl.controller 'listCtrl', ['$scope', '$filter', 'data', ($scope, $filter, data)->
+	$scope.hierarchy = data.hierarchy
+	$scope.device = data.device
+	$scope.contain = data.contain
 	$scope.isCollapsed = true
 	$scope.showMoreSubGroup = false
 	$scope.showMoreCategory = false
-	$rootScope.field = {}
 
 	$scope.filterModel =
-		group: $rootScope.groupSelected
-		subgroup: '全部子类'
-		address: '全部地点'
-		category: '全部款式'
+		domain: $filter('translate')('all')
+		subgroup: $filter('translate')('all')
+		address: $filter('translate')('all')
+		category: $filter('translate')('all')
 		field: {}
 
 	$scope.moreSubGroup = []

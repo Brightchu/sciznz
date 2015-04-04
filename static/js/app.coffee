@@ -32,6 +32,7 @@ sciApp.config(['$compileProvider', ($compileProvider)->
 sciApp.config(['$translateProvider', ($translateProvider)->
 	$translateProvider.translations 'zh',
 		login: '登录'
+		all: '全部'
 
 	$translateProvider.preferredLanguage('zh')
 

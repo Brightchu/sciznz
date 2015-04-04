@@ -2,6 +2,7 @@
 
 sciFilter = angular.module('sciFilter', [])
 
+'''
 sciFilter.filter 'listFilter', ['data', (data)->
 	(array, filterModel)->
 		# build condition
@@ -76,21 +77,24 @@ sciFilter.filter 'moreCategoryFilter', ->
 			$scope.moreCateogory = slices
 
 		return array[0...6]
+'''
+sciFilter.filter 'featureFilter', ['$filter', ($filter)->
+	memo = {}
 
-sciFilter.filter 'subgroupFilter', ['data', (data)->
-	allSubGroup = data.child.map (value)->
-		return {"name": value}
+	(hierarchy, filterModel)->
+		_memo = memo[filterModel.domain]
+		return _memo if _memo?
 
-	(array, filterModel)->
-		if filterModel.group == '全部类别'
-			return allSubGroup
+		_memo = {}
+		if filterModel.domain == $filter('translate')('all')
+			for domain, feature of hierarchy
+				angular.extend(_memo, feature)
+		else
+			angular.extend(_memo, hierarchy[filterModel.domain])
 
-		group = array.filter (value)->
-			return value.name == filterModel.group
-
-		return group[0].child
+		memo[filterModel.domain] = _memo
 ]
-
+'''
 sciFilter.filter 'categoryFilter', ['data', (data)->
 	(array, filterModel)->
 		if filterModel.group == '全部类别' and filterModel.subgroup == '全部子类'
@@ -126,3 +130,4 @@ sciFilter.filter 'fieldFilter', ['$rootScope', 'data', ($rootScope, data)->
 
 		return $rootScope.field
 ]
+'''
