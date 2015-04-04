@@ -37,15 +37,15 @@ div#list
 			div.key
 			div.value
 				label.btn.btn-sm.btn-default(ng-repeat="category in row track by $index" ng-model="filterModel.category" btn-radio="'{{category}}'") {{category}}
-	//
+
 		div.row
 			div.key
 				span.glyphicon.glyphicon-flag
 				span.type 地点：
 			div.value
-				label.btn.btn-sm.btn-default(ng-model="filterModel.address" btn-radio="'全部'") 全部
-				label.btn.btn-sm.btn-default(ng-repeat="address in addressList" ng-model="filterModel.address" btn-radio="'{{address}}'") {{address}}
-
+				label.btn.btn-sm.btn-default(ng-model="filterModel.address" btn-radio="'不限'") 不限
+				label.btn.btn-sm.btn-default(ng-repeat="address in addresses" ng-model="filterModel.address" btn-radio="'{{address}}'") {{address}}
+	//
 		div.row(ng-repeat="(key, values) in groupList | fieldFilter:filterModel")
 			div.key
 				span.glyphicon.glyphicon-wrench

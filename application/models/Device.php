@@ -68,4 +68,10 @@ class Device extends CI_Model {
 
 		return $device;
 	}
+
+	public function address()
+	{
+		$sql = 'SELECT DISTINCT `address` FROM `device`';
+		return array_column($this->db->query($sql)->result_array(), 'address');
+	}
 }

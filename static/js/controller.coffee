@@ -93,6 +93,7 @@ sciCtrl.controller 'listCtrl', ['$scope', '$filter', 'data', ($scope, $filter, d
 	$scope.devices = data.device
 	$scope.features = data.feature
 	$scope.categories = data.category
+	$scope.addresses = data.address
 
 	$scope.isCollapsed = true
 	$scope.hideMoreFeature = true

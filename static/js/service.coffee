@@ -14,6 +14,7 @@ sciService.factory 'data', ['$http', ($http)->
 			hierarchy: {}
 			feature: {}
 			category: {}
+			address: []
 
 	promise = $http
 		method: 'GET'

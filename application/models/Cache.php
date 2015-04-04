@@ -54,9 +54,12 @@ class Cache extends CI_Model {
 
 		$hierarchy = $this->hierarchy->checkout();
 		$device = $this->device->checkout();
+		$address = $this->device->address();
 
-		$result = [];
-		$result['device'] = $device;
+		$result = array(
+			'device' => $device,
+			'address' => $address,
+		);
 
 		// build contain relationshop
 		$contain = [];
