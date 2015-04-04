@@ -10,9 +10,10 @@ sciService.factory 'data', ['$http', ($http)->
 	data = JSON.parse(localStorage.getItem('data'))
 	if not data
 		data =
-			hierarchy: []
-			device: []
-			contain: []
+			device: {}
+			hierarchy: {}
+			feature: {}
+			category: {}
 
 	promise = $http
 		method: 'GET'
