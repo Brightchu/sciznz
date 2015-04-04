@@ -11,11 +11,8 @@ sciService.factory 'data', ['$http', ($http)->
 	if not data
 		data =
 			hierarchy: []
-			keyword: {}
-			child: []
-			category: []
 			device: []
-			address: []
+			contain: []
 
 	promise = $http
 		method: 'GET'

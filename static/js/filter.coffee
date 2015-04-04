@@ -54,46 +54,35 @@ sciFilter.filter 'listFilter', ['data', (data)->
 		return array
 ]
 
-sciFilter.filter 'moreSubGroupFilter', ->
-	(array, $scope)->
-		slices = []
-		if $scope.showMoreSubGroup
-			for i in [7...array.length] by 7
-				slices.push(array[i...i+7])
-
-		if not angular.equals($scope.moreSubGroup, slices)
-			$scope.moreSubGroup = slices
-
-		return array[0...7]
-
-sciFilter.filter 'moreCategoryFilter', ->
-	(array, $scope)->
-		slices = []
-		if $scope.showMoreCategory
-			for i in [6...array.length] by 6
-				slices.push(array[i...i+6])
-
-		if not angular.equals($scope.moreCateogory, slices)
-			$scope.moreCateogory = slices
-
-		return array[0...6]
 '''
 sciFilter.filter 'featureFilter', ['$filter', ($filter)->
 	memo = {}
 
-	(hierarchy, filterModel)->
+	(hierarchy, filterModel, $scope)->
 		_memo = memo[filterModel.domain]
-		return _memo if _memo?
+		if not _memo?
+			_all = []
+			if filterModel.domain == $filter('translate')('all')
+				for _, domain of hierarchy
+					for feature of domain
+						_all.push(feature)
+			else
+				for feature of hierarchy[filterModel.domain]
+					_all.push(feature)
 
-		_memo = {}
-		if filterModel.domain == $filter('translate')('all')
-			for domain, feature of hierarchy
-				angular.extend(_memo, feature)
-		else
-			angular.extend(_memo, hierarchy[filterModel.domain])
+			_memo =
+				self: _all[0...7]
+				more: []
 
-		memo[filterModel.domain] = _memo
+			for i in [7..._all.length] by 7
+				_memo.more.push(_all[i...i+7])
+
+			memo[filterModel.domain] = _memo
+
+		$scope.moreFeature = _memo.more
+		return _memo.self
 ]
+
 '''
 sciFilter.filter 'categoryFilter', ['data', (data)->
 	(array, filterModel)->

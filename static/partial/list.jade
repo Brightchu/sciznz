@@ -14,15 +14,15 @@ div#list
 				span.type 性质：
 			div.value
 				label.btn.btn-sm.btn-default(ng-model="filterModel.feature" btn-radio="'全部'") 全部
-				label.btn.btn-sm.btn-default(ng-repeat="(feature, _) in hierarchy | featureFilter:filterModel" ng-model="filterModel.feature" btn-radio="'{{feature}}'") {{feature}}
-				label.btn.btn-sm.btn-default(ng-click="showMoreSubGroup = !showMoreSubGroup") 更多
+				label.btn.btn-sm.btn-default(ng-repeat="feature in (hierarchy | featureFilter:filterModel:this)" ng-model="filterModel.feature" btn-radio="'{{feature}}'") {{feature}}
+				label.btn.btn-sm.btn-default(ng-click="hideMoreFeature = !hideMoreFeature") 更多
 					span.caret
-	//
-		div.row(ng-repeat="moreRow in moreSubGroup track by $index")
+
+		div.row(collapse="hideMoreFeature" ng-repeat="row in moreFeature")
 			div.key
 			div.value
-				label.btn.btn-sm.btn-default(ng-repeat="subgroup in moreRow" ng-model="filterModel.subgroup" btn-radio="'{{subgroup.name}}'") {{subgroup.name}}
-
+				label.btn.btn-sm.btn-default(ng-repeat="feature in row" ng-model="filterModel.feature" btn-radio="'{{feature}}'") {{feature}}
+	//
 		div.row
 			div.key
 				span.glyphicon.glyphicon-th-large
