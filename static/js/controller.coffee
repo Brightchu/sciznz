@@ -104,12 +104,7 @@ sciCtrl.controller 'listCtrl', ['$scope', '$filter', 'data', ($scope, $filter, d
 ]
 
 sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Order', '$filter', ($scope, $routeParams, data, Order, $filter)->
-	thisDeviceID = parseInt($routeParams.deviceID)
-	thisDevice = null
-	for device in data.device
-		if device.ID == thisDeviceID
-			thisDevice = device
-			break
+	thisDevice = data.device[$routeParams.deviceID]
 	$scope.device = thisDevice
 
 	minDate = new Date()
@@ -123,14 +118,14 @@ sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Order', '$f
 	$scope.book = ->
 		d = $scope.date
 		payload =
-			deviceID: thisDeviceID
+			deviceID: thisDevice.ID
 			useDate: $filter('date')($scope.date, 'yyyy-MM-dd')
 		Order.save(payload).$promise.then ->
 			alert('预约成功')
 
 	updateRemain = (useDate)->
 		payload =
-			deviceID: thisDeviceID
+			deviceID: thisDevice.ID
 			useDate: $filter('date')(useDate, 'yyyy-MM-dd')
 		$scope.stat = Order.get(payload)
 
