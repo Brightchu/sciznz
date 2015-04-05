@@ -14,14 +14,14 @@ div#list
 				span.type 性质：
 			div.value
 				label.btn.btn-sm.btn-default(ng-model="filterModel.feature" btn-radio="filterModel.domain") {{filterModel.domain}}
-				label.btn.btn-sm.btn-default(ng-repeat="feature in data.index.feature[filterModel.domain].self track by $index" ng-model="filterModel.feature" btn-radio="'{{feature}}'") {{feature}}
+				label.btn.btn-sm.btn-default(ng-repeat="feature in data.index.feature[filterModel.domain].self | unique" ng-model="filterModel.feature" btn-radio="'{{feature}}'") {{feature}}
 				label.btn.btn-sm.btn-default(ng-show="data.index.feature[filterModel.domain].more.length" ng-click="hideMoreFeature = !hideMoreFeature") 更多
 					span.caret
 
 		div.row(collapse="hideMoreFeature" ng-repeat="row in data.index.feature[filterModel.domain].more")
 			div.key
 			div.value
-				label.btn.btn-sm.btn-default(ng-repeat="feature in row track by $index" ng-model="filterModel.feature" btn-radio="'{{feature}}'") {{feature}}
+				label.btn.btn-sm.btn-default(ng-repeat="feature in row | unique" ng-model="filterModel.feature" btn-radio="'{{feature}}'") {{feature}}
 
 		div.row
 			div.key
@@ -29,14 +29,14 @@ div#list
 				span.type 类别：
 			div.value
 				label.btn.btn-sm.btn-default(ng-model="filterModel.category" btn-radio="filterModel.feature") {{filterModel.feature}}
-				label.btn.btn-sm.btn-default(ng-repeat="category in data.index.category[filterModel.feature].self track by $index" ng-model="filterModel.category" btn-radio="'{{category}}'") {{category}}
+				label.btn.btn-sm.btn-default(ng-repeat="category in data.index.category[filterModel.feature].self | unique" ng-model="filterModel.category" btn-radio="'{{category}}'") {{category}}
 				label.btn.btn-sm.btn-default(ng-show="data.index.category[filterModel.feature].more.length" ng-click="hideMoreCategory = !hideMoreCategory") 更多
 					span.caret
 
 		div.row(collapse="hideMoreCategory" ng-repeat="row in data.index.category[filterModel.feature].more")
 			div.key
 			div.value
-				label.btn.btn-sm.btn-default(ng-repeat="category in row track by $index" ng-model="filterModel.category" btn-radio="'{{category}}'") {{category}}
+				label.btn.btn-sm.btn-default(ng-repeat="category in row | unique" ng-model="filterModel.category" btn-radio="'{{category}}'") {{category}}
 
 		div.row
 			div.key
