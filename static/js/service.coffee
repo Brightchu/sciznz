@@ -13,6 +13,7 @@ sciService.factory 'data', ['$http', ($http)->
 			hierarchy: {}
 			device: {}
 			index:
+				contain: {}
 				address: []
 				feature: {}
 				category: {}

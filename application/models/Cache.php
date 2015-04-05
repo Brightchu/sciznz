@@ -86,6 +86,7 @@ class Cache extends CI_Model {
 			'device' => $device,
 			'field' => $this->category->field(),
 			'index' => array(
+				'contain' => $contain,
 				'address' => $this->device->address(),
 			),
 		);

@@ -53,29 +53,34 @@ sciFilter.filter 'listFilter', ['data', (data)->
 
 		return array
 ]
-
-sciFilter.filter 'fieldFilter', ['$rootScope', 'data', ($rootScope, data)->
-	(array, filterModel)->
-		if filterModel.category == '全部款式'
-			return
-
-		deviceList = data.device.filter (value)->
-			return value.category == filterModel.category
-
-		field = {}
-		for device in deviceList
-			for key, value of device.field
-				if not field[key]?
-					field[key] = {}
-				field[key][value] = true
-
-		if not angular.equals($rootScope.field, field)
-			$rootScope.field = field
-
-		for item of deviceList[0].field
-			if not filterModel.field[item]?
-				filterModel.field[item] = '全部取值'
-
-		return $rootScope.field
-]
 '''
+
+sciFilter.filter 'fieldFilter', ['$filter', ($filter)->
+	(data, filterModel, field)->
+		'''
+		if filterModel.domain == $filter('translate')('unlimit')
+			for domain, domainFeature of data.hierarchy
+				for feature, featureCategory of domainFeature
+					for category of featureCategory
+						if category == filterModel.category
+							filterModel.feature = feature
+							filterModel.domain = domain
+							break
+
+		else if filterModel.feature == $filter('translate')('unlimit')
+			for feature, featureCategory of data.hierarchy[filterModel.domain]
+				for category of featureCategory
+					if category == filterModel.category
+						filterModel.feature = feature
+						break
+		'''
+
+		filterModel.field[field] = $filter('translate')('unlimit')
+
+		IDList = data.index.contain[filterModel.category]
+		if IDList?
+			return IDList.map (deviceID)->
+				return data.device[deviceID]['field'][field]
+		else
+			return []
+]

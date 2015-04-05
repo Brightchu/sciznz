@@ -45,14 +45,14 @@ div#list
 			div.value
 				label.btn.btn-sm.btn-default(ng-model="filterModel.address" btn-radio="'不限'") 不限
 				label.btn.btn-sm.btn-default(ng-repeat="address in data.index.address" ng-model="filterModel.address" btn-radio="'{{address}}'") {{address}}
-	//
-		div.row(ng-repeat="(key, values) in groupList | fieldFilter:filterModel")
+
+		div.row(ng-repeat="field in data.field[filterModel.category]")
 			div.key
 				span.glyphicon.glyphicon-wrench
-				span.type {{key}}：
+				span.type {{field}}：
 			div.value
-				label.btn.btn-sm.btn-default(ng-model="filterModel.field[key]" btn-radio="'全部'") 全部
-				label.btn.btn-sm.btn-default(ng-repeat="(value, _) in values" ng-model="filterModel.field[key]" btn-radio="'{{value}}'") {{value}}
+				label.btn.btn-sm.btn-default(ng-model="filterModel.field[field]" btn-radio="'不限'") 不限
+				label.btn.btn-sm.btn-default(ng-repeat="value in data | fieldFilter:filterModel:field | unique" ng-model="filterModel.field[field]" btn-radio="'{{value}}'") {{value}}
 //
 	div#content
 		div.device(ng-repeat="device in deviceList | listFilter:filterModel")
