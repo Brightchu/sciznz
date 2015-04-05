@@ -121,7 +121,7 @@ sciCtrl.controller 'listCtrl', ['$scope', '$filter', 'data', ($scope, $filter, d
 		field: {}
 ]
 
-sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Order', '$filter', ($scope, $routeParams, data, Order, $filter)->
+sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Order', '$filter', '$cookies', '$modal', ($scope, $routeParams, data, Order, $filter, $cookies, $modal)->
 	thisDevice = data.device[$routeParams.deviceID]
 	$scope.device = thisDevice
 
@@ -134,13 +134,25 @@ sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Order', '$f
 	$scope.maxDate = maxDate
 	$scope.date = minDate
 	$scope.book = ->
-		d = $scope.date
-		payload =
-			deviceID: thisDevice.ID
-			useDate: $filter('date')($scope.date, 'yyyy-MM-dd')
-		Order.save(payload).$promise.then ->
-			alert('预约成功，你可以在个人中心跟踪订单状态')
-			$scope.stat.count += 1
+		if $cookies.name
+			d = $scope.date
+			payload =
+				deviceID: thisDevice.ID
+				useDate: $filter('date')($scope.date, 'yyyy-MM-dd')
+			Order.save(payload).$promise.then ->
+				alert('预约成功，你可以在个人中心跟踪订单状态')
+				$scope.stat.count += 1
+		else
+			modalInstance = $modal.open
+				templateUrl: '/static/partial/login.html'
+				controller: 'loginCtrl'
+				size: 'sm'
+				windowClass: 'login'
+				backdropClass: 'loginBack'
+
+			modalInstance.result.then (name)->
+				$cookies.name = name
+				$scope.name = name
 
 	updateRemain = (useDate)->
 		payload =

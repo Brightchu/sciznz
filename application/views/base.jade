@@ -26,7 +26,7 @@ html
 				li(ng-click="scrollTo('#user')") 用户案例
 
 			ul.right
-				li(ng-click="open()") {{name | translate}}
+				li#loginButton(ng-click="open()") {{name | translate}}
 
 		div(class="view-frame" ng-view)
 
