@@ -80,6 +80,20 @@ class Cache extends CI_Model {
 			}
 		}
 
+		// inject unlimit contains into contain
+		foreach ($hierarchy as $domain => $featureList) {
+			$domainUnlimit = [];
+			foreach ($featureList as $feature => $categoryList) {
+				$featureUnlimit = [];
+				foreach ($categoryList as $category) {
+					$featureUnlimit = array_merge($featureUnlimit, $category);
+				}
+				$contain[$feature] = $featureUnlimit;
+				$domainUnlimit = array_merge($domainUnlimit, $featureUnlimit);
+			}
+			$contain[$domain] = $domainUnlimit;
+		}
+
 		// build initial result
 		$result = array(
 			'hierarchy' => $hierarchy,

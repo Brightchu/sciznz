@@ -5,16 +5,16 @@ div#list
 				span.glyphicon.glyphicon-list
 				span.type 领域：
 			div.value
-				label.btn.btn-sm.btn-default(ng-model="filterModel.domain" btn-radio="'不限'" ng-click="filterModel.domain = '不限'; filterModel.feature = '不限'") 不限
-				label.btn.btn-sm.btn-default(ng-repeat="(domain, _) in data.hierarchy" ng-model="filterModel.domain" btn-radio="'{{domain}}'" ng-click="filterModel.domain = domain; filterModel.feature = domain") {{domain}}
+				label.btn.btn-sm.btn-default(ng-model="filterModel.domain" btn-radio="'不限'" ng-click="filterModel.domain = '不限'; filterModel.feature = '不限'; filterModel.category = '不限'") 不限
+				label.btn.btn-sm.btn-default(ng-repeat="(domain, _) in data.hierarchy" ng-model="filterModel.domain" btn-radio="'{{domain}}'" ng-click="filterModel.domain = domain; filterModel.feature = domain; filterModel.category = domain") {{domain}}
 
 		div.row
 			div.key
 				span.glyphicon.glyphicon-th
 				span.type 性质：
 			div.value
-				label.btn.btn-sm.btn-default(ng-model="filterModel.feature" btn-radio="filterModel.domain") {{filterModel.domain}}
-				label.btn.btn-sm.btn-default(ng-repeat="feature in data.index.feature[filterModel.domain].self | unique" ng-model="filterModel.feature" btn-radio="'{{feature}}'") {{feature}}
+				label.btn.btn-sm.btn-default(ng-model="filterModel.feature" btn-radio="filterModel.domain" ng-click="filterModel.feature = filterModel.domain; filterModel.category = filterModel.domain") {{filterModel.domain}}
+				label.btn.btn-sm.btn-default(ng-repeat="feature in data.index.feature[filterModel.domain].self | unique" ng-model="filterModel.feature" btn-radio="'{{feature}}'" ng-click="filterModel.feature = feature; filterModel.category = feature") {{feature}}
 				label.btn.btn-sm.btn-default(ng-show="data.index.feature[filterModel.domain].more.length" ng-click="hideMoreFeature = !hideMoreFeature") 更多
 					span.caret
 
@@ -53,9 +53,9 @@ div#list
 			div.value
 				label.btn.btn-sm.btn-default(ng-model="filterModel.field[field]" btn-radio="'不限'") 不限
 				label.btn.btn-sm.btn-default(ng-repeat="value in data | fieldFilter:filterModel:field | unique" ng-model="filterModel.field[field]" btn-radio="'{{value}}'") {{value}}
-//
+
 	div#content
-		div.device(ng-repeat="device in deviceList | listFilter:filterModel")
+		div.device(ng-repeat="device in data | listFilter:filterModel")
 			img.shot(src="/static/img/device.jpg")
 			div.info
 				p.row
