@@ -6,7 +6,7 @@ div#list
 				span.type 领域：
 			div.value
 				label.btn.btn-sm.btn-default(ng-model="filterModel.domain" btn-radio="'不限'" ng-click="filterModel.domain = '不限'; filterModel.feature = '不限'") 不限
-				label.btn.btn-sm.btn-default(ng-repeat="(domain, _) in hierarchy" ng-model="filterModel.domain" btn-radio="'{{domain}}'" ng-click="filterModel.domain = domain; filterModel.feature = domain") {{domain}}
+				label.btn.btn-sm.btn-default(ng-repeat="(domain, _) in data.hierarchy" ng-model="filterModel.domain" btn-radio="'{{domain}}'" ng-click="filterModel.domain = domain; filterModel.feature = domain") {{domain}}
 
 		div.row
 			div.key
@@ -14,11 +14,11 @@ div#list
 				span.type 性质：
 			div.value
 				label.btn.btn-sm.btn-default(ng-model="filterModel.feature" btn-radio="filterModel.domain") {{filterModel.domain}}
-				label.btn.btn-sm.btn-default(ng-repeat="feature in features[filterModel.domain].self track by $index" ng-model="filterModel.feature" btn-radio="'{{feature}}'") {{feature}}
-				label.btn.btn-sm.btn-default(ng-show="features[filterModel.domain].more.length" ng-click="hideMoreFeature = !hideMoreFeature") 更多
+				label.btn.btn-sm.btn-default(ng-repeat="feature in data.index.feature[filterModel.domain].self track by $index" ng-model="filterModel.feature" btn-radio="'{{feature}}'") {{feature}}
+				label.btn.btn-sm.btn-default(ng-show="data.index.feature[filterModel.domain].more.length" ng-click="hideMoreFeature = !hideMoreFeature") 更多
 					span.caret
 
-		div.row(collapse="hideMoreFeature" ng-repeat="row in features[filterModel.domain].more")
+		div.row(collapse="hideMoreFeature" ng-repeat="row in data.index.feature[filterModel.domain].more")
 			div.key
 			div.value
 				label.btn.btn-sm.btn-default(ng-repeat="feature in row track by $index" ng-model="filterModel.feature" btn-radio="'{{feature}}'") {{feature}}
@@ -29,11 +29,11 @@ div#list
 				span.type 类别：
 			div.value
 				label.btn.btn-sm.btn-default(ng-model="filterModel.category" btn-radio="filterModel.feature") {{filterModel.feature}}
-				label.btn.btn-sm.btn-default(ng-repeat="category in categories[filterModel.feature].self track by $index" ng-model="filterModel.category" btn-radio="'{{category}}'") {{category}}
-				label.btn.btn-sm.btn-default(ng-show="categories[filterModel.feature].more.length" ng-click="hideMoreCategory = !hideMoreCategory") 更多
+				label.btn.btn-sm.btn-default(ng-repeat="category in data.index.category[filterModel.feature].self track by $index" ng-model="filterModel.category" btn-radio="'{{category}}'") {{category}}
+				label.btn.btn-sm.btn-default(ng-show="data.index.category[filterModel.feature].more.length" ng-click="hideMoreCategory = !hideMoreCategory") 更多
 					span.caret
 
-		div.row(collapse="hideMoreCategory" ng-repeat="row in categories[filterModel.feature].more")
+		div.row(collapse="hideMoreCategory" ng-repeat="row in data.index.category[filterModel.feature].more")
 			div.key
 			div.value
 				label.btn.btn-sm.btn-default(ng-repeat="category in row track by $index" ng-model="filterModel.category" btn-radio="'{{category}}'") {{category}}
@@ -44,7 +44,7 @@ div#list
 				span.type 地点：
 			div.value
 				label.btn.btn-sm.btn-default(ng-model="filterModel.address" btn-radio="'不限'") 不限
-				label.btn.btn-sm.btn-default(ng-repeat="address in addresses" ng-model="filterModel.address" btn-radio="'{{address}}'") {{address}}
+				label.btn.btn-sm.btn-default(ng-repeat="address in data.index.address" ng-model="filterModel.address" btn-radio="'{{address}}'") {{address}}
 	//
 		div.row(ng-repeat="(key, values) in groupList | fieldFilter:filterModel")
 			div.key

@@ -10,11 +10,12 @@ sciService.factory 'data', ['$http', ($http)->
 	data = JSON.parse(localStorage.getItem('data'))
 	if not data
 		data =
-			device: {}
 			hierarchy: {}
-			feature: {}
-			category: {}
-			address: []
+			device: {}
+			index:
+				address: []
+				feature: {}
+				category: {}
 
 	promise = $http
 		method: 'GET'
@@ -24,14 +25,7 @@ sciService.factory 'data', ['$http', ($http)->
 		responseType: 'json'
 
 	promise.success (body, status, headers)->
-		if not data.hierarchy.length
-			for key, value of body
-				if angular.isArray(value)
-					Array.prototype.push.apply(data[key], value)
-				else
-					for k, v of value
-						data[key][k] = v
-
+		angular.copy(body, data)
 		localStorage.setItem('data', JSON.stringify(body))
 		localStorage.setItem('Last-Modified', headers('Last-Modified'))
 

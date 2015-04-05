@@ -56,11 +56,6 @@ class Cache extends CI_Model {
 		$device = $this->device->checkout();
 		$address = $this->device->address();
 
-		$result = array(
-			'device' => $device,
-			'address' => $address,
-		);
-
 		// build contain relationshop
 		$contain = [];
 		foreach ($device as $d) {
@@ -85,54 +80,78 @@ class Cache extends CI_Model {
 				$hierarchy[$domain][$feature] = $map;
 			}
 		}
-		$result['hierarchy'] = $hierarchy;
+
+		// build initial result
+		$result = array(
+			'hierarchy' => $hierarchy,
+			'device' => $device,
+			'index' => array(
+				'address' => $address,
+			),
+		);
 
 		// build feature
 		$feature = [];
-		$allFeature = [];
+		$unlimit = [];
 		foreach ($hierarchy as $domain => $featureList) {
 			$keys = array_keys($featureList);
-			$allFeature = array_merge($allFeature, $keys);
+			$unlimit = array_merge($unlimit, $keys);
+
 			$rows = array_chunk($keys, 7);
 			$pair = array(
 				'self' => $rows[0],
 				'more' => array_slice($rows, 1),
 			);
+
 			$feature[$domain] = $pair;
 		}
-		$rows = array_chunk($allFeature, 7);
-		$pair = array(
-			'self' => $rows[0],
-			'more' => array_slice($rows, 1),
-		);
-		$feature['不限'] = $pair;
-		$result['feature'] = $feature;
-
-		// build category
-		$category = [];
-		$_category = [];
-		$allCategory = [];
-		foreach ($hierarchy as $domain => $featureList) {
-			$_domain = [];
-			foreach ($featureList as $feature => $categoryList) {
-				$keys = array_keys($categoryList);
-				$_category[$feature] = $keys;
-				$_domain = array_merge($_domain, $keys);
-			}
-			$_category[$domain] = $_domain;
-			$allCategory = array_merge($allCategory, $_domain);
-		}
-		$_category['不限'] = $allCategory;
-
-		foreach ($_category as $name => $list) {
-			$rows = array_chunk($list, 7);
+		{
+			$rows = array_chunk($unlimit, 7);
 			$pair = array(
 				'self' => $rows[0],
 				'more' => array_slice($rows, 1),
 			);
-			$category[$name] = $pair;
+			$feature['不限'] = $pair;
 		}
-		$result['category'] = $category;
+
+		$result['index']['feature'] = $feature;
+
+		// build category
+		$category = [];
+		$unlimit = [];
+		foreach ($hierarchy as $domain => $featureList) {
+			$domainUnlimit = [];
+			foreach ($featureList as $feature => $categoryList) {
+				$keys = array_keys($categoryList);
+				$domainUnlimit = array_merge($domainUnlimit, $keys);
+
+				$rows = array_chunk($keys, 7);
+				$pair = array(
+					'self' => $rows[0],
+					'more' => array_slice($rows, 1),
+				);
+
+				$category[$feature] = $pair;
+			}
+			$unlimit = array_merge($unlimit, $domainUnlimit);
+
+			$rows = array_chunk($keys, 7);
+			$pair = array(
+				'self' => $rows[0],
+				'more' => array_slice($rows, 1),
+			);
+
+			$category[$domain] = $pair;
+		}
+		{
+			$rows = array_chunk($unlimit, 7);
+			$pair = array(
+				'self' => $rows[0],
+				'more' => array_slice($rows, 1),
+			);
+			$category['不限'] = $pair;
+		}
+		$result['index']['category'] = $category;
 
 		return $result;
 	}

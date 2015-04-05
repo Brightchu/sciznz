@@ -33,7 +33,7 @@ sciApp.config(['$translateProvider', ($translateProvider)->
 	$translateProvider.translations 'zh',
 		login: '登录'
 		all: '全部'
-		nolimit: '不限'
+		unlimit: '不限'
 
 	$translateProvider.preferredLanguage('zh')
 

@@ -89,21 +89,17 @@ sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', '$document', 'data', ($s
 ]
 
 sciCtrl.controller 'listCtrl', ['$scope', '$filter', 'data', ($scope, $filter, data)->
-	$scope.hierarchy = data.hierarchy
-	$scope.devices = data.device
-	$scope.features = data.feature
-	$scope.categories = data.category
-	$scope.addresses = data.address
+	$scope.data = data
 
 	$scope.isCollapsed = true
 	$scope.hideMoreFeature = true
 	$scope.hideMoreCategory = true
 
 	$scope.filterModel =
-		domain: $filter('translate')('nolimit')
-		feature: $filter('translate')('nolimit')
-		address: $filter('translate')('nolimit')
-		category: $filter('translate')('nolimit')
+		domain: $filter('translate')('unlimit')
+		feature: $filter('translate')('unlimit')
+		address: $filter('translate')('unlimit')
+		category: $filter('translate')('unlimit')
 		field: {}
 ]
 
