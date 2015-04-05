@@ -6,14 +6,12 @@
 @nav-green: rgba(237, 255, 248, 0.8);
 @cube-green: rgba(32, 175, 116, 0.5);
 @hr-green: rgba(32, 175, 116, 0.15);
-@text: #333;
-@white: #FFF;
 @lightwhite: rgba(255, 255, 255, 0.7);
 @darkwhite: rgba(255, 255, 255, 0.4);
 @grey: rgba(0, 0, 0, 0.4);
 @darkgrey: rgba(0, 0, 0, 0.4);
 @lightblue: #31B0D5;
-@blue: #337AB7;
+@blue: #31B0D5;
 
 body {
 	color: @pure-green;
@@ -21,7 +19,7 @@ body {
 }
 
 a {
-	color: @text;
+	color: #333;
 	&:hover {
 		text-decoration: none;
 	}
@@ -329,8 +327,8 @@ nav {
 	#filter {
 		padding: 2rem 4rem;
 		font-size: 1.5rem;
-		color: @white;
-		background-color: @darkgrey;
+		background-color: rgba(255, 255, 255, 0.5);
+		box-shadow: 0 0 1rem #DDD;
 		.glyphicon {
 			margin-right: 0.5rem;
 		}
@@ -364,7 +362,8 @@ nav {
 		border-radius: 1rem;
 		.device {
 			margin: 1rem 0;
-			background-color: @lightwhite;
+			background-color: rgba(255, 255, 255, 0.5);
+			box-shadow: 0 0 1rem #DDD;
 			img.shot {
 				width: 12vw;
 				display: inline-block;
@@ -420,6 +419,14 @@ nav {
 					}
 				}
 			}
+		}
+		.nodevice {
+			margin: 1rem 0;
+			line-height: 6rem;
+			font-size: 3rem;
+			text-align: center;
+			background-color: rgba(255, 255, 255, 0.5);
+			box-shadow: 0 0 1rem #DDD;
 		}
 	}
 }

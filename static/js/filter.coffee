@@ -7,6 +7,7 @@ sciFilter.filter 'listFilter', ['$filter', ($filter)->
 		# return if no filter label selected
 		if filterModel.category == $filter('translate')('unlimit')
 			if filterModel.address == $filter('translate')('unlimit')
+				$scope.nodevice = false
 				return data.device
 			else
 				deviceList = []
@@ -14,13 +15,14 @@ sciFilter.filter 'listFilter', ['$filter', ($filter)->
 					if device.address == filterModel.address
 						deviceList.push(device)
 
+				$scope.nodevice = false
 				return deviceList
 
 		# selected category
 		IDList = data.index.contain[filterModel.category]
 		if IDList?
 			deviceList = IDList.map (deviceID)->
-					data.device[deviceID]
+				data.device[deviceID]
 		else
 			$scope.nodevice = true
 			return []
@@ -48,6 +50,11 @@ sciFilter.filter 'listFilter', ['$filter', ($filter)->
 						return false
 
 				return true
+
+		if not deviceList.length
+			$scope.nodevice = true
+		else
+			$scope.nodevice = false
 
 		return deviceList
 ]
