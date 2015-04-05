@@ -29,6 +29,11 @@ sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', '$document', ($sc
 ]
 
 sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout', ($scope, $modalInstance, User, $timeout)->
+	$scope.current = 'signup'
+
+	$scope.switchText = '已经注册？'
+	$scope.actionText = '注册'
+
 	$scope.signin = ->
 		form =
 			email: $scope.email
@@ -62,6 +67,19 @@ sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout',
 			$timeout ->
 				$modalInstance.close(decodeURIComponent(cookiePair['name']))
 			, 1000
+
+	$scope.action = ->
+		$scope[$scope.current]()
+
+	$scope.switch = ->
+		if $scope.current == 'signup'
+			$scope.current = 'signin'
+			$scope.switchText = '还没注册？'
+			$scope.actionText = '登录'
+		else
+			$scope.current = 'signup'
+			$scope.switchText = '已经注册？'
+			$scope.actionText = '注册'
 ]
 
 sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', '$document', 'data', ($scope, $rootScope, $document, data)->
