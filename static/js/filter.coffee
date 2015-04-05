@@ -4,7 +4,6 @@ sciFilter = angular.module('sciFilter', [])
 
 sciFilter.filter 'listFilter', ['$filter', ($filter)->
 	(data, filterModel)->
-		console.log filterModel.category
 		# return if no filter label selected
 		if filterModel.category == $filter('translate')('unlimit')
 			return data.device

@@ -147,7 +147,7 @@ class Cache extends CI_Model {
 			}
 			$unlimit = array_merge($unlimit, $domainUnlimit);
 
-			$rows = array_chunk($keys, 7);
+			$rows = array_chunk($domainUnlimit, 7);
 			$pair = array(
 				'self' => $rows[0],
 				'more' => array_slice($rows, 1),
