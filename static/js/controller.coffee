@@ -139,7 +139,8 @@ sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Order', '$f
 			deviceID: thisDevice.ID
 			useDate: $filter('date')($scope.date, 'yyyy-MM-dd')
 		Order.save(payload).$promise.then ->
-			alert('预约成功')
+			alert('预约成功，你可以在个人中心跟踪订单状态')
+			$scope.stat.count += 1
 
 	updateRemain = (useDate)->
 		payload =
@@ -149,7 +150,7 @@ sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Order', '$f
 
 	updateRemain(minDate)
 
-	$scope.$watch 'date', (name, oldValue, newValue)->
+	$scope.$watch 'date', (oldValue, newValue)->
 		updateRemain(newValue)
 		return newValue
 ]
