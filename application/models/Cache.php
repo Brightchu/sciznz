@@ -51,12 +51,10 @@ class Cache extends CI_Model {
 	{
 		$this->load->model('hierarchy');
 		$this->load->model('device');
+		$this->load->model('category');
 
-		$hierarchy = $this->hierarchy->checkout();
+		// build contain relationshop from device
 		$device = $this->device->checkout();
-		$address = $this->device->address();
-
-		// build contain relationshop
 		$contain = [];
 		foreach ($device as $d) {
 			if (isset($contain[$d['category']])) {
@@ -67,6 +65,7 @@ class Cache extends CI_Model {
 		}
 
 		// inject contain into hierarchy
+		$hierarchy = $this->hierarchy->checkout();
 		foreach ($hierarchy as $domain => $featureList) {
 			foreach ($featureList as $feature => $categoryList) {
 				$map = [];
@@ -85,8 +84,9 @@ class Cache extends CI_Model {
 		$result = array(
 			'hierarchy' => $hierarchy,
 			'device' => $device,
+			'field' => $this->category->field(),
 			'index' => array(
-				'address' => $address,
+				'address' => $this->device->address(),
 			),
 		);
 
@@ -102,7 +102,6 @@ class Cache extends CI_Model {
 				'self' => $rows[0],
 				'more' => array_slice($rows, 1),
 			);
-
 			$feature[$domain] = $pair;
 		}
 		{
@@ -113,7 +112,6 @@ class Cache extends CI_Model {
 			);
 			$feature['不限'] = $pair;
 		}
-
 		$result['index']['feature'] = $feature;
 
 		// build category
@@ -130,7 +128,6 @@ class Cache extends CI_Model {
 					'self' => $rows[0],
 					'more' => array_slice($rows, 1),
 				);
-
 				$category[$feature] = $pair;
 			}
 			$unlimit = array_merge($unlimit, $domainUnlimit);
@@ -140,7 +137,6 @@ class Cache extends CI_Model {
 				'self' => $rows[0],
 				'more' => array_slice($rows, 1),
 			);
-
 			$category[$domain] = $pair;
 		}
 		{

@@ -54,4 +54,16 @@ class Category extends CI_Model {
 		return $this->db->query($sql, $ID);
 	}
 
+	public function field()
+	{
+		$sql = 'SELECT `name`, `field` FROM `category`';
+		$result = $this->db->query($sql)->result_array();
+
+		$field = [];
+		foreach ($result as $row) {
+			$field[$row['name']] = json_decode($row['field'], TRUE);
+		}
+
+		return $field;
+	}
 }
