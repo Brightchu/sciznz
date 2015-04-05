@@ -55,7 +55,7 @@ div#list
 				label.btn.btn-sm.btn-default(ng-repeat="value in data | fieldFilter:filterModel:field | unique" ng-model="filterModel.field[field]" btn-radio="'{{value}}'") {{value}}
 
 	div#content
-		div.device(ng-repeat="device in data | listFilter:filterModel")
+		div.device(ng-repeat="device in data | listFilter:filterModel:this")
 			img.shot(src="/static/img/device.jpg")
 			div.info
 				p.row
@@ -78,3 +78,7 @@ div#list
 					label.btn.btn-default.btn-block.price {{device.price}}元 / {{device.unit}}
 					a(href="#/device/{{device.ID}}")
 						label.btn.btn-success.btn-block.booking 立即预约
+
+		div.nodevice(ng-show="nodevice")
+			div.info
+				p 没有合适的仪器，去其他栏目看看把

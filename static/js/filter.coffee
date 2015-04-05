@@ -3,10 +3,18 @@
 sciFilter = angular.module('sciFilter', [])
 
 sciFilter.filter 'listFilter', ['$filter', ($filter)->
-	(data, filterModel)->
+	(data, filterModel, $scope)->
 		# return if no filter label selected
 		if filterModel.category == $filter('translate')('unlimit')
-			return data.device
+			if filterModel.address == $filter('translate')('unlimit')
+				return data.device
+			else
+				deviceList = []
+				for _, device of data.device
+					if device.address == filterModel.address
+						deviceList.push(device)
+
+				return deviceList
 
 		# selected category
 		IDList = data.index.contain[filterModel.category]
@@ -14,7 +22,16 @@ sciFilter.filter 'listFilter', ['$filter', ($filter)->
 			deviceList = IDList.map (deviceID)->
 					data.device[deviceID]
 		else
+			$scope.nodevice = true
 			return []
+
+		# filter address
+		if filterModel.address != $filter('translate')('unlimit')
+			deviceList = deviceList.filter (device)->
+				if device.address == filterModel.address
+					return true
+				else
+					return false
 
 		# filter field
 		# build condition
@@ -24,13 +41,13 @@ sciFilter.filter 'listFilter', ['$filter', ($filter)->
 				condition[name] = expect
 
 		# do filter field
-		deviceList = deviceList.filter (device)->
-			for name, expect of condition
-				if device.field[name] != expect
-					return false
+		if condition?
+			deviceList = deviceList.filter (device)->
+				for name, expect of condition
+					if device.field[name] != expect
+						return false
 
-			return true
-
+				return true
 
 		return deviceList
 ]

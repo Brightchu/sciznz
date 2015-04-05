@@ -98,8 +98,8 @@ sciCtrl.controller 'listCtrl', ['$scope', '$filter', 'data', ($scope, $filter, d
 	$scope.filterModel =
 		domain: $filter('translate')('unlimit')
 		feature: $filter('translate')('unlimit')
-		address: $filter('translate')('unlimit')
 		category: $filter('translate')('unlimit')
+		address: $filter('translate')('unlimit')
 		field: {}
 ]
 
