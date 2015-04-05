@@ -31,7 +31,7 @@ class Api extends CI_Controller {
 
 		switch ($this->input->method()) {
 			case 'put':
-				$result = $this->user->login($this->input->json('username'), $this->input->json('password'));
+				$result = $this->user->login($this->input->json('email'), $this->input->json('password'));
 				if ($result) {
 					$result['timestamp'] = time();
 
@@ -49,8 +49,7 @@ class Api extends CI_Controller {
 
 			case 'post':
 				$row = $this->input->json();
-				$row['name'] = $row['username'];
-				$row['email'] = $row['username'];
+				$row['name'] = $row['email'];
 				$row['credit'] = 0;
 				$row['phone'] = '';
 

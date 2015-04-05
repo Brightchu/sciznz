@@ -11,7 +11,7 @@ ucenterFilter.filter 'statusFilter', ->
 		6: '已完成'
 		0: '已取消'
 	(value)->
-		return name[value]
+		name[value]
 
 ucenterFilter.filter 'classFilter', ->
 	name =
@@ -36,4 +36,3 @@ ucenterFilter.filter 'buttonTextFilter', ->
 		0: '已取消'
 	(value)->
 		return name[value]
-

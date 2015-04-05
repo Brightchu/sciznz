@@ -1,7 +1,11 @@
 'use strict'
 
-ucenterCtrl = angular.module('ucenterCtrl', ['ui.bootstrap'])
-ucenterCtrl.controller 'accordionCtrl', ['$scope', '$location', ($scope, $location)->
+ucenterCtrl = angular.module('ucenterCtrl', ['ngCookies', 'ui.bootstrap'])
+
+ucenterCtrl.controller 'accordionCtrl', ['$scope', '$location', '$cookies', ($scope, $location, $cookies)->
+	if not $cookies.name?
+		window.location = '/'
+
 	$(document).ready ->
 		heading = $(document.querySelectorAll('.panel-heading'))
 		heading.on 'click', ->
@@ -16,6 +20,12 @@ ucenterCtrl.controller 'accordionCtrl', ['$scope', '$location', ($scope, $locati
 		link = $(document.querySelector("[href='##{$location.path()}']"))
 		link.parent().click()
 		$($(link.parent().parent().parent().parent().children()[0]).children()[0]).children().click()
+
+	$scope.logout = ->
+		if confirm('退出当前账号？')
+			for key, value of $cookies
+				delete $cookies[key]
+			window.location = '/'
 ]
 
 ucenterCtrl.controller 'personalInfoCtrl', ['$scope', 'Info', ($scope, Info)->

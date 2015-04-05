@@ -31,7 +31,7 @@ sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', '$document', ($sc
 sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout', ($scope, $modalInstance, User, $timeout)->
 	$scope.signin = ->
 		form =
-			username: $scope.username
+			email: $scope.email
 			password: $scope.password
 
 		result = User.update(form).$promise
@@ -46,7 +46,7 @@ sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout',
 
 	$scope.signup = ->
 		form =
-			username: $scope.username
+			email: $scope.email
 			password: $scope.password
 
 		result = User.save(form).$promise

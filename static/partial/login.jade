@@ -7,10 +7,11 @@
 	div(class="alert alert-warning" ng-if="warning") 邮箱已被注册，登录试试？
 	div(class="alert alert-success" ng-if="success") 注册成功
 	form
-		input(type="email" ng-model="username" class="form-control" placeholder="邮箱" required autofocus)
+		input(type="email" ng-model="email" class="form-control" placeholder="邮箱" required autofocus)
 		input(type="password" ng-model="password" class="form-control" placeholder="密码" required)
 		button(type="submit" ng-click='signin()' style='display: none') 登录
 
 .modal-footer
 	button.btn.btn-info(ng-click='signup()' style="float: left") 注册
 	button.btn.btn-primary(ng-click='signin()') 登录
+ser

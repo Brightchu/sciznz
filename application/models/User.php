@@ -12,15 +12,15 @@ class User extends CI_Model {
 
 	/**
 	 * Check privilege of a login attempt
-	 * @param	string	$username
+	 * @param	string	$email
 	 * @param	string	$password
 	 * @return  array   $name
 	 * @return	bool    FALSE, if falied
 	 */
-	public function login($username, $password)
+	public function login($email, $password)
 	{
-		$sql = 'SELECT `ID`, `name`, `password`, `credit` FROM `user` WHERE `username` = ?';
-		$query = $this->db->query($sql, $username);
+		$sql = 'SELECT `ID`, `name`, `password`, `credit` FROM `user` WHERE `email` = ?';
+		$query = $this->db->query($sql, $email);
 		$row = $query->row_array();
 
 		if ($row) {
@@ -39,7 +39,7 @@ class User extends CI_Model {
 	 */
 	public function query()
 	{
-		$sql = 'SELECT `ID`, `name`, `username`, `phone`, `email`, `credit` FROM `user`';
+		$sql = 'SELECT `ID`, `name`, `email`, `phone`, `credit` FROM `user`';
 		return $this->db->query($sql)->result_array();
 	}
 
@@ -51,12 +51,12 @@ class User extends CI_Model {
 	public function update($row)
 	{
 		if (isset($row['password'])) {
-			$sql = 'UPDATE `user` SET `name`=?, `username`=?, `password`=?, `phone`=?, `email`=?, `credit`=? WHERE `ID` = ?';
-			$data = array($row['name'], $row['username'], password_hash($row['password'], PASSWORD_BCRYPT), $row['phone'], $row['email'], $row['credit'], $row['ID']);
+			$sql = 'UPDATE `user` SET `name`=?, `email`=?, `password`=?, `phone`=?, `credit`=? WHERE `ID` = ?';
+			$data = array($row['name'], $row['email'], password_hash($row['password'], PASSWORD_BCRYPT), $row['phone'], $row['credit'], $row['ID']);
 			return $this->db->query($sql, $data);
 		} else {
-			$sql = 'UPDATE `user` SET `name`=?, `username`=?, `phone`=?, `email`=?, `credit`=? WHERE `ID` = ?';
-			$data = array($row['name'], $row['username'], $row['phone'], $row['email'], $row['credit'], $row['ID']);
+			$sql = 'UPDATE `user` SET `name`=?, `email`=?, `phone`=?, `credit`=? WHERE `ID` = ?';
+			$data = array($row['name'], $row['email'], $row['phone'], $row['credit'], $row['ID']);
 			return $this->db->query($sql, $data);
 		}
 	}
@@ -68,8 +68,8 @@ class User extends CI_Model {
 	 */
 	public function save($row)
 	{
-		$sql = 'INSERT INTO `user`(`name`, `username`, `password`, `phone`, `email`, `credit`) VALUES (?, ?, ?, ?, ?, ?)';
-		$data = array($row['name'], $row['username'], password_hash($row['password'], PASSWORD_BCRYPT), $row['phone'], $row['email'], $row['credit']);
+		$sql = 'INSERT INTO `user`(`name`, `email`, `password`, `phone`, `credit`) VALUES (?, ?, ?, ?, ?, ?)';
+		$data = array($row['name'], $row['email'], password_hash($row['password'], PASSWORD_BCRYPT), $row['phone'], $row['credit']);
 		$result = $this->db->query($sql, $data);
 		if ($result) {
 			$this->usermail->register($row);
@@ -90,14 +90,14 @@ class User extends CI_Model {
 
 	public function getInfo($ID)
 	{
-		$sql = 'SELECT `name`, `username`, `phone`, `email`, `credit` FROM `user` WHERE `ID` = ?';
+		$sql = 'SELECT `name`, `email`, `phone`, `credit` FROM `user` WHERE `ID` = ?';
 		return $this->db->query($sql, $ID)->row_array();
 	}
 
 	public function setInfo($row)
 	{
-		$sql = 'UPDATE `user` SET `name`=?, `username`=?, `phone`=?, `email`=? WHERE `ID` = ?';
-		$data = array($row['name'], $row['username'], $row['phone'], $row['email'], $row['ID']);
+		$sql = 'UPDATE `user` SET `name`=?, `email`=?, `phone`=? WHERE `ID` = ?';
+		$data = array($row['name'], $row['email'], $row['phone'], $row['ID']);
 		return $this->db->query($sql, $data);
 	}
 
