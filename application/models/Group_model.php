@@ -132,4 +132,10 @@ class Group_model extends CI_Model {
 		$sql = 'UPDATE `order` SET `payID` = ? WHERE `ID` = ?';
 		return $this->db->query($sql, [$payID, $orderID]);
 	}
+
+	public function bill($groupID) {
+		$sql = 'SELECT `pay`.`ID`, `date`, `amount`, `name` FROM `pay` JOIN `user` ON `method` = "group" AND `account` = ? AND `user`.`ID` = `pay`.`transaction`';
+		return $this->db->query($sql, $groupID)->result_array();
+	}
+
 }

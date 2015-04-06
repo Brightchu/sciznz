@@ -18,3 +18,6 @@ groupService.factory('Member', ['$resource', ($resource)->
 	$resource('/group/member')
 ])
 
+groupService.factory('Bill', ['$resource', ($resource)->
+	$resource('/group/bill')
+])

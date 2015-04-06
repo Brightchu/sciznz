@@ -113,4 +113,15 @@ class Group extends CI_Controller {
 				break;
 		}
 	}
+
+	public function bill()
+	{
+		$this->load->model('group_model');
+
+		switch ($this->input->method()) {
+			case 'get':
+				$this->output->set_json($this->group_model->bill($this->nsession->get('ID')));
+				break;
+		}
+	}
 }
