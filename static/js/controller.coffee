@@ -31,7 +31,7 @@ sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', '$document', ($sc
 sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout', ($scope, $modalInstance, User, $timeout)->
 	$scope.current = 'signup'
 
-	$scope.switchText = '已经注册？'
+	$scope.switchText = '去登录'
 	$scope.actionText = '注册'
 
 	$scope.signin = ->
@@ -74,11 +74,11 @@ sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout',
 	$scope.switch = ->
 		if $scope.current == 'signup'
 			$scope.current = 'signin'
-			$scope.switchText = '还没注册？'
+			$scope.switchText = '去注册'
 			$scope.actionText = '登录'
 		else
 			$scope.current = 'signup'
-			$scope.switchText = '已经注册？'
+			$scope.switchText = '去登录'
 			$scope.actionText = '注册'
 ]
 

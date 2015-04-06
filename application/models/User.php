@@ -90,7 +90,7 @@ class User extends CI_Model {
 
 	public function getInfo($ID)
 	{
-		$sql = 'SELECT `name`, `email`, `phone`, `credit` FROM `user` WHERE `ID` = ?';
+		$sql = 'SELECT `user`.`name`, `user`.`email`, `user`.`phone`, `credit`, `group`.`name` AS `groupName` FROM `user` LEFT JOIN `group` ON `user`.`groupID` = `group`.`ID` WHERE `user`.`ID` = ?';
 		return $this->db->query($sql, $ID)->row_array();
 	}
 

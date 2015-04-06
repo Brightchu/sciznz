@@ -51,11 +51,20 @@ ucenterCtrl.controller 'personalInfoCtrl', ['$scope', 'Info', ($scope, Info)->
 			alert('请输入密码')
 ]
 
-ucenterCtrl.controller 'bookingInfoCtrl', ['$scope', 'Order', ($scope, Order)->
+ucenterCtrl.controller 'bookingInfoCtrl', ['$scope', 'Order', 'Info', ($scope, Order, Info)->
 	$scope.orderList = Order.query()
+	$scope.info = Info.get()
 
 	$scope.upgrade = ->
 		self = this
+
+		if self.order.status == 2
+			if self.info.groupName?
+				if not confirm('确认通过' + $scope.info.groupName + '支付？')
+					return
+			else
+				alert('你还没有加入任何科研团体，请与科学指南针联系')
+				return
 
 		payload =
 			status: self.order.status + 1
