@@ -13,3 +13,8 @@ groupService.factory('Info', ['$resource', ($resource)->
 groupService.factory('Order', ['$resource', ($resource)->
 	$resource('/group/order')
 ])
+
+groupService.factory('Member', ['$resource', ($resource)->
+	$resource('/group/member')
+])
+

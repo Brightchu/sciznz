@@ -117,4 +117,22 @@ class User extends CI_Model {
 
 		return FALSE;
 	}
+
+	public function getMember($groupID)
+	{
+		$sql = 'SELECT `ID`, `name`, `email` FROM `user` WHERE `groupID` = ?';
+		return $this->db->query($sql, $groupID)->result_array();
+	}
+
+	public function addMember($groupID, $email)
+	{
+		$sql = 'UPDATE `user` SET `groupID`=? WHERE `email` = ?';
+		return $this->db->query($sql, [$groupID, $email]);
+	}
+
+	public function deleteMember($userID)
+	{
+		$sql = 'UPDATE `user` SET `groupID`= 0 WHERE `ID` = ?';
+		return $this->db->query($sql, $userID);
+	}
 }

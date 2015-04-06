@@ -89,6 +89,28 @@ class Group extends CI_Controller {
 			case 'put':
 				$result = $this->order->setStatus($this->input->json());
 				$this->output->set_status_header($result ? 200 : 403);
+				break;
+		}
+	}
+
+	public function member()
+	{
+		$this->load->model('user');
+
+		switch ($this->input->method()) {
+			case 'get':
+				$this->output->set_json($this->user->getMember($this->nsession->get('ID')));
+				break;
+
+			case 'post':
+				$result = $this->user->addMember($this->nsession->get('ID'), $this->input->json('email'));
+				$this->output->set_status_header($result ? 200 : 403);
+				break;
+
+			case 'delete':
+				$result = $this->user->deleteMember($this->input->get('ID'));
+				$this->output->set_status_header($result ? 200 : 403);
+				break;
 		}
 	}
 }

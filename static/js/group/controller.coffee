@@ -48,6 +48,33 @@ groupCtrl.controller 'personalInfoCtrl', ['$scope', 'Info', ($scope, Info)->
 			alert('请输入密码')
 ]
 
+groupCtrl.controller 'memberAdminCtrl', ['$scope', 'Member', ($scope, Member)->
+	$scope.memberList = Member.query()
+
+	$scope.delete = ->
+		self = this
+
+		payload =
+			ID: self.member.ID
+		
+		Member.delete(payload).$promise.then ->
+			alert('操作成功')
+		, ->
+			alert('操作失败')
+
+	$scope.add = ->
+		console.log('HERE')
+		self = this
+
+		payload =
+			email: $scope.newMember
+		
+		Member.save(payload).$promise.then ->
+			alert('操作成功')
+		, ->
+			alert('操作失败')
+]
+
 groupCtrl.controller 'billInfoCtrl', ['$scope', 'Order', ($scope, Order)->
 	$scope.orderList = Order.query()
 
