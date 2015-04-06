@@ -68,7 +68,7 @@ class User extends CI_Model {
 	 */
 	public function save($row)
 	{
-		$sql = 'INSERT INTO `user`(`name`, `email`, `password`, `phone`, `credit`) VALUES (?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO `user`(`groupID`, `name`, `email`, `password`, `phone`, `credit`) VALUES (0, ?, ?, ?, ?, ?)';
 		$data = array($row['name'], $row['email'], password_hash($row['password'], PASSWORD_BCRYPT), $row['phone'], $row['credit']);
 		$result = $this->db->query($sql, $data);
 		if ($result) {
