@@ -62,11 +62,10 @@ if ( ! function_exists('create_captcha') && defined('SAE_APPNAME'))
 	function create_captcha()
 	{
 		$vcode = new SaeVCode();
-		if ($vcode === false){
-			log_message('error',$vcode->errno().': '.$vcode->errmsg());
+		if (!$vcode) {
+			log_message('error', $vcode->errno() . ': ' . $vcode->errmsg());
 		}
-		$question = $vcode->question();
-		return array('word' => $vcode->answer(), 'image' => str_replace('http://', '//', $question['img_url']));
+		return array('word' => $vcode->answer(), 'image' => str_replace('http://', '//', $vcode->question()['img_url']));
 	}
 }
 
