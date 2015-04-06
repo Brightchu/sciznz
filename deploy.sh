@@ -1,8 +1,8 @@
 #!/bin/bash
 # copy files
-rm -rf /tmp/scicompass/
-cp . -r /tmp/scicompass/
-cd /tmp/scicompass/
+rm -rf /tmp/sciclubs/
+cp . -r /tmp/sciclubs/
+cd /tmp/sciclubs/
 
 # compile
 coffee --join static/js/admin.js --compile static/js/admin/app.coffee static/js/admin/controller.coffee static/js/admin/service.coffee
