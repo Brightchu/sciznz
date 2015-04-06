@@ -391,7 +391,7 @@ class CI_Output {
 	/**
 	 * Display Output
 	 *
-	 * Processes sends the sends finalized output data to the browser along
+	 * Processes and sends finalized output data to the browser along
 	 * with any server headers and profile data. It also stops benchmark
 	 * timers so the page rendering speed and memory usage can be shown.
 	 *
@@ -779,13 +779,17 @@ class CI_Output {
 	// --------------------------------------------------------------------
 
 	/**
-	 * JSON output
+	 * Set JSON Output
 	 *
-	 * with JSON_NUMERIC_CHECK enabled
+	 * Sets JSON output string with JSON_NUMERIC_CHECK enabled.
+	 *
+	 * @param	mixed	$data	Output data
+	 * @return	CI_Output
 	 */
+
 	public function set_json($data)
 	{
-		$this->set_content_type('application/json')->set_output(json_encode($data, JSON_NUMERIC_CHECK));
+		return $this->set_content_type('application/json')->set_output(json_encode($data, JSON_NUMERIC_CHECK));
 	}
 
 }
