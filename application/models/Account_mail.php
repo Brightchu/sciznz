@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admin_mail extends CI_Model {
+class Account_mail extends CI_Model {
 
 	public function __construct()
 	{
@@ -12,16 +12,21 @@ class Admin_mail extends CI_Model {
 	}
 
 	/**
-	 * Notify a new admin
-	 * @param 	array $row
+	 * Notify a new account
+	 * @param 	$role, $email, $name
 	 * @return 	bool
 	 */
-	public function register($row)
+	public function register($role, $email, $name)
 	{
-		$row['datetime'] = date(DATE_RSS);
-		$this->email->to($row['email']);
+		$this->email->to($email);
 		$this->email->subject('SciCompass notification');
-		$this->email->message($this->parser->parse('mail/adminRegister.html', $row, TRUE));
+
+		$data = array(
+			'name' => $name,
+			'datetime' => date(DATE_RSS),
+		);
+
+		$this->email->message($this->parser->parse("mail/{$role}Register.html", $data, TRUE));
 		return $this->email->send();
 	}
 }
