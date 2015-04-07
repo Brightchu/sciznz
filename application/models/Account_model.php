@@ -14,8 +14,8 @@ class Account_model extends CI_Model {
 	{
 		$this->load->database();
 
-		$sql = 'INSERT INTO `?` (`name`, `email`, `password`) VALUES (?, ?, ?)';
-		$data = [$this->role, $email, $email, password_hash($password, PASSWORD_BCRYPT)];
+		$sql = "INSERT INTO `{$this->role}` (`name`, `email`, `password`) VALUES (?, ?, ?)";
+		$data = [$email, $email, password_hash($password, PASSWORD_BCRYPT)];
 		
 		if ($this->db->query($sql, $data))
 		{
@@ -26,7 +26,7 @@ class Account_model extends CI_Model {
 		}
 		else
 		{
-			return FALSE
+			return FALSE;
 		}
 	}
 
@@ -39,9 +39,8 @@ class Account_model extends CI_Model {
 	{
 		$this->load->database('slave');
 
-		$sql = 'SELECT `ID`, `name`, `password` FROM `?` WHERE `email` = ?';
-		$data = [$this->role, $email];
-		$row = $this->db->query($sql, $data)->row_array();
+		$sql = "SELECT `ID`, `name`, `password` FROM `{$this->role}` WHERE `email` = ?";
+		$row = $this->db->query($sql, $email)->row_array();
 
 		if ($row)
 		{
@@ -64,9 +63,8 @@ class Account_model extends CI_Model {
 	{
 		$this->load->database();
 
-		$sql = 'SELECT `password` FROM `?` WHERE `ID` = ?';
-		$data = [$this->role, $ID];
-		$row = $this->db->query($sql, $data)->row_array();
+		$sql = "SELECT `password` FROM `{$this->role}` WHERE `ID` = ?";
+		$row = $this->db->query($sql, $ID)->row_array();
 
 		if ($row)
 		{
@@ -90,8 +88,8 @@ class Account_model extends CI_Model {
 	{
 		$this->load->database();
 
-		$sql = 'UPDATE `?` SET `name`=? WHERE `ID` = ?';
-		$data = [$this->role, $name, $ID];
+		$sql = "UPDATE `{$this->role}` SET `name`=? WHERE `ID` = ?";
+		$data = [$name, $ID];
 
 		return $this->db->query($sql, $data);
 	}
@@ -105,8 +103,8 @@ class Account_model extends CI_Model {
 	{
 		$this->load->database();
 
-		$sql = 'UPDATE `?` SET `phone`=? WHERE `ID` = ?';
-		$data = [$this->role, $phone, $ID];
+		$sql = "UPDATE `{$this->role}` SET `phone`=? WHERE `ID` = ?";
+		$data = [$phone, $ID];
 
 		return $this->db->query($sql, $data);
 	}
@@ -120,10 +118,9 @@ class Account_model extends CI_Model {
 	{
 		$this->load->database();
 
-		$sql = 'UPDATE `?` SET `verifyEmail`= 1 WHERE `ID` = ?';
-		$data = [$this->role, $ID];
+		$sql = "UPDATE `{$this->role}` SET `verifyEmail`= 1 WHERE `ID` = ?";
 
-		return $this->db->query($sql, $data);
+		return $this->db->query($sql, $ID);
 	}
 
 	/**
@@ -135,20 +132,21 @@ class Account_model extends CI_Model {
 	{
 		$this->load->database();
 
-		$sql = 'UPDATE `?` SET `verifyPhone`= 1 WHERE `ID` = ?';
-		$data = [$this->role, $ID];
+		$sql = "UPDATE `{$this->role}` SET `verifyPhone`= 1 WHERE `ID` = ?";
 
-		return $this->db->query($sql, $data);
+		return $this->db->query($sql, $ID);
 	}
 
 	/**
 	 * Retrive all
 	 * @return  array
 	 */
-	public function query()
+	public function all()
 	{
-		$sql = 'SELECT `ID`, `name`, `email`, `phone`, `email`, `verifyEmail`, `verifyPhone` FROM `?`';
-		return $this->db->query($sql, $this->role)->result_array();
+		$this->load->database('slave');
+
+		$sql = "SELECT `ID`, `name`, `email`, `phone`, `email`, `verifyEmail`, `verifyPhone` FROM `{$this->role}`";
+		return $this->db->query($sql)->result_array();
 	}
 
 }
