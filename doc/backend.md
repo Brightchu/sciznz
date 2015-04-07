@@ -4,12 +4,19 @@ _2015-04-07_
 
 Model
 ---
-**Account**: register, auth, verifyEmail, verifyPhone, updatePassword, all
+**Account**: register, auth, updatePassword, updateName, updatePhone, verifyEmail, verifyPhone, all
 ```
 Account
-|- user
-|- group
-|- supply
-|- helper
-|- admin
+|- User
+|- Group
+|- Supply
+|- Helper
+|- Admin
+
+Account_mail
+|- User
+|- Group
+|- Supply
+|- Helper
+|- Admin
 ```
