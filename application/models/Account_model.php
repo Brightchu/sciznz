@@ -25,10 +25,10 @@ abstract class Account_model extends CI_Model {
 		
 		if ($this->db->query($sql, $data))
 		{
-			return array(
+			return [
 				'ID' => $this->db->insert_id(),
 				'name' => $email,
-			);
+			];
 		}
 		else
 		{

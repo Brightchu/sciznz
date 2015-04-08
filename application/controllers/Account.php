@@ -43,22 +43,22 @@ abstract class Account extends CI_Controller {
 					$this->nsession->set('name', $result['name']);
 					redirect("/{$this->role}/");
 				} else{
-					$error = [array('text' => $this->lang->line('E_PASSWORD'))];
+					$error = [['text' => $this->lang->line('E_PASSWORD')]];
 				}
 			} else {
-				$error = [array('text' => $this->lang->line('E_VCODE'))];
+				$error = [['text' => $this->lang->line('E_VCODE')]];
 			}
 		}
 
 		$cap = create_captcha();
 		$this->nsession->set('captcha', strtoupper($cap['word']));
 
-		$data = array(
+		$data = [
 			'role' => $this->role,
 			'role_zh' => $this->lang->line($this->role),
 			'error' => $error,
 			'src' => $cap['image'],
-		);
+		];
 
 		$this->parser->parse('login.html', $data);
 	}

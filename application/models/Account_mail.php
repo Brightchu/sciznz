@@ -21,10 +21,10 @@ class Account_mail extends CI_Model {
 		$this->email->to($email);
 		$this->email->subject('SciCompass notification');
 
-		$data = array(
+		$data = [
 			'name' => $name,
 			'datetime' => date(DATE_RSS),
-		);
+		];
 
 		$this->email->message($this->parser->parse("mail/{$role}Register.html", $data, TRUE));
 		return $this->email->send();
