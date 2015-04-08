@@ -15,26 +15,6 @@ class Nsession {
 		session_start();
 	}
 
-	public function __set($key, $value)
-	{
-		$_SESSION[$key] = $value;
-	}
-
-	public function __get($key)
-	{
-		return isset($_SESSION[$key]) ? $_SESSION[$key] : NULL;
-	}
-
-	public function __isset($key)
-	{
-		return isset($_SESSION[$key]);
-	}
-
-	public function __unset($key)
-	{
-		unset($_SESSION[$key]);
-	}
-
 	public function set($key, $value)
 	{
 		$_SESSION[$key] = $value;
@@ -62,8 +42,8 @@ class Nsession {
 		unset($_SESSION[$key]);
 	}
 
-	public function regenerateId($delOld = FALSE)
+	public function regenerateID($deleteOld = FALSE)
 	{
-		session_regenerate_id($delOld);
+		session_regenerate_id($deleteOld);
 	}
 }
