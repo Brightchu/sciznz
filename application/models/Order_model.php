@@ -3,80 +3,75 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Order_model extends CI_Model {
 
-	public function __construct()
+	/**
+	 * Create an order
+	 * @param 	$userID, $deviceID, $date, $block
+	 * @return  bool
+	 */
+	public function create($userID, $deviceID, $date, $block)
 	{
-		parent::__construct();
 		$this->load->database();
-		$this->load->model('ordermail');
+
+		$sql = 'INSERT INTO `usage`(`deviceID`, `type`, `date`, `block`) VALUES (?, "ORDER", ?, ?)';
+		$data = [$deviceID, $date, $block];
+		$result = $this->db->query($sql, $data);
+
+		if ($result) {
+			$usageID = $this->db->insert_id();
+			$sql = 'INSERT INTO `order`(`userID`, `deviceID`, `detail`, `usageID`) VALUES (?, ?, "{}", ?)';
+			$data = [$userID, $deviceID, $usageID];
+			return $this->db->query($sql, $data);
+		}
+
+		return FALSE;
 	}
 
-	public function query()
+	/**
+	 * Update status of an order
+	 * @param 	$orderID, $status
+	 * @return  bool
+	 */
+	public function status($orderID, $status)
 	{
-		$sql = 'SELECT `ID`, `userID`, `deviceID`, `date`, `useDate`, `status`, `payMethod`, `transactionID`, `price` FROM `order`';
+		$sql = 'UPDATE `order` SET `status` = ? WHERE `ID` = ?';
+		$data = [$status, $orderID];
+		return $this->db->query($sql, $data);
+	}
+
+	public function user($userID)
+	{
+		$sql = 'SELECT `ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `payID` FROM `order` WHERE `userID` = ?';
+		return $this->db->query($sql, $userID)->result_array();
+	}
+
+	public function userNow($userID)
+	{
+		$sql = 'SELECT `ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `payID` FROM `order` WHERE `userID` = ? AND `status` != "DONE"';
+		return $this->db->query($sql, $userID)->result_array();
+	}
+
+	public function supply($supplyID)
+	{
+		$sql = 'SELECT `order`.`ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `payID` FROM `order` JOIN `device` ON `order`.`deviceID` = `device`.`ID` AND `device`.`supplyID` = ?';
+		return $this->db->query($sql, $supplyID)->result_array();
+	}
+
+	public function supplyNow($supplyID)
+	{
+		$sql = 'SELECT `order`.`ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `payID` FROM `order` JOIN `device` ON `status` != "DONE" AND `order`.`deviceID` = `device`.`ID` AND `device`.`supplyID` = ?';
+		return $this->db->query($sql, $supplyID)->result_array();
+	}
+
+	public function group($groupID)
+	{
+		$sql = 'SELECT `order`.`ID`, `userID`, `deviceID`, `order`.`date`, `status`, `detail`, `usageID`, `budgetID`, `payID` FROM `order` JOIN `pay` ON `pay`.`method` = 'GROUP' AND `pay`.`account` = ? AND (`order`.`budgetID` = `pay`.`ID` OR `order`.`payID` = `pay`.`ID`)';
+		return $this->db->query($sql, $groupID)->result_array();
+	}
+
+	public function all()
+	{
+		$sql = 'SELECT `ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `payID` FROM `order`';
 		return $this->db->query($sql)->result_array();
 	}
 
-	public function update($row)
-	{
-		$sql = 'UPDATE `order` SET `userID` = ?, `deviceID` = ?, `date` = ?, `useDate` = ?, `status` = ?, `payMethod` = ?, `transactionID` = ?, `price` = ? WHERE `ID` = ?';
-		$data = array($row['userID'], $row['deviceID'], $row['date'], $row['ID'], $row['useDate'],  $row['status'],  $row['payMethod'],  $row['transactionID'], $row['price'], $row['ID']);
-		return $this->db->query($sql, $data);
-	}
-
-	public function save($row)
-	{
-		$sql = 'INSERT INTO `order`(`userID`, `deviceID`, `date`, `useDate`, `status`, `payMethod`, `transactionID`, `price`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-		$data = array($row['userID'], $row['deviceID'], $row['date'], $row['useDate'], $row['status'], $row['payMethod'], $row['transactionID'], $row['price']);
-		return $this->db->query($sql, $data);
-	}
-
-	public function delete($ID)
-	{
-		$sql = 'DELETE FROM `supply` WHERE `ID` = ?';
-		return $this->db->query($sql, $ID);
-	}
-
-	public function count($deviceID, $useDate)
-	{
-		$sql = 'SELECT COUNT(*) AS `count` FROM `order` WHERE `deviceID` = ? AND `useDate` = ?';
-		$data = array($deviceID, $useDate);
-		return $this->db->query($sql, $data)->row_array();;
-	}
-
-	public function book($row)
-	{
-		$sql = 'SELECT `device`.`city`, `supply`.`name` AS `supply`, `device`.`address`, `category`.`name` AS `category`, `model`.`vendor`, `model`.`name` AS `model`, `device`.`price`, `device`.`unit` FROM `device` JOIN `supply` ON `device`.`ID` = ? AND `device`.`supplyID` = `supply`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID`';
-		$info = $this->db->query($sql, $row['deviceID'])->row_array();
-		$row = array_merge($row, $info);
-
-		$sql = 'INSERT INTO `order`(`userID`, `deviceID`, `useDate`, `status`, `price`, `payID`) VALUES (?, ?, ?, ?, ?, 0)';
-		$data = array($row['userID'], $row['deviceID'], $row['useDate'], 1, $row['price']);
-		$result = $this->db->query($sql, $data);
-		if ($result) {
-			$sql = 'SELECT `name`, `email` FROM `user` WHERE `ID` = ?';
-			$namecard = $this->db->query($sql, $row['userID'])->row_array();;
-			$row = array_merge($row, $namecard);
-			$this->ordermail->book($row);
-		}
-		return $result;
-	}
-
-	public function checkout($ID)
-	{
-		$sql = 'SELECT `order`.`ID`, `order`.`deviceID`, `supply`.`name` AS `supply`, `device`.`address`, `category`.`name` AS `category`, `model`.`vendor`, `model`.`name` AS `model`, `order`.`date`, `order`.`useDate`, `order`.`payID`, `order`.`price`, `order`.`status` FROM `order` JOIN `device` ON `order`.`userID` = ? AND `order`.`deviceID` = `device`.`ID` JOIN `supply` ON `device`.`supplyID` = `supply`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID`';
-		return $this->db->query($sql, $ID)->result_array();
-	}
-
-	public function getUnread($ID)
-	{
-		$sql = 'SELECT `order`.`ID`, `order`.`deviceID`, `device`.`address`, `category`.`name` AS `category`, `model`.`vendor`, `model`.`name` AS `model`, `order`.`date`, `order`.`useDate`, `order`.`payID`, `order`.`price`, `order`.`status` FROM `order` JOIN `device` ON `device`.`supplyID` = ? AND `order`.`deviceID` = `device`.`ID` JOIN `supply` ON `device`.`supplyID` = `supply`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID`';
-		return $this->db->query($sql, $ID)->result_array();
-	}
-
-	public function setStatus($row)
-	{
-		$sql = 'UPDATE `order` SET `status` = ? WHERE `ID` = ?';
-		$data = array($row['status'], $row['ID']);
-		return $this->db->query($sql, $data);
-	}
 }
