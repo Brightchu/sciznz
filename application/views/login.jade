@@ -3,10 +3,10 @@ html
 	head
 		meta(charset="utf-8")
 		meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
-		meta(name="description" content="管理员登录 - 科学指南针")
+		meta(name="description" content="{role_zh} - 科学指南针")
 		meta(name="renderer" content="webkit")
 		meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=no")
-		title 科研团体 - 科学指南针
+		title {role_zh} - 科学指南针
 		link(rel="stylesheet" href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css")
 		link(rel="stylesheet" href="/static/bower_components/fonts.css/fonts.css")
 		link(rel="stylesheet" href="/static/css/login.css")
@@ -15,8 +15,8 @@ html
 	body.font-hei
 		div.container
 			img#logoBox(src="/static/img/logo-landscape.png")
-			form#loginForm(action="/group/login/" method="post")
-				h2 科研团体登录
+			form#loginForm(action="/{role}/login/" method="post")
+				h2 {role_zh}登录
 				{error}
 				div(class="alert alert-danger" role="alert" id="error-tip") {text}
 				{/error}

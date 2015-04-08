@@ -1,52 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admin extends CI_Controller {
+require_once(APPPATH . 'controllers/Account.php');
 
-	public function __construct()
-	{
-		parent::__construct();
-		$this->load->library('nsession');
-		$this->load->helper('url');
+class Admin extends Account {
 
-		if (uri_string() !== 'admin/login') {
-			if (!$this->nsession->exists('privilege')) {
-				redirect('/admin/login/');
-			}
-		}
-	}
-
-	public function index()
-	{
-		$this->load->view('admin.html');
-	}
-
-	public function login()
-	{
-		$this->load->model('admin_model');
-		$this->load->library('parser');
-		$this->load->helper('captcha');
-
-		$error = [];
-
-		if ($this->input->method() === 'post') {
-			if ($this->nsession->get('captcha') === strtoupper($this->input->post('captcha'))) {
-				$result = $this->admin_model->login($this->input->post('username'), $this->input->post('password'));
-				if ($result) {
-					$this->nsession->set_data($result);
-					redirect('/admin/');
-				} else{
-					$error = array(array('text' => '账号密码有误'));
-				}
-			} else {
-				$error = array(array('text' => '验证码有误'));
-			}
-		}
-
-		$cap = create_captcha();
-		$this->nsession->set('captcha', strtoupper($cap['word']));
-		$this->parser->parse('adminLogin.html', array('error' => $error, 'src' => $cap['image']));
-	}
+	protected $role = 'admin';
 
 	protected function handler($name)
 	{

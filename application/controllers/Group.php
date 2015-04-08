@@ -1,52 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Group extends CI_Controller {
+require_once(APPPATH . 'controllers/Account.php');
 
-	public function __construct()
-	{
-		parent::__construct();
-		$this->load->library('nsession');
-		$this->load->helper('url');
+class Group extends Account {
 
-		if (uri_string() !== 'group/login') {
-			if (!$this->nsession->exists('name')) {
-				redirect('/group/login/');
-			}
-		}
-	}
-
-	public function index()
-	{
-		$this->load->view('group.html');
-	}
-
-	public function login()
-	{
-		$this->load->model('group_model');
-		$this->load->library('parser');
-		$this->load->helper('captcha');
-
-		$error = [];
-
-		if ($this->input->method() === 'post') {
-			if ($this->nsession->get('captcha') === strtoupper($this->input->post('captcha'))) {
-				$result = $this->group_model->login($this->input->post('email'), $this->input->post('password'));
-				if ($result) {
-					$this->nsession->set_data($result);
-					redirect('/group/');
-				} else{
-					$error = array(array('text' => '账号密码有误'));
-				}
-			} else {
-				$error = array(array('text' => '验证码有误'));
-			}
-		}
-
-		$cap = create_captcha();
-		$this->nsession->set('captcha', strtoupper($cap['word']));
-		$this->parser->parse('groupLogin.html', array('error' => $error, 'src' => $cap['image']));
-	}
+	protected $role = 'group';
 
 	public function info()
 	{

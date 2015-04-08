@@ -1,12 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Ucenter extends CI_Controller {
+require_once(APPPATH . 'controllers/Account.php');
 
-	public function index()
-	{
-		$this->load->view('ucenter.html');
-	}
+class User extends Account {
+
+	protected $role = 'user';
 
 	public function info()
 	{

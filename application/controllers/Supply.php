@@ -1,7 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Supply extends CI_Controller {
+require_once(APPPATH . 'controllers/Account.php');
+
+class Supply extends Account {
+
+	protected $role = 'group';
 
 	public function __construct()
 	{
