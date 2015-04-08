@@ -20,7 +20,7 @@ sciService.factory 'data', ['$http', ($http)->
 
 	promise = $http
 		method: 'GET'
-		url: '/api/query'
+		url: '/cache'
 		headers:
 			'If-Modified-Since': localStorage.getItem('Last-Modified')
 		responseType: 'json'
