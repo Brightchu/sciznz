@@ -1,1 +1,2 @@
-# scicompass
+# sciclubs
+Make science easier
