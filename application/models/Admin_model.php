@@ -5,6 +5,4 @@ require_once(APPPATH . 'models/Account_model.php');
 
 class Admin_model extends Account_model {
 
-	protected $role = 'admin';
-
 }

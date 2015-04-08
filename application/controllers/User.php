@@ -5,8 +5,6 @@ require_once(APPPATH . 'controllers/Account.php');
 
 class User extends Account {
 
-	protected $role = 'user';
-
 	public function info()
 	{
 		$this->load->library('kvdb');

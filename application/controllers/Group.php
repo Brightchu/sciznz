@@ -5,8 +5,6 @@ require_once(APPPATH . 'controllers/Account.php');
 
 class Group extends Account {
 
-	protected $role = 'group';
-
 	public function info()
 	{
 		$this->load->library('kvdb');

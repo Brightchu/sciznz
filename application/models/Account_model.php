@@ -1,9 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Account_model extends CI_Model {
+abstract class Account_model extends CI_Model {
 
 	protected $role = '';
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->role = strtolower(explode('_', get_class($this))[0]);
+	}
 
 	/**
 	 * Register an account

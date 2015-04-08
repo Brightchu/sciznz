@@ -5,8 +5,6 @@ require_once(APPPATH . 'controllers/Account.php');
 
 class Admin extends Account {
 
-	protected $role = 'admin';
-
 	protected function handler($name)
 	{
 		$this->load->model($name);

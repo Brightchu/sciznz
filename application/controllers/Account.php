@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Account extends CI_Controller {
+abstract class Account extends CI_Controller {
 
 	protected $role = '';
 
@@ -11,15 +11,12 @@ class Account extends CI_Controller {
 
 		$this->load->library('nsession');
 		$this->load->helper('url');
+		$this->role = strtolower(get_class($this));
 
-		if ($this->role) {
-			if (uri_string() !== "{$this->role}/login") {
-				if (!$this->nsession->exists("{$this->role}ID")) {
-					redirect("/{$this->role}/login/");
-				}
+		if (uri_string() !== "{$this->role}/login") {
+			if (!$this->nsession->exists("{$this->role}ID")) {
+				redirect("/{$this->role}/login/");
 			}
-		} else {
-			show_404();
 		}
 	}
 

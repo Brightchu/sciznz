@@ -5,8 +5,6 @@ require_once(APPPATH . 'models/Account_model.php');
 
 class User_model extends Account_model {
 
-	protected $role = 'user';
-
 	/**
 	 * Update name
 	 * @param	string	$ID, $name
