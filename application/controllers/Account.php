@@ -11,7 +11,7 @@ abstract class Account extends CI_Controller {
 
 		$this->load->library('nsession');
 		$this->load->helper('url');
-		$this->role = strtolower(get_class($this));
+		$this->role = strtolower(get_class());
 
 		if (uri_string() !== "{$this->role}/login") {
 			if (!$this->nsession->exists("{$this->role}ID")) {

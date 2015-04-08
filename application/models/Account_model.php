@@ -8,7 +8,7 @@ abstract class Account_model extends CI_Model {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->role = strtolower(explode('_', get_class($this))[0]);
+		$this->role = strtolower(explode('_', get_class())[0]);
 	}
 
 	/**
