@@ -11,7 +11,7 @@ abstract class Account extends CI_Controller {
 
 		$this->load->library('nsession');
 		$this->load->helper('url');
-		$this->role = strtolower(get_class());
+		$this->role = strtolower(get_called_class());
 
 		if (uri_string() !== "{$this->role}/login") {
 			if (!$this->nsession->exists("{$this->role}ID")) {
@@ -27,8 +27,8 @@ abstract class Account extends CI_Controller {
 
 	public function login()
 	{
-		$modelName = "{$this->role}_model";
-		$this->load->model($modelName);
+		$model = "{$this->role}_model";
+		$this->load->model($model);
 		$this->load->library('parser');
 		$this->load->helper('captcha');
 		$this->lang->load(['name', 'error']);
@@ -37,10 +37,11 @@ abstract class Account extends CI_Controller {
 
 		if ($this->input->method() === 'post') {
 			if ($this->nsession->get('captcha') === strtoupper($this->input->post('captcha'))) {
-				$result = $this->$modelName->auth($this->input->post('email'), $this->input->post('password'));
+				$result = $this->$model->auth($this->input->post('email'), $this->input->post('password'));
 				if ($result) {
-					$this->nsession->set_data($result);
-					redirect('/admin/');
+					$this->nsession->set("{$this->role}ID", $result['ID']);
+					$this->nsession->set('name', $result['name']);
+					redirect("/{$this->role}/");
 				} else{
 					$error = [array('text' => $this->lang->line('E_PASSWORD'))];
 				}
