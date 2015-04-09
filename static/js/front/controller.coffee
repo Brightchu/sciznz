@@ -13,7 +13,7 @@ sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', '$document', ($sc
 
 	login = ->
 		modalInstance = $modal.open
-			templateUrl: '/static/partial/login.html'
+			templateUrl: '/static/partial/front/login.html'
 			controller: 'loginCtrl'
 			size: 'sm'
 			windowClass: 'login'
@@ -144,7 +144,7 @@ sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Order', '$f
 				$scope.stat.count += 1
 		else
 			modalInstance = $modal.open
-				templateUrl: '/static/partial/login.html'
+				templateUrl: '/static/partial/front/login.html'
 				controller: 'loginCtrl'
 				size: 'sm'
 				windowClass: 'login'
