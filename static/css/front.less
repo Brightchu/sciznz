@@ -13,7 +13,6 @@
 body {
 	color: @green;
 	background-color: @bg-green;
-	overflow-x: hidden;
 }
 
 .shadow() {
@@ -23,10 +22,11 @@ body {
 #home {
 	#cube-wrap {
 		position: absolute;
-		height: 300%;
+		height: 400%;
 		width: 100%;
 		top: 0;
 		z-index: -100;
+		overflow: hidden;
 		.cube > * {
 			border-color: @cube-green;
 		}
@@ -195,10 +195,12 @@ body {
 #about {
 	margin-top: 8%;
 	text-align: center;
+	font-size: 0;
 	ul.col {
 		display: inline-block;
-		width: 20%;
 		list-style: none;
+		padding-left: 0;
+		width: 25%;
 		font-size: 1.8rem;
 		font-weight: bold;
 		li {
@@ -213,15 +215,15 @@ body {
 }
 
 #contract {
-	margin: 2rem 0 6%;
+	margin-top: 2rem;
 	text-align: center;
 	img#logo {
 		height: 5rem;
 	}
 	ul {
-		margin-top: 1rem;
 		list-style: none;
 		padding-left: 0;
+		margin-top: 1rem;
 		li {
 			display: inline-block;
 			margin: 0 1rem;
