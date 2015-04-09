@@ -12,6 +12,7 @@ coffee --join static/js/supply.js --compile static/js/supply/app.coffee static/j
 coffee --join static/js/group.js --compile static/js/group/app.coffee static/js/group/controller.coffee static/js/group/service.coffee static/js/group/filter.coffee
 
 lessc -x static/css/front.less static/css/front.css
+lessc -x static/css/theme.less static/css/theme.css
 lessc -x static/css/login.less static/css/login.css
 lessc -x static/css/admin.less static/css/admin.css
 lessc -x static/css/ucenter.less static/css/ucenter.css

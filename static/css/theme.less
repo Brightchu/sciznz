@@ -7,19 +7,9 @@
 .navbar {
 	height: 60px;
 }
+
 .navbar-header {
 	height: 60px;
-}
-.navbar-default {
-	background-color: @nav-green;
-	border-radius: 4px;
-	box-shadow: 0 0 4px @blue;
-}
-
-.navbar-brand,
-.navbar-nav > li > a {
-	font-size: 20px;
-	line-height: 30px;
 }
 
 .navbar-brand {
@@ -29,34 +19,38 @@
 	}
 }
 
-.navbar-static-top,
-.navbar-fixed-top,
-.navbar-fixed-bottom {
-	border-radius: 0;
+.navbar-brand,
+.navbar-nav > li > a {
+	font-size: 20px;
+	line-height: 30px;
+	cursor: pointer;
+}
+
+.navbar-default {
+	background-color: @nav-green;
+	box-shadow: 0 0 4px @blue;
 }
 
 .navbar-default .navbar-nav > li > a {
-	cursor: pointer;
 	color: @green;
 	transition: all 0.5s;
-}
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
-	background-color: @green;
-	color: white;
+	&:hover, &:focus {
+		background-color: @green;
+		color: white;
+	}
 }
 
 .navbar-default .navbar-toggle {
 	margin-top: 10px;
 	margin-bottom: 10px;
+	transition: all 0.5s;
+	& > a {
+		color: @green;
+	}
 	&:hover {
 		background-color: @green;
 		& > a {
 			color: white;
 		}
 	}
-}
-
-.navbar-default .navbar-toggle > a{
-	color: @green;
 }
