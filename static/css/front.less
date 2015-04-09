@@ -3,7 +3,6 @@
 @green: #35BDB2;
 @pure-green: #20AF74;
 @bg-green: #EDFFF8;
-@nav-green: rgba(237, 255, 248, 0.8);
 @cube-green: rgba(32, 175, 116, 0.5);
 @hr-green: rgba(32, 175, 116, 0.15);
 @lightwhite: rgba(255, 255, 255, 0.7);
@@ -30,44 +29,6 @@ a {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-}
-
-nav {
-	position: fixed;
-	top: 0;
-	height: 6rem;
-	width: 100%;
-	box-shadow: 0 0 0.3rem @green;
-	background-color: @nav-green;
-	z-index: 100;
-	img#logo {
-		margin: 0 0 0.5rem 5%;
-		height: 5rem;
-	}
-	ul {
-		list-style: none;
-		padding-left: 0;
-		font-size: 2rem;
-		line-height: 6rem;
-		li {
-			display: inline-block;
-			padding: 0 1.5rem;
-			transition: all 0.5s;
-			cursor: pointer;
-			&:hover {
-				background-color: @pure-green;
-				color: white;
-			}
-		}
-		&.left {
-			display: inline-block;
-			margin-left: 2%;
-		}
-		&.right {
-			float: right;
-			margin-right: 5%;
-		}
-	}
 }
 
 #home {

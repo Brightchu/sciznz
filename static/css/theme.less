@@ -1,0 +1,43 @@
+@blue: #35BDB2;
+@green: #20AF74;
+@nav-green: rgba(237, 255, 248, 0.8);
+
+.navbar {
+	height: 60px;
+	font-size: 18px;
+}
+
+.navbar-default {
+	background-color: @nav-green;
+	border-radius: 4px;
+	box-shadow: 0 0 4px @blue;
+}
+
+.navbar-brand,
+.navbar-nav > li > a {
+	line-height: 30px;
+}
+
+.navbar-brand {
+	padding: 5px;
+	& > img {
+		height: 50px;
+	}
+}
+
+.navbar-static-top,
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+	border-radius: 0;
+}
+
+.navbar-default .navbar-nav > li > a {
+	cursor: pointer;
+	color: @green;
+	transition: all 0.5s;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+	background-color: @green;
+	color: white;
+}
