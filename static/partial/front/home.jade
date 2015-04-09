@@ -15,32 +15,37 @@
 				span.glyphicon.glyphicon-chevron-right
 		#view.ellipse(ng-click="scrollTo('#flow')") 查看流程
 
-	#flow
+	#flow.container
 		p#flow-name 只需四步！解决仪器难题
-		#booking.step
-			span.glyphicon.glyphicon-pencil
-			p.name 在线预约
-			.detail
-				p 电脑 / 平板 / 手机 均可预约
-				p 实时显示仪器的空闲时段
-		#confirm.step
-			span.glyphicon.glyphicon-ok
-			p.name 供应方确认
-			.detail
-				p 短信 / 微信 / 邮件 总在第一时间
-				p 三小时快速反馈
-		#payment.step
-			span.glyphicon.glyphicon-yen
-			p.name 支付费用
-			.detail
-				p 在线支付 / 定期结账 灵活选择
-				p 支付宝 / 微信支付 全线接入
-		#experiment.step
-			span.glyphicon.glyphicon-send
-			p.name 去实验！
-			.detail
-				p 今天下单，明天即可实验
-				p 走，闪人去！
+		.row
+			.col-md-3.col-sm-6
+				#booking.step
+					span.glyphicon.glyphicon-pencil
+					p.name 在线预约
+					.detail
+						p 电脑 / 平板 / 手机 均可预约
+						p 实时显示仪器的空闲时段
+			.col-md-3.col-sm-6
+				#confirm.step
+					span.glyphicon.glyphicon-ok
+					p.name 供应方确认
+					.detail
+						p 短信 / 微信 / 邮件 总在第一时间
+						p 三小时快速反馈
+			.col-md-3.col-sm-6
+				#payment.step
+					span.glyphicon.glyphicon-yen
+					p.name 支付费用
+					.detail
+						p 在线支付 / 定期结账 灵活选择
+						p 支付宝 / 微信支付 全线接入
+			.col-md-3.col-sm-6
+				#experiment.step
+					span.glyphicon.glyphicon-send
+					p.name 去实验！
+					.detail
+						p 今天下单，明天即可实验
+						p 走，闪人去！
 
 	#supply
 		p#suppy-name 多渠道仪器供应，稳定可靠
