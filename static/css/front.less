@@ -27,6 +27,7 @@ body {
 		top: 0;
 		z-index: -100;
 		overflow: hidden;
+		.animation(slideInDown 1s);
 		.cube > * {
 			border-color: @cube-green;
 		}
@@ -262,7 +263,7 @@ body {
 #list {
 	margin: 12rem auto 0;
 	#filter {
-		padding: 2rem 4rem;
+		padding: 1rem 2rem;
 		font-size: 1.5rem;
 		background-color: @transparent;
 		.shadow();
@@ -270,11 +271,11 @@ body {
 			margin-right: 0.5rem;
 		}
 		.row {
-			margin-bottom: 1rem;
+			margin: 1rem;
 			.key {
 				display: inline-block;
 				margin-right: 1rem;
-				min-width: 12rem;
+				min-width: 8rem;
 				span.type {
 					font-size: 1.8rem;
 				}
@@ -368,7 +369,6 @@ body {
 	}
 }
 #device {
-	width: 75vw;
 	margin: 12rem auto 0;
 	background-color: @transparent;
 	.shadow();
@@ -470,9 +470,9 @@ body {
 }
 
 .view-frame.ng-enter {
-	.animation(0.4s fadeIn);
+	.animation(fadeIn 0.4s);
 }
 
 .view-frame.ng-leave {
-	.animation(0.4s fadeOut);
+	.animation(fadeOut 0.4s);
 }

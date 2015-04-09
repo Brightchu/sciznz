@@ -96,11 +96,13 @@ sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', '$document', 'data', ($s
 		$document.scrollToElementAnimated($(document.querySelector(selector)), 100);
 
 	$(document).ready ->
-		cubes = document.querySelectorAll(".cube-perspective .cube")
-		Array.prototype.forEach.call cubes, (element, index)->
-			setTimeout ->
-				$(element).addClass('hover')
-			, 500 * index
+		setTimeout ->
+			cubes = document.querySelectorAll(".cube-perspective .cube")
+			Array.prototype.forEach.call cubes, (element, index)->
+				setTimeout ->
+					$(element).addClass('hover')
+				, 500 * index
+		, 500
 
 		$(document.querySelector('div#comment img')).click()
 
