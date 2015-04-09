@@ -5,30 +5,12 @@
 @bg-green: #EDFFF8;
 @cube-green: rgba(32, 175, 116, 0.5);
 @hr-green: rgba(32, 175, 116, 0.15);
-@lightwhite: rgba(255, 255, 255, 0.7);
-@darkwhite: rgba(255, 255, 255, 0.4);
 @grey: rgba(0, 0, 0, 0.4);
-@darkgrey: rgba(0, 0, 0, 0.4);
-@lightblue: #31B0D5;
 @blue: #31B0D5;
 
 body {
 	color: @pure-green;
 	background-color: @bg-green;
-}
-
-a {
-	color: #333;
-	&:hover {
-		text-decoration: none;
-	}
-}
-
-.disable-select() {
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
 }
 
 #home {
@@ -289,7 +271,7 @@ a {
 #list {
 	width: 75vw;
 	margin: 12rem auto 0;
-	background-color: @darkwhite;
+	background-color: rgba(255, 255, 255, 0.5);
 	#filter {
 		padding: 2rem 4rem;
 		font-size: 1.5rem;
