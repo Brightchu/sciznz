@@ -119,6 +119,13 @@ sciCtrl.controller 'listCtrl', ['$scope', '$filter', 'data', ($scope, $filter, d
 		category: $filter('translate')('unlimit')
 		address: $filter('translate')('unlimit')
 		field: {}
+
+	$scope.$watch 'filterModel.domain', (newValue, oldValue)->
+		$scope.filterModel.feature = newValue
+		$scope.filterModel.category = newValue
+
+	$scope.$watch 'filterModel.feature', (newValue, oldValue)->
+		$scope.filterModel.category = newValue
 ]
 
 sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Order', '$filter', '$cookies', '$modal', ($scope, $routeParams, data, Order, $filter, $cookies, $modal)->
