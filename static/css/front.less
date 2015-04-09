@@ -13,6 +13,7 @@
 body {
 	color: @green;
 	background-color: @bg-green;
+	overflow-x: hidden;
 }
 
 #home {
@@ -74,10 +75,6 @@ body {
 		p#flow-name {
 			font-size: 2.5rem;
 		}
-		.col-md-3, .col-sm-6 {
-			padding-top: 15px;
-			padding-bottom: 15px;
-		}
 		.step {
 			padding: 2rem;
 			transition: all 0.5s;
@@ -89,7 +86,7 @@ body {
 			}
 			.glyphicon {
 				margin: 3rem 0;
-				font-size: 6vw;
+				font-size: 8rem;
 			}
 			p.name {
 				font-size: 2rem;
@@ -101,26 +98,16 @@ body {
 		text-align: center;
 		p#suppy-name {
 			font-size: 2.5rem;
-			margin-bottom: 4rem;
+			margin-bottom: 2rem;
 		}
-		#rows {
-			margin: 0 auto;
-			padding: 2rem;
-			width: 82.5%;
+		.row {
 			background-color: @transparent;
 			box-shadow: 0 0 1rem #DDD;
-			.row {
-				img {
-					width: 10rem;
-					margin: 0 3rem;
-					background-color: white;
-					border-radius: 5rem;
-					box-shadow: 0 0 1rem #DDD;
-
-				}
-			}
-			.row:first-child {
-				margin-bottom: 4rem;
+			img {
+				width: 70%;
+				background-color: white;
+				border-radius: 70%;
+				box-shadow: 0 0 1rem #DDD;
 			}
 		}
 	}
