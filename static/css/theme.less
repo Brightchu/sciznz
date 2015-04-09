@@ -1,12 +1,15 @@
+@charset "utf-8";
+
 @blue: #35BDB2;
 @green: #20AF74;
 @nav-green: rgba(237, 255, 248, 0.8);
 
 .navbar {
 	height: 60px;
-	font-size: 18px;
 }
-
+.navbar-header {
+	height: 60px;
+}
 .navbar-default {
 	background-color: @nav-green;
 	border-radius: 4px;
@@ -15,6 +18,7 @@
 
 .navbar-brand,
 .navbar-nav > li > a {
+	font-size: 20px;
 	line-height: 30px;
 }
 
@@ -40,4 +44,19 @@
 .navbar-default .navbar-nav > li > a:focus {
 	background-color: @green;
 	color: white;
+}
+
+.navbar-default .navbar-toggle {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	&:hover {
+		background-color: @green;
+		& > a {
+			color: white;
+		}
+	}
+}
+
+.navbar-default .navbar-toggle > a{
+	color: @green;
 }

@@ -20,16 +20,12 @@ html
 	body.font-hei(ng-app="sciApp" ng-strict-di)
 		nav.navbar.navbar-default.navbar-fixed-top(ng-controller="navCtrl")
 			.container
-				// Brand and toggle get grouped for better mobile display
 				.navbar-header
-					button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#sci-navbar')
-						span.icon-bar
-						span.icon-bar
-						span.icon-bar
+					button.navbar-toggle#loginButton(ng-click='open()')
+						a {{name | translate}}
 					a.navbar-brand(href='#/')
 						img(src='static/img/logo-landscape.png')
-				// Collect the nav links, forms, and other content for toggling
-				#sci-navbar.collapse.navbar-collapse
+				.navbar-collapse.collapse
 					ul.nav.navbar-nav
 						li
 							a(ng-click='scrollTo("#flow")') 预约流程
