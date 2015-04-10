@@ -1,9 +1,41 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-require_once(APPPATH . 'controllers/Account.php');
+class User extends CI_Controller {
 
-class User extends Account {
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->library('encryption');
+		$this->load->model('user_model');
+		$this->load->helper('url');
+
+		if (uri_string() !== 'user/auth') {
+			if (!is_numeric($this->encryption->decrypt($this->input->cookie('userID')))) {
+				redirect('/');
+			}
+		}
+	}
+
+	public function index()
+	{
+		$this->load->view('user.html');
+	}
+
+	public function auth()
+	{
+		if ($this->input->method() === 'post') {
+			$result = $this->user_model->auth($this->input->json('email'), $this->input->json('password'));
+			if ($result) {
+				$this->input->set_cookie('name', $result['name'], SECONDS_YEAR);
+				$this->input->set_cookie('userID', $this->encryption->encrypt($result['ID']), SECONDS_YEAR);
+				unset($result['ID']);
+				$this->output->set_json($result);
+			} else {
+				$this->output->set_status_header(403);
+			}
+		}
+	}
 
 	public function info()
 	{

@@ -39,15 +39,11 @@ sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout',
 			email: $scope.email
 			password: $scope.password
 
-		result = User.update(form).$promise
-		result.catch ->
+		promise = User.auth(form).$promise
+		promise.catch ->
 			$scope.error = true
-		result.then ->
-			cookiePair = {}
-			for cookie in document.cookie.split('; ')
-				[k, v] = cookie.split('=')
-				cookiePair[k] = v
-			$modalInstance.close(decodeURIComponent(cookiePair['name']))
+		promise.then (data)->
+			$modalInstance.close(data.name)
 
 	$scope.signup = ->
 		form =
