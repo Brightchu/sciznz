@@ -273,6 +273,19 @@ hr {
 		margin-right: 0.5rem;
 	}
 	.col-padding(5px);
+	#suggestion {
+		@media (orientation:portrait) {
+			margin: 1rem 0;
+			padding: 4rem 2rem;
+			font-size: 4rem;
+			text-align: center;
+			background-color: @transparent;
+			.shadow();
+		}
+		@media (orientation:landscape) {
+			display: none;
+		}
+	}
 	#filter {
 		padding: 1rem 3rem;
 		font-size: 1.5rem;
