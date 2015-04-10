@@ -2,12 +2,12 @@
 
 sciCtrl = angular.module('sciCtrl', ['ngCookies', 'ui.bootstrap', 'ui.utils', 'duScroll'])
 
-sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', '$document', '$location', ($scope, $modal, $cookies, $document, $location)->
+sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', '$document', '$window', ($scope, $modal, $cookies, $document, $window)->
 	$scope.name = $cookies.name || 'login'
 
 	$scope.open = ->
 		if $cookies.name?
-			$location.url('/user')
+			$window.location.href = '/user'
 		else
 			login()
 
@@ -20,7 +20,6 @@ sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', '$document', '$lo
 			backdropClass: 'loginBack'
 
 		modalInstance.result.then (name)->
-			$cookies.name = name
 			$scope.name = name
 
 	$scope.scrollTo = (selector)->
@@ -28,24 +27,12 @@ sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', '$document', '$lo
 
 ]
 
-sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout', ($scope, $modalInstance, User, $timeout)->
-	$scope.current = 'signup'
+sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout', '$filter', ($scope, $modalInstance, User, $timeout, $filter)->
+	signup = true
+	$scope.actionText = $filter('translate')('signup')
+	$scope.switchText = $filter('translate')('goSignin')
 
-	$scope.switchText = '去登录'
-	$scope.actionText = '注册'
-
-	$scope.signin = ->
-		form =
-			email: $scope.email
-			password: $scope.password
-
-		promise = User.auth(form).$promise
-		promise.catch ->
-			$scope.error = true
-		promise.then (data)->
-			$modalInstance.close(data.name)
-
-	$scope.signup = ->
+	signup = ->
 		form =
 			email: $scope.email
 			password: $scope.password
@@ -59,30 +46,36 @@ sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout',
 				$modalInstance.close(data.name)
 			, 1000
 
-	$scope.action = ->
-		$scope[$scope.current]()
+	signin = ->
+		form =
+			email: $scope.email
+			password: $scope.password
+
+		promise = User.auth(form).$promise
+		promise.catch ->
+			$scope.error = true
+		promise.then (data)->
+			$modalInstance.close(data.name)
 
 	$scope.switch = ->
-		if $scope.current == 'signup'
-			$scope.current = 'signin'
-			$scope.switchText = '去注册'
-			$scope.actionText = '登录'
+		signup = !signup
+		if signup
+			$scope.actionText = $filter('translate')('signup')
+			$scope.switchText = $filter('translate')('goSignin')
 		else
-			$scope.current = 'signup'
-			$scope.switchText = '去登录'
-			$scope.actionText = '注册'
+			$scope.actionText = $filter('translate')('signin')
+			$scope.switchText = $filter('translate')('goSignup')
+
+	$scope.action = ->
+		if signup
+			signup()
+		else
+			signin()
+
 ]
 
-sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', '$document', 'data', ($scope, $rootScope, $document, data)->
+sciCtrl.controller 'homeCtrl', ['$scope', '$document', 'data', ($scope, $document, data)->
 	$scope.groupList = data.hierarchy
-
-	$scope.onEntry = ->
-		if this.group?
-			$rootScope.groupSelected = this.group.name
-		else
-			$rootScope.groupSelected = '全部类别'
-		location.hash = '#list'
-
 	$scope.scrollTo = (selector)->
 		$document.scrollToElementAnimated($(document.querySelector(selector)), 100);
 
