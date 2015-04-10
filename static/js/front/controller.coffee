@@ -102,7 +102,7 @@ sciCtrl.controller 'homeCtrl', ['$scope', '$rootScope', '$document', 'data', ($s
 				setTimeout ->
 					$(element).addClass('hover')
 				, 500 * index
-		, 500
+		, 3000
 
 		$(document.querySelector('div#comment img')).click()
 
