@@ -1,70 +1,84 @@
-div#list.container
-	div#filter
-		div.row
-			div.key
-				span.glyphicon.glyphicon-list
-				span.type 领域：
-			div.value
-				label.btn.btn-sm.btn-default(ng-model="filterModel.domain" btn-radio="'不限'") 不限
-				label.btn.btn-sm.btn-default(ng-repeat="(domain, _) in data.hierarchy" ng-model="filterModel.domain" btn-radio="'{{domain}}'") {{domain}}
+#list.container
+	#filter
+		.row
+			.col-xs-2
+				.key
+					span.glyphicon.glyphicon-list
+					span.type 领域：
+			.col-xs-10
+				.value
+					label.btn.btn-sm.btn-default(ng-model="filterModel.domain" btn-radio="'不限'") 不限
+					label.btn.btn-sm.btn-default(ng-repeat="(domain, _) in data.hierarchy" ng-model="filterModel.domain" btn-radio="'{{domain}}'") {{domain}}
 
-		div.row
-			div.key
-				span.glyphicon.glyphicon-th
-				span.type 性质：
-			div.value
-				label.btn.btn-sm.btn-default(ng-model="filterModel.feature" btn-radio="filterModel.domain") {{filterModel.domain}}
-				label.btn.btn-sm.btn-default(ng-repeat="feature in data.index.feature[filterModel.domain].self | unique" ng-model="filterModel.feature" btn-radio="'{{feature}}'") {{feature}}
-				label.btn.btn-sm.btn-default(ng-show="data.index.feature[filterModel.domain].more.length" ng-click="hideMoreFeature = !hideMoreFeature") 更多
-					span.caret
+		.row
+			.col-xs-2
+				.key
+					span.glyphicon.glyphicon-th
+					span.type 性质：
+			.col-xs-10
+				.value
+					label.btn.btn-sm.btn-default(ng-model="filterModel.feature" btn-radio="filterModel.domain") {{filterModel.domain}}
+					label.btn.btn-sm.btn-default(ng-repeat="feature in data.index.feature[filterModel.domain].self | unique" ng-model="filterModel.feature" btn-radio="'{{feature}}'") {{feature}}
+					label.btn.btn-sm.btn-default(ng-show="data.index.feature[filterModel.domain].more.length" ng-click="hideMoreFeature = !hideMoreFeature") 更多
+						span.caret
 
-		div.row(collapse="hideMoreFeature" ng-repeat="row in data.index.feature[filterModel.domain].more")
-			div.key
-			div.value
-				label.btn.btn-sm.btn-default(ng-repeat="feature in row | unique" ng-model="filterModel.feature" btn-radio="'{{feature}}'") {{feature}}
+		.row(collapse="hideMoreFeature" ng-repeat="row in data.index.feature[filterModel.domain].more")
+			.col-xs-2
+				.key
+			.col-xs-10
+				.value
+					label.btn.btn-sm.btn-default(ng-repeat="feature in row | unique" ng-model="filterModel.feature" btn-radio="'{{feature}}'") {{feature}}
 
-		div.row
-			div.key
-				span.glyphicon.glyphicon-th-large
-				span.type 类别：
-			div.value
-				label.btn.btn-sm.btn-default(ng-model="filterModel.category" btn-radio="filterModel.feature") {{filterModel.feature}}
-				label.btn.btn-sm.btn-default(ng-repeat="category in data.index.category[filterModel.feature].self | unique" ng-model="filterModel.category" btn-radio="'{{category}}'") {{category}}
-				label.btn.btn-sm.btn-default(ng-show="data.index.category[filterModel.feature].more.length" ng-click="hideMoreCategory = !hideMoreCategory") 更多
-					span.caret
+		.row
+			.col-xs-2
+				.key
+					span.glyphicon.glyphicon-th-large
+					span.type 类别：
+			.col-xs-10
+				.value
+					label.btn.btn-sm.btn-default(ng-model="filterModel.category" btn-radio="filterModel.feature") {{filterModel.feature}}
+					label.btn.btn-sm.btn-default(ng-repeat="category in data.index.category[filterModel.feature].self | unique" ng-model="filterModel.category" btn-radio="'{{category}}'") {{category}}
+					label.btn.btn-sm.btn-default(ng-show="data.index.category[filterModel.feature].more.length" ng-click="hideMoreCategory = !hideMoreCategory") 更多
+						span.caret
 
-		div.row(collapse="hideMoreCategory" ng-repeat="row in data.index.category[filterModel.feature].more")
-			div.key
-			div.value
-				label.btn.btn-sm.btn-default(ng-repeat="category in row | unique" ng-model="filterModel.category" btn-radio="'{{category}}'") {{category}}
+		.row(collapse="hideMoreCategory" ng-repeat="row in data.index.category[filterModel.feature].more")
+			.col-xs-2
+				.key
+			.col-xs-10
+				.value
+					label.btn.btn-sm.btn-default(ng-repeat="category in row | unique" ng-model="filterModel.category" btn-radio="'{{category}}'") {{category}}
 
-		div.row
-			div.key
-				span.glyphicon.glyphicon-flag
-				span.type 地点：
-			div.value
-				label.btn.btn-sm.btn-default(ng-model="filterModel.address" btn-radio="'不限'") 不限
-				label.btn.btn-sm.btn-default(ng-repeat="address in data.index.address" ng-model="filterModel.address" btn-radio="'{{address}}'") {{address}}
+		.row
+			.col-xs-2
+				.key
+					span.glyphicon.glyphicon-flag
+					span.type 地点：
+			.col-xs-10
+				.value
+					label.btn.btn-sm.btn-default(ng-model="filterModel.address" btn-radio="'不限'") 不限
+					label.btn.btn-sm.btn-default(ng-repeat="address in data.index.address" ng-model="filterModel.address" btn-radio="'{{address}}'") {{address}}
 
-		div.row(ng-repeat="field in data.field[filterModel.category]")
-			div.key
-				span.glyphicon.glyphicon-wrench
-				span.type {{field}}：
-			div.value
-				label.btn.btn-sm.btn-default(ng-model="filterModel.field[field]" btn-radio="'不限'") 不限
-				label.btn.btn-sm.btn-default(ng-repeat="value in data | fieldFilter:filterModel:field | unique" ng-model="filterModel.field[field]" btn-radio="'{{value}}'") {{value}}
+		.row(ng-repeat="field in data.field[filterModel.category]")
+			.col-xs-2
+				.key
+					span.glyphicon.glyphicon-wrench
+					span.type {{field}}：
+			.col-xs-10
+				.value
+					label.btn.btn-sm.btn-default(ng-model="filterModel.field[field]" btn-radio="'不限'") 不限
+					label.btn.btn-sm.btn-default(ng-repeat="value in data | fieldFilter:filterModel:field | unique" ng-model="filterModel.field[field]" btn-radio="'{{value}}'") {{value}}
 
-	div#content
-		div.device(ng-repeat="device in data | listFilter:filterModel:this")
+	#content
+		.device(ng-repeat="device in data | listFilter:filterModel:this")
 			img.shot(src="/static/img/device.jpg")
-			div.info
+			.info
 				p.row
 					span.category {{device.category}}
 					span.glyphicon.glyphicon-flag
 					span.address {{device.address}}
 					span.glyphicon.glyphicon-earphone
 					span.supply {{device.supply}}
-				div.split
+				.split
 				p.row
 					span.glyphicon.glyphicon-tag
 					span.model {{device.vendor}} - {{device.model}}
@@ -73,13 +87,13 @@ div#list.container
 					label.btn.btn-default.btn-xs(ng-click="isCollapsed = !isCollapsed") 更多信息
 						span.caret
 				div(collapse="isCollapsed") {{device.info}}
-			div.action
-				div.group
+			.action
+				.group
 					label.btn.btn-default.btn-block.price {{device.price}}元 / {{device.unit}}
 					a(href="#/device/{{device.ID}}")
 						label.btn.btn-success.btn-block.booking 立即预约
 
-		div.nodevice(ng-show="nodevice")
+		.nodevice(ng-show="nodevice")
 			p 没有合适的仪器，要求不要那么高嘛
 
 include ./footer.jade
