@@ -69,29 +69,31 @@
 					label.btn.btn-sm.btn-default(ng-repeat="value in data | fieldFilter:filterModel:field | unique" ng-model="filterModel.field[field]" btn-radio="'{{value}}'") {{value}}
 
 	#content
-		.device(ng-repeat="device in data | listFilter:filterModel:this")
-			img.shot(src="/static/img/device.jpg")
-			.info
-				p.row
-					span.category {{device.category}}
-					span.glyphicon.glyphicon-flag
-					span.address {{device.address}}
-					span.glyphicon.glyphicon-earphone
-					span.supply {{device.supply}}
-				.split
-				p.row
-					span.glyphicon.glyphicon-tag
-					span.model {{device.vendor}} - {{device.model}}
-				p.row
+		.device.row(ng-repeat="device in data | listFilter:filterModel:this")
+			img.col-xs-2.shot(src="/static/img/device.jpg")
+			.info.col-xs-8
+				.row
+					p.category {{device.category}}
+					span.col-xs-4
+						span.glyphicon.glyphicon-tag
+						span.model {{device.vendor}} - {{device.model}}
+					span.col-xs-4
+						span.glyphicon.glyphicon-flag
+						span.address {{device.address}}
+					span.col-xs-4
+						span.glyphicon.glyphicon-earphone
+						span.supply {{device.supply}}
+
+				hr
+				.row
 					label.btn.btn-info.btn-xs(ng-repeat="(key, value) in device.field") {{key}} {{value}}
 					label.btn.btn-default.btn-xs(ng-click="isCollapsed = !isCollapsed") 更多信息
 						span.caret
 				div(collapse="isCollapsed") {{device.info}}
-			.action
-				.group
-					label.btn.btn-default.btn-block.price {{device.price}}元 / {{device.unit}}
-					a(href="#/device/{{device.ID}}")
-						label.btn.btn-success.btn-block.booking 立即预约
+			.action.col-xs-2
+				label.btn.btn-default.btn-block.price {{device.price}}元 / {{device.unit}}
+				a(href="#/device/{{device.ID}}")
+					label.btn.btn-success.btn-block.booking 立即预约
 
 		.nodevice(ng-show="nodevice")
 			p 没有合适的仪器，要求不要那么高嘛

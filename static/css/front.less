@@ -15,6 +15,10 @@ body {
 	background-color: @bg-green;
 }
 
+hr {
+	border-color: @hr-green;
+}
+
 .shadow() {
 	box-shadow: 0 0 1rem #DDD;
 }
@@ -165,9 +169,6 @@ body {
 	#go-again {
 		margin-top: 8%;
 		text-align: center;
-		hr {
-			border-color: @hr-green;
-		}
 		div {
 			display: inline-block;
 			font-size: 2.5rem;
@@ -262,18 +263,17 @@ body {
 
 #list {
 	margin: 12rem auto 0;
+	.glyphicon {
+		margin-right: 0.5rem;
+	}
+	.col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+		padding: 5px;
+	}
 	#filter {
-		padding: 1rem 2rem;
+		padding: 1rem 3rem;
 		font-size: 1.5rem;
 		background-color: @transparent;
 		.shadow();
-		.glyphicon {
-			margin-right: 0.5rem;
-		}
-		.col-xs-2, .col-xs-10 {
-			padding-top: 5px;
-			padding-bottom: 5px;
-		}
 		.key {
 			span.type {
 				font-size: 1.8rem;
@@ -294,64 +294,41 @@ body {
 		}
 	}
 	#content {
-		border-radius: 1rem;
 		.device {
 			margin: 1rem 0;
+			padding: 1rem;
 			background-color: @transparent;
 			.shadow();
 			img.shot {
-				width: 12vw;
-				display: inline-block;
-				vertical-align: top;
-				margin: 2rem;
-				box-shadow: 0 0 3px #FFF;
+				box-shadow: 0 0 4px #FFF;
 			}
 			.info {
-				width: 45vw;
-				display: inline-block;
-				vertical-align: top;
-				margin-top: 2rem;
-				margin-left: 1rem;
-				p.row {
+				.row {
 					font-size: 1.6rem;
-					span.category {
+					margin-left: 5px;
+					p.category {
 						font-size: 2rem;
 						font-weight: bold;
-						margin-right: 4rem;
-					}
-					span.address {
-						margin-right: 2rem;
 					}
 					span.glyphicon {
 						color: @blue;
 					}
-					span.model {
-						font-size: 1.8rem;
-					}
 					label.btn-xs {
-						margin-right: 1rem;
+						margin-right: 5px;
 					}
 					span.caret {
-						margin-left: 0.5rem;
+						margin-left: 5px;
 					}
 				}
-				.split {
-					height: 1px;
-					background-color: @grey;
-					margin: 0 -2rem 1rem;
-					box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+				hr {
+					margin-top: 5px;
+					margin-bottom: 5px;
 				}
 			}
 			.action {
-				display: inline-block;
-				margin-left: 1rem;
-				width: 13vw;
-				.group {
-					width: 10vw;
-					margin: 7rem auto 0;
-					label.btn {
-						margin: 2rem auto;
-					}
+				margin-top: 3rem;
+				label.btn {
+					margin: 1rem auto;
 				}
 			}
 		}
