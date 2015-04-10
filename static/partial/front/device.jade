@@ -3,24 +3,28 @@
 		include ./deviceMixin.jade
 		+device(true)
 
-	#booking
-		p.title
-			span.glyphicon.glyphicon-check
-			| 在线预约
-		hr
-		#datepicker
-			datepicker.well.well-sm(ng-model='date' min-date='minDate' max-date='maxDate')
-		#stock
-			p.date
-				span.tip 预约日期:
-				span.content {{date | date:'yyyy-MM-dd' }}
-			p.left
-				span.tip 余量:
-				span.content {{device.capacity - stat.count}} 位
-			p.price
-				span.tip 价格:
-				span.content {{device.price}}元 / {{device.unit}}
-			label.btn.btn-success.btn-block.booking(ng-click="book()") 立即预约
-
+	#booking.row
+		.col-xs-2
+		.col-xs-10
+			p.title
+				span.glyphicon.glyphicon-check
+				| 在线预约
+			hr
+			.row
+				.col-sm-4
+					#datepicker
+						datepicker.well.well-sm(ng-model='date' min-date='minDate' max-date='maxDate')
+				.col-sm-4
+					#stock
+						p.date
+							span.tip 预约日期:
+							span.content {{date | date:'yyyy-MM-dd' }}
+						p.left
+							span.tip 余量:
+							span.content {{device.capacity - stat.count}} 位
+						p.price
+							span.tip 价格:
+							span.content {{device.price}}元 / {{device.unit}}
+						label.btn.btn-success.btn-block.booking(ng-click="book()") 立即预约
 
 include ./footer.jade
