@@ -8,7 +8,7 @@ class Account_mail extends CI_Model {
 		parent::__construct();
 		$this->load->library('parser');
 		$this->load->library('email');
-		$this->email->from('scicompass@sina.com', 'SciCompass');
+		$this->email->from('scicompass@sina.com', 'Sciclubs');
 	}
 
 	/**
@@ -19,14 +19,14 @@ class Account_mail extends CI_Model {
 	public function register($role, $email, $name)
 	{
 		$this->email->to($email);
-		$this->email->subject('SciCompass notification');
+		$this->email->subject('Sciclubs notification');
 
 		$data = [
 			'name' => $name,
 			'datetime' => date(DATE_RSS),
 		];
 
-		$this->email->message($this->parser->parse("mail/{$role}Register.html", $data, TRUE));
+		$this->email->message($this->parser->parse("mail/register/{$role}.html", $data, TRUE));
 		return $this->email->send();
 	}
 }

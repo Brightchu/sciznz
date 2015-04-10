@@ -20,7 +20,8 @@ lessc -x static/css/supply.less static/css/supply.css
 lessc -x static/css/group.less static/css/group.css
 
 jade application/views/*.jade
-jade application/views/mail/*.jade&
+jade application/views/mail/register/*.jade
+jade application/views/mail/order/*.jade
 jade static/partial/front/*.jade
 jade static/partial/admin/*.jade
 jade static/partial/ucenter/*.jade

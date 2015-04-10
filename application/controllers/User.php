@@ -42,6 +42,8 @@ class User extends CI_Controller {
 
 	public function register()
 	{
+		$this->load->model('account_mail');
+
 		switch ($this->input->method()) {
 			case 'post':
 				$result = $this->user_model->register($this->input->json('email'), $this->input->json('password'));
@@ -49,7 +51,9 @@ class User extends CI_Controller {
 					$this->input->set_cookie('name', $result['name'], SECONDS_YEAR);
 					$this->input->set_cookie('userID', $this->encryption->encrypt($result['ID']), SECONDS_YEAR);
 					unset($result['ID']);
+
 					$this->output->set_json($result);
+					$this->account_mail->register('user', $this->input->json('email'), $result['name']);
 					break;
 				}
 

@@ -6,7 +6,8 @@ coffee --join static/js/supply.js --watch --compile static/js/supply/app.coffee 
 coffee --join static/js/group.js --watch --compile static/js/group/app.coffee static/js/group/controller.coffee static/js/group/service.coffee static/js/group/filter.coffee&
 
 jade -w -P application/views/*.jade&
-jade -w -P application/views/mail/*.jade&
+jade -w -P application/views/mail/register/*.jade&
+jade -w -P application/views/mail/order/*.jade&
 jade -w -P static/partial/front/*.jade&
 jade -w -P static/partial/admin/*.jade&
 jade -w -P static/partial/ucenter/*.jade&
