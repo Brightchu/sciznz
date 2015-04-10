@@ -2,12 +2,12 @@
 
 sciCtrl = angular.module('sciCtrl', ['ngCookies', 'ui.bootstrap', 'ui.utils', 'duScroll'])
 
-sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', '$document', ($scope, $modal, $cookies, $document)->
+sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', '$document', '$location', ($scope, $modal, $cookies, $document, $location)->
 	$scope.name = $cookies.name || 'login'
 
 	$scope.open = ->
 		if $cookies.name?
-			location.href = '/user'
+			$location.url('/user')
 		else
 			login()
 
@@ -50,18 +50,13 @@ sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout',
 			email: $scope.email
 			password: $scope.password
 
-		result = User.save(form).$promise
+		result = User.register(form).$promise
 		result.catch ->
 			$scope.warning = true
-		result.then ->
+		result.then (data)->
 			$scope.success = true
-			cookiePair = {}
-			for cookie in document.cookie.split('; ')
-				[k, v] = cookie.split('=')
-				cookiePair[k] = v
-
 			$timeout ->
-				$modalInstance.close(decodeURIComponent(cookiePair['name']))
+				$modalInstance.close(data.name)
 			, 1000
 
 	$scope.action = ->

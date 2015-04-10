@@ -10,7 +10,7 @@ class User extends CI_Controller {
 		$this->load->model('user_model');
 		$this->load->helper('url');
 
-		if (uri_string() !== 'user/auth') {
+		if (uri_string() !== 'user/auth' && uri_string() !== 'user/register') {
 			if (!is_numeric($this->encryption->decrypt($this->input->cookie('userID')))) {
 				redirect('/');
 			}
@@ -24,16 +24,37 @@ class User extends CI_Controller {
 
 	public function auth()
 	{
-		if ($this->input->method() === 'post') {
-			$result = $this->user_model->auth($this->input->json('email'), $this->input->json('password'));
-			if ($result) {
-				$this->input->set_cookie('name', $result['name'], SECONDS_YEAR);
-				$this->input->set_cookie('userID', $this->encryption->encrypt($result['ID']), SECONDS_YEAR);
-				unset($result['ID']);
-				$this->output->set_json($result);
-			} else {
+		switch ($this->input->method()) {
+			case 'post':
+				$result = $this->user_model->auth($this->input->json('email'), $this->input->json('password'));
+				if ($result) {
+					$this->input->set_cookie('name', $result['name'], SECONDS_YEAR);
+					$this->input->set_cookie('userID', $this->encryption->encrypt($result['ID']), SECONDS_YEAR);
+					unset($result['ID']);
+					$this->output->set_json($result);
+					break;
+				}
+
+			default:
 				$this->output->set_status_header(403);
-			}
+		}
+	}
+
+	public function register()
+	{
+		switch ($this->input->method()) {
+			case 'post':
+				$result = $this->user_model->register($this->input->json('email'), $this->input->json('password'));
+				if ($result) {
+					$this->input->set_cookie('name', $result['name'], SECONDS_YEAR);
+					$this->input->set_cookie('userID', $this->encryption->encrypt($result['ID']), SECONDS_YEAR);
+					unset($result['ID']);
+					$this->output->set_json($result);
+					break;
+				}
+
+			default:
+				$this->output->set_status_header(403);
 		}
 	}
 
