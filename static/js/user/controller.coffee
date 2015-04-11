@@ -1,11 +1,8 @@
 'use strict'
 
-ucenterCtrl = angular.module('ucenterCtrl', ['ngCookies', 'ui.bootstrap'])
+userCtrl = angular.module('userCtrl', ['ngCookies', 'ui.bootstrap'])
 
-ucenterCtrl.controller 'accordionCtrl', ['$scope', '$location', '$cookies', ($scope, $location, $cookies)->
-	if not $cookies.name?
-		window.location = '/'
-
+userCtrl.controller 'accordionCtrl', ['$scope', '$location', '$cookies', ($scope, $location, $cookies)->
 	$(document).ready ->
 		heading = $(document.querySelectorAll('.panel-heading'))
 		heading.on 'click', ->
@@ -28,7 +25,7 @@ ucenterCtrl.controller 'accordionCtrl', ['$scope', '$location', '$cookies', ($sc
 			window.location = '/'
 ]
 
-ucenterCtrl.controller 'personalInfoCtrl', ['$scope', 'Info', ($scope, Info)->
+userCtrl.controller 'personalInfoCtrl', ['$scope', 'Info', ($scope, Info)->
 	$scope.info = Info.get()
 	$scope.password = {}
 
@@ -51,7 +48,7 @@ ucenterCtrl.controller 'personalInfoCtrl', ['$scope', 'Info', ($scope, Info)->
 			alert('请输入密码')
 ]
 
-ucenterCtrl.controller 'bookingInfoCtrl', ['$scope', 'Order', 'Info', ($scope, Order, Info)->
+userCtrl.controller 'bookingInfoCtrl', ['$scope', 'Order', 'Info', ($scope, Order, Info)->
 	$scope.orderList = Order.query()
 	$scope.info = Info.get()
 

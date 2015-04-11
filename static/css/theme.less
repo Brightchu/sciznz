@@ -65,3 +65,47 @@ a {
 		}
 	}
 }
+
+.panel-group {
+	border: 0;
+	.panel {
+		border: 0;
+		.panel-heading {
+			border: 0;
+			background-color: #222;
+			.panel-title {
+				border: 0;
+				color: #EEE;
+				a {
+					text-decoration: none;
+				}
+			}
+		}
+		.panel-collapse {
+			border: 0;
+			.panel-body {
+				border: 0;
+				background-color: #333;
+				p{
+					cursor: pointer;
+					a {
+						color: #EEE;
+						text-decoration: none;
+					}
+					&:hover {
+						a {
+							color: #2EA2CC;
+						}
+					}
+					&.active {
+						font-weight: bold;
+					}
+				}
+
+			}
+		}
+		.open {
+			background-color: #0074A2;
+		}
+	}
+}

@@ -1,7 +1,7 @@
 'use strict'
 
-ucenterFilter = angular.module('ucenterFilter', [])
-ucenterFilter.filter 'statusFilter', ->
+userFilter = angular.module('userFilter', [])
+userFilter.filter 'statusFilter', ->
 	name =
 		1: '等待提供方确认'
 		2: '等待用户付款'
@@ -13,7 +13,7 @@ ucenterFilter.filter 'statusFilter', ->
 	(value)->
 		name[value]
 
-ucenterFilter.filter 'classFilter', ->
+userFilter.filter 'classFilter', ->
 	name =
 		1: 'btn btn-default disabled'
 		2: 'btn btn-success'
@@ -25,7 +25,7 @@ ucenterFilter.filter 'classFilter', ->
 	(value)->
 		return name[value]
 
-ucenterFilter.filter 'buttonTextFilter', ->
+userFilter.filter 'buttonTextFilter', ->
 	name =
 		1: '等待'
 		2: '立即付款'

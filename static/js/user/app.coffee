@@ -9,13 +9,13 @@ window.$.prototype.click = ->
 		element.dispatchEvent(clickEvent)
 
 # glue modules
-ucenterApp = angular.module('ucenterApp', ['ngRoute', 'ngAnimate', 'ucenterCtrl', 'ucenterService', 'ucenterFilter'])
-ucenterApp.config(['$routeProvider', ($routeProvider)->
+userApp = angular.module('userApp', ['ngRoute', 'ngAnimate', 'userCtrl', 'userService', 'userFilter'])
+userApp.config(['$routeProvider', ($routeProvider)->
 	$routeProvider.when('/personal-info'
-		templateUrl: '/static/partial/ucenter/personal-info.html'
+		templateUrl: '/static/partial/user/personal-info.html'
 		controller: 'personalInfoCtrl'
 	).when('/booking-info'
-		templateUrl: '/static/partial/ucenter/booking-info.html'
+		templateUrl: '/static/partial/user/booking-info.html'
 		controller: 'bookingInfoCtrl'
 	).otherwise(
 		redirectTo: '/personal-info'
