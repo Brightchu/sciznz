@@ -12,19 +12,19 @@ class Account_mail extends CI_Model {
 	}
 
 	/**
-	 * Notify a new account
-	 * @param 	$role, $email, $name
+	 * Request verify a new account
+	 * @param 	$role, $email
 	 * @return 	bool
 	 */
-	public function register($role, $email, $name)
+	public function register($role, $email)
 	{
 		$this->load->library('encryption');
 		$this->email->to($email);
-		$this->email->subject('Sciclubs notification');
+		$this->email->subject('Sciclubs邮箱验证');
 		$this->load->helper('url');
 
 		$data = [
-			'name' => $name,
+			'email' => $email,
 			'link' => site_url('verify/' . $this->encryption->encrypt($email)),
 			'datetime' => date(DATE_RSS),
 		];

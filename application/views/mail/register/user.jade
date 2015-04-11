@@ -1,16 +1,46 @@
-doctype transitional
-html(xmlns='http://www.w3.org/1999/xhtml')
+doctype html
+html
 	head
-		meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
-		title Verify Your email address in SciCompass
-	body
-		table(border='0', cellpadding='0', cellspacing='0', width='100%')
-			tr
-				p 尊敬的 {name}:
-				p 欢迎您注册科学指南针!
-				p 请点击下面的链接已绑定您的邮箱地址，你的订单信息都将发送到这个邮箱。
-				a(href="{link}") {link}
-				
-				p 感谢您对科学指南针的信任
-				p 科学指南针团队
-				p {datetime}
+		meta(charset="utf-8")
+		meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+		meta(name="description" content="邮箱验证 - 科学指南针")
+		meta(name="renderer" content="webkit")
+		meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=no")
+		meta(name="mobile-web-app-capable" content="yes")
+		meta(name="apple-mobile-web-app-capable" content="yes")
+		title 邮箱验证 - 科学指南针
+		link(rel="stylesheet" href="/static/bower_components/fonts.css/fonts.css")
+		link(rel="icon" type="image/png" sizes="256x256" href="/static/img/logo.png")
+		style.
+			a {
+				color: #20AF74;
+			}
+			div.content {
+				text-align: center;
+				color: #20AF74;
+			}
+			p.big {
+				font-size: 3rem;
+			}
+			a.email {
+				font-size: 2rem;
+				color: #FF3062;
+			}
+			a.go {
+				display: inline-block;
+				padding: 0.8rem 2rem;
+				border-radius: 3rem;
+				color: white;
+				background-color: #20AF74;
+			}
+
+	body.font-hei
+		div.content
+			p.big 欢迎加入科学指南针！
+			a.email {email}
+			p 请点击下方的按钮以绑定这个邮箱
+			a.go(href='{link}') 绑定邮箱
+			p 如果您无法点击以上链接，请复制以下网址直接在浏览器打开:
+			a(href='{link}') {link}
+			p {datetime}
+			p © 2015 科学指南针

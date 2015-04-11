@@ -53,7 +53,7 @@ class User extends CI_Controller {
 					unset($result['ID']);
 
 					$this->output->set_json($result);
-					$this->account_mail->register('user', $this->input->json('email'), $result['name']);
+					$this->account_mail->register('user', $this->input->json('email'));
 					break;
 				}
 
