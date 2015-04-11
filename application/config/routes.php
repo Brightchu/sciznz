@@ -53,3 +53,4 @@ $route['default_controller'] = 'base';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['captcha/(:any)'] = 'captcha/index/$1';
+$route['verify/(:any)'] = 'verify/index/$1';

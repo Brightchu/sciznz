@@ -18,11 +18,14 @@ class Account_mail extends CI_Model {
 	 */
 	public function register($role, $email, $name)
 	{
+		$this->load->library('encryption');
 		$this->email->to($email);
 		$this->email->subject('Sciclubs notification');
+		$this->load->helper('url');
 
 		$data = [
 			'name' => $name,
+			'link' => site_url('verify/' . $this->encryption->encrypt($email)),
 			'datetime' => date(DATE_RSS),
 		];
 

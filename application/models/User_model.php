@@ -37,16 +37,16 @@ class User_model extends Account_model {
 
 	/**
 	 * Verify email
-	 * @param	string	$ID
+	 * @param	string	$email
 	 * @return  bool
 	 */
-	public function verifyEmail($ID)
+	public function verifyEmail($email)
 	{
 		$this->load->database();
 
-		$sql = "UPDATE `{$this->role}` SET `verifyEmail`= 1 WHERE `ID` = ?";
+		$sql = "UPDATE `{$this->role}` SET `verifyEmail`= 1 WHERE `email` = ?";
 
-		return $this->db->query($sql, $ID);
+		return $this->db->query($sql, $email);
 	}
 
 	/**
