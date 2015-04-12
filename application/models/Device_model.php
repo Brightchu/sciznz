@@ -20,4 +20,12 @@ class Device_model extends CI_Model {
 		return $device;
 	}
 
+	public function resource($deviceID)
+	{
+		$this->load->database('slave');
+
+		$sql = 'SELECT `schedule` FROM `device` WHERE `ID` = ?';
+		$schedule = $this->db->query($sql, $deviceID)->row_array()['schedule'];
+		return json_decode($schedule, TRUE);
+	}
 }
