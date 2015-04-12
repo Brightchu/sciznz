@@ -5,21 +5,29 @@ class Order_model extends CI_Model {
 
 	/**
 	 * Create an order
-	 * @param 	$userID, $deviceID, $date, $block
+	 * @param 	$userID, $deviceID, $date, $resource
 	 * @return  bool
 	 */
-	public function create($userID, $deviceID, $date, $block)
+	public function create($userID, $deviceID, $method, $date, $resource)
 	{
 		$this->load->database();
 
-		$sql = 'INSERT INTO `usage`(`deviceID`, `type`, `date`, `block`) VALUES (?, "ORDER", ?, ?)';
-		$data = [$deviceID, $date, $block];
-		$result = $this->db->query($sql, $data);
+		if ($method === 'RESOURCE') {
+			$sql = 'INSERT INTO `usage`(`deviceID`, `type`, `date`, `resource`) VALUES (?, "ORDER", ?, ?)';
+			$data = [$deviceID, $date, $resource];
+			$result = $this->db->query($sql, $data);
 
-		if ($result) {
-			$usageID = $this->db->insert_id();
-			$sql = 'INSERT INTO `order`(`userID`, `deviceID`, `detail`, `usageID`) VALUES (?, ?, "{}", ?)';
-			$data = [$userID, $deviceID, $usageID];
+			if ($result) {
+				$usageID = $this->db->insert_id();
+				$sql = 'INSERT INTO `order`(`userID`, `deviceID`, `detail`, `method`, `usageID`) VALUES (?, ?, "{}", "RESOURCE", ?)';
+				$data = [$userID, $deviceID, $usageID];
+				return $this->db->query($sql, $data);
+			}
+		}
+
+		if ($method === 'UNLIMITED') {
+			$sql = 'INSERT INTO `order`(`userID`, `deviceID`, `detail`, `method`) VALUES (?, ?, "{}", "UNLIMITED")';
+			$data = [$userID, $deviceID];
 			return $this->db->query($sql, $data);
 		}
 
@@ -64,7 +72,7 @@ class Order_model extends CI_Model {
 
 	public function group($groupID)
 	{
-		$sql = 'SELECT `order`.`ID`, `userID`, `deviceID`, `order`.`date`, `status`, `detail`, `usageID`, `budgetID`, `payID` FROM `order` JOIN `pay` ON `pay`.`method` = 'GROUP' AND `pay`.`account` = ? AND (`order`.`budgetID` = `pay`.`ID` OR `order`.`payID` = `pay`.`ID`)';
+		$sql = 'SELECT `order`.`ID`, `userID`, `deviceID`, `order`.`date`, `status`, `detail`, `usageID`, `budgetID`, `payID` FROM `order` JOIN `pay` ON `pay`.`method` = "GROUP" AND `pay`.`account` = ? AND (`order`.`budgetID` = `pay`.`ID` OR `order`.`payID` = `pay`.`ID`)';
 		return $this->db->query($sql, $groupID)->result_array();
 	}
 

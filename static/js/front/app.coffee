@@ -38,6 +38,8 @@ sciApp.config(['$translateProvider', ($translateProvider)->
 		signup: '注册'
 		goSignin: '去登录'
 		goSignup: '去注册'
+		RESOURCE: '担保预约'
+		UNLIMITED: '无担保预约'
 
 	$translateProvider.preferredLanguage('zh')
 

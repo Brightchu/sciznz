@@ -12,20 +12,23 @@ sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', '$document', '$wi
 			login()
 
 	login = ->
-		modalInstance = $modal.open
-			templateUrl: '/static/partial/front/login.html'
-			controller: 'loginCtrl'
-			size: 'sm'
-			windowClass: 'login'
-			backdropClass: 'loginBack'
-
-		modalInstance.result.then (name)->
-			$scope.name = name
+		openModel($modal, $scope)
 
 	$scope.scrollTo = (selector)->
 		$document.scrollToElementAnimated($(document.querySelector(selector)), 100);
 
 ]
+
+openModel = ($modal, $scope)->
+	modalInstance = $modal.open
+		templateUrl: '/static/partial/front/login.html'
+		controller: 'loginCtrl'
+		size: 'sm'
+		windowClass: 'login'
+		backdropClass: 'loginBack'
+
+	modalInstance.result.then (name)->
+		$scope.name = name
 
 sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout', '$filter', ($scope, $modalInstance, User, $timeout, $filter)->
 	signup = true
@@ -114,7 +117,7 @@ sciCtrl.controller 'listCtrl', ['$scope', '$filter', 'data', ($scope, $filter, d
 		$scope.filterModel.category = newValue
 ]
 
-sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Order', '$filter', '$cookies', '$modal', ($scope, $routeParams, data, Order, $filter, $cookies, $modal)->
+sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Device', 'Order', '$filter', '$cookies', '$modal', ($scope, $routeParams, data, Device, Order, $filter, $cookies, $modal)->
 	thisDevice = data.device[$routeParams.deviceID]
 	$scope.device = thisDevice
 
@@ -126,32 +129,32 @@ sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Order', '$f
 	$scope.minDate = minDate
 	$scope.maxDate = maxDate
 	$scope.date = minDate
+
+
 	$scope.book = ->
 		if $cookies.name
-			d = $scope.date
 			payload =
 				deviceID: thisDevice.ID
-				useDate: $filter('date')($scope.date, 'yyyy-MM-dd')
-			Order.save(payload).$promise.then ->
+				date: $filter('date')($scope.date, 'yyyy-MM-dd')
+				method: $scope.orderModel.method
+				resource: $scope.orderModel.resource
+			if not payload.resource? and payload.method == 'RESOURCE'
+				return alert('请选择预约项目')
+
+			Order.create(payload).$promise.then ->
 				alert('预约成功，你可以在个人中心跟踪订单状态')
-				$scope.stat.count += 1
+				updateRemain($scope.date)
 		else
-			modalInstance = $modal.open
-				templateUrl: '/static/partial/front/login.html'
-				controller: 'loginCtrl'
-				size: 'sm'
-				windowClass: 'login'
-				backdropClass: 'loginBack'
+			openModel($modal, $scope)
 
-			modalInstance.result.then (name)->
-				$cookies.name = name
-				$scope.name = name
-
-	updateRemain = (useDate)->
+	updateRemain = (date)->
 		payload =
 			deviceID: thisDevice.ID
-			useDate: $filter('date')(useDate, 'yyyy-MM-dd')
-		$scope.stat = Order.get(payload)
+			date: $filter('date')(date, 'yyyy-MM-dd')
+		Device.schedule(payload).$promise.then (body)->
+			$scope.schedule = body
+			$scope.orderModel =
+				method: body.method[0]
 
 	updateRemain(minDate)
 

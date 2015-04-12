@@ -47,6 +47,18 @@ sciService.factory('User', ['$resource', ($resource)->
 			method: 'POST'
 ])
 
+sciService.factory('Device', ['$resource', ($resource)->
+	$resource '/device/', {},
+		schedule:
+			url: '/device/schedule'
+			method: 'GET'
+
+])
+
 sciService.factory('Order', ['$resource', ($resource)->
-	$resource('/api/order')
+	$resource '/order/', {},
+		create:
+			url: '/order/create'
+			method: 'POST'
+
 ])
