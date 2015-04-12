@@ -64,7 +64,7 @@ class Admin extends Account {
 
 	public function frontCache()
 	{
-		$this->handler('cache');
+		$this->handler('cache_model');
 	}
 
 	public function cacheAdmin()

@@ -14,7 +14,7 @@ sciService.factory 'data', ['$http', ($http)->
 			device: {}
 			index:
 				contain: {}
-				address: []
+				locale: []
 				feature: {}
 				category: {}
 

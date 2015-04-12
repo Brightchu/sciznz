@@ -6,13 +6,13 @@ sciFilter.filter 'listFilter', ['$filter', ($filter)->
 	(data, filterModel, $scope)->
 		# return if no filter label selected
 		if filterModel.category == $filter('translate')('unlimit')
-			if filterModel.address == $filter('translate')('unlimit')
+			if filterModel.locale == $filter('translate')('unlimit')
 				$scope.nodevice = false
 				return data.device
 			else
 				deviceList = []
 				for _, device of data.device
-					if device.address == filterModel.address
+					if device.locale == filterModel.locale
 						deviceList.push(device)
 
 				$scope.nodevice = false
@@ -27,10 +27,10 @@ sciFilter.filter 'listFilter', ['$filter', ($filter)->
 			$scope.nodevice = true
 			return []
 
-		# filter address
-		if filterModel.address != $filter('translate')('unlimit')
+		# filter locale
+		if filterModel.locale != $filter('translate')('unlimit')
 			deviceList = deviceList.filter (device)->
-				if device.address == filterModel.address
+				if device.locale == filterModel.locale
 					return true
 				else
 					return false

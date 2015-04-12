@@ -103,7 +103,7 @@ sciCtrl.controller 'listCtrl', ['$scope', '$filter', 'data', ($scope, $filter, d
 		domain: $filter('translate')('unlimit')
 		feature: $filter('translate')('unlimit')
 		category: $filter('translate')('unlimit')
-		address: $filter('translate')('unlimit')
+		locale: $filter('translate')('unlimit')
 		field: {}
 
 	$scope.$watch 'filterModel.domain', (newValue, oldValue)->

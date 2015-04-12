@@ -58,8 +58,8 @@
 					span.type 地点：
 			.col-xs-10
 				.value
-					label.btn.btn-sm.btn-default(ng-model="filterModel.address" btn-radio="'不限'") 不限
-					label.btn.btn-sm.btn-default(ng-repeat="address in data.index.address" ng-model="filterModel.address" btn-radio="'{{address}}'") {{address}}
+					label.btn.btn-sm.btn-default(ng-model="filterModel.locale" btn-radio="'不限'") 不限
+					label.btn.btn-sm.btn-default(ng-repeat="locale in data.index.locale" ng-model="filterModel.locale" btn-radio="'{{locale}}'") {{locale}}
 
 		.row(ng-repeat="field in data.field[filterModel.category]")
 			.col-xs-2

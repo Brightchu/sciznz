@@ -49,12 +49,13 @@ class Cache_model extends CI_Model {
 	 */
 	protected function build()
 	{
-		$this->load->model('hierarchy');
-		$this->load->model('device');
-		$this->load->model('category');
+		$this->load->model('config_model');
+		$this->load->model('device_model');
+		$this->load->model('category_model');
+		$this->load->model('supply_model');
 
 		// build contain relationshop from device
-		$device = $this->device->checkout();
+		$device = $this->device_model->checkout();
 		$contain = [];
 		foreach ($device as $d) {
 			if (isset($contain[$d['category']])) {
@@ -65,7 +66,7 @@ class Cache_model extends CI_Model {
 		}
 
 		// inject contain into hierarchy
-		$hierarchy = $this->hierarchy->checkout();
+		$hierarchy = $this->config_model->hierarchy();
 		foreach ($hierarchy as $domain => $featureList) {
 			foreach ($featureList as $feature => $categoryList) {
 				$map = [];
@@ -98,10 +99,10 @@ class Cache_model extends CI_Model {
 		$result = array(
 			'hierarchy' => $hierarchy,
 			'device' => $device,
-			'field' => $this->category->field(),
+			'field' => $this->category_model->field(),
 			'index' => array(
 				'contain' => $contain,
-				'address' => $this->device->address(),
+				'locale' => $this->supply_model->locale(),
 			),
 		);
 
