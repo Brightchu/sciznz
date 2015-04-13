@@ -18,7 +18,7 @@ Style
 
 4. Modular
 ---
-* *controller* just like commander while *model* like solider.
-* Do authentication, account verification, and any other bussiness logic in controller.
-* Model only responsible for do one thing at a time, so NEVER call another model to do write operation in model.
-* Avoid use similar meaning but different words, we are not doing TOEFL.
+* *controller*: Dispatcher layer. Collect required data and send to service layer.
+* *service*: Bussiness logic layer.
+* *model*: ORM and other protocol layer.
+* Avoid use similar but different meaning words, we are not doing TOEFL.
