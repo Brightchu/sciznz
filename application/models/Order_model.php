@@ -36,13 +36,13 @@ class Order_model extends CI_Model {
 
 	/**
 	 * Update status of an order
-	 * @param 	$orderID, $status
+	 * @param 	$ID, $status
 	 * @return  bool
 	 */
-	public function status($orderID, $status)
+	public function status($ID, $status)
 	{
 		$sql = 'UPDATE `order` SET `status` = ? WHERE `ID` = ?';
-		$data = [$status, $orderID];
+		$data = [$status, $ID];
 		return $this->db->query($sql, $data);
 	}
 
