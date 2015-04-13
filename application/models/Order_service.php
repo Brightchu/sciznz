@@ -42,4 +42,13 @@ class Order_service extends CI_Model {
 				return FALSE;
 		}
 	}
+
+	public function begin($ID) {
+		return $this->order_model->status($ID, 'BEGIN');
+	}
+
+	public function end($ID) {
+		return $this->order_model->status($ID, 'END');
+	}
+
 }

@@ -93,7 +93,7 @@ abstract class Account_model extends CI_Model {
 	{
 		$this->load->database('slave');
 
-		$sql = "SELECT `ID`, `name`, `email`, `phone`, `email`, `verifyEmail`, `verifyPhone` FROM `{$this->role}`";
+		$sql = "SELECT `ID`, `name`, `email`, `phone`, `email` FROM `{$this->role}`";
 		return $this->db->query($sql)->result_array();
 	}
 

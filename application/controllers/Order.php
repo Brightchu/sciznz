@@ -39,4 +39,17 @@ class Order extends CI_Controller {
 		$result = $this->order_service->budget($orderID, $method, $account, $transaction);
 		$this->output->set_status_header($result ? 200 : 403);
 	}
+
+	public function begin() {
+		$orderID = $this->input->json('orderID');
+		$result = $this->order_service->begin($orderID);
+		$this->output->set_status_header($result ? 200 : 403);
+	}
+
+	public function end() {
+		$orderID = $this->input->json('orderID');
+		$result = $this->order_service->end($orderID);
+		$this->output->set_status_header($result ? 200 : 403);
+	}
+
 }
