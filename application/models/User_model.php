@@ -12,12 +12,8 @@ class User_model extends Account_model {
 	 */
 	public function updateName($ID, $name)
 	{
-		$this->load->database();
-
 		$sql = "UPDATE `{$this->role}` SET `name`=? WHERE `ID` = ?";
-		$data = [$name, $ID];
-
-		return $this->db->query($sql, $data);
+		return $this->db->query($sql, [$name, $ID]);
 	}
 
 	/**
@@ -27,12 +23,8 @@ class User_model extends Account_model {
 	 */
 	public function updatePhone($ID, $phone)
 	{
-		$this->load->database();
-
 		$sql = "UPDATE `{$this->role}` SET `phone`=? WHERE `ID` = ?";
-		$data = [$phone, $ID];
-
-		return $this->db->query($sql, $data);
+		return $this->db->query($sql, [$phone, $ID]);
 	}
 
 	/**
@@ -42,10 +34,7 @@ class User_model extends Account_model {
 	 */
 	public function verifyEmail($email)
 	{
-		$this->load->database();
-
 		$sql = "UPDATE `{$this->role}` SET `verifyEmail`= 1 WHERE `email` = ?";
-
 		return $this->db->query($sql, $email);
 	}
 
@@ -56,10 +45,7 @@ class User_model extends Account_model {
 	 */
 	public function verifyPhone($ID)
 	{
-		$this->load->database();
-
 		$sql = "UPDATE `{$this->role}` SET `verifyPhone`= 1 WHERE `ID` = ?";
-
 		return $this->db->query($sql, $ID);
 	}
 

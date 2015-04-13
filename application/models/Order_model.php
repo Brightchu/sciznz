@@ -3,14 +3,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Order_model extends CI_Model {
 
+	public function __construct() {
+		parent::__construct();
+		$this->load->database();
+	}
+
 	/**
 	 * Create an order
 	 * @param 	$userID, $deviceID, $date, $resource
 	 * @return  bool
 	 */
 	public function create($userID, $deviceID, $method, $date, $resource) {
-		$this->load->database();
-
 		if ($method === 'RESOURCE') {
 			$sql = 'INSERT INTO `usage`(`deviceID`, `type`, `date`, `resource`) VALUES (?, "ORDER", ?, ?)';
 			$data = [$deviceID, $date, $resource];
@@ -39,31 +42,23 @@ class Order_model extends CI_Model {
 	 * @return  bool
 	 */
 	public function status($ID, $status) {
-		$this->load->database();
-
 		$sql = 'UPDATE `order` SET `status` = ? WHERE `ID` = ?';
 		$data = [$status, $ID];
 		return $this->db->query($sql, $data);
 	}
 
 	public function info($ID) {
-		$this->load->database('slave');
-
 		$sql = 'SELECT `userID`, `deviceID`, `date`, `status`, `detail`, `method`, `usageID`, `budgetID`, `fillID` FROM `order` WHERE `ID` = ?';
 		return $this->db->query($sql, $ID)->row_array();
 	}
 
 	public function budget($ID, $budgetID) {
-		$this->load->database();
-
 		$sql = 'UPDATE `order` SET `status` = "BUDGET", `budgetID` = ? WHERE `ID` = ?';
 		$data = [$budgetID, $ID];
 		return $this->db->query($sql, $data);
 	}
 
 	public function detail($ID, $detail) {
-		$this->load->database();
-
 		$sql = 'UPDATE `order` SET `detail` = ? WHERE `ID` = ?';
 		$data = [$detail, $ID];
 		return $this->db->query($sql, $data);

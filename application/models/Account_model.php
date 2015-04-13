@@ -9,6 +9,7 @@ abstract class Account_model extends CI_Model {
 	{
 		parent::__construct();
 		$this->role = strtolower(explode('_', get_called_class())[0]);
+		$this->load->database();
 	}
 
 	/**
@@ -18,8 +19,6 @@ abstract class Account_model extends CI_Model {
 	 */
 	public function register($email, $password)
 	{
-		$this->load->database();
-
 		$sql = "INSERT INTO `{$this->role}` (`name`, `email`, `password`) VALUES (?, ?, ?)";
 		$data = [$email, $email, password_hash($password, PASSWORD_BCRYPT)];
 		
@@ -43,8 +42,6 @@ abstract class Account_model extends CI_Model {
 	 */
 	public function auth($email, $password)
 	{
-		$this->load->database('slave');
-
 		$sql = "SELECT `ID`, `name`, `password` FROM `{$this->role}` WHERE `email` = ?";
 		$row = $this->db->query($sql, $email)->row_array();
 
@@ -67,8 +64,6 @@ abstract class Account_model extends CI_Model {
 	 */
 	public function updatePassword($ID, $oldPassword, $newPassword)
 	{
-		$this->load->database();
-
 		$sql = "SELECT `password` FROM `{$this->role}` WHERE `ID` = ?";
 		$row = $this->db->query($sql, $ID)->row_array();
 
@@ -91,8 +86,6 @@ abstract class Account_model extends CI_Model {
 	 */
 	public function all()
 	{
-		$this->load->database('slave');
-
 		$sql = "SELECT `ID`, `name`, `email`, `phone`, `email` FROM `{$this->role}`";
 		return $this->db->query($sql)->result_array();
 	}
