@@ -3,8 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Device_model extends CI_Model {
 
-	public function checkout()
-	{
+	public function checkout() {
 		$this->load->database('slave');
 
 		$device = [];
@@ -20,12 +19,12 @@ class Device_model extends CI_Model {
 		return $device;
 	}
 
-	public function resource($deviceID)
-	{
+	public function schedule($ID) {
 		$this->load->database('slave');
 
 		$sql = 'SELECT `schedule` FROM `device` WHERE `ID` = ?';
-		$schedule = $this->db->query($sql, $deviceID)->row_array()['schedule'];
+		$schedule = $this->db->query($sql, $ID)->row_array()['schedule'];
+
 		return json_decode($schedule, TRUE);
 	}
 }
