@@ -3,7 +3,6 @@ version: 1
 
 handle:
 - rewrite: if (%{REQUEST_URI} ~ "^/admin" && %{REQ:X-Forwarded-Proto} != "https") goto "https://%{HTTP_HOST}%{REQUEST_URI}"
-- rewrite: if (%{REQUEST_URI} ~ "^/user" && %{REQ:X-Forwarded-Proto} != "https") goto "https://%{HTTP_HOST}%{REQUEST_URI}"
 - rewrite: if (%{REQUEST_URI} ~ "^/supply" && %{REQ:X-Forwarded-Proto} != "https") goto "https://%{HTTP_HOST}%{REQUEST_URI}"
 - rewrite: if (%{REQUEST_URI} ~ "^/group" && %{REQ:X-Forwarded-Proto} != "https") goto "https://%{HTTP_HOST}%{REQUEST_URI}"
 - rewrite: if (!-d && !-f) goto "/index.php/%{REQUEST_URI}"
