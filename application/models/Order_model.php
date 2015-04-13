@@ -8,8 +8,7 @@ class Order_model extends CI_Model {
 	 * @param 	$userID, $deviceID, $date, $resource
 	 * @return  bool
 	 */
-	public function create($userID, $deviceID, $method, $date, $resource)
-	{
+	public function create($userID, $deviceID, $method, $date, $resource) {
 		$this->load->database();
 
 		if ($method === 'RESOURCE') {
@@ -39,46 +38,56 @@ class Order_model extends CI_Model {
 	 * @param 	$ID, $status
 	 * @return  bool
 	 */
-	public function status($ID, $status)
-	{
+	public function status($ID, $status) {
+		$this->load->database();
+
 		$sql = 'UPDATE `order` SET `status` = ? WHERE `ID` = ?';
 		$data = [$status, $ID];
 		return $this->db->query($sql, $data);
 	}
 
-	public function user($userID)
-	{
-		$sql = 'SELECT `ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `payID` FROM `order` WHERE `userID` = ?';
+	public function info($ID) {
+		$this->load->database('slave');
+
+		$sql = 'SELECT `userID`, `deviceID`, `date`, `status`, `detail`, `method`, `usageID`, `budgetID`, `fillID` FROM `order` WHERE `ID` = ?';
+		return $this->db->query($sql, $ID)->row_array();
+	}
+
+	public function budget($ID, $budgetID) {
+		$this->load->database();
+
+		$sql = 'UPDATE `order` SET `status` = "BUDGET", `budgetID` = ? WHERE `ID` = ?';
+		$data = [$budgetID, $ID];
+		return $this->db->query($sql, $data);
+	}
+
+	public function user($userID) {
+		$sql = 'SELECT `ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `fillID` FROM `order` WHERE `userID` = ?';
 		return $this->db->query($sql, $userID)->result_array();
 	}
 
-	public function userNow($userID)
-	{
-		$sql = 'SELECT `ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `payID` FROM `order` WHERE `userID` = ? AND `status` != "DONE"';
+	public function userNow($userID) {
+		$sql = 'SELECT `ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `fillID` FROM `order` WHERE `userID` = ? AND `status` != "DONE"';
 		return $this->db->query($sql, $userID)->result_array();
 	}
 
-	public function supply($supplyID)
-	{
-		$sql = 'SELECT `order`.`ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `payID` FROM `order` JOIN `device` ON `order`.`deviceID` = `device`.`ID` AND `device`.`supplyID` = ?';
+	public function supply($supplyID) {
+		$sql = 'SELECT `order`.`ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `fillID` FROM `order` JOIN `device` ON `order`.`deviceID` = `device`.`ID` AND `device`.`supplyID` = ?';
 		return $this->db->query($sql, $supplyID)->result_array();
 	}
 
-	public function supplyNow($supplyID)
-	{
-		$sql = 'SELECT `order`.`ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `payID` FROM `order` JOIN `device` ON `status` != "DONE" AND `order`.`deviceID` = `device`.`ID` AND `device`.`supplyID` = ?';
+	public function supplyNow($supplyID) {
+		$sql = 'SELECT `order`.`ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `fillID` FROM `order` JOIN `device` ON `status` != "DONE" AND `order`.`deviceID` = `device`.`ID` AND `device`.`supplyID` = ?';
 		return $this->db->query($sql, $supplyID)->result_array();
 	}
 
-	public function group($groupID)
-	{
-		$sql = 'SELECT `order`.`ID`, `userID`, `deviceID`, `order`.`date`, `status`, `detail`, `usageID`, `budgetID`, `payID` FROM `order` JOIN `pay` ON `pay`.`method` = "GROUP" AND `pay`.`account` = ? AND (`order`.`budgetID` = `pay`.`ID` OR `order`.`payID` = `pay`.`ID`)';
+	public function group($groupID) {
+		$sql = 'SELECT `order`.`ID`, `userID`, `deviceID`, `order`.`date`, `status`, `detail`, `usageID`, `budgetID`, `fillID` FROM `order` JOIN `pay` ON `pay`.`method` = "GROUP" AND `pay`.`account` = ? AND (`order`.`budgetID` = `pay`.`ID` OR `order`.`fillID` = `pay`.`ID`)';
 		return $this->db->query($sql, $groupID)->result_array();
 	}
 
-	public function all()
-	{
-		$sql = 'SELECT `ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `payID` FROM `order`';
+	public function all() {
+		$sql = 'SELECT `ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `fillID` FROM `order`';
 		return $this->db->query($sql)->result_array();
 	}
 

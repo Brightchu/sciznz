@@ -11,4 +11,11 @@ class Usage_model extends CI_Model {
 		$data = [$deviceID, $date];
 		return $this->db->query($sql, $data)->result_array();
 	}
+
+	public function info($ID) {
+		$this->load->database('slave');
+
+		$sql = 'SELECT `deviceID`, `type`, `date`, `resource` FROM `usage` WHERE `ID` = ?';
+		return $this->db->query($sql, $ID)->row_array();
+	}
 }

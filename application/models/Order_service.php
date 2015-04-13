@@ -18,7 +18,28 @@ class Order_service extends CI_Model {
 	}
 
 	public function confirm($ID) {
-		return $this->order->model->status($ID, 'CONFIRM');
+		return $this->order_model->status($ID, 'CONFIRM');
 	}
 
+	public function budget($orderID, $method, $account, $transaction) {
+		$this->load->model('pay_model');
+		$this->load->model('device_model');
+		$this->load->model('usage_model');
+
+		switch ($method) {
+			case 'GROUP':
+				$orderInfo = $this->order_model->info($orderID);
+				$deviceInfo = $this->device_model->info($orderInfo['deviceID']);
+				$usageInfo = $this->usage_model->info($orderInfo['usageID']);
+
+				$schedule = json_decode($deviceInfo['schedule'], TRUE);
+				$amount = $schedule[strtolower($orderInfo['method'])][$usageInfo['resource']]['price'];
+
+				$payID = $this->pay_model->pay($amount, 'GROUP', $account, $transaction);
+				return $this->order_model->budget($orderID, $payID);
+			
+			default:
+				return FALSE;
+		}
+	}
 }

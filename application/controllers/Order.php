@@ -28,4 +28,15 @@ class Order extends CI_Controller {
 		$this->output->set_status_header($result ? 200 : 403);
 	}
 
+	public function budget() {
+		$this->load->library('encryption');
+
+		$orderID = $this->input->json('orderID');
+		$method = $this->input->json('method');
+		$account = $this->input->json('account');
+		$transaction = $this->encryption->decrypt($this->input->cookie('userID'));
+
+		$result = $this->order_service->budget($orderID, $method, $account, $transaction);
+		$this->output->set_status_header($result ? 200 : 403);
+	}
 }
