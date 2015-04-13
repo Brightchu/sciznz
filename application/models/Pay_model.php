@@ -10,13 +10,17 @@ class Pay_model extends CI_Model {
 
 	public function pay($amount, $method, $account, $transaction) {
 		$sql = 'INSERT INTO `pay`(`amount`, `method`, `account`, `transaction`) VALUES (?, ?, ?, ?)';
-		$data = [$amount, $method, $account, $transaction];
-
-		$result = $this->db->query($sql, $data);
+		$result = $this->db->query($sql, [$amount, $method, $account, $transaction]);
 		if ($result) {
 			return $this->db->insert_id();
 		} else {
 			return FALSE;
 		}
 	}
+
+	public function refund($ID) {
+		$sql = 'DELETE FROM `pay` WHERE `ID` = ?';
+		return $this->db->query($sql, $ID);
+	}
+
 }

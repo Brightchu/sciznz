@@ -59,4 +59,22 @@ class Order extends CI_Controller {
 		$result = $this->order_service->detail($orderID, $detail);
 		$this->output->set_status_header($result ? 200 : 403);
 	}
+
+	public function fill() {
+		$this->load->library('encryption');
+
+		$orderID = $this->input->json('orderID');
+		$method = $this->input->json('method');
+		$account = $this->input->json('account');
+		$transaction = $this->encryption->decrypt($this->input->cookie('userID'));
+
+		$result = $this->order_service->fill($orderID, $method, $account, $transaction);
+		$this->output->set_status_header($result ? 200 : 403);
+	}
+
+	public function cancel() {
+		$orderID = $this->input->json('orderID');
+		$result = $this->order_service->cancel($orderID);
+		$this->output->set_status_header($result ? 200 : 403);
+	}
 }

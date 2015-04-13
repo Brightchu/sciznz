@@ -54,4 +54,47 @@ class Order_service extends CI_Model {
 	public function detail($ID, $detail) {
 		return $this->order_model->detail($ID, $detail);
 	}
+
+	public function fill($ID, $method, $account, $transaction) {
+		$this->load->model('pay_model');
+
+		switch ($method) {
+			case 'GROUP':
+				$orderInfo = $this->order_model->info($ID);
+				$detail = json_decode($orderInfo['detail'], TRUE);
+				$amount = $detail['total'] - $detail['budget'];
+
+				$payID = $this->pay_model->pay($amount, 'GROUP', $account, $transaction);
+				return $this->order_model->fill($ID, $payID);
+			
+			case 'NONE':
+				return $this->order_model->fill($ID, 0);
+
+			default:
+				return FALSE;
+		}
+	}
+
+	public function cancel($ID) {
+		$this->load->model('usage_model');
+		$this->load->model('pay_model');
+
+		$orderInfo = $this->order_model->info($ID);
+		$result = $this->usage_model->cancel($orderInfo['usageID']);
+
+		if ($result && $orderInfo['budgetID']) {
+			$result = $this->pay_model->refund($orderInfo['budgetID']);
+		}
+
+		if ($result && $orderInfo['fillID']) {
+			$result = $this->pay_model->refund($orderInfo['fillID']);
+		}
+
+		if ($result) {
+			$result = $this->order_model->cancel($ID);
+		}
+
+		return $result;
+	}
+
 }

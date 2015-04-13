@@ -16,21 +16,18 @@ class Order_model extends CI_Model {
 	public function create($userID, $deviceID, $method, $date, $resource) {
 		if ($method === 'RESOURCE') {
 			$sql = 'INSERT INTO `usage`(`deviceID`, `type`, `date`, `resource`) VALUES (?, "ORDER", ?, ?)';
-			$data = [$deviceID, $date, $resource];
-			$result = $this->db->query($sql, $data);
+			$result = $this->db->query($sql, [$deviceID, $date, $resource]);
 
 			if ($result) {
 				$usageID = $this->db->insert_id();
 				$sql = 'INSERT INTO `order`(`userID`, `deviceID`, `detail`, `method`, `usageID`) VALUES (?, ?, "{}", "RESOURCE", ?)';
-				$data = [$userID, $deviceID, $usageID];
-				return $this->db->query($sql, $data);
+				return $this->db->query($sql, [$userID, $deviceID, $usageID]);
 			}
 		}
 
 		if ($method === 'UNLIMITED') {
 			$sql = 'INSERT INTO `order`(`userID`, `deviceID`, `detail`, `method`) VALUES (?, ?, "{}", "UNLIMITED")';
-			$data = [$userID, $deviceID];
-			return $this->db->query($sql, $data);
+			return $this->db->query($sql, [$userID, $deviceID]);
 		}
 
 		return FALSE;
@@ -43,8 +40,7 @@ class Order_model extends CI_Model {
 	 */
 	public function status($ID, $status) {
 		$sql = 'UPDATE `order` SET `status` = ? WHERE `ID` = ?';
-		$data = [$status, $ID];
-		return $this->db->query($sql, $data);
+		return $this->db->query($sql, [$status, $ID]);
 	}
 
 	public function info($ID) {
@@ -54,14 +50,22 @@ class Order_model extends CI_Model {
 
 	public function budget($ID, $budgetID) {
 		$sql = 'UPDATE `order` SET `status` = "BUDGET", `budgetID` = ? WHERE `ID` = ?';
-		$data = [$budgetID, $ID];
-		return $this->db->query($sql, $data);
+		return $this->db->query($sql, [$budgetID, $ID]);
 	}
 
 	public function detail($ID, $detail) {
 		$sql = 'UPDATE `order` SET `detail` = ? WHERE `ID` = ?';
-		$data = [$detail, $ID];
-		return $this->db->query($sql, $data);
+		return $this->db->query($sql, [$detail, $ID]);
+	}
+
+	public function fill($ID, $fillID) {
+		$sql = 'UPDATE `order` SET `status` = "DONE", `fillID` = ? WHERE `ID` = ?';
+		return $this->db->query($sql, [$fillID, $ID]);
+	}
+
+	public function cancel($ID) {
+		$sql = 'UPDATE `order` SET `status` = "CANCEL", `usageID` = 0, `budgetID` = 0, `fillID` = 0 WHERE `ID` = ?';
+		return $this->db->query($sql, $ID);
 	}
 
 	public function user($userID) {
