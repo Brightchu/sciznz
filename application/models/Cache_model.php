@@ -140,10 +140,11 @@ class Cache_model extends CI_Model {
 				$domainUnlimit = array_merge($domainUnlimit, $keys);
 
 				$rows = array_chunk($keys, 7);
-				$pair = array(
-					'self' => $rows[0],
-					'more' => array_slice($rows, 1),
-				);
+
+				if (!$rows) {
+					$rows = [];
+				}
+
 				$category[$feature] = $pair;
 			}
 			$unlimit = array_merge($unlimit, $domainUnlimit);
