@@ -52,4 +52,11 @@ class Order extends CI_Controller {
 		$this->output->set_status_header($result ? 200 : 403);
 	}
 
+	public function detail() {
+		$orderID = $this->input->json('orderID');
+		$detail = json_encode($this->input->json('detail'));
+
+		$result = $this->order_service->detail($orderID, $detail);
+		$this->output->set_status_header($result ? 200 : 403);
+	}
 }

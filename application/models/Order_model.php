@@ -61,6 +61,14 @@ class Order_model extends CI_Model {
 		return $this->db->query($sql, $data);
 	}
 
+	public function detail($ID, $detail) {
+		$this->load->database();
+
+		$sql = 'UPDATE `order` SET `detail` = ? WHERE `ID` = ?';
+		$data = [$detail, $ID];
+		return $this->db->query($sql, $data);
+	}
+
 	public function user($userID) {
 		$sql = 'SELECT `ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `fillID` FROM `order` WHERE `userID` = ?';
 		return $this->db->query($sql, $userID)->result_array();

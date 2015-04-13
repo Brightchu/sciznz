@@ -21,14 +21,14 @@ class Order_service extends CI_Model {
 		return $this->order_model->status($ID, 'CONFIRM');
 	}
 
-	public function budget($orderID, $method, $account, $transaction) {
+	public function budget($ID, $method, $account, $transaction) {
 		$this->load->model('pay_model');
 		$this->load->model('device_model');
 		$this->load->model('usage_model');
 
 		switch ($method) {
 			case 'GROUP':
-				$orderInfo = $this->order_model->info($orderID);
+				$orderInfo = $this->order_model->info($ID);
 				$deviceInfo = $this->device_model->info($orderInfo['deviceID']);
 				$usageInfo = $this->usage_model->info($orderInfo['usageID']);
 
@@ -36,7 +36,7 @@ class Order_service extends CI_Model {
 				$amount = $schedule[strtolower($orderInfo['method'])][$usageInfo['resource']]['price'];
 
 				$payID = $this->pay_model->pay($amount, 'GROUP', $account, $transaction);
-				return $this->order_model->budget($orderID, $payID);
+				return $this->order_model->budget($ID, $payID);
 			
 			default:
 				return FALSE;
@@ -51,4 +51,7 @@ class Order_service extends CI_Model {
 		return $this->order_model->status($ID, 'END');
 	}
 
+	public function detail($ID, $detail) {
+		return $this->order_model->detail($ID, $detail);
+	}
 }
