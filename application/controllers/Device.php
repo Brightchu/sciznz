@@ -3,11 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Device extends CI_Controller {
 
-	public function schedule($ID) {
-		$this->load->model('device_model');
-		$this->output->set_json($this->device_model->schedule($ID));
-	}
-
 	public function resource($ID, $date) {
 		$this->load->model('usage_model');
 		$this->load->model('device_model');

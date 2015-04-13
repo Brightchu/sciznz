@@ -12,7 +12,7 @@ mixin infoRow
 			span.supply {{device.supply}}
 
 mixin device(single)
-	img.col-xs-2.shot(src="/static/img/device.jpg")
+	img.col-xs-2.shot(ng-src="{{device.img}}")
 
 	if single
 		.info.col-xs-10
@@ -21,7 +21,12 @@ mixin device(single)
 			.row
 				label.btn.btn-info.btn-xs(ng-repeat="(key, value) in device.field") {{key}} {{value}}
 			.more
-				{{device.info}}
+				p {{device.info}}
+			.more.spec(ng-if="device.spec")
+				p
+					span.glyphicon.glyphicon-plus
+					span 仪器资料
+				a(ng-repeat="(title, link) in device.spec" href="{{link}}") {{title}}
 	else
 		.info.col-xs-8
 			+infoRow
@@ -31,9 +36,11 @@ mixin device(single)
 				label.btn.btn-default.btn-xs(ng-click="isCollapsed = !isCollapsed") 更多信息
 					span.caret
 			.more(collapse="isCollapsed")
-				{{device.info}}
+				p {{device.info}}
+			.more.spec(ng-if="device.spec" collapse="isCollapsed")
+				a(ng-repeat="(title, link) in device.spec" href="{{link}}") {{title}}
 
 		.action.col-xs-2
-			label.btn.btn-default.btn-block.price {{device.price}}元 / {{device.unit}}
+			label.btn.btn-default.btn-block.price {{device.schedule.unlimited.price}} {{device.schedule.unlimited.unit}}
 			a(href="#/device/{{device.ID}}")
 				label.btn.btn-success.btn-block.booking 立即预约
