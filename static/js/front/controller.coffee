@@ -130,6 +130,8 @@ sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Device', 'O
 	$scope.maxDate = maxDate
 	$scope.date = minDate
 
+	$scope.orderModel =
+		method: thisDevice.schedule.method[0]
 
 	$scope.book = ->
 		if $cookies.name
@@ -151,10 +153,8 @@ sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Device', 'O
 		payload =
 			deviceID: thisDevice.ID
 			date: $filter('date')(date, 'yyyy-MM-dd')
-		Device.schedule(payload).$promise.then (body)->
-			$scope.schedule = body
-			$scope.orderModel =
-				method: body.method[0]
+		Device.resource(payload).$promise.then (body)->
+			$scope.resource = body
 
 	updateRemain(minDate)
 

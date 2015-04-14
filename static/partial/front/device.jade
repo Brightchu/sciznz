@@ -23,25 +23,25 @@
 						p.left
 							span.tip 预约方式：
 							span.content.btn-group
-								label.btn.btn-default(ng-repeat="method in schedule.method" ng-model="orderModel.method" btn-radio="'{{method}}'") {{method | translate}}
+								label.btn.btn-default(ng-repeat="method in device.schedule.method" ng-model="orderModel.method" btn-radio="'{{method}}'") {{method | translate}}
 
 						div.price(ng-show="orderModel.method == 'RESOURCE'")
 							span.tip 实验容量及预算：
-							div(ng-repeat='(name, value) in schedule.resource')
+							div(ng-repeat='(name, value) in resource')
 								b
 									span {{name}}
-									span(style="float: right") {{value[0]}} / {{value[1]}}
+									span(style="float: right") {{value.price}} {{value.unit}}
 
-								progressbar(max='value[2]' value='value[3]')
-									span(style="color:black; min-width: 4rem; display: inline-block") {{value[3]}} / {{value[2]}}
+								progressbar(max='value.capacity' value='value.count')
+									span(style="color:black; min-width: 4rem; display: inline-block") {{value.count}} / {{value.capacity}}
 
 						p.left(ng-show="orderModel.method == 'RESOURCE'")
 							span.tip 预约项目：
 							span.content.btn-group
-								label.btn.btn-default(ng-repeat='(name, value) in schedule.resource' ng-class="{'disabled': value[3] == value[2]}" ng-model="orderModel.resource" btn-radio="'{{name}}'") {{name}}
+								label.btn.btn-default(ng-repeat='(name, value) in resource' ng-class="{'disabled': value.capacity == value.count}" ng-model="orderModel.resource" btn-radio="'{{name}}'") {{name}}
 						div.price(ng-show="orderModel.method == 'UNLIMITED'")
 							span.tip 实验预算：
-							span.content {{schedule.unlimited[0]}} / {{schedule.unlimited[1]}}
+							span.content {{device.schedule.unlimited.price}} {{device.schedule.unlimited.unit}}
 
 						label.btn.btn-success.btn-block.booking(ng-click="book()") 立即预约
 

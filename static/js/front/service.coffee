@@ -49,8 +49,8 @@ sciService.factory('User', ['$resource', ($resource)->
 
 sciService.factory('Device', ['$resource', ($resource)->
 	$resource '/device/', {},
-		schedule:
-			url: '/device/schedule'
+		resource:
+			url: '/device/resource/:deviceID/:date'
 			method: 'GET'
 
 ])
