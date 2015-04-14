@@ -1,5 +1,5 @@
 name: sciclubs
-version: 2
+version: 1
 
 handle:
 - rewrite: if (%{REQUEST_URI} ~ "^/admin" && %{REQ:X-Forwarded-Proto} != "https") goto "https://%{HTTP_HOST}%{REQUEST_URI}"
