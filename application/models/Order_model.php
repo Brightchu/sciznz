@@ -68,13 +68,13 @@ class Order_model extends CI_Model {
 		return $this->db->query($sql, $ID);
 	}
 
-	public function user($userID) {
-		$sql = 'SELECT `ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `fillID` FROM `order` WHERE `userID` = ?';
+	public function userActive($userID) {
+		$sql = 'SELECT `ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `fillID` FROM `order` WHERE `userID` = ? AND `status` != "DONE"';
 		return $this->db->query($sql, $userID)->result_array();
 	}
 
-	public function userNow($userID) {
-		$sql = 'SELECT `ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `fillID` FROM `order` WHERE `userID` = ? AND `status` != "DONE"';
+	public function userDone($userID) {
+		$sql = 'SELECT `ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `fillID` FROM `order` WHERE `userID` = ? AND `status` = "DONE"';
 		return $this->db->query($sql, $userID)->result_array();
 	}
 

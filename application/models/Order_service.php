@@ -97,4 +97,12 @@ class Order_service extends CI_Model {
 		return $result;
 	}
 
+	public function userActive($userID) {
+		return $this->order_model->userActive($userID);
+	}
+
+	public function userDone($userID) {
+		return $this->order_model->userDone($userID);
+	}
+
 }

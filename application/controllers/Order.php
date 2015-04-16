@@ -77,4 +77,16 @@ class Order extends CI_Controller {
 		$result = $this->order_service->cancel($orderID);
 		$this->output->set_status_header($result ? 200 : 403);
 	}
+
+	public function userActive() {
+		$this->load->library('encryption');
+		$userID = $this->encryption->decrypt($this->input->cookie('userID'));
+		$this->output->set_json($this->order_service->userActive($userID));
+	}
+
+	public function userDone() {
+		$this->load->library('encryption');
+		$userID = $this->encryption->decrypt($this->input->cookie('userID'));
+		$this->output->set_json($this->order_service->userDone($userID));
+	}
 }

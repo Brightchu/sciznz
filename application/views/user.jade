@@ -17,6 +17,9 @@ html
 	body.font-hei(ng-app="userApp")
 		div#sidebar(ng-controller="accordionCtrl")
 			accordion
+				accordion-group(heading="消息中心")
+					p
+						a(href="#/unread-message") 消息中心
 				accordion-group(heading="个人信息")
 					p
 						a(href="#/personal-info") 个人信息
