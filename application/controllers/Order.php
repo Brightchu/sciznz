@@ -89,4 +89,23 @@ class Order extends CI_Controller {
 		$userID = $this->encryption->decrypt($this->input->cookie('userID'));
 		$this->output->set_json($this->order_service->userDone($userID));
 	}
+
+	public function supplyActive() {
+		$this->load->library('encryption');
+		$supplyID = $this->encryption->decrypt($this->input->cookie('supplyID'));
+		$this->output->set_json($this->order_service->supplyActive($supplyID));
+	}
+
+	public function supplyDone() {
+		$this->load->library('encryption');
+		$supplyID = $this->encryption->decrypt($this->input->cookie('supplyID'));
+		$this->output->set_json($this->order_service->supplyDone($supplyID));
+	}
+
+	public function groupBill() {
+		$this->load->library('encryption');
+		$groupID = $this->encryption->decrypt($this->input->cookie('groupID'));
+		$this->output->set_json($this->order_service->groupBill($groupID));
+	}
+
 }

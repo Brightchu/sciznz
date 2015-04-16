@@ -78,17 +78,17 @@ class Order_model extends CI_Model {
 		return $this->db->query($sql, $userID)->result_array();
 	}
 
-	public function supply($supplyID) {
-		$sql = 'SELECT `order`.`ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `fillID` FROM `order` JOIN `device` ON `order`.`deviceID` = `device`.`ID` AND `device`.`supplyID` = ?';
-		return $this->db->query($sql, $supplyID)->result_array();
-	}
-
-	public function supplyNow($supplyID) {
+	public function supplyActive($supplyID) {
 		$sql = 'SELECT `order`.`ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `fillID` FROM `order` JOIN `device` ON `status` != "DONE" AND `order`.`deviceID` = `device`.`ID` AND `device`.`supplyID` = ?';
 		return $this->db->query($sql, $supplyID)->result_array();
 	}
 
-	public function group($groupID) {
+	public function supplyDone($supplyID) {
+		$sql = 'SELECT `order`.`ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `fillID` FROM `order` JOIN `device` ON `status` = "DONE" AND `order`.`deviceID` = `device`.`ID` AND `device`.`supplyID` = ?';
+		return $this->db->query($sql, $supplyID)->result_array();
+	}
+
+	public function groupBill($groupID) {
 		$sql = 'SELECT `order`.`ID`, `userID`, `deviceID`, `order`.`date`, `status`, `detail`, `usageID`, `budgetID`, `fillID` FROM `order` JOIN `pay` ON `pay`.`method` = "GROUP" AND `pay`.`account` = ? AND (`order`.`budgetID` = `pay`.`ID` OR `order`.`fillID` = `pay`.`ID`)';
 		return $this->db->query($sql, $groupID)->result_array();
 	}
