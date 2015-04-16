@@ -11,16 +11,16 @@ window.$.prototype.click = ->
 # glue modules
 userApp = angular.module('userApp', ['ngRoute', 'ngAnimate', 'userCtrl', 'userService', 'userFilter'])
 userApp.config(['$routeProvider', ($routeProvider)->
-	$routeProvider.when('/unread-message'
-		templateUrl: '/static/partial/user/personal-info.html'
-		controller: 'personalInfoCtrl'
+	$routeProvider.when('/order-active'
+		templateUrl: '/static/partial/user/order-active.html'
+		controller: 'orderActiveCtrl'
+	).when('/order-done'
+		templateUrl: '/static/partial/user/order-done.html'
+		controller: 'orderDoneCtrl'
 	).when('/personal-info'
 		templateUrl: '/static/partial/user/personal-info.html'
 		controller: 'personalInfoCtrl'
-	).when('/booking-info'
-		templateUrl: '/static/partial/user/booking-info.html'
-		controller: 'bookingInfoCtrl'
 	).otherwise(
-		redirectTo: '/unread-message'
+		redirectTo: '/order-active'
 	)
 ])

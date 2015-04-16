@@ -11,5 +11,9 @@ userService.factory('Info', ['$resource', ($resource)->
 ])
 
 userService.factory('Order', ['$resource', ($resource)->
-	$resource('/user/order')
+	$resource '/order/', {},
+		userActive:
+			url: '/order/userActive'
+			isArray: true
 ])
+

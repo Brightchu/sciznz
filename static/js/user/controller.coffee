@@ -25,31 +25,8 @@ userCtrl.controller 'accordionCtrl', ['$scope', '$location', '$cookies', ($scope
 			window.location = '/'
 ]
 
-userCtrl.controller 'personalInfoCtrl', ['$scope', 'Info', ($scope, Info)->
-	$scope.info = Info.get()
-	$scope.password = {}
-
-	$scope.updateInfo = ->
-		Info.update($scope.info).$promise.then ->
-			alert('更新信息成功')
-		, ->
-			alert('更新信息失败')
-
-	$scope.updatePassword = ->
-		if $scope.password.newPassword?
-			if $scope.password.newPassword == $scope.password.newPasswordAgain
-				Info.save($scope.password).$promise.then ->
-					alert('修改密码成功')
-				, ->
-					alert('修改密码失败')
-			else
-				alert('两次输入的新密码不一致')
-		else
-			alert('请输入密码')
-]
-
-userCtrl.controller 'bookingInfoCtrl', ['$scope', 'Order', 'Info', ($scope, Order, Info)->
-	$scope.orderList = Order.query()
+userCtrl.controller 'orderActiveCtrl', ['$scope', 'Order', 'Info', ($scope, Order, Info)->
+	$scope.orderList = Order.userActive()
 	$scope.info = Info.get()
 
 	$scope.upgrade = ->
@@ -87,3 +64,25 @@ userCtrl.controller 'bookingInfoCtrl', ['$scope', 'Order', 'Info', ($scope, Orde
 			alert('操作失败')
 ]
 
+userCtrl.controller 'personalInfoCtrl', ['$scope', 'Info', ($scope, Info)->
+	$scope.info = Info.get()
+	$scope.password = {}
+
+	$scope.updateInfo = ->
+		Info.update($scope.info).$promise.then ->
+			alert('更新信息成功')
+		, ->
+			alert('更新信息失败')
+
+	$scope.updatePassword = ->
+		if $scope.password.newPassword?
+			if $scope.password.newPassword == $scope.password.newPasswordAgain
+				Info.save($scope.password).$promise.then ->
+					alert('修改密码成功')
+				, ->
+					alert('修改密码失败')
+			else
+				alert('两次输入的新密码不一致')
+		else
+			alert('请输入密码')
+]

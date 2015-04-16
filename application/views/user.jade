@@ -17,17 +17,16 @@ html
 	body.font-hei(ng-app="userApp")
 		div#sidebar(ng-controller="accordionCtrl")
 			accordion
-				accordion-group(heading="消息中心")
+				accordion-group(heading="预约中心")
 					p
-						a(href="#/unread-message") 消息中心
-				accordion-group(heading="个人信息")
+						a(href="#/order-active") 正在进行
+					p
+						a(href="#/order-done") 已完成
+				accordion-group(heading="个人中心")
 					p
 						a(href="#/personal-info") 个人信息
 					p
 						a(ng-click="logout()") 退出当前账号
-				accordion-group(heading="预约信息")
-					p
-						a(href="#/booking-info") 预约信息
 
 		div#main(class="view-frame" ng-view)
 
