@@ -28,22 +28,22 @@ userService.factory('User', ['$resource', ($resource)->
 userService.factory('Order', ['$resource', ($resource)->
 	$resource '/order/', {},
 		userActive:
-			url: 'userActive'
+			url: '/order/userActive'
 			isArray: true
 
 		userDone:
-			url: 'userDone'
+			url: '/order/userDone'
 			isArray: true
 
 		cancel:
-			url: 'cancel'
+			url: '/order/cancel'
 			method: 'POST'
 
 		budget:
-			url: 'budget'
+			url: '/order/budget'
 			method: 'POST'
 
 		fill:
-			url: 'fill'
+			url: '/order/fill'
 			method: 'POST'
 ])

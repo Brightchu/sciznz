@@ -1,19 +1,19 @@
 'use strict'
 
-supplyService = angular.module('supplyService', ['ngResource'])
-supplyService.config(['$resourceProvider', ($resourceProvider)->
+helperService = angular.module('helperService', ['ngResource'])
+helperService.config(['$resourceProvider', ($resourceProvider)->
 	$resourceProvider.defaults.actions.update =
 		method: 'PUT'
 ])
 
-supplyService.factory('Order', ['$resource', ($resource)->
+helperService.factory('Order', ['$resource', ($resource)->
 	$resource '/order/', {},
-		supplyActive:
-			url: '/order/supplyActive'
+		helperActive:
+			url: '/order/helperActive'
 			isArray: true
 
-		supplyDone:
-			url: '/order/supplyDone'
+		helperDone:
+			url: '/order/helperDone'
 			isArray: true
 
 		confirm:
@@ -37,8 +37,8 @@ supplyService.factory('Order', ['$resource', ($resource)->
 			method: 'POST'
 ])
 
-supplyService.factory('Supply', ['$resource', ($resource)->
-	$resource '/supply/', {},
+helperService.factory('Helper', ['$resource', ($resource)->
+	$resource '/helper/', {},
 		info:
 			url: 'info'
 
