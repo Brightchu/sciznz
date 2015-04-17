@@ -5,11 +5,13 @@ require_once(APPPATH . 'controllers/Account.php');
 
 class Group extends Account {
 
+	public function __construct() {
+		parent::__construct();
+		$this->load->model('group_model');
+	}
+
 	public function info()
 	{
-		$this->load->library('kvdb');
-		$this->load->model('group_model');
-
 		switch ($this->input->method()) {
 			case 'get':
 				$this->output->set_json($this->group_model->getInfo($this->nsession->get('ID')));
@@ -33,9 +35,6 @@ class Group extends Account {
 
 	public function order()
 	{
-		$this->load->library('kvdb');
-		$this->load->model('order');
-
 		$ID = $this->nsession->get('ID');
 
 		switch ($this->input->method()) {
@@ -52,20 +51,18 @@ class Group extends Account {
 
 	public function member()
 	{
-		$this->load->model('user');
-
 		switch ($this->input->method()) {
 			case 'get':
-				$this->output->set_json($this->user->getMember($this->nsession->get('ID')));
+				$this->output->set_json($this->group_model->getMember($this->roleID));
 				break;
 
 			case 'post':
-				$result = $this->user->addMember($this->nsession->get('ID'), $this->input->json('email'));
+				$result = $this->group_model->addMember($this->roleID, $this->input->json('email'));
 				$this->output->set_status_header($result ? 200 : 403);
 				break;
 
 			case 'delete':
-				$result = $this->user->deleteMember($this->input->get('ID'));
+				$result = $this->group_model->deleteMember($this->roleID, $this->input->get('userID'));
 				$this->output->set_status_header($result ? 200 : 403);
 				break;
 		}

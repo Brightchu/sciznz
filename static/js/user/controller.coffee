@@ -93,7 +93,7 @@ userCtrl.controller 'payCtrl', ['$scope', '$modalInstance', '$timeout', '$filter
 			alert('请选择支付方式')
 ]
 
-supplyCtrl.controller 'personalInfoCtrl', ['$scope', 'User', ($scope, User)->
+userCtrl.controller 'personalInfoCtrl', ['$scope', 'User', ($scope, User)->
 	$scope.info = User.info()
 	User.payMethod().$promise.then (response)->
 		list = response.map (method)->
