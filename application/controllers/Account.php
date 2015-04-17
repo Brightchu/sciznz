@@ -63,4 +63,23 @@ abstract class Account extends CI_Controller {
 		$this->parser->parse('login.html', $data);
 	}
 
+	public function info() {
+		$model = "{$this->role}_model";
+		$this->load->model($model);
+		$ID = $this->nsession->get("{$this->role}ID");
+		$this->output->set_json($this->$model->info($ID));
+	}
+
+	public function updatePassword() {
+		$model = "{$this->role}_model";
+		$this->load->model($model);
+
+		$ID = $this->nsession->get("{$this->role}ID");
+		$oldPassword = $this->input->json('oldPassword');
+		$newPassword = $this->input->json('newPassword');
+
+		$result = $this->$model->updatePassword($ID, $oldPassword, $newPassword);
+		$this->output->set_status_header($result ? 200 : 403);
+	}
+
 }

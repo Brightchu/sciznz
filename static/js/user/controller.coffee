@@ -22,7 +22,7 @@ userCtrl.controller 'accordionCtrl', ['$scope', '$location', '$cookies', ($scope
 		if confirm('退出当前账号？')
 			for key, value of $cookies
 				delete $cookies[key]
-			window.location = '/'
+			window.location = '/supply'
 ]
 
 openModel = ($modal, $scope, type, order)->
@@ -93,7 +93,7 @@ userCtrl.controller 'payCtrl', ['$scope', '$modalInstance', '$timeout', '$filter
 			alert('请选择支付方式')
 ]
 
-userCtrl.controller 'personalInfoCtrl', ['$scope', 'User', ($scope, User)->
+supplyCtrl.controller 'personalInfoCtrl', ['$scope', 'User', ($scope, User)->
 	$scope.info = User.info()
 	User.payMethod().$promise.then (response)->
 		list = response.map (method)->

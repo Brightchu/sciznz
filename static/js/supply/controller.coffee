@@ -1,7 +1,7 @@
 'use strict'
 
-supplyCtrl = angular.module('supplyCtrl', ['ui.bootstrap'])
-supplyCtrl.controller 'accordionCtrl', ['$scope', '$location', ($scope, $location)->
+supplyCtrl = angular.module('supplyCtrl', ['ngCookies', 'ui.bootstrap'])
+supplyCtrl.controller 'accordionCtrl', ['$scope', '$location', '$cookies', ($scope, $location, $cookies)->
 	$(document).ready ->
 		heading = $(document.querySelectorAll('.panel-heading'))
 		heading.on 'click', ->
@@ -16,6 +16,12 @@ supplyCtrl.controller 'accordionCtrl', ['$scope', '$location', ($scope, $locatio
 		link = $(document.querySelector("[href='##{$location.path()}']"))
 		link.parent().click()
 		$($(link.parent().parent().parent().parent().children()[0]).children()[0]).children().click()
+
+	$scope.logout = ->
+		if confirm('退出当前账号？')
+			for key, value of $cookies
+				delete $cookies[key]
+			window.location = '/'
 ]
 
 supplyCtrl.controller 'orderActiveCtrl', ['$scope', '$modal', '$filter', 'Order', ($scope, $modal, $filter, Order)->
@@ -84,18 +90,12 @@ supplyCtrl.controller 'detailCtrl', ['$scope', '$modalInstance', '$timeout', '$f
 				alert($filter('translate')('endFailed'))
 ]
 
-supplyCtrl.controller 'personalInfoCtrl', ['$scope', 'User', ($scope, User)->
-	$scope.info = User.info()
-	User.payMethod().$promise.then (response)->
-		list = response.map (method)->
-			method.groupName
-		if list.length
-			$scope.method = list.join(' ')
-
+supplyCtrl.controller 'supplyInfoCtrl', ['$scope', 'Supply', ($scope, Supply)->
+	$scope.info = Supply.info()
 	$scope.password = {}
 
 	$scope.updateInfo = ->
-		User.updateInfo($scope.info).$promise.then ->
+		Supply.updateInfo($scope.info).$promise.then ->
 			alert('更新信息成功')
 		, ->
 			alert('更新信息失败')
@@ -103,7 +103,7 @@ supplyCtrl.controller 'personalInfoCtrl', ['$scope', 'User', ($scope, User)->
 	$scope.updatePassword = ->
 		if $scope.password.newPassword?
 			if $scope.password.newPassword == $scope.password.newPasswordAgain
-				User.updatePassword($scope.password).$promise.then ->
+				Supply.updatePassword($scope.password).$promise.then ->
 					alert('修改密码成功')
 				, ->
 					alert('修改密码失败')

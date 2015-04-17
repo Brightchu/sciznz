@@ -36,3 +36,18 @@ supplyService.factory('Order', ['$resource', ($resource)->
 			url: '/order/budget'
 			method: 'POST'
 ])
+
+supplyService.factory('Supply', ['$resource', ($resource)->
+	$resource '/supply/', {},
+		info:
+			url: '/supply/info'
+
+		updateInfo:
+			url: 'supply/updateInfo'
+			method: 'POST'
+
+		updatePassword:
+			url: 'supply/updatePassword'
+			method: 'POST'
+
+])

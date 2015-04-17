@@ -20,6 +20,9 @@ supplyApp.config(['$routeProvider', ($routeProvider)->
 	).when('/device-timetable'
 		templateUrl: '/static/partial/admin/generic-blank.html'
 		controller: 'deviceTimetableCtrl'
+	).when('/supply-info'
+		templateUrl: '/static/partial/supply/supply-info.html'
+		controller: 'supplyInfoCtrl'
 	).otherwise(
 		redirectTo: '/order-active'
 	)
