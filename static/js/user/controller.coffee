@@ -57,6 +57,10 @@ userCtrl.controller 'orderActiveCtrl', ['$scope', '$modal', '$filter', 'Order', 
 				alert($filter('translate')('orderCancelFail'))
 ]
 
+userCtrl.controller 'orderDoneCtrl', ['$scope', 'Order', ($scope, Order)->
+	$scope.orderList = Order.userDone()
+]
+
 userCtrl.controller 'payCtrl', ['$scope', '$modalInstance', '$timeout', '$filter', 'type', 'order', 'User', 'Order', ($scope, $modalInstance, $timeout, $filter, type, order, User, Order)->
 	$scope.title = $filter('translate')(type)
 	$scope.order = order
