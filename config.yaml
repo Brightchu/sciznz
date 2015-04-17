@@ -2,9 +2,6 @@ name: sciclubs
 version: 2
 
 handle:
-- rewrite: if (%{REQUEST_URI} ~ "^/admin" && %{REQ:X-Forwarded-Proto} != "https") goto "https://%{HTTP_HOST}%{REQUEST_URI}"
-- rewrite: if (%{REQUEST_URI} ~ "^/supply" && %{REQ:X-Forwarded-Proto} != "https") goto "https://%{HTTP_HOST}%{REQUEST_URI}"
-- rewrite: if (%{REQUEST_URI} ~ "^/group" && %{REQ:X-Forwarded-Proto} != "https") goto "https://%{HTTP_HOST}%{REQUEST_URI}"
 - rewrite: if (!-d && !-f) goto "/index.php/%{REQUEST_URI}"
 - rewrite: if (%{REQUEST_URI} ~ "^/system") goto "/index.php/%{REQUEST_URI}"
 - rewrite: if (%{REQUEST_URI} ~ "^/application") goto "/index.php/%{REQUEST_URI}"
