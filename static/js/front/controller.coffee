@@ -95,19 +95,22 @@ sciCtrl.controller 'homeCtrl', ['$scope', '$document', 'data', ($scope, $documen
 
 ]
 
-sciCtrl.controller 'listCtrl', ['$scope', '$filter', 'data', ($scope, $filter, data)->
+sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', '$filter', 'data', ($scope, $rootScope, $filter, data)->
 	$scope.data = data
 
-	$scope.isCollapsed = true
 	$scope.hideMoreFeature = true
 	$scope.hideMoreCategory = true
 
-	$scope.filterModel =
-		domain: $filter('translate')('unlimit')
-		feature: $filter('translate')('unlimit')
-		category: $filter('translate')('unlimit')
-		locale: $filter('translate')('unlimit')
-		field: {}
+	console.log($rootScope.filterModel)
+	if not $rootScope.filterModel?
+		$rootScope.filterModel =
+			domain: $filter('translate')('unlimit')
+			feature: $filter('translate')('unlimit')
+			category: $filter('translate')('unlimit')
+			locale: $filter('translate')('unlimit')
+			field: {}
+
+	$scope.filterModel.prototype = $rootScope.filterModel
 
 	$scope.$watch 'filterModel.domain', (newValue, oldValue)->
 		$scope.filterModel.feature = newValue
@@ -118,8 +121,7 @@ sciCtrl.controller 'listCtrl', ['$scope', '$filter', 'data', ($scope, $filter, d
 ]
 
 sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Device', 'Order', '$filter', '$cookies', '$modal', ($scope, $routeParams, data, Device, Order, $filter, $cookies, $modal)->
-	thisDevice = data.device[$routeParams.deviceID]
-	$scope.device = thisDevice
+	$scope.device = data.device[$routeParams.deviceID]
 
 	minDate = new Date()
 	minDate.setDate(minDate.getDate() + 1)
@@ -131,12 +133,12 @@ sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Device', 'O
 	$scope.date = minDate
 
 	$scope.orderModel =
-		method: thisDevice.schedule.method[0]
+		method: $scope.device.schedule.method[0]
 
 	$scope.book = ->
 		if $cookies.name
 			payload =
-				deviceID: thisDevice.ID
+				deviceID: $scope.device.ID
 				date: $filter('date')($scope.date, 'yyyy-MM-dd')
 				method: $scope.orderModel.method
 				resource: $scope.orderModel.resource
@@ -151,14 +153,18 @@ sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Device', 'O
 
 	updateRemain = (date)->
 		payload =
-			deviceID: thisDevice.ID
+			deviceID: $scope.device.ID
 			date: $filter('date')(date, 'yyyy-MM-dd')
 		Device.resource(payload).$promise.then (body)->
 			$scope.resource = body
 
 	updateRemain(minDate)
 
-	$scope.$watch 'date', (oldValue, newValue)->
+	$scope.$watch 'date', (newValue, oldValue)->
 		updateRemain(newValue)
+		if newValue.getDay() in $scope.device.schedule.workday
+			$scope.inWork = true
+		else
+			$scope.inWork = false
 		return newValue
 ]

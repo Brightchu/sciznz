@@ -10,6 +10,11 @@ mixin infoRow
 		span.col-xs-4
 			span.glyphicon.glyphicon-earphone
 			span.supply {{device.supply}}
+	hr
+	.row
+		label.btn.btn-info.btn-xs(ng-repeat="(key, value) in device.field") {{key}} {{value}}
+	.more
+		h4 {{device.info}}
 
 mixin device(single)
 	img.col-xs-2.shot(ng-src="{{device.img}}")
@@ -17,28 +22,12 @@ mixin device(single)
 	if single
 		.info.col-xs-10
 			+infoRow
-			hr
-			.row
-				label.btn.btn-info.btn-xs(ng-repeat="(key, value) in device.field") {{key}} {{value}}
-			.more
-				p {{device.info}}
 			.more.spec(ng-if="device.spec")
-				p
-					span.glyphicon.glyphicon-plus
-					span 仪器资料
 				a(ng-repeat="(title, link) in device.spec" href="{{link}}") {{title}}
+
 	else
 		.info.col-xs-8
 			+infoRow
-			hr
-			.row
-				label.btn.btn-info.btn-xs(ng-repeat="(key, value) in device.field") {{key}} {{value}}
-				label.btn.btn-default.btn-xs(ng-click="isCollapsed = !isCollapsed") 更多信息
-					span.caret
-			.more(collapse="isCollapsed")
-				p {{device.info}}
-			.more.spec(ng-if="device.spec" collapse="isCollapsed")
-				a(ng-repeat="(title, link) in device.spec" href="{{link}}") {{title}}
 
 		.action.col-xs-2
 			label.btn.btn-default.btn-block.price {{device.schedule.unlimited.price}} {{device.schedule.unlimited.unit}}
