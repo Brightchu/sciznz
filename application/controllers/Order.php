@@ -69,6 +69,8 @@ class Order extends CI_Controller {
 
 	public function budget() {
 		$this->load->library('encryption');
+		$this->load->model('user_model');
+		$this->load->model('device_model');
 
 		$orderID = $this->input->json('orderID');
 		$method = $this->input->json('method');
@@ -76,7 +78,22 @@ class Order extends CI_Controller {
 		$transaction = $this->encryption->decrypt($this->input->cookie('userID'));
 
 		$result = $this->order_service->budget($orderID, $method, $account, $transaction);
-		$this->output->set_status_header($result ? 200 : 403);
+		if ($result) {
+			$orderInfo = $this->order_service->info($orderID);
+			$userInfo = $this->user_model->info($orderInfo['userID']);
+			$deviceInfo = $this->device_model->textInfo($orderInfo['deviceID']);
+
+			$data = [
+				'name' => $userInfo['name'],
+				'model' => $deviceInfo['model'],
+				'category' => $deviceInfo['category'],
+				'supply' => $deviceInfo['supply'],
+			];
+			$this->order_mail->budget($deviceInfo['supplyEmail'], $data);
+			$this->output->set_status_header(200);
+		} else {
+			$this->output->set_status_header(403);
+		}
 	}
 
 	public function begin() {

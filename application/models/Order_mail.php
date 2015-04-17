@@ -47,4 +47,17 @@ class Order_mail extends CI_Model {
 		$this->email->message($this->parser->parse("mail/order/user/confirm.html", $data, TRUE));
 		return $this->email->send();
 	}
+
+	public function budget($supplyEmail, $data) {
+		$data['supplyLink'] = site_url('supply');
+		$data['logo'] = site_url('static/img/logo-landscape.png');
+		$data['datetime'] = date(DATE_RSS);
+
+		$this->email->from('scicompass@sina.com', 'Sciclubs');
+		$this->email->to($supplyEmail);
+		$this->email->subject('Sciclubs 预算已支付');
+		$this->email->message($this->parser->parse("mail/order/supply/budget.html", $data, TRUE));
+		return $this->email->send();
+	}
+
 }
