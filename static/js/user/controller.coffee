@@ -22,7 +22,7 @@ userCtrl.controller 'accordionCtrl', ['$scope', '$location', '$cookies', ($scope
 		if confirm('退出当前账号？')
 			for key, value of $cookies
 				delete $cookies[key]
-			window.location = '/supply'
+			window.location = '/'
 ]
 
 openModel = ($modal, $scope, type, order)->

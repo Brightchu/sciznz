@@ -21,4 +21,10 @@ class Group_model extends Account_model {
 		$sql = 'DELETE FROM `member` WHERE `groupID` = ? AND `userID` = ?';
 		return $this->db->query($sql, [$ID, $userID]);
 	}
+
+	public function bill($ID) {
+		$sql = 'SELECT `pay`.`ID`, `pay`.`date`, `pay`.`amount`, `user`.`name` AS `user`, `order`.`ID` AS `orderID`, `category`.`name` AS `category`, `model`.`name` AS `model`, `supply`.`name` AS `supply` FROM `member` JOIN `user` ON `groupID` = ? AND `member`.`userID` = `user`.`ID` JOIN `order` ON `member`.`userID` = `order`.`userID` JOIN `device` ON `order`.`deviceID` = `device`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID` JOIN `supply` ON `device`.`supplyID` = `supply`.`ID` JOIN `pay` ON `order`.`budgetID` = `pay`.`ID` OR `order`.`fillID` = `pay`.`ID`';
+		return $this->db->query($sql, $ID)->result_array();
+	}
+
 }

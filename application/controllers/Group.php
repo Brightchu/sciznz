@@ -10,45 +10,6 @@ class Group extends Account {
 		$this->load->model('group_model');
 	}
 
-	public function info()
-	{
-		switch ($this->input->method()) {
-			case 'get':
-				$this->output->set_json($this->group_model->getInfo($this->nsession->get('ID')));
-				break;
-
-			case 'put':
-				$req = $this->input->json();
-				$req['ID'] = $this->nsession->get('ID');
-				$result = $this->group_model->setInfo($req);
-				$this->output->set_status_header($result ? 200 : 403);
-				break;
-
-			case 'post':
-				$req = $this->input->json();
-				$req['ID'] = $this->nsession->get('ID');
-				$result = $this->group_model->updatePassword($req);
-				$this->output->set_status_header($result ? 200 : 403);
-				break;
-		}
-	}
-
-	public function order()
-	{
-		$ID = $this->nsession->get('ID');
-
-		switch ($this->input->method()) {
-			case 'get':
-				$this->output->set_json($this->order->getUnread($ID));
-				break;
-
-			case 'put':
-				$result = $this->order->setStatus($this->input->json());
-				$this->output->set_status_header($result ? 200 : 403);
-				break;
-		}
-	}
-
 	public function member()
 	{
 		switch ($this->input->method()) {
@@ -68,14 +29,8 @@ class Group extends Account {
 		}
 	}
 
-	public function bill()
-	{
-		$this->load->model('group_model');
-
-		switch ($this->input->method()) {
-			case 'get':
-				$this->output->set_json($this->group_model->bill($this->nsession->get('ID')));
-				break;
-		}
+	public function bill() {
+		$this->output->set_json($this->group_model->bill($this->roleID));
 	}
+
 }

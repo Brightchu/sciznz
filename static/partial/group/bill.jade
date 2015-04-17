@@ -12,10 +12,14 @@ div.content
 				th 支付时间
 				th 金额
 				th 使用者
+				th 仪器
+				th 供应商
 
 		tbody
 			tr(ng-repeat="bill in billList | filter:keyword")
 				td {{bill.ID}}
 				td {{bill.date}}
 				td {{bill.amount}}
-				td {{bill.name}}
+				td {{bill.user}}
+				td {{bill.category}} - {{bill.model}}
+				td {{bill.supply}}
