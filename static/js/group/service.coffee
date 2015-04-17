@@ -9,14 +9,14 @@ groupService.config(['$resourceProvider', ($resourceProvider)->
 groupService.factory('Group', ['$resource', ($resource)->
 	$resource '/group/', {},
 		info:
-			url: 'info'
+			url: '/group/info'
 
 		updateInfo:
-			url: 'updateInfo'
+			url: '/group/updateInfo'
 			method: 'POST'
 
 		updatePassword:
-			url: 'updatePassword'
+			url: '/group/updatePassword'
 			method: 'POST'
 
 ])

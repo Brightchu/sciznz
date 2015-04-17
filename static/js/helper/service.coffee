@@ -40,14 +40,14 @@ helperService.factory('Order', ['$resource', ($resource)->
 helperService.factory('Helper', ['$resource', ($resource)->
 	$resource '/helper/', {},
 		info:
-			url: 'info'
+			url: '/helper/info'
 
 		updateInfo:
-			url: 'updateInfo'
+			url: '/helper/updateInfo'
 			method: 'POST'
 
 		updatePassword:
-			url: 'updatePassword'
+			url: '/helper/updatePassword'
 			method: 'POST'
 
 ])
