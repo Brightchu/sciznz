@@ -16,6 +16,7 @@ adminCtrl.controller 'accordionCtrl', ['$scope', '$location', ($scope, $location
 		link = $(document.querySelector("[href='##{$location.path()}']"))
 		link.parent().click()
 		$($(link.parent().parent().parent().parent().children()[0]).children()[0]).children().click()
+
 ]
 
 gridBuilder = ($scope, Model, columnDefs)->

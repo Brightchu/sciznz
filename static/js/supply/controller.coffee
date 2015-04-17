@@ -21,7 +21,7 @@ supplyCtrl.controller 'accordionCtrl', ['$scope', '$location', '$cookies', ($sco
 		if confirm('退出当前账号？')
 			for key, value of $cookies
 				delete $cookies[key]
-			window.location = '/'
+			window.location = '/supply/login'
 ]
 
 supplyCtrl.controller 'orderActiveCtrl', ['$scope', '$modal', '$filter', 'Order', ($scope, $modal, $filter, Order)->

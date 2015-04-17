@@ -22,7 +22,7 @@ groupCtrl.controller 'accordionCtrl', ['$scope', '$location', '$cookies', ($scop
 		if confirm('退出当前账号？')
 			for key, value of $cookies
 				delete $cookies[key]
-			window.location = '/'
+			window.location = '/group/login'
 ]
 
 groupCtrl.controller 'memberCtrl', ['$scope', '$filter', 'Member', ($scope, $filter, Member)->
