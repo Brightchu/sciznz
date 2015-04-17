@@ -25,7 +25,8 @@ class Account_mail extends CI_Model {
 
 		$data = [
 			'email' => $email,
-			'link' => site_url('verify/' . $this->encryption->encrypt($email)),
+			'link' => site_url('verify?token=' . base64_encode($this->encryption->encrypt($email))),
+			'logo' => site_url('static/img/logo-landscape.png'),
 			'datetime' => date(DATE_RSS),
 		];
 
