@@ -3,36 +3,39 @@
 supplyFilter = angular.module('supplyFilter', [])
 supplyFilter.filter 'statusFilter', ->
 	name =
-		1: '等待提供方确认'
-		2: '等待用户付款'
-		3: '准备就绪'
-		4: '正在实验'
-		5: '等待用户确认'
-		6: '已完成'
-		0: '已取消'
-	(value)->
-		return name[value]
+		NEW: '等待提供方确认'
+		CONFIRM: '已确认，待付款'
+		BUDGET: '已付款，等候实验'
+		BEGIN: '正在实验'
+		END: '待支付耗材费用'
+		DONE: '已完成'
+		CANCEL: '已取消'
+	(status)->
+		return name[status]
 
-supplyFilter.filter 'classFilter', ->
+supplyFilter.filter 'actionClassFilter', ->
 	name =
-		1: 'btn btn-success'
-		2: 'btn btn-default disabled'
-		3: 'btn btn-success'
-		4: 'btn btn-success'
-		5: 'btn btn-default disabled'
-		6: 'btn btn-default disabled'
-		0: 'btn btn-default disabled'
-	(value)->
-		return name[value]
+		NEW: 'btn btn-success'
+		CONFIRM: 'hidden'
+		BUDGET: 'btn btn-success'
+		BEGIN: 'btn btn-success'
+		END: 'hidden'
+		DONE: 'hidden'
+		CANCEL: 'hidden'
+	(status)->
+		return name[status]
 
-supplyFilter.filter 'buttonTextFilter', ->
+supplyFilter.filter 'actionTextFilter', ->
 	name =
-		1: '确认'
-		2: '等待'
-		3: '开始实验'
-		4: '完成实验'
-		5: '等待'
-		6: '已完成'
-		0: '已取消'
-	(value)->
-		return name[value]
+		NEW: '确认'
+		BUDGET: '开始实验'
+		BEGIN: '结束实验'
+	(status)->
+		return name[status]
+
+supplyFilter.filter 'cancelFilter', ->
+	(status)->
+		if status == 'CANCEL' || status == 'DONE'
+			return false
+		else
+			return true

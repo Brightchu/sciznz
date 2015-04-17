@@ -17,17 +17,6 @@ class User_model extends Account_model {
 	}
 
 	/**
-	 * Update phone
-	 * @param	string	$ID, $phone
-	 * @return  bool
-	 */
-	public function updatePhone($ID, $phone)
-	{
-		$sql = "UPDATE `{$this->role}` SET `phone`=? WHERE `ID` = ?";
-		return $this->db->query($sql, [$phone, $ID]);
-	}
-
-	/**
 	 * Verify email
 	 * @param	string	$email
 	 * @return  bool
@@ -47,6 +36,12 @@ class User_model extends Account_model {
 	{
 		$sql = "UPDATE `{$this->role}` SET `verifyPhone`= 1 WHERE `ID` = ?";
 		return $this->db->query($sql, $ID);
+	}
+
+
+	public function payMethod($ID) {
+		$sql = 'SELECT `member`.`groupID`, `group`.`name` AS `groupName` FROM `member` JOIN `group` ON `userID` = ? AND `member`.`groupID` = `group`.`ID`';
+		return $this->db->query($sql, $ID)->result_array();
 	}
 
 }

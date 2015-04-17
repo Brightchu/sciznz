@@ -1,19 +1,62 @@
 @charset "utf-8";
 
+@blue: #35BDB2;
+@wp-blue: #0074A2;
+@green: #20AF74;
+@bg-green: #EDFFF8;
+@wp-black: #222;
+
 body {
 	background-color: #F1F1F1;
+	overflow-x: hidden;
+}
+
+div#top {
+	position: fixed;
+	width: 100%;
+	height: 4rem;
+	background-color: @wp-black;
+	padding-left: 0 1rem;
+	z-index: 100;
+	a.left {
+		display: inline-block;
+		width: 15%;
+		padding-left: 1rem;
+		transition: all 0.25s;
+		&:hover {
+			background-color: #333;
+		}
+	}
+	img#logo {
+		height: 4rem;
+	}
+	span.title {
+		line-height: 4rem;
+		padding: 0 1rem;
+		font-size: 1.6rem;
+		color: white;
+	}
+	span.hello {
+		float: right;
+		margin-right: 4rem;
+		font-size: 1.6rem;
+		line-height: 4rem;
+		color: white;
+	}
 }
 
 div#sidebar{
 	position: fixed;
+	top: 4rem;
 	width: 15%;
 	height: 100vh;
-	background-color: #222;
+	background-color: @wp-black;
 }
 
 div#main{
 	position: absolute;
 	left: 15vw;
+	top: 2rem;
 	width: 85vw;
 	height: 100vh;
 	div#title {
@@ -61,7 +104,7 @@ div.content {
 	}
 }
 
-table {
+table.orderList {
 	width: 95%;
 	color: #333;
 	border-collapse: collapse;
@@ -95,5 +138,43 @@ table {
 			padding: 1rem;
 			overflow: auto;
 		}
+	}
+}
+
+#table {
+	width: 100%;
+	height: 100%;
+	background-color: #F1F1F1;
+	padding-left: 2.5vw;
+	#title {
+		padding-top: 4rem;
+		font-size: 4rem;
+	}
+	.alert {
+		max-width: 80vw;
+	}
+	#grid {
+		background-color: #FFF;
+		width: 80vw;
+	}
+	.btn-group {
+		margin: 2rem 0 0;
+	}
+}
+
+#json {
+	width: 100%;
+	height: 100%;
+	background-color: #F1F1F1;
+	padding-left: 2.5vw;
+	#title {
+		padding-top: 4rem;
+		font-size: 4rem;
+	}
+	div#jsoneditor {
+		margin-right: 2.5vw;
+	}
+	button#save {
+		margin: 2rem 0 0;
 	}
 }

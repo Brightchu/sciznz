@@ -1,0 +1,18 @@
+.modal-header
+	h3.modal-title 确认预约
+.modal-body
+	p 仪器类别：
+		label {{payload.category}}
+	p 仪器型号：
+		label {{payload.model}}
+	p 预约日期：
+		label {{payload.date}}
+	p 预约方式：
+		label {{payload.method | translate}}
+	p(ng-if='payload.resource') 预约项目：
+		label {{payload.resource}}
+	label 备注：
+	textarea.form-control(ng-model='payload.note')
+
+.modal-footer
+	button.btn.btn-primary(ng-click='order()') 确认无误，预约

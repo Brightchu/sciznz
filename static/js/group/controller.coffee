@@ -2,6 +2,10 @@
 
 groupCtrl = angular.module('groupCtrl', ['ngCookies', 'ui.bootstrap'])
 
+groupCtrl.controller 'topCtrl', ['$scope', 'Group', ($scope, Group)->
+	$scope.info = Group.info()
+]
+
 groupCtrl.controller 'accordionCtrl', ['$scope', '$location', '$cookies', ($scope, $location, $cookies)->
 	$(document).ready ->
 		heading = $(document.querySelectorAll('.panel-heading'))
@@ -22,15 +26,49 @@ groupCtrl.controller 'accordionCtrl', ['$scope', '$location', '$cookies', ($scop
 		if confirm('退出当前账号？')
 			for key, value of $cookies
 				delete $cookies[key]
-			window.location = '/'
+			window.location = '/group/login'
 ]
 
-groupCtrl.controller 'personalInfoCtrl', ['$scope', 'Info', ($scope, Info)->
-	$scope.info = Info.get()
+groupCtrl.controller 'memberCtrl', ['$scope', '$filter', 'Member', ($scope, $filter, Member)->
+	$scope.memberList = Member.query()
+
+	$scope.delete = ->
+		self = this
+		payload =
+			userID: self.member.userID
+
+		if confirm($filter('translate')('confirmDelete') + self.member.email)
+			Member.delete(payload).$promise.then ->
+				alert('删除成功')
+				$scope.memberList = $scope.memberList.filter (member)->
+					return member.userID != self.member.userID
+			, ->
+				alert('删除失败')
+
+	$scope.add = ->
+		self = this
+		payload =
+			email: $scope.newEmail
+
+		if confirm($filter('translate')('confirmAdd') + $scope.newEmail)
+			Member.save(payload).$promise.then ->
+				alert($filter('translate')('addSucess'))
+				$scope.memberList = Member.query()
+			, ->
+				alert($filter('translate')('addFail'))
+]
+
+groupCtrl.controller 'billCtrl', ['$scope', 'Bill', ($scope, Bill)->
+	$scope.billList = Bill.query()
+
+]
+
+groupCtrl.controller 'infoCtrl', ['$scope', 'Group', ($scope, Group)->
+	$scope.info = Group.info()
 	$scope.password = {}
 
 	$scope.updateInfo = ->
-		Info.update($scope.info).$promise.then ->
+		Group.updateInfo($scope.info).$promise.then ->
 			alert('更新信息成功')
 		, ->
 			alert('更新信息失败')
@@ -38,7 +76,7 @@ groupCtrl.controller 'personalInfoCtrl', ['$scope', 'Info', ($scope, Info)->
 	$scope.updatePassword = ->
 		if $scope.password.newPassword?
 			if $scope.password.newPassword == $scope.password.newPasswordAgain
-				Info.save($scope.password).$promise.then ->
+				Group.updatePassword($scope.password).$promise.then ->
 					alert('修改密码成功')
 				, ->
 					alert('修改密码失败')
@@ -46,36 +84,4 @@ groupCtrl.controller 'personalInfoCtrl', ['$scope', 'Info', ($scope, Info)->
 				alert('两次输入的新密码不一致')
 		else
 			alert('请输入密码')
-]
-
-groupCtrl.controller 'memberAdminCtrl', ['$scope', 'Member', ($scope, Member)->
-	$scope.memberList = Member.query()
-
-	$scope.delete = ->
-		self = this
-
-		payload =
-			ID: self.member.ID
-		
-		Member.delete(payload).$promise.then ->
-			alert('操作成功')
-		, ->
-			alert('操作失败')
-
-	$scope.add = ->
-		console.log('HERE')
-		self = this
-
-		payload =
-			email: $scope.newMember
-		
-		Member.save(payload).$promise.then ->
-			alert('操作成功')
-		, ->
-			alert('操作失败')
-]
-
-groupCtrl.controller 'billInfoCtrl', ['$scope', 'Bill', ($scope, Bill)->
-	$scope.billList = Bill.query()
-
 ]

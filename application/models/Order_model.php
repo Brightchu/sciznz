@@ -13,15 +13,15 @@ class Order_model extends CI_Model {
 	 * @param 	$userID, $deviceID, $date, $resource
 	 * @return  bool
 	 */
-	public function create($userID, $deviceID, $method, $date, $resource) {
+	public function create($userID, $deviceID, $method, $date, $resource, $budget, $note) {
 		if ($method === 'RESOURCE') {
 			$sql = 'INSERT INTO `usage`(`deviceID`, `type`, `date`, `resource`) VALUES (?, "ORDER", ?, ?)';
 			$result = $this->db->query($sql, [$deviceID, $date, $resource]);
 
 			if ($result) {
 				$usageID = $this->db->insert_id();
-				$sql = 'INSERT INTO `order`(`userID`, `deviceID`, `detail`, `method`, `usageID`) VALUES (?, ?, "{}", "RESOURCE", ?)';
-				return $this->db->query($sql, [$userID, $deviceID, $usageID]);
+				$sql = 'INSERT INTO `order`(`userID`, `deviceID`, `note`, `detail`, `method`, `usageID`, `budget`) VALUES (?, ?, ?, "", "RESOURCE", ?, ?)';
+				return $this->db->query($sql, [$userID, $deviceID, $note, $usageID, $budget]);
 			}
 		}
 
@@ -44,7 +44,7 @@ class Order_model extends CI_Model {
 	}
 
 	public function info($ID) {
-		$sql = 'SELECT `userID`, `deviceID`, `date`, `status`, `detail`, `method`, `usageID`, `budgetID`, `fillID` FROM `order` WHERE `ID` = ?';
+		$sql = 'SELECT `userID`, `deviceID`, `date`, `status`, `detail`, `method`, `usageID`, `budget`, `budgetID`, `fill`, `fillID` FROM `order` WHERE `ID` = ?';
 		return $this->db->query($sql, $ID)->row_array();
 	}
 
@@ -53,9 +53,9 @@ class Order_model extends CI_Model {
 		return $this->db->query($sql, [$budgetID, $ID]);
 	}
 
-	public function detail($ID, $detail) {
-		$sql = 'UPDATE `order` SET `detail` = ? WHERE `ID` = ?';
-		return $this->db->query($sql, [$detail, $ID]);
+	public function end($ID, $fill, $detail) {
+		$sql = 'UPDATE `order` SET `status` = "END", `detail` = ?, `fill` = ? WHERE `ID` = ?';
+		return $this->db->query($sql, [$detail, $fill, $ID]);
 	}
 
 	public function fill($ID, $fillID) {
@@ -68,27 +68,37 @@ class Order_model extends CI_Model {
 		return $this->db->query($sql, $ID);
 	}
 
-	public function user($userID) {
-		$sql = 'SELECT `ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `fillID` FROM `order` WHERE `userID` = ?';
+	public function userActive($userID) {
+		$sql = 'SELECT `order`.`ID`, `category`.`name` AS `category`, `model`.`name` AS `model`, `device`.`ID` AS `deviceID`, `supply`.`name` AS `supply`, `order`.`date`, `usage`.`date` AS `useDate`, `usage`.`resource`, `status`, `note`, `detail`, `budget`, `fill` FROM `order` JOIN `device` ON `userID` = ? AND (`status` != "DONE" AND `status` != "CANCEL") AND `order`.`deviceID` = `device`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID` JOIN `supply` ON `device`.`supplyID` = `supply`.`ID` JOIN `usage` ON `order`.`usageID` = `usage`.`ID`';
 		return $this->db->query($sql, $userID)->result_array();
 	}
 
-	public function userNow($userID) {
-		$sql = 'SELECT `ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `fillID` FROM `order` WHERE `userID` = ? AND `status` != "DONE"';
+	public function userDone($userID) {
+		$sql = 'SELECT `order`.`ID`, `category`.`name` AS `category`, `model`.`name` AS `model`, `device`.`ID` AS `deviceID`, `supply`.`name` AS `supply`, `order`.`date`, `usage`.`date` AS `useDate`, `usage`.`resource`, `status`, `note`, `detail`, `budget`, `fill` FROM `order` JOIN `device` ON `userID` = ? AND (`status` = "DONE" OR `status` = "CANCEL") AND `order`.`deviceID` = `device`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID` JOIN `supply` ON `device`.`supplyID` = `supply`.`ID` LEFT JOIN `usage` ON `order`.`usageID` = `usage`.`ID`';
 		return $this->db->query($sql, $userID)->result_array();
 	}
 
-	public function supply($supplyID) {
-		$sql = 'SELECT `order`.`ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `fillID` FROM `order` JOIN `device` ON `order`.`deviceID` = `device`.`ID` AND `device`.`supplyID` = ?';
+	public function supplyActive($supplyID) {
+		$sql = 'SELECT `order`.`ID`, `category`.`name` AS `category`, `model`.`name` AS `model`, `device`.`ID` AS `deviceID`, `order`.`date`, `usage`.`date` AS `useDate`, `usage`.`resource`, `status`, `note`, `detail`, `budget`, `fill` FROM `order` JOIN `device` ON `supplyID` = ? AND (`status` != "DONE" AND `status` != "CANCEL") AND `order`.`deviceID` = `device`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID` JOIN `usage` ON `order`.`usageID` = `usage`.`ID`';
 		return $this->db->query($sql, $supplyID)->result_array();
 	}
 
-	public function supplyNow($supplyID) {
-		$sql = 'SELECT `order`.`ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `fillID` FROM `order` JOIN `device` ON `status` != "DONE" AND `order`.`deviceID` = `device`.`ID` AND `device`.`supplyID` = ?';
+	public function supplyDone($supplyID) {
+		$sql = 'SELECT `order`.`ID`, `category`.`name` AS `category`, `model`.`name` AS `model`, `device`.`ID` AS `deviceID`, `order`.`date`, `usage`.`date` AS `useDate`, `usage`.`resource`, `status`, `note`, `detail`, `budget`, `fill` FROM `order` JOIN `device` ON `supplyID` = ? AND (`status` = "DONE" OR `status` = "CANCEL") AND `order`.`deviceID` = `device`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID` JOIN `usage` ON `order`.`usageID` = `usage`.`ID`';
 		return $this->db->query($sql, $supplyID)->result_array();
 	}
 
-	public function group($groupID) {
+	public function helperActive() {
+		$sql = 'SELECT `order`.`ID`, `category`.`name` AS `category`, `model`.`name` AS `model`, `device`.`ID` AS `deviceID`, `order`.`date`, `usage`.`date` AS `useDate`, `usage`.`resource`, `status`, `note`, `detail`, `budget`, `fill` FROM `order` JOIN `device` ON (`status` != "DONE" AND `status` != "CANCEL") AND `order`.`deviceID` = `device`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID` JOIN `usage` ON `order`.`usageID` = `usage`.`ID`';
+		return $this->db->query($sql)->result_array();
+	}
+
+	public function helperDone() {
+		$sql = 'SELECT `order`.`ID`, `category`.`name` AS `category`, `model`.`name` AS `model`, `device`.`ID` AS `deviceID`, `order`.`date`, `usage`.`date` AS `useDate`, `usage`.`resource`, `status`, `note`, `detail`, `budget`, `fill` FROM `order` JOIN `device` ON (`status` = "DONE" OR `status` = "CANCEL") AND `order`.`deviceID` = `device`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID` JOIN `usage` ON `order`.`usageID` = `usage`.`ID`';
+		return $this->db->query($sql)->result_array();
+	}
+
+	public function groupBill($groupID) {
 		$sql = 'SELECT `order`.`ID`, `userID`, `deviceID`, `order`.`date`, `status`, `detail`, `usageID`, `budgetID`, `fillID` FROM `order` JOIN `pay` ON `pay`.`method` = "GROUP" AND `pay`.`account` = ? AND (`order`.`budgetID` = `pay`.`ID` OR `order`.`fillID` = `pay`.`ID`)';
 		return $this->db->query($sql, $groupID)->result_array();
 	}

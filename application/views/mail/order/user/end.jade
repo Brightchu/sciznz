@@ -1,0 +1,34 @@
+doctype html
+html
+	head
+		meta(charset="utf-8")
+		meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+		meta(name="description" content="实验已结束 - 科学指南针")
+		meta(name="renderer" content="webkit")
+		meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=no")
+		title 实验已结束 - 科学指南针
+		style.
+			a.go {
+				display: inline-block;
+				padding: 0.8rem 2rem;
+				border-radius: 3rem;
+				color: white;
+				background-color: #35BDB2;
+			}
+			img.logo {
+				height: 4rem;
+			}
+	body
+		p 尊敬的 {name}:
+		p 您在科学指南针的预约的仪器实验已结束
+
+		p 设备类别: {category}
+		p 设备型号: {model}
+		p 仪器供应方: {supply}
+
+		p 请登录用户中心来以查看详情
+		a.go(href='{userLink}') 用户中心
+
+		br
+		img.logo(src='{logo}')
+		p {datetime}

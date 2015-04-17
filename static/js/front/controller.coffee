@@ -12,14 +12,17 @@ sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', '$document', '$wi
 			login()
 
 	login = ->
-		openModel($modal, $scope)
+		openLoginModel($modal, $scope)
 
 	$scope.scrollTo = (selector)->
-		$document.scrollToElementAnimated($(document.querySelector(selector)), 100);
+		if $window.location.hash == '#/list'
+			$window.location.hash = '/'
+		else
+			$document.scrollToElementAnimated($(document.querySelector(selector)), 100);
 
 ]
 
-openModel = ($modal, $scope)->
+openLoginModel = ($modal, $scope)->
 	modalInstance = $modal.open
 		templateUrl: '/static/partial/front/login.html'
 		controller: 'loginCtrl'
@@ -95,19 +98,21 @@ sciCtrl.controller 'homeCtrl', ['$scope', '$document', 'data', ($scope, $documen
 
 ]
 
-sciCtrl.controller 'listCtrl', ['$scope', '$filter', 'data', ($scope, $filter, data)->
+sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', '$filter', 'data', ($scope, $rootScope, $filter, data)->
 	$scope.data = data
 
-	$scope.isCollapsed = true
 	$scope.hideMoreFeature = true
 	$scope.hideMoreCategory = true
 
-	$scope.filterModel =
-		domain: $filter('translate')('unlimit')
-		feature: $filter('translate')('unlimit')
-		category: $filter('translate')('unlimit')
-		locale: $filter('translate')('unlimit')
-		field: {}
+	if not $rootScope.filterModel?
+		$rootScope.filterModel =
+			domain: $filter('translate')('unlimit')
+			feature: $filter('translate')('unlimit')
+			category: $filter('translate')('unlimit')
+			locale: $filter('translate')('unlimit')
+			field: {}
+
+	$scope.filterModel.prototype = $rootScope.filterModel
 
 	$scope.$watch 'filterModel.domain', (newValue, oldValue)->
 		$scope.filterModel.feature = newValue
@@ -117,9 +122,8 @@ sciCtrl.controller 'listCtrl', ['$scope', '$filter', 'data', ($scope, $filter, d
 		$scope.filterModel.category = newValue
 ]
 
-sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Device', 'Order', '$filter', '$cookies', '$modal', ($scope, $routeParams, data, Device, Order, $filter, $cookies, $modal)->
-	thisDevice = data.device[$routeParams.deviceID]
-	$scope.device = thisDevice
+sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Device', '$filter', '$cookies', '$modal', ($scope, $routeParams, data, Device, $filter, $cookies, $modal)->
+	$scope.device = data.device[$routeParams.deviceID]
 
 	minDate = new Date()
 	minDate.setDate(minDate.getDate() + 1)
@@ -131,34 +135,57 @@ sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Device', 'O
 	$scope.date = minDate
 
 	$scope.orderModel =
-		method: thisDevice.schedule.method[0]
+		method: $scope.device.schedule.method[0]
 
 	$scope.book = ->
 		if $cookies.name
 			payload =
-				deviceID: thisDevice.ID
+				category: $scope.device.category
+				model: $scope.device.model
+				deviceID: $scope.device.ID
 				date: $filter('date')($scope.date, 'yyyy-MM-dd')
 				method: $scope.orderModel.method
 				resource: $scope.orderModel.resource
+
 			if not payload.resource? and payload.method == 'RESOURCE'
 				return alert('请选择预约项目')
+			
+			modalInstance = $modal.open
+				templateUrl: '/static/partial/front/confirm.html'
+				controller: 'confirmCtrl'
+				resolve:
+					payload: ->
+						return payload
 
-			Order.create(payload).$promise.then ->
-				alert('预约成功，你可以在个人中心跟踪订单状态')
+			modalInstance.result.then ->
 				updateRemain($scope.date)
+
 		else
-			openModel($modal, $scope)
+			openLoginModel($modal, $scope)
 
 	updateRemain = (date)->
 		payload =
-			deviceID: thisDevice.ID
+			deviceID: $scope.device.ID
 			date: $filter('date')(date, 'yyyy-MM-dd')
 		Device.resource(payload).$promise.then (body)->
 			$scope.resource = body
 
 	updateRemain(minDate)
 
-	$scope.$watch 'date', (oldValue, newValue)->
+	$scope.$watch 'date', (newValue, oldValue)->
 		updateRemain(newValue)
+		if newValue.getDay() in $scope.device.schedule.workday
+			$scope.inWork = true
+		else
+			$scope.inWork = false
 		return newValue
+]
+
+sciCtrl.controller 'confirmCtrl', ['$scope', '$modalInstance', 'Order', 'payload', ($scope, $modalInstance, Order, payload)->
+	$scope.payload = payload
+
+	$scope.order = ->
+		Order.create($scope.payload).$promise.then ->
+			alert('预约成功，你可以在个人中心跟踪订单状态')
+			$modalInstance.close()
 ]

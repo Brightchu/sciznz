@@ -1,0 +1,32 @@
+.content
+	.input-group
+		p#title 团队信息
+		tabset(justified='true')
+			tab#basic(heading='基本信息')
+				h3 修改基本信息:
+				label 团队名称:
+					input(type="text" class="form-control" ng-model='info.name' disabled)
+				br
+				label 邮箱:
+					input(type="text" class="form-control" ng-model='info.email' disabled)
+				br
+				label 手机号:
+					input(type="text" class="form-control" ng-model='info.phone')
+				br
+				.btn-group
+					button(type="button" class="btn btn-success" ng-click="updateInfo()") 更新信息
+
+			tab(heading='安全设置')
+				h3 修改密码:
+
+				label 原有密码:
+					input(type="password" class="form-control" ng-model='password.oldPassword')
+				br
+				label 新密码:
+					input(type="password" class="form-control" ng-model='password.newPassword')
+				br
+				label 再次输入新密码:
+					input(type="password" class="form-control" ng-model='password.newPasswordAgain')
+				br
+				.btn-group
+					button(type="button" class="btn btn-success" ng-click="updatePassword()") 修改密码

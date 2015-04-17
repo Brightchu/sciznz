@@ -60,3 +60,7 @@ adminApp.config(['$routeProvider', ($routeProvider)->
 		redirectTo: '/data-overview'
 	)
 ])
+
+adminApp.config(['$compileProvider', ($compileProvider)->
+	$compileProvider.debugInfoEnabled(false)
+])

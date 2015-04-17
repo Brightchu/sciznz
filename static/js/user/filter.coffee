@@ -3,36 +3,38 @@
 userFilter = angular.module('userFilter', [])
 userFilter.filter 'statusFilter', ->
 	name =
-		1: '等待提供方确认'
-		2: '等待用户付款'
-		3: '已付款，准备实验'
-		4: '正在实验'
-		5: '等待用户确认'
-		6: '已完成'
-		0: '已取消'
-	(value)->
-		name[value]
+		NEW: '等待提供方确认'
+		CONFIRM: '已确认，待付款'
+		BUDGET: '已付款，等候实验'
+		BEGIN: '正在实验'
+		END: '待支付耗材费用'
+		DONE: '已完成'
+		CANCEL: '已取消'
+	(status)->
+		name[status]
 
-userFilter.filter 'classFilter', ->
+userFilter.filter 'actionClassFilter', ->
 	name =
-		1: 'btn btn-default disabled'
-		2: 'btn btn-success'
-		3: 'btn btn-default disabled'
-		4: 'btn btn-default disabled'
-		5: 'btn btn-success'
-		6: 'btn btn-default disabled'
-		0: 'btn btn-default disabled'
-	(value)->
-		return name[value]
+		NEW: 'hidden'
+		CONFIRM: 'btn btn-success'
+		BUDGET: 'hidden'
+		BEGIN: 'hidden'
+		END: 'btn btn-success'
+		DONE: 'hidden'
+		CANCEL: 'hidden'
+	(status)->
+		return name[status]
 
-userFilter.filter 'buttonTextFilter', ->
+userFilter.filter 'actionTextFilter', ->
 	name =
-		1: '等待'
-		2: '立即付款'
-		3: '等待'
-		4: '等待'
-		5: '确认完成'
-		6: '已完成'
-		0: '已取消'
-	(value)->
-		return name[value]
+		CONFIRM: '立即支付'
+		END: '立即支付'
+	(status)->
+		return name[status]
+
+userFilter.filter 'cancelFilter', ->
+	(status)->
+		if status == 'CANCEL' || status == 'DONE'
+			return false
+		else
+			return true

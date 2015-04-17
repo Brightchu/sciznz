@@ -6,10 +6,44 @@ userService.config(['$resourceProvider', ($resourceProvider)->
 		method: 'PUT'
 ])
 
-userService.factory('Info', ['$resource', ($resource)->
-	$resource('/user/info')
+userService.factory('User', ['$resource', ($resource)->
+	$resource '/user/', {},
+		payMethod:
+			url: '/user/payMethod'
+			isArray: true
+
+		info:
+			url: '/user/info'
+
+		updateInfo:
+			url: '/user/updateInfo'
+			method: 'POST'
+
+		updatePassword:
+			url: '/user/updatePassword'
+			method: 'POST'
+
 ])
 
 userService.factory('Order', ['$resource', ($resource)->
-	$resource('/user/order')
+	$resource '/order/', {},
+		userActive:
+			url: '/order/userActive'
+			isArray: true
+
+		userDone:
+			url: '/order/userDone'
+			isArray: true
+
+		cancel:
+			url: '/order/cancel'
+			method: 'POST'
+
+		budget:
+			url: '/order/budget'
+			method: 'POST'
+
+		fill:
+			url: '/order/fill'
+			method: 'POST'
 ])

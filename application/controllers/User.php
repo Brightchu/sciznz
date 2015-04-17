@@ -1,29 +1,26 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class User extends CI_Controller {
+require_once(APPPATH . 'controllers/Account.php');
 
-	public function __construct()
-	{
-		parent::__construct();
+class User extends Account {
+
+	protected function initialize() {
+		$this->load->helper('url');
 		$this->load->library('encryption');
 		$this->load->model('user_model');
-		$this->load->helper('url');
+
+		$this->role = 'user';
+		$this->roleID = $this->encryption->decrypt($this->input->cookie('userID'));
 
 		if (uri_string() !== 'user/auth' && uri_string() !== 'user/register') {
-			if (!is_numeric($this->encryption->decrypt($this->input->cookie('userID')))) {
+			if (!$this->roleID) {
 				redirect('/');
 			}
 		}
 	}
 
-	public function index()
-	{
-		$this->load->view('user.html');
-	}
-
-	public function auth()
-	{
+	public function auth() {
 		switch ($this->input->method()) {
 			case 'post':
 				$result = $this->user_model->auth($this->input->json('email'), $this->input->json('password'));
@@ -62,53 +59,18 @@ class User extends CI_Controller {
 		}
 	}
 
-	public function info()
-	{
-		$this->load->library('kvdb');
-		$this->load->model('user');
-
-		$session = json_decode($this->kvdb->get('session_' . $this->input->cookie('session')), TRUE);
-
-		switch ($this->input->method()) {
-			case 'get':
-				$this->output->set_json($this->user->getInfo($session['ID']));
-				break;
-
-			case 'put':
-				$req = $this->input->json();
-				$req['ID'] = $session['ID'];
-				$result = $this->user->setInfo($req);
-				$this->output->set_status_header($result ? 200 : 403);
-				break;
-
-			case 'post':
-				$req = $this->input->json();
-				$req['ID'] = $session['ID'];
-				$result = $this->user->updatePassword($req);
-				$this->output->set_status_header($result ? 200 : 403);
-				break;
-		}
+	public function payMethod() {
+		$this->load->library('encryption');
+		$userID = $this->encryption->decrypt($this->input->cookie('userID'));
+		$this->output->set_json($this->user_model->payMethod($userID));
 	}
 
-	public function order()
-	{
-		$this->load->library('kvdb');
-		$this->load->model('order');
+	public function updateInfo() {
+		$name = $this->input->json('name');
+		$phone = $this->input->json('phone');
 
-		$session = json_decode($this->kvdb->get('session_' . $this->input->cookie('session')), TRUE);
-
-		switch ($this->input->method()) {
-			case 'get':
-				$this->output->set_json($this->order->checkout($session['ID']));
-				break;
-			case 'put':
-				$json = $this->input->json();
-				$result = $this->order->setStatus($json);
-				if ($json['status'] == 3 && $result) {
-					$this->load->model('group_model');
-					$result = $this->group_model->pay($session['ID'], $json['ID']);
-				}
-				$this->output->set_status_header($result ? 200 : 403);
-		}
+		$result = $this->user_model->updateName($this->roleID, $name) && $this->user_model->updatePhone($this->roleID, $phone);
+		$this->output->set_status_header($result ? 200 : 403);
 	}
+
 }

@@ -6,18 +6,14 @@ html
 		meta(name="description" content="邮箱验证 - 科学指南针")
 		meta(name="renderer" content="webkit")
 		meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=no")
-		meta(name="mobile-web-app-capable" content="yes")
-		meta(name="apple-mobile-web-app-capable" content="yes")
 		title 邮箱验证 - 科学指南针
-		link(rel="stylesheet" href="/static/bower_components/fonts.css/fonts.css")
-		link(rel="icon" type="image/png" sizes="256x256" href="/static/img/logo.png")
 		style.
 			a {
-				color: #20AF74;
+				color: #35BDB2;
 			}
 			div.content {
 				text-align: center;
-				color: #20AF74;
+				color: #35BDB2;
 			}
 			p.big {
 				font-size: 3rem;
@@ -31,16 +27,20 @@ html
 				padding: 0.8rem 2rem;
 				border-radius: 3rem;
 				color: white;
-				background-color: #20AF74;
+				background-color: #35BDB2;
+			}
+			img.logo {
+				height: 4rem;
 			}
 
-	body.font-hei
+	body
 		div.content
 			p.big 欢迎加入科学指南针！
 			a.email {email}
 			p 请点击下方的按钮以绑定这个邮箱
 			a.go(href='{link}') 绑定邮箱
 			p 如果您无法点击以上链接，请复制以下网址直接在浏览器打开:
-			a(href='{link}') {link}
+			p
+				a(href='{link}') {link}
+			img.logo(src='{logo}')
 			p {datetime}
-			p © 2015 科学指南针

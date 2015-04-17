@@ -38,7 +38,7 @@ sciService.factory 'data', ['$http', ($http)->
 ]
 
 sciService.factory('User', ['$resource', ($resource)->
-	$resource '/user', {},
+	$resource '/user/', {},
 		auth:
 			url: '/user/auth'
 			method: 'POST'
