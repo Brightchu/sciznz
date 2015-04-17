@@ -94,11 +94,17 @@ userCtrl.controller 'payCtrl', ['$scope', '$modalInstance', '$timeout', '$filter
 ]
 
 userCtrl.controller 'personalInfoCtrl', ['$scope', 'User', ($scope, User)->
-	$scope.info = User.get()
+	$scope.info = User.info()
+	User.payMethod().$promise.then (response)->
+		list = response.map (method)->
+			method.groupName
+		if list.length
+			$scope.method = list.join(' ')
+
 	$scope.password = {}
 
 	$scope.updateInfo = ->
-		User.update($scope.info).$promise.then ->
+		User.updateInfo($scope.info).$promise.then ->
 			alert('更新信息成功')
 		, ->
 			alert('更新信息失败')
@@ -106,7 +112,7 @@ userCtrl.controller 'personalInfoCtrl', ['$scope', 'User', ($scope, User)->
 	$scope.updatePassword = ->
 		if $scope.password.newPassword?
 			if $scope.password.newPassword == $scope.password.newPasswordAgain
-				User.save($scope.password).$promise.then ->
+				User.updatePassword($scope.password).$promise.then ->
 					alert('修改密码成功')
 				, ->
 					alert('修改密码失败')

@@ -70,30 +70,29 @@ class User extends CI_Controller {
 
 	public function info()
 	{
-		$this->load->library('kvdb');
-		$this->load->model('user');
+		$this->load->library('encryption');
+		$userID = $this->encryption->decrypt($this->input->cookie('userID'));
 
-		$session = json_decode($this->kvdb->get('session_' . $this->input->cookie('session')), TRUE);
-
-		switch ($this->input->method()) {
-			case 'get':
-				$this->output->set_json($this->user->getInfo($session['ID']));
-				break;
-
-			case 'put':
-				$req = $this->input->json();
-				$req['ID'] = $session['ID'];
-				$result = $this->user->setInfo($req);
-				$this->output->set_status_header($result ? 200 : 403);
-				break;
-
-			case 'post':
-				$req = $this->input->json();
-				$req['ID'] = $session['ID'];
-				$result = $this->user->updatePassword($req);
-				$this->output->set_status_header($result ? 200 : 403);
-				break;
-		}
+		$this->output->set_json($this->user_model->info($userID));
 	}
 
+	public function updateInfo() {
+		$userID = $this->encryption->decrypt($this->input->cookie('userID'));
+
+		$name = $this->input->json('name');
+		$phone = $this->input->json('phone');
+
+		$result = $this->user_model->updateName($userID, $name) && $this->user_model->updatePhone($userID, $phone);
+		$this->output->set_status_header($result ? 200 : 403);
+	}
+
+	public function updatePassword() {
+		$userID = $this->encryption->decrypt($this->input->cookie('userID'));
+
+		$oldPassword = $this->input->json('oldPassword');
+		$newPassword = $this->input->json('newPassword');
+
+		$result = $this->user_model->updatePassword($userID, $oldPassword, $newPassword);
+		$this->output->set_status_header($result ? 200 : 403);
+	}
 }

@@ -11,6 +11,18 @@ userService.factory('User', ['$resource', ($resource)->
 		payMethod:
 			url: '/user/payMethod'
 			isArray: true
+
+		info:
+			url: '/user/info'
+
+		updateInfo:
+			url: 'user/updateInfo'
+			method: 'POST'
+
+		updatePassword:
+			url: 'user/updatePassword'
+			method: 'POST'
+
 ])
 
 userService.factory('Order', ['$resource', ($resource)->

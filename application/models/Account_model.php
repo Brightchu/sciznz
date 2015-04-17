@@ -71,13 +71,17 @@ abstract class Account_model extends CI_Model {
 		{
 			if (password_verify($oldPassword, $row['password']))
 			{
-				$sql = 'UPDATE `?` SET `password`=? WHERE `ID` = ?';
-				$data = [$this->role, $newPassword, $ID];
-				return $this->db->query($sql, $data);
+				$sql = "UPDATE `{$this->role}` SET `password`=? WHERE `ID` = ?";
+				return $this->db->query($sql, [password_hash($newPassword, PASSWORD_BCRYPT), $ID]);
 			}
 		}
 
 		return FALSE;
+	}
+
+	public function info($ID) {
+		$sql = "SELECT `name`, `email`, `phone` FROM `{$this->role}` WHERE `ID` = ?";
+		return $this->db->query($sql, $ID)->row_array();
 	}
 
 	/**
