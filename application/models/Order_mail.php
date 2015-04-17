@@ -35,4 +35,16 @@ class Order_mail extends CI_Model {
 		$this->email->message($this->parser->parse("mail/order/supply/create.html", $data, TRUE));
 		return $this->email->send();
 	}
+
+	public function confirm($userEmail, $data) {
+		$data['userLink'] = site_url('user');
+		$data['logo'] = site_url('static/img/logo-landscape.png');
+		$data['datetime'] = date(DATE_RSS);
+
+		$this->email->from('scicompass@sina.com', 'Sciclubs');
+		$this->email->to($userEmail);
+		$this->email->subject('Sciclubs 预约已确认');
+		$this->email->message($this->parser->parse("mail/order/user/confirm.html", $data, TRUE));
+		return $this->email->send();
+	}
 }

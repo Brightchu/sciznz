@@ -44,9 +44,27 @@ class Order extends CI_Controller {
 	}
 
 	public function confirm() {
+		$this->load->model('user_model');
+		$this->load->model('device_model');
+
 		$orderID = $this->input->json('orderID');
 		$result = $this->order_service->confirm($orderID);
-		$this->output->set_status_header($result ? 200 : 403);
+		if ($result) {
+			$orderInfo = $this->order_service->info($orderID);
+			$userInfo = $this->user_model->info($orderInfo['userID']);
+			$deviceInfo = $this->device_model->textInfo($orderInfo['deviceID']);
+
+			$data = [
+				'name' => $userInfo['name'],
+				'model' => $deviceInfo['model'],
+				'category' => $deviceInfo['category'],
+				'supply' => $deviceInfo['supply'],
+			];
+			$this->order_mail->confirm($userInfo['email'], $data);
+			$this->output->set_status_header(200);
+		} else {
+			$this->output->set_status_header(403);
+		}
 	}
 
 	public function budget() {
