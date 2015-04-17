@@ -97,21 +97,59 @@ class Order extends CI_Controller {
 	}
 
 	public function begin() {
+		$this->load->model('user_model');
+		$this->load->model('device_model');
+
 		$orderID = $this->input->json('orderID');
 		$result = $this->order_service->begin($orderID);
-		$this->output->set_status_header($result ? 200 : 403);
+		if ($result) {
+			$orderInfo = $this->order_service->info($orderID);
+			$userInfo = $this->user_model->info($orderInfo['userID']);
+			$deviceInfo = $this->device_model->textInfo($orderInfo['deviceID']);
+
+			$data = [
+				'name' => $userInfo['name'],
+				'model' => $deviceInfo['model'],
+				'category' => $deviceInfo['category'],
+				'supply' => $deviceInfo['supply'],
+			];
+			$this->order_mail->begin($userInfo['email'], $data);
+			$this->output->set_status_header(200);
+		} else {
+			$this->output->set_status_header(403);
+		}
 	}
 
 	public function end() {
+		$this->load->model('user_model');
+		$this->load->model('device_model');
+
 		$orderID = $this->input->json('orderID');
 		$fill = $this->input->json('fill');
 		$detail = $this->input->json('detail');
 		$result = $this->order_service->end($orderID, $fill, $detail);
-		$this->output->set_status_header($result ? 200 : 403);
+		if ($result) {
+			$orderInfo = $this->order_service->info($orderID);
+			$userInfo = $this->user_model->info($orderInfo['userID']);
+			$deviceInfo = $this->device_model->textInfo($orderInfo['deviceID']);
+
+			$data = [
+				'name' => $userInfo['name'],
+				'model' => $deviceInfo['model'],
+				'category' => $deviceInfo['category'],
+				'supply' => $deviceInfo['supply'],
+			];
+			$this->order_mail->end($userInfo['email'], $data);
+			$this->output->set_status_header(200);
+		} else {
+			$this->output->set_status_header(403);
+		}
 	}
 
 	public function fill() {
 		$this->load->library('encryption');
+		$this->load->model('user_model');
+		$this->load->model('device_model');
 
 		$orderID = $this->input->json('orderID');
 		$method = $this->input->json('method');
@@ -119,13 +157,45 @@ class Order extends CI_Controller {
 		$transaction = $this->encryption->decrypt($this->input->cookie('userID'));
 
 		$result = $this->order_service->fill($orderID, $method, $account, $transaction);
-		$this->output->set_status_header($result ? 200 : 403);
+		if ($result) {
+			$orderInfo = $this->order_service->info($orderID);
+			$userInfo = $this->user_model->info($orderInfo['userID']);
+			$deviceInfo = $this->device_model->textInfo($orderInfo['deviceID']);
+
+			$data = [
+				'name' => $userInfo['name'],
+				'model' => $deviceInfo['model'],
+				'category' => $deviceInfo['category'],
+				'supply' => $deviceInfo['supply'],
+			];
+			$this->order_mail->fill($deviceInfo['supplyEmail'], $data);
+			$this->output->set_status_header(200);
+		} else {
+			$this->output->set_status_header(403);
+		}
 	}
 
 	public function cancel() {
+		$this->load->model('user_model');
+		$this->load->model('device_model');
+
 		$orderID = $this->input->json('orderID');
 		$result = $this->order_service->cancel($orderID);
-		$this->output->set_status_header($result ? 200 : 403);
+		if ($result) {
+			$orderInfo = $this->order_service->info($orderID);
+			$userInfo = $this->user_model->info($orderInfo['userID']);
+			$deviceInfo = $this->device_model->textInfo($orderInfo['deviceID']);
+			$data = [
+				'name' => $userInfo['name'],
+				'model' => $deviceInfo['model'],
+				'category' => $deviceInfo['category'],
+				'supply' => $deviceInfo['supply'],
+			];
+			$this->order_mail->create($userInfo['email'], $deviceInfo['supplyEmail'], $data);
+			$this->output->set_status_header(200);
+		} else {
+			$this->output->set_status_header(403);
+		}
 	}
 
 	public function userActive() {
