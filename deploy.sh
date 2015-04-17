@@ -12,14 +12,10 @@ coffee --join static/js/supply.js --compile static/js/supply/app.coffee static/j
 coffee --join static/js/helper.js --compile static/js/helper/app.coffee static/js/helper/controller.coffee static/js/helper/service.coffee static/js/helper/filter.coffee
 coffee --join static/js/group.js --compile static/js/group/app.coffee static/js/group/controller.coffee static/js/group/service.coffee static/js/group/filter.coffee
 
-lessc -x static/css/front.less static/css/front.css
 lessc -x static/css/theme.less static/css/theme.css
+lessc -x static/css/front.less static/css/front.css
 lessc -x static/css/login.less static/css/login.css
-lessc -x static/css/admin.less static/css/admin.css
-lessc -x static/css/user.less static/css/user.css
-lessc -x static/css/supply.less static/css/supply.css
-lessc -x static/css/helper.less static/css/helper.css
-lessc -x static/css/group.less static/css/group.css
+lessc -x static/css/panel.less static/css/panel.css
 
 jade application/views/*.jade
 jade application/views/mail/register/*.jade

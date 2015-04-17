@@ -12,14 +12,14 @@ sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', '$document', '$wi
 			login()
 
 	login = ->
-		openModel($modal, $scope)
+		openLoginModel($modal, $scope)
 
 	$scope.scrollTo = (selector)->
 		$document.scrollToElementAnimated($(document.querySelector(selector)), 100);
 
 ]
 
-openModel = ($modal, $scope)->
+openLoginModel = ($modal, $scope)->
 	modalInstance = $modal.open
 		templateUrl: '/static/partial/front/login.html'
 		controller: 'loginCtrl'
@@ -101,7 +101,6 @@ sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', '$filter', 'data', ($sco
 	$scope.hideMoreFeature = true
 	$scope.hideMoreCategory = true
 
-	console.log($rootScope.filterModel)
 	if not $rootScope.filterModel?
 		$rootScope.filterModel =
 			domain: $filter('translate')('unlimit')
@@ -120,7 +119,7 @@ sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', '$filter', 'data', ($sco
 		$scope.filterModel.category = newValue
 ]
 
-sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Device', 'Order', '$filter', '$cookies', '$modal', ($scope, $routeParams, data, Device, Order, $filter, $cookies, $modal)->
+sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Device', '$filter', '$cookies', '$modal', ($scope, $routeParams, data, Device, $filter, $cookies, $modal)->
 	$scope.device = data.device[$routeParams.deviceID]
 
 	minDate = new Date()
@@ -138,18 +137,28 @@ sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Device', 'O
 	$scope.book = ->
 		if $cookies.name
 			payload =
+				category: $scope.device.category
+				model: $scope.device.model
 				deviceID: $scope.device.ID
 				date: $filter('date')($scope.date, 'yyyy-MM-dd')
 				method: $scope.orderModel.method
 				resource: $scope.orderModel.resource
+
 			if not payload.resource? and payload.method == 'RESOURCE'
 				return alert('请选择预约项目')
+			
+			modalInstance = $modal.open
+				templateUrl: '/static/partial/front/confirm.html'
+				controller: 'confirmCtrl'
+				resolve:
+					payload: ->
+						return payload
 
-			Order.create(payload).$promise.then ->
-				alert('预约成功，你可以在个人中心跟踪订单状态')
+			modalInstance.result.then ->
 				updateRemain($scope.date)
+
 		else
-			openModel($modal, $scope)
+			openLoginModel($modal, $scope)
 
 	updateRemain = (date)->
 		payload =
@@ -167,4 +176,13 @@ sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Device', 'O
 		else
 			$scope.inWork = false
 		return newValue
+]
+
+sciCtrl.controller 'confirmCtrl', ['$scope', '$modalInstance', 'Order', 'payload', ($scope, $modalInstance, Order, payload)->
+	$scope.payload = payload
+
+	$scope.order = ->
+		Order.create($scope.payload).$promise.then ->
+			alert('预约成功，你可以在个人中心跟踪订单状态')
+			$modalInstance.close()
 ]
