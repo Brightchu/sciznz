@@ -38,8 +38,8 @@ userApp.config(['$translateProvider', ($translateProvider)->
 		'fill': '支付差价'
 		'budgetPayed': '支付预算成功'
 		'budgetPayFail': '支付预算失败，请与我们联系'
-		'fillPayed': '支付预算成功'
-		'fillPayFail': '支付预算失败，请与我们联系'
+		'fillPayed': '支付耗材费成功'
+		'fillPayFail': '支付耗材费失败，请与我们联系'
 
 	$translateProvider.preferredLanguage('zh')
 

@@ -48,15 +48,9 @@ class Order extends CI_Controller {
 
 	public function end() {
 		$orderID = $this->input->json('orderID');
-		$result = $this->order_service->end($orderID);
-		$this->output->set_status_header($result ? 200 : 403);
-	}
-
-	public function detail() {
-		$orderID = $this->input->json('orderID');
-		$detail = json_encode($this->input->json('detail'));
-
-		$result = $this->order_service->detail($orderID, $detail);
+		$fill = $this->input->json('fill');
+		$detail = $this->input->json('detail');
+		$result = $this->order_service->end($orderID, $fill, $detail);
 		$this->output->set_status_header($result ? 200 : 403);
 	}
 

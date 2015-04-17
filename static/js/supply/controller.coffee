@@ -18,17 +18,6 @@ supplyCtrl.controller 'accordionCtrl', ['$scope', '$location', ($scope, $locatio
 		$($(link.parent().parent().parent().parent().children()[0]).children()[0]).children().click()
 ]
 
-openModel = ($modal, $scope, type, order)->
-	modalInstance = $modal.open
-		templateUrl: '/static/partial/user/pay.html'
-		controller: 'payCtrl'
-		size: 'sm'
-		resolve:
-			type: ->
-				return type
-			order: ->
-				return order
-
 supplyCtrl.controller 'orderActiveCtrl', ['$scope', '$modal', '$filter', 'Order', ($scope, $modal, $filter, Order)->
 	$scope.orderList = Order.supplyActive()
 
@@ -49,11 +38,19 @@ supplyCtrl.controller 'orderActiveCtrl', ['$scope', '$modal', '$filter', 'Order'
 				if confirm($filter('translate')('confirmBegin'))
 					payload =
 						orderID: self.order.ID
-					Order.confirm(payload).$promise.then ->
+					Order.begin(payload).$promise.then ->
 						alert($filter('translate')('begined'))
 						self.order.status = 'BEGIN'
 					, ->
 						alert($filter('translate')('beginFailed'))
+			when 'BEGIN'
+				$modal.open
+					templateUrl: '/static/partial/supply/detail.html'
+					controller: 'detailCtrl'
+					size: 'sm'
+					resolve:
+						order: ->
+							return self.order
 
 	$scope.cancel = ->
 		if confirm($filter('translate')('confirmCancel'))
@@ -71,36 +68,20 @@ supplyCtrl.controller 'orderDoneCtrl', ['$scope', 'Order', ($scope, Order)->
 	$scope.orderList = Order.userDone()
 ]
 
-supplyCtrl.controller 'payCtrl', ['$scope', '$modalInstance', '$timeout', '$filter', 'type', 'order', 'User', 'Order', ($scope, $modalInstance, $timeout, $filter, type, order, User, Order)->
-	$scope.title = $filter('translate')(type)
-	$scope.order = order
-	$scope.amount = order[type]
-	$scope.methodList = User.payMethod()
-	$scope.payMethod = {}
-
-	$scope.pay = ->
-		if $scope.payMethod.groupID
+supplyCtrl.controller 'detailCtrl', ['$scope', '$modalInstance', '$timeout', '$filter', 'order', 'Order', ($scope, $modalInstance, $timeout, $filter, order, Order)->
+	$scope.end = ->
+		if confirm($filter('translate')('confirmEnd'))
 			payload =
 				orderID: order.ID
-				method: 'GROUP'
-				account: $scope.payMethod.groupID
-			
-			if type == 'budget'
-				Order.budget(payload).$promise.then ->
-					alert($filter('translate')('budgetPayed'))
-					order.status = 'BUDGET'
-					$modalInstance.close()
-				, ->
-					alert($filter('translate')('budgetPayFail'))
-			else
-				Order.budget(payload).$promise.then ->
-					alert($filter('translate')('fillPayed'))
-					order.status = 'DONE'
-					$modalInstance.close()
-				, ->
-					alert($filter('translate')('fillPayFail'))
-		else
-			alert('请选择支付方式')
+				fill: $scope.fill
+				detail: $scope.detail
+
+			Order.end(payload).$promise.then ->
+				alert($filter('translate')('ended'))
+				order.status = 'END'
+				$modalInstance.close()
+			, ->
+				alert($filter('translate')('endFailed'))
 ]
 
 supplyCtrl.controller 'personalInfoCtrl', ['$scope', 'User', ($scope, User)->

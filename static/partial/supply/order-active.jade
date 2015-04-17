@@ -1,0 +1,33 @@
+div.content
+	p#title 正在进行
+	div#controlBar
+		label 快速过滤:
+			input(type="text" class="form-control" ng-model="keyword" placeholder="关键词")
+			span 总计: {{(orderList | filter:keyword).length}} 项
+
+	table.orderList
+		thead
+			tr
+				th 订单号
+				th 仪器
+				th 预约时间
+				th 使用日期
+				th 使用区段
+				th 实验预算
+				th 订单状态
+				th 操作
+
+		tbody
+			tr(ng-repeat="order in orderList | filter:keyword")
+				td {{order.ID}}
+				td
+					a(href="/#/device/{{order.deviceID}}") {{order.category}} - {{order.model}}
+				td {{order.date}}
+				td {{order.useDate}}
+				td {{order.resource}}
+				td {{order.budget}} 元
+				td {{order.status | statusFilter}}
+				td
+					div(class="btn-group")
+						button(type="button" class="{{order.status | actionClassFilter}}" ng-click="action()") {{order.status | actionTextFilter}}
+						button(type="button" ng-if="order.status | cancelFilter" class="btn btn-warning" ng-click="cancel()") 取消

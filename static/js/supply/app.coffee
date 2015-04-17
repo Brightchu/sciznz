@@ -42,6 +42,9 @@ supplyApp.config(['$translateProvider', ($translateProvider)->
 		'confirmBegin': '确认开始实验？'
 		'begined': '已开始实验'
 		'beginFailed': '开始实验失败，请与我们联系'
+		'confirmEnd': '确认完成实验？'
+		'ended': '已完成实验'
+		'endFailed': '完成实验失败，请与我们联系'
 
 	$translateProvider.preferredLanguage('zh')
 

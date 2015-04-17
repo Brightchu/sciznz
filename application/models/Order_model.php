@@ -53,8 +53,8 @@ class Order_model extends CI_Model {
 		return $this->db->query($sql, [$budgetID, $ID]);
 	}
 
-	public function detail($ID, $fill, $detail) {
-		$sql = 'UPDATE `order` SET `detail` = ? , `fill` = ? WHERE `ID` = ?';
+	public function end($ID, $fill, $detail) {
+		$sql = 'UPDATE `order` SET `status` = "END", `detail` = ?, `fill` = ? WHERE `ID` = ?';
 		return $this->db->query($sql, [$detail, $fill, $ID]);
 	}
 
@@ -74,7 +74,7 @@ class Order_model extends CI_Model {
 	}
 
 	public function userDone($userID) {
-		$sql = 'SELECT `order`.`ID`, `category`.`name` AS `category`, `model`.`name` AS `model`, `device`.`ID` AS `deviceID`, `supply`.`name` AS `supply`, `order`.`date`, `usage`.`date` AS `useDate`, `usage`.`resource`, `status`, `detail`, `budget`, `fill` FROM `order` JOIN `device` ON `userID` = ? AND (`status` = "DONE" OR `status` = "CANCEL") AND `order`.`deviceID` = `device`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID` JOIN `supply` ON `device`.`supplyID` = `supply`.`ID` JOIN `usage` ON `order`.`usageID` = `usage`.`ID`';
+		$sql = 'SELECT `order`.`ID`, `category`.`name` AS `category`, `model`.`name` AS `model`, `device`.`ID` AS `deviceID`, `supply`.`name` AS `supply`, `order`.`date`, `usage`.`date` AS `useDate`, `usage`.`resource`, `status`, `detail`, `budget`, `fill` FROM `order` JOIN `device` ON `userID` = ? AND (`status` = "DONE" OR `status` = "CANCEL") AND `order`.`deviceID` = `device`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID` JOIN `supply` ON `device`.`supplyID` = `supply`.`ID` LEFT JOIN `usage` ON `order`.`usageID` = `usage`.`ID`';
 		return $this->db->query($sql, $userID)->result_array();
 	}
 

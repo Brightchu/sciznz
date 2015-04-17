@@ -44,7 +44,7 @@ class Order_service extends CI_Model {
 	}
 
 	public function end($ID, $fill, $detail) {
-		return  $this->order_model->status($ID, 'END') AND $this->order_model->detail($ID, $fill, $detail);
+		return $this->order_model->end($ID, $fill, $detail);
 	}
 
 	public function fill($ID, $method, $account, $transaction) {

@@ -83,7 +83,7 @@ userCtrl.controller 'payCtrl', ['$scope', '$modalInstance', '$timeout', '$filter
 				, ->
 					alert($filter('translate')('budgetPayFail'))
 			else
-				Order.budget(payload).$promise.then ->
+				Order.fill(payload).$promise.then ->
 					alert($filter('translate')('fillPayed'))
 					order.status = 'DONE'
 					$modalInstance.close()
