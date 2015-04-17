@@ -9,18 +9,18 @@ userService.config(['$resourceProvider', ($resourceProvider)->
 userService.factory('User', ['$resource', ($resource)->
 	$resource '/user/', {},
 		payMethod:
-			url: '/user/payMethod'
+			url: 'payMethod'
 			isArray: true
 
 		info:
-			url: '/user/info'
+			url: 'info'
 
 		updateInfo:
-			url: 'user/updateInfo'
+			url: 'updateInfo'
 			method: 'POST'
 
 		updatePassword:
-			url: 'user/updatePassword'
+			url: 'updatePassword'
 			method: 'POST'
 
 ])
@@ -28,22 +28,22 @@ userService.factory('User', ['$resource', ($resource)->
 userService.factory('Order', ['$resource', ($resource)->
 	$resource '/order/', {},
 		userActive:
-			url: '/order/userActive'
+			url: 'userActive'
 			isArray: true
 
 		userDone:
-			url: '/order/userDone'
+			url: 'userDone'
 			isArray: true
 
 		cancel:
-			url: '/order/cancel'
+			url: 'cancel'
 			method: 'POST'
 
 		budget:
-			url: '/order/budget'
+			url: 'budget'
 			method: 'POST'
 
 		fill:
-			url: '/order/fill'
+			url: 'fill'
 			method: 'POST'
 ])

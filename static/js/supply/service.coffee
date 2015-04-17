@@ -9,45 +9,45 @@ supplyService.config(['$resourceProvider', ($resourceProvider)->
 supplyService.factory('Order', ['$resource', ($resource)->
 	$resource '/order/', {},
 		supplyActive:
-			url: '/order/supplyActive'
+			url: 'supplyActive'
 			isArray: true
 
 		supplyDone:
-			url: '/order/supplyDone'
+			url: 'supplyDone'
 			isArray: true
 
 		confirm:
-			url: '/order/confirm'
+			url: 'confirm'
 			method: 'POST'
 
 		begin:
-			url: '/order/begin'
+			url: 'begin'
 			method: 'POST'
 
 		end:
-			url: '/order/end'
+			url: 'end'
 			method: 'POST'
 
 		cancel:
-			url: '/order/cancel'
+			url: 'cancel'
 			method: 'POST'
 
 		detail:
-			url: '/order/budget'
+			url: 'budget'
 			method: 'POST'
 ])
 
 supplyService.factory('Supply', ['$resource', ($resource)->
 	$resource '/supply/', {},
 		info:
-			url: '/supply/info'
+			url: 'info'
 
 		updateInfo:
-			url: 'supply/updateInfo'
+			url: 'updateInfo'
 			method: 'POST'
 
 		updatePassword:
-			url: 'supply/updatePassword'
+			url: 'updatePassword'
 			method: 'POST'
 
 ])

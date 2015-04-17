@@ -1,29 +1,26 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class User extends CI_Controller {
+require_once(APPPATH . 'controllers/Account.php');
 
-	public function __construct()
-	{
-		parent::__construct();
+class User extends Account {
+
+	protected function initialize() {
+		$this->load->helper('url');
 		$this->load->library('encryption');
 		$this->load->model('user_model');
-		$this->load->helper('url');
+
+		$this->role = 'user';
+		$this->roleID = $this->encryption->decrypt($this->input->cookie('userID'));
 
 		if (uri_string() !== 'user/auth' && uri_string() !== 'user/register') {
-			if (!is_numeric($this->encryption->decrypt($this->input->cookie('userID')))) {
+			if (!$this->roleID) {
 				redirect('/');
 			}
 		}
 	}
 
-	public function index()
-	{
-		$this->load->view('user.html');
-	}
-
-	public function auth()
-	{
+	public function auth() {
 		switch ($this->input->method()) {
 			case 'post':
 				$result = $this->user_model->auth($this->input->json('email'), $this->input->json('password'));
@@ -68,31 +65,12 @@ class User extends CI_Controller {
 		$this->output->set_json($this->user_model->payMethod($userID));
 	}
 
-	public function info()
-	{
-		$this->load->library('encryption');
-		$userID = $this->encryption->decrypt($this->input->cookie('userID'));
-
-		$this->output->set_json($this->user_model->info($userID));
-	}
-
 	public function updateInfo() {
-		$userID = $this->encryption->decrypt($this->input->cookie('userID'));
-
 		$name = $this->input->json('name');
 		$phone = $this->input->json('phone');
 
-		$result = $this->user_model->updateName($userID, $name) && $this->user_model->updatePhone($userID, $phone);
+		$result = $this->user_model->updateName($this->roleID, $name) && $this->user_model->updatePhone($this->roleID, $phone);
 		$this->output->set_status_header($result ? 200 : 403);
 	}
 
-	public function updatePassword() {
-		$userID = $this->encryption->decrypt($this->input->cookie('userID'));
-
-		$oldPassword = $this->input->json('oldPassword');
-		$newPassword = $this->input->json('newPassword');
-
-		$result = $this->user_model->updatePassword($userID, $oldPassword, $newPassword);
-		$this->output->set_status_header($result ? 200 : 403);
-	}
 }

@@ -17,17 +17,6 @@ class User_model extends Account_model {
 	}
 
 	/**
-	 * Update phone
-	 * @param	string	$ID, $phone
-	 * @return  bool
-	 */
-	public function updatePhone($ID, $phone)
-	{
-		$sql = "UPDATE `{$this->role}` SET `phone`=? WHERE `ID` = ?";
-		return $this->db->query($sql, [$phone, $ID]);
-	}
-
-	/**
 	 * Verify email
 	 * @param	string	$email
 	 * @return  bool

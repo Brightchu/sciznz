@@ -1,6 +1,6 @@
-div.content
+.content
 	p#title 成员管理
-	div#controlBar
+	#controlBar
 		label 快速过滤:
 			input(type="text" class="form-control" ng-model="keyword" placeholder="关键词")
 			span 总计: {{(memberList | filter:keyword).length}} 项
@@ -24,7 +24,7 @@ div.content
 					button(type="button" class="btn btn-warning" ng-click="delete()") 删除
 
 	br
-	div#add
+	#add
 		label 添加成员:
 			input(type="email" class="form-control" ng-model="newEmail" placeholder="用户邮箱")
 		br

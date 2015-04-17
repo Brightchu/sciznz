@@ -6,13 +6,21 @@ groupService.config(['$resourceProvider', ($resourceProvider)->
 		method: 'PUT'
 ])
 
-groupService.factory('Info', ['$resource', ($resource)->
-	$resource('/group/info')
+groupService.factory('Group', ['$resource', ($resource)->
+	$resource '/group/', {},
+		info:
+			url: 'info'
+
+		updateInfo:
+			url: 'updateInfo'
+			method: 'POST'
+
+		updatePassword:
+			url: 'updatePassword'
+			method: 'POST'
+
 ])
 
-groupService.factory('Order', ['$resource', ($resource)->
-	$resource('/group/order')
-])
 
 groupService.factory('Member', ['$resource', ($resource)->
 	$resource('/group/member')

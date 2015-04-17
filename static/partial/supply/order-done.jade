@@ -1,6 +1,6 @@
-div.content
+.content
 	p#title 已完成
-	div#controlBar
+	#controlBar
 		label 快速过滤:
 			input(type="text" class="form-control" ng-model="keyword" placeholder="关键词")
 			span 总计: {{(orderList | filter:keyword).length}} 项

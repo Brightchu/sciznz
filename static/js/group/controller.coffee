@@ -59,12 +59,12 @@ groupCtrl.controller 'billCtrl', ['$scope', 'Bill', ($scope, Bill)->
 
 ]
 
-groupCtrl.controller 'infoCtrl', ['$scope', 'Info', ($scope, Info)->
-	$scope.info = Info.get()
+groupCtrl.controller 'infoCtrl', ['$scope', 'Group', ($scope, Group)->
+	$scope.info = Group.info()
 	$scope.password = {}
 
 	$scope.updateInfo = ->
-		Info.update($scope.info).$promise.then ->
+		Group.updateInfo($scope.info).$promise.then ->
 			alert('更新信息成功')
 		, ->
 			alert('更新信息失败')
@@ -72,7 +72,7 @@ groupCtrl.controller 'infoCtrl', ['$scope', 'Info', ($scope, Info)->
 	$scope.updatePassword = ->
 		if $scope.password.newPassword?
 			if $scope.password.newPassword == $scope.password.newPasswordAgain
-				Info.save($scope.password).$promise.then ->
+				Group.updatePassword($scope.password).$promise.then ->
 					alert('修改密码成功')
 				, ->
 					alert('修改密码失败')

@@ -79,6 +79,17 @@ abstract class Account_model extends CI_Model {
 		return FALSE;
 	}
 
+	/**
+	 * Update phone
+	 * @param	string	$ID, $phone
+	 * @return  bool
+	 */
+	public function updatePhone($ID, $phone)
+	{
+		$sql = "UPDATE `{$this->role}` SET `phone`=? WHERE `ID` = ?";
+		return $this->db->query($sql, [$phone, $ID]);
+	}
+
 	public function info($ID) {
 		$sql = "SELECT `name`, `email`, `phone` FROM `{$this->role}` WHERE `ID` = ?";
 		return $this->db->query($sql, $ID)->row_array();

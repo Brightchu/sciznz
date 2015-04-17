@@ -4,13 +4,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 abstract class Account extends CI_Controller {
 
 	protected $role = '';
+	protected $roleID = 0;
 
-	public function __construct()
-	{
+	public function __construct() {
 		parent::__construct();
+		$this->initialize();
+	}
 
-		$this->load->library('nsession');
+	protected function initialize() {
 		$this->load->helper('url');
+		$this->load->library('nsession');
+
 		$this->role = strtolower(get_called_class());
 		$this->roleID = $this->nsession->get("{$this->role}ID");
 
@@ -67,19 +71,28 @@ abstract class Account extends CI_Controller {
 	public function info() {
 		$model = "{$this->role}_model";
 		$this->load->model($model);
-		$ID = $this->nsession->get("{$this->role}ID");
-		$this->output->set_json($this->$model->info($ID));
+
+		$this->output->set_json($this->$model->info($this->roleID));
+	}
+
+	public function updateInfo() {
+		$model = "{$this->role}_model";
+		$this->load->model($model);
+		
+		$phone = $this->input->json('phone');
+
+		$result = $this->$model->updatePhone($this->roleID, $phone);
+		$this->output->set_status_header($result ? 200 : 403);
 	}
 
 	public function updatePassword() {
 		$model = "{$this->role}_model";
 		$this->load->model($model);
 
-		$ID = $this->nsession->get("{$this->role}ID");
 		$oldPassword = $this->input->json('oldPassword');
 		$newPassword = $this->input->json('newPassword');
 
-		$result = $this->$model->updatePassword($ID, $oldPassword, $newPassword);
+		$result = $this->$model->updatePassword($this->roleID, $oldPassword, $newPassword);
 		$this->output->set_status_header($result ? 200 : 403);
 	}
 

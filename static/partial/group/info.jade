@@ -1,20 +1,19 @@
-div.content
-	div.input-group
-		p#title 个人信息
+.content
+	.input-group
+		p#title 团队信息
 		tabset(justified='true')
 			tab#basic(heading='基本信息')
-				label 姓名:
-					input(type="text" class="form-control" ng-model='info.name')
+				h3 修改基本信息:
+				label 团队名称:
+					input(type="text" class="form-control" ng-model='info.name' disabled)
 				br
 				label 邮箱:
-					input(type="text" class="form-control" ng-model='info.email')
+					input(type="text" class="form-control" ng-model='info.email' disabled)
 				br
 				label 手机号:
 					input(type="text" class="form-control" ng-model='info.phone')
 				br
-				label 积分: {{info.credit}}
-				br
-				div(class="btn-group")
+				.btn-group
 					button(type="button" class="btn btn-success" ng-click="updateInfo()") 更新信息
 
 			tab(heading='安全设置')
@@ -29,7 +28,5 @@ div.content
 				label 再次输入新密码:
 					input(type="password" class="form-control" ng-model='password.newPasswordAgain')
 				br
-				div(class="btn-group")
+				.btn-group
 					button(type="button" class="btn btn-success" ng-click="updatePassword()") 修改密码
-
-			tab(heading='关联账户') 关联账户
