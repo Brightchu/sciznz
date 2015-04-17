@@ -25,7 +25,7 @@ userCtrl.controller 'accordionCtrl', ['$scope', '$location', '$cookies', ($scope
 			window.location = '/'
 ]
 
-userCtrl.controller 'orderActiveCtrl', ['$scope', 'Order', 'Info', ($scope, Order, Info)->
+userCtrl.controller 'orderActiveCtrl', ['$scope', '$filter', 'Order', 'Info', ($scope, $filter, Order, Info)->
 	$scope.orderList = Order.userActive()
 	$scope.info = Info.get()
 
@@ -51,17 +51,15 @@ userCtrl.controller 'orderActiveCtrl', ['$scope', 'Order', 'Info', ($scope, Orde
 			alert('操作失败')
 
 	$scope.cancel = ->
-		self = this
-
-		payload =
-			status: 0
-			ID: self.order.ID
-		
-		Order.update(payload).$promise.then ->
-			alert('操作成功')
-			self.order.status = 0
-		, ->
-			alert('操作失败')
+		if confirm($filter('translate')('confirmCancel'))
+			self = this
+			payload =
+				orderID: self.order.ID
+			Order.cancel(payload).$promise.then ->
+				alert($filter('translate')('orderCanceled'))
+				self.order.status = 'CANCEL'
+			, ->
+				alert($filter('translate')('orderCancelFail'))
 ]
 
 userCtrl.controller 'personalInfoCtrl', ['$scope', 'Info', ($scope, Info)->

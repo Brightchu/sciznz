@@ -15,5 +15,9 @@ userService.factory('Order', ['$resource', ($resource)->
 		userActive:
 			url: '/order/userActive'
 			isArray: true
+
+		cancel:
+			url: '/order/cancel'
+			method: 'POST'
 ])
 

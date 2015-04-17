@@ -27,5 +27,5 @@ div.content
 				td {{order.status | statusFilter}}
 				td
 					div(class="btn-group")
-						button(type="button" class="{{order.status | buttonClassFilter}}" ng-click="action()") {{order.status | buttonTextFilter}}
+						button(type="button" class="{{order.status | actionClassFilter}}" ng-click="action()") {{order.status | actionTextFilter}}
 						button(type="button" ng-if="order.status | cancelFilter" class="btn btn-warning" ng-click="cancel()") 取消

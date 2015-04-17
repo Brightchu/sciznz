@@ -10,10 +10,10 @@ userFilter.filter 'statusFilter', ->
 		END: '实验完成，待支付差价'
 		DONE: '已完成'
 		CANCEL: '已取消'
-	(value)->
-		name[value]
+	(status)->
+		name[status]
 
-userFilter.filter 'buttonClassFilter', ->
+userFilter.filter 'actionClassFilter', ->
 	name =
 		NEW: 'hidden'
 		CONFIRM: 'btn btn-success'
@@ -22,16 +22,19 @@ userFilter.filter 'buttonClassFilter', ->
 		END: 'btn btn-success'
 		DONE: 'hidden'
 		CANCEL: 'hidden'
-	(value)->
-		return name[value]
+	(status)->
+		return name[status]
 
-userFilter.filter 'buttonTextFilter', ->
+userFilter.filter 'actionTextFilter', ->
 	name =
 		CONFIRM: '立即支付'
 		END: '立即支付'
-	(value)->
-		return name[value]
+	(status)->
+		return name[status]
 
 userFilter.filter 'cancelFilter', ->
 	(status)->
-		return true
+		if status != 'CANCEL'
+			return true
+		else
+			return false
