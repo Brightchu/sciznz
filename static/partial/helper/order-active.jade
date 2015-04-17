@@ -15,6 +15,7 @@
 				th 使用区段
 				th 实验预算
 				th 订单状态
+				th 订单备注
 				th 操作
 
 		tbody
@@ -27,6 +28,7 @@
 				td {{order.resource}}
 				td {{order.budget}} 元
 				td {{order.status | statusFilter}}
+				td {{order.note}}
 				td
 					.btn-group
 						button(type="button" class="{{order.status | actionClassFilter}}" ng-click="action()") {{order.status | actionTextFilter}}

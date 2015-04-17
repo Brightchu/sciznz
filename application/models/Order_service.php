@@ -13,12 +13,12 @@ class Order_service extends CI_Model {
 	 * @param 	$userID, $deviceID, $date, $resource
 	 * @return  bool
 	 */
-	public function create($userID, $deviceID, $method, $date, $resource) {
+	public function create($userID, $deviceID, $method, $date, $resource, $note) {
 		$this->load->model('device_model');
 		$schedule = json_decode($this->device_model->info($deviceID)['schedule'], TRUE);
 		$budget = $schedule[strtolower($method)][$resource]['price'];
 
-		return $this->order_model->create($userID, $deviceID, $method, $date, $resource, $budget);
+		return $this->order_model->create($userID, $deviceID, $method, $date, $resource, $budget, $note);
 	}
 
 	public function confirm($ID) {

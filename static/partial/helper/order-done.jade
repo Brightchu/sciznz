@@ -15,6 +15,8 @@
 				th 使用区段
 				th 实验预算
 				th 订单状态
+				th 订单备注
+				th 实验详情
 
 		tbody
 			tr(ng-repeat="order in orderList | filter:keyword")
@@ -26,3 +28,5 @@
 				td {{order.resource}}
 				td {{order.budget}} 元
 				td {{order.status | statusFilter}}
+				td {{order.note}}
+				td {{order.detail}}

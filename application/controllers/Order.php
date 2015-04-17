@@ -8,8 +8,7 @@ class Order extends CI_Controller {
 		$this->load->model('order_service');
 	}
 
-	public function create()
-	{
+	public function create() {
 		$this->load->library('encryption');
 
 		$userID = $this->encryption->decrypt($this->input->cookie('userID'));
@@ -17,8 +16,9 @@ class Order extends CI_Controller {
 		$method = $this->input->json('method');
 		$date = $this->input->json('date');
 		$resource = $this->input->json('resource');
+		$note = $this->input->json('note');
 
-		$result = $this->order_service->create($userID, $deviceID, $method, $date, $resource);
+		$result = $this->order_service->create($userID, $deviceID, $method, $date, $resource, $note);
 		$this->output->set_status_header($result ? 200 : 403);
 	}
 
