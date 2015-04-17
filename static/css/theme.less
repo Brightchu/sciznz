@@ -1,7 +1,9 @@
 @charset "utf-8";
 
 @blue: #35BDB2;
+@wp-blue: #0074A2;
 @green: #20AF74;
+@bg-green: #EDFFF8;
 @nav-green: rgba(237, 255, 248, 0.8);
 
 a {
@@ -44,10 +46,10 @@ a {
 }
 
 .navbar-default .navbar-nav > li > a {
-	color: @green;
+	color: @blue;
 	transition: all 0.5s;
 	&:hover, &:focus {
-		background-color: @green;
+		background-color: @blue;
 		color: white;
 	}
 }
@@ -57,10 +59,10 @@ a {
 	margin-bottom: 10px;
 	transition: all 0.5s;
 	& > a {
-		color: @green;
+		color: @blue;
 	}
 	&:hover {
-		background-color: @green;
+		background-color: @blue;
 		& > a {
 			color: white;
 		}
@@ -73,6 +75,7 @@ a {
 		border: 0;
 		.panel-heading {
 			border: 0;
+			border-radius: 0;
 			background-color: #222;
 			.panel-title {
 				border: 0;
@@ -95,7 +98,7 @@ a {
 					}
 					&:hover {
 						a {
-							color: #2EA2CC;
+							color: @blue;
 						}
 					}
 					&.active {
@@ -106,7 +109,7 @@ a {
 			}
 		}
 		.open {
-			background-color: #0074A2;
+			background-color: @blue;
 		}
 	}
 }

@@ -2,6 +2,10 @@
 
 userCtrl = angular.module('userCtrl', ['ngCookies', 'ui.bootstrap'])
 
+userCtrl.controller 'topCtrl', ['$scope', '$cookies', ($scope, $cookies)->
+	$scope.name = $cookies.name
+]
+
 userCtrl.controller 'accordionCtrl', ['$scope', '$location', '$cookies', ($scope, $location, $cookies)->
 	$(document).ready ->
 		heading = $(document.querySelectorAll('.panel-heading'))

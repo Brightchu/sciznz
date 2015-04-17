@@ -1,19 +1,61 @@
 @charset "utf-8";
 
+@blue: #35BDB2;
+@wp-blue: #0074A2;
+@green: #20AF74;
+@bg-green: #EDFFF8;
+@wp-black: #222;
+
 body {
 	background-color: #F1F1F1;
+	overflow-x: hidden;
+}
+
+div#top {
+	position: fixed;
+	width: 100%;
+	height: 4rem;
+	background-color: @wp-black;
+	padding-left: 0 1rem;
+	a.left {
+		display: inline-block;
+		width: 15%;
+		padding-left: 1rem;
+		transition: all 0.25s;
+		&:hover {
+			background-color: #333;
+		}
+	}
+	img#logo {
+		height: 4rem;
+	}
+	span.title {
+		line-height: 4rem;
+		padding: 0 1rem;
+		font-size: 1.6rem;
+		color: white;
+	}
+	span.hello {
+		float: right;
+		margin-right: 4rem;
+		font-size: 1.6rem;
+		line-height: 4rem;
+		color: white;
+	}
 }
 
 div#sidebar{
 	position: fixed;
+	top: 4rem;
 	width: 15%;
 	height: 100vh;
-	background-color: #222;
+	background-color: @wp-black;
 }
 
 div#main{
 	position: absolute;
 	left: 15vw;
+	top: 2rem;
 	width: 85vw;
 	height: 100vh;
 	div#title {
