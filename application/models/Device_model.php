@@ -42,4 +42,11 @@ class Device_model extends CI_Model {
 		$sql = 'SELECT `modelID`, `supplyID`, `field`, `info`, `img`, `spec`, `schedule`, `contract`, `memo`, `online` FROM `device` WHERE `ID` = ?';
 		return $this->db->query($sql, $ID)->row_array();
 	}
+
+	public function textInfo($ID) {
+		$this->load->database('slave');
+
+		$sql = 'SELECT `model`.`name` AS `model`, `category`.`name` AS `category`, `supply`.`name` AS `supply`, `supply`.`email` AS `supplyEmail` FROM `device` JOIN `model` ON `modelID` = `model`.`ID` AND `device`.`ID` = ? JOIN `category` ON `categoryID` = `category`.`ID` JOIN `supply` ON `supplyID` = `supply`.`ID`';
+		return $this->db->query($sql, $ID)->row_array();
+	}
 }

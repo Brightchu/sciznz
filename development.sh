@@ -8,7 +8,8 @@ coffee --join static/js/group.js --watch --compile static/js/group/app.coffee st
 
 jade -w -P application/views/*.jade&
 jade -w -P application/views/mail/register/*.jade&
-jade -w -P application/views/mail/order/*.jade&
+jade -w -P application/views/mail/order/user/*.jade&
+jade -w -P application/views/mail/order/supply/*.jade&
 jade -w -P static/partial/front/*.jade&
 jade -w -P static/partial/admin/*.jade&
 jade -w -P static/partial/user/*.jade&

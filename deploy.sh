@@ -19,7 +19,8 @@ lessc -x static/css/panel.less static/css/panel.css
 
 jade application/views/*.jade
 jade application/views/mail/register/*.jade
-jade application/views/mail/order/*.jade
+jade application/views/mail/order/user/*.jade
+jade application/views/mail/order/supply/*.jade
 jade static/partial/front/*.jade
 jade static/partial/admin/*.jade
 jade static/partial/user/*.jade

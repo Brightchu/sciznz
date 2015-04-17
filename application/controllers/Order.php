@@ -6,10 +6,14 @@ class Order extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('order_service');
+		$this->load->model('order_mail');
 	}
 
 	public function create() {
 		$this->load->library('encryption');
+		$this->load->model('user_model');
+		$this->load->model('device_model');
+		$this->lang->load('name');
 
 		$userID = $this->encryption->decrypt($this->input->cookie('userID'));
 		$deviceID = $this->input->json('deviceID');
@@ -19,7 +23,24 @@ class Order extends CI_Controller {
 		$note = $this->input->json('note');
 
 		$result = $this->order_service->create($userID, $deviceID, $method, $date, $resource, $note);
-		$this->output->set_status_header($result ? 200 : 403);
+		if ($result) {
+			$userInfo = $this->user_model->info($userID);
+			$deviceInfo = $this->device_model->textInfo($deviceID);
+			$data = [
+				'name' => $userInfo['name'],
+				'model' => $deviceInfo['model'],
+				'category' => $deviceInfo['category'],
+				'supply' => $deviceInfo['supply'],
+				'method' => $this->lang->line($method),
+				'date' => $date, 
+				'resource' => $resource,
+				'note' => $note,
+			];
+			$this->order_mail->create($userInfo['email'], $deviceInfo['supplyEmail'], $data);
+			$this->output->set_status_header(200);
+		} else {
+			$this->output->set_status_header(403);
+		}
 	}
 
 	public function confirm() {
