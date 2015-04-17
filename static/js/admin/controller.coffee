@@ -1,6 +1,11 @@
 'use strict'
 
-adminCtrl = angular.module('adminCtrl', ['ui.bootstrap', 'ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav'])
+adminCtrl = angular.module('adminCtrl', ['ngCookies', 'ui.bootstrap', 'ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav'])
+
+adminCtrl.controller 'topCtrl', ['$scope', 'Admin', ($scope, Admin)->
+	$scope.info = Admin.info()
+]
+
 adminCtrl.controller 'accordionCtrl', ['$scope', '$location', ($scope, $location)->
 	$(document).ready ->
 		heading = $(document.querySelectorAll('.panel-heading'))

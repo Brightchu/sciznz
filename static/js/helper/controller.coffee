@@ -1,6 +1,11 @@
 'use strict'
 
 helperCtrl = angular.module('helperCtrl', ['ngCookies', 'ui.bootstrap'])
+
+helperCtrl.controller 'topCtrl', ['$scope', 'Helper', ($scope, Helper)->
+	$scope.info = Helper.info()
+]
+
 helperCtrl.controller 'accordionCtrl', ['$scope', '$location', '$cookies', ($scope, $location, $cookies)->
 	$(document).ready ->
 		heading = $(document.querySelectorAll('.panel-heading'))

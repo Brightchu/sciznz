@@ -6,6 +6,12 @@ adminService.config(['$resourceProvider', ($resourceProvider)->
 		method: 'PUT'
 ])
 
+adminService.factory('Admin', ['$resource', ($resource)->
+	$resource '/admin/', {},
+		info:
+			url: '/admin/info'
+])
+
 adminService.factory('FrontHierarchy', ['$resource', ($resource)->
 	$resource('/admin/frontHierarchy')
 ])

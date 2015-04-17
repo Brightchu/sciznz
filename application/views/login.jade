@@ -13,12 +13,12 @@ html
 		link(rel="icon" type="image/png" sizes="256x256" href="/static/img/logo.png")
 
 	body.font-hei
-		div.container
+		.container
 			img#logoBox(src="/static/img/logo-landscape.png")
 			form#loginForm(action="/{role}/login/" method="post")
 				h2 {role_zh}登录
 				{error}
-				div(class="alert alert-danger" role="alert" id="error-tip") {text}
+				.alert.alert-danger(role="alert" id="error-tip") {text}
 				{/error}
 				input(type="email" name="email" class="form-control" placeholder="账号" required autofocus)
 				input(type="password" name="password" class="form-control" placeholder="密码" required)

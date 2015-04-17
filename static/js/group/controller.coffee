@@ -2,6 +2,10 @@
 
 groupCtrl = angular.module('groupCtrl', ['ngCookies', 'ui.bootstrap'])
 
+groupCtrl.controller 'topCtrl', ['$scope', 'Group', ($scope, Group)->
+	$scope.info = Group.info()
+]
+
 groupCtrl.controller 'accordionCtrl', ['$scope', '$location', '$cookies', ($scope, $location, $cookies)->
 	$(document).ready ->
 		heading = $(document.querySelectorAll('.panel-heading'))

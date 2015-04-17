@@ -1,6 +1,11 @@
 'use strict'
 
 supplyCtrl = angular.module('supplyCtrl', ['ngCookies', 'ui.bootstrap'])
+
+supplyCtrl.controller 'topCtrl', ['$scope', 'Supply', ($scope, Supply)->
+	$scope.info = Supply.info()
+]
+
 supplyCtrl.controller 'accordionCtrl', ['$scope', '$location', '$cookies', ($scope, $location, $cookies)->
 	$(document).ready ->
 		heading = $(document.querySelectorAll('.panel-heading'))
