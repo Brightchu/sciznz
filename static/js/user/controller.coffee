@@ -25,30 +25,25 @@ userCtrl.controller 'accordionCtrl', ['$scope', '$location', '$cookies', ($scope
 			window.location = '/'
 ]
 
-userCtrl.controller 'orderActiveCtrl', ['$scope', '$filter', 'Order', 'Info', ($scope, $filter, Order, Info)->
+openModel = ($modal, $scope, type, order)->
+	modalInstance = $modal.open
+		templateUrl: '/static/partial/user/pay.html'
+		controller: 'payCtrl'
+		size: 'sm'
+		resolve:
+			type: ->
+				return type
+			order: ->
+				return order
+
+userCtrl.controller 'orderActiveCtrl', ['$scope', '$modal', '$filter', 'Order', ($scope, $modal, $filter, Order)->
 	$scope.orderList = Order.userActive()
-	$scope.info = Info.get()
 
-	$scope.upgrade = ->
-		self = this
-
-		if self.order.status == 2
-			if self.info.groupName?
-				if not confirm('确认通过' + $scope.info.groupName + '支付？')
-					return
-			else
-				alert('你还没有加入任何科研团体，请与科学指南针联系')
-				return
-
-		payload =
-			status: self.order.status + 1
-			ID: self.order.ID
-		
-		Order.update(payload).$promise.then ->
-			alert('操作成功')
-			self.order.status += 1
-		, ->
-			alert('操作失败')
+	$scope.action = ->
+		if this.order.status == 'CONFIRM'
+			openModel($modal, $scope, 'budget', this.order)
+		else
+			openModel($modal, $scope, 'fill', this.order)
 
 	$scope.cancel = ->
 		if confirm($filter('translate')('confirmCancel'))
@@ -62,12 +57,44 @@ userCtrl.controller 'orderActiveCtrl', ['$scope', '$filter', 'Order', 'Info', ($
 				alert($filter('translate')('orderCancelFail'))
 ]
 
-userCtrl.controller 'personalInfoCtrl', ['$scope', 'Info', ($scope, Info)->
-	$scope.info = Info.get()
+userCtrl.controller 'payCtrl', ['$scope', '$modalInstance', '$timeout', '$filter', 'type', 'order', 'User', 'Order', ($scope, $modalInstance, $timeout, $filter, type, order, User, Order)->
+	$scope.title = $filter('translate')(type)
+	$scope.order = order
+	$scope.amount = order[type]
+	$scope.methodList = User.payMethod()
+	$scope.payMethod = {}
+
+	$scope.pay = ->
+		if $scope.payMethod.groupID
+			payload =
+				orderID: order.ID
+				method: 'GROUP'
+				account: $scope.payMethod.groupID
+			
+			if type == 'budget'
+				Order.budget(payload).$promise.then ->
+					alert($filter('translate')('budgetPayed'))
+					order.status = 'BUDGET'
+					$modalInstance.close()
+				, ->
+					alert($filter('translate')('budgetPayFail'))
+			else
+				Order.budget(payload).$promise.then ->
+					alert($filter('translate')('fillPayed'))
+					order.status = 'DONE'
+					$modalInstance.close()
+				, ->
+					alert($filter('translate')('fillPayFail'))
+		else
+			alert('请选择支付方式')
+]
+
+userCtrl.controller 'personalInfoCtrl', ['$scope', 'User', ($scope, User)->
+	$scope.info = User.get()
 	$scope.password = {}
 
 	$scope.updateInfo = ->
-		Info.update($scope.info).$promise.then ->
+		User.update($scope.info).$promise.then ->
 			alert('更新信息成功')
 		, ->
 			alert('更新信息失败')
@@ -75,7 +102,7 @@ userCtrl.controller 'personalInfoCtrl', ['$scope', 'Info', ($scope, Info)->
 	$scope.updatePassword = ->
 		if $scope.password.newPassword?
 			if $scope.password.newPassword == $scope.password.newPasswordAgain
-				Info.save($scope.password).$promise.then ->
+				User.save($scope.password).$promise.then ->
 					alert('修改密码成功')
 				, ->
 					alert('修改密码失败')

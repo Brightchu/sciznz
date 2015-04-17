@@ -49,4 +49,10 @@ class User_model extends Account_model {
 		return $this->db->query($sql, $ID);
 	}
 
+
+	public function payMethod($ID) {
+		$sql = 'SELECT `member`.`groupID`, `group`.`name` AS `groupName` FROM `member` JOIN `group` ON `userID` = ? AND `member`.`groupID` = `group`.`ID`';
+		return $this->db->query($sql, $ID)->result_array();
+	}
+
 }

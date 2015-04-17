@@ -14,7 +14,11 @@ class Order_service extends CI_Model {
 	 * @return  bool
 	 */
 	public function create($userID, $deviceID, $method, $date, $resource) {
-		return $this->order_model->create($userID, $deviceID, $method, $date, $resource);
+		$this->load->model('device_model');
+		$schedule = json_decode($this->device_model->info($deviceID)['schedule'], TRUE);
+		$budget = $schedule[strtolower($method)][$resource]['price'];
+
+		return $this->order_model->create($userID, $deviceID, $method, $date, $resource, $budget);
 	}
 
 	public function confirm($ID) {
@@ -23,19 +27,11 @@ class Order_service extends CI_Model {
 
 	public function budget($ID, $method, $account, $transaction) {
 		$this->load->model('pay_model');
-		$this->load->model('device_model');
-		$this->load->model('usage_model');
 
 		switch ($method) {
 			case 'GROUP':
-				$orderInfo = $this->order_model->info($ID);
-				$deviceInfo = $this->device_model->info($orderInfo['deviceID']);
-				$usageInfo = $this->usage_model->info($orderInfo['usageID']);
-
-				$schedule = json_decode($deviceInfo['schedule'], TRUE);
-				$amount = $schedule[strtolower($orderInfo['method'])][$usageInfo['resource']]['price'];
-
-				$payID = $this->pay_model->pay($amount, 'GROUP', $account, $transaction);
+				$budget = $this->order_model->info($ID)['budget'];
+				$payID = $this->pay_model->pay($budget, 'GROUP', $account, $transaction);
 				return $this->order_model->budget($ID, $payID);
 			
 			default:
@@ -47,12 +43,8 @@ class Order_service extends CI_Model {
 		return $this->order_model->status($ID, 'BEGIN');
 	}
 
-	public function end($ID) {
-		return $this->order_model->status($ID, 'END');
-	}
-
-	public function detail($ID, $detail) {
-		return $this->order_model->detail($ID, $detail);
+	public function end($ID, $fill, $detail) {
+		return  $this->order_model->status($ID, 'END') AND $this->order_model->detail($ID, $fill, $detail);
 	}
 
 	public function fill($ID, $method, $account, $transaction) {
@@ -60,11 +52,8 @@ class Order_service extends CI_Model {
 
 		switch ($method) {
 			case 'GROUP':
-				$orderInfo = $this->order_model->info($ID);
-				$detail = json_decode($orderInfo['detail'], TRUE);
-				$amount = $detail['total'] - $detail['budget'];
-
-				$payID = $this->pay_model->pay($amount, 'GROUP', $account, $transaction);
+				$fill = $this->order_model->info($ID)['fill'];
+				$payID = $this->pay_model->pay($fill, 'GROUP', $account, $transaction);
 				return $this->order_model->fill($ID, $payID);
 			
 			case 'NONE':

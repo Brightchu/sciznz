@@ -34,6 +34,12 @@ userApp.config(['$translateProvider', ($translateProvider)->
 		'confirmCancel': '确认取消订单'
 		'orderCanceled': '订单已成功取消'
 		'orderCancelFail': '取消订单失败，请与我们联系'
+		'budget': '支付预算'
+		'fill': '支付差价'
+		'budgetPayed': '支付预算成功'
+		'budgetPayFail': '支付预算失败，请与我们联系'
+		'fillPayed': '支付预算成功'
+		'fillPayFail': '支付预算失败，请与我们联系'
 
 	$translateProvider.preferredLanguage('zh')
 

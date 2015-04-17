@@ -62,6 +62,12 @@ class User extends CI_Controller {
 		}
 	}
 
+	public function payMethod() {
+		$this->load->library('encryption');
+		$userID = $this->encryption->decrypt($this->input->cookie('userID'));
+		$this->output->set_json($this->user_model->payMethod($userID));
+	}
+
 	public function info()
 	{
 		$this->load->library('kvdb');

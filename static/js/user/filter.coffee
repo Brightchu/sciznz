@@ -34,7 +34,7 @@ userFilter.filter 'actionTextFilter', ->
 
 userFilter.filter 'cancelFilter', ->
 	(status)->
-		if status != 'CANCEL'
-			return true
-		else
+		if status == 'CANCEL' || status == 'DONE'
 			return false
+		else
+			return true
