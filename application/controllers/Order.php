@@ -91,14 +91,14 @@ class Order extends CI_Controller {
 	}
 
 	public function supplyActive() {
-		$this->load->library('encryption');
-		$supplyID = $this->encryption->decrypt($this->input->cookie('supplyID'));
+		$this->load->library('nsession');
+		$supplyID = $this->nsession->get('supplyID');
 		$this->output->set_json($this->order_service->supplyActive($supplyID));
 	}
 
 	public function supplyDone() {
-		$this->load->library('encryption');
-		$supplyID = $this->encryption->decrypt($this->input->cookie('supplyID'));
+		$this->load->library('nsession');
+		$supplyID = $this->nsession->get('supplyID');
 		$this->output->set_json($this->order_service->supplyDone($supplyID));
 	}
 

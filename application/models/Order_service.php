@@ -86,25 +86,8 @@ class Order_service extends CI_Model {
 		return $result;
 	}
 
-	public function userActive($userID) {
-		return $this->order_model->userActive($userID);
-	}
-
-	public function userDone($userID) {
-		return $this->order_model->userDone($userID);
-	}
-
-
-	public function supplyActive($supplyID) {
-		return $this->order_model->supplyActive($supplyID);
-	}
-
-	public function supplyDone($supplyID) {
-		return $this->order_model->supplyDone($supplyID);
-	}
-
-	public function groupBill($groupID) {
-		return $this->order_model->groupBill($groupID);
+	public function __call($name, $args) {
+		return $this->order_model->$name($args);
 	}
 
 }

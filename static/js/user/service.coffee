@@ -47,4 +47,3 @@ userService.factory('Order', ['$resource', ($resource)->
 			url: '/order/fill'
 			method: 'POST'
 ])
-

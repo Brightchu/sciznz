@@ -31,7 +31,7 @@ userApp.config(['$compileProvider', ($compileProvider)->
 
 userApp.config(['$translateProvider', ($translateProvider)->
 	$translateProvider.translations 'zh',
-		'confirmCancel': '确认取消订单'
+		'confirmCancel': '确认取消订单？'
 		'orderCanceled': '订单已成功取消'
 		'orderCancelFail': '取消订单失败，请与我们联系'
 		'budget': '支付预算'
@@ -44,4 +44,3 @@ userApp.config(['$translateProvider', ($translateProvider)->
 	$translateProvider.preferredLanguage('zh')
 
 ])
-

@@ -79,7 +79,7 @@ class Order_model extends CI_Model {
 	}
 
 	public function supplyActive($supplyID) {
-		$sql = 'SELECT `order`.`ID`, `userID`, `deviceID`, `date`, `status`, `detail`, `usageID`, `budgetID`, `fillID` FROM `order` JOIN `device` ON `status` != "DONE" AND `order`.`deviceID` = `device`.`ID` AND `device`.`supplyID` = ?';
+		$sql = 'SELECT `order`.`ID`, `category`.`name` AS `category`, `model`.`name` AS `model`, `device`.`ID` AS `deviceID`, `order`.`date`, `usage`.`date` AS `useDate`, `usage`.`resource`, `status`, `detail`, `budget`, `fill` FROM `order` JOIN `device` ON `supplyID` = ? AND (`status` != "DONE" AND `status` != "CANCEL") AND `order`.`deviceID` = `device`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID` JOIN `usage` ON `order`.`usageID` = `usage`.`ID`';
 		return $this->db->query($sql, $supplyID)->result_array();
 	}
 
