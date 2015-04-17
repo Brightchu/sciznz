@@ -10,12 +10,10 @@ div.content
 			tr
 				th 订单号
 				th 仪器
-				th 提供方
 				th 预约时间
 				th 使用日期
 				th 使用区段
 				th 实验预算
-				th 追加费用
 				th 订单状态
 
 		tbody
@@ -23,10 +21,8 @@ div.content
 				td {{order.ID}}
 				td
 					a(href="/#/device/{{order.deviceID}}") {{order.category}} - {{order.model}}
-				td {{order.supply}}
 				td {{order.date}}
 				td {{order.useDate}}
 				td {{order.resource}}
 				td {{order.budget}} 元
-				td {{order.fill}} 元
 				td {{order.status | statusFilter}}

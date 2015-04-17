@@ -65,7 +65,7 @@ supplyCtrl.controller 'orderActiveCtrl', ['$scope', '$modal', '$filter', 'Order'
 ]
 
 supplyCtrl.controller 'orderDoneCtrl', ['$scope', 'Order', ($scope, Order)->
-	$scope.orderList = Order.userDone()
+	$scope.orderList = Order.supplyDone()
 ]
 
 supplyCtrl.controller 'detailCtrl', ['$scope', '$modalInstance', '$timeout', '$filter', 'order', 'Order', ($scope, $modalInstance, $timeout, $filter, order, Order)->
