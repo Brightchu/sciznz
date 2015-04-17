@@ -16,7 +16,7 @@ html
 		link(rel="stylesheet" href="/static/css/panel.css")
 		link(rel="icon" type="image/png" sizes="256x256" href="/static/img/logo.png")
 
-	body.font-hei(ng-app="adminApp")
+	body.font-hei(ng-app="adminApp" ng-strict-di)
 		#top(ng-controller="topCtrl")
 			a.left(href='/')
 				img#logo(src='/static/img/logo.png')
