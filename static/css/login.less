@@ -9,16 +9,20 @@ body {
 img#logoBox{
 	display: block;
 	margin: 5% auto 2%;
-	@media (orientation:landscape) {
-		width: 40%;
+	width: 80%;
+	@media (min-width: 768px) and (max-width: 992px) {
+		width: 60%;
 	}
-	@media (orientation:portrait) {
-		width: 80%;
+	@media (min-width: 992px) {
+		width: 40%;
 	}
 }
 
 #loginForm {
-	@media (orientation:landscape) {
+	@media (min-width: 768px) and (max-width: 992px) {
+		width: 70%;
+	}
+	@media (min-width: 992px) {
 		width: 40%;
 	}
 	margin: 2% auto 0;
