@@ -6,7 +6,7 @@ adminCtrl.controller 'topCtrl', ['$scope', 'Admin', ($scope, Admin)->
 	$scope.info = Admin.info()
 ]
 
-adminCtrl.controller 'accordionCtrl', ['$scope', '$location', ($scope, $location)->
+adminCtrl.controller 'accordionCtrl', ['$scope', '$location', '$cookies', ($scope, $location, $cookies)->
 	$(document).ready ->
 		heading = $(document.querySelectorAll('.panel-heading'))
 		heading.on 'click', ->
@@ -22,6 +22,11 @@ adminCtrl.controller 'accordionCtrl', ['$scope', '$location', ($scope, $location
 		link.parent().click()
 		$($(link.parent().parent().parent().parent().children()[0]).children()[0]).children().click()
 
+	$scope.logout = ->
+		if confirm('退出当前账号？')
+			for key, value of $cookies
+				delete $cookies[key]
+			window.location = '/admin/login'
 ]
 
 gridBuilder = ($scope, Model, columnDefs)->
@@ -69,6 +74,44 @@ adminCtrl.controller 'dataBooking', ['$scope', ($scope)->
 
 adminCtrl.controller 'dataPayment', ['$scope', ($scope)->
 	$scope.title = '支付统计'
+]
+
+adminCtrl.controller 'frontAdd', ['$scope', 'FrontCategory', 'FrontModel', 'Supply', ($scope, FrontCategory, FrontModel, Supply)->
+	$scope.thisCategory =
+		name: '请选择分类'
+	$scope.thisModel =
+		name: '请选择型号'
+	$scope.thisSupply =
+		name: '请选择供应商'
+
+	modelList = []
+	FrontModel.query().$promise.then (data)->
+		for model in data
+			model.field = JSON.parse(model.field)
+			model.spec = JSON.parse(model.spec)
+		modelList = data
+
+	$scope.categoryList = FrontCategory.query()
+	$scope.supplyList = Supply.query()
+
+	$scope.modelDisabled = true
+	$scope.deviceDisabled = true
+
+	$scope.onCategoryClick = ->
+		$scope.thisCategory = this.category
+		$scope.modelDisabled = false
+		$scope.modelList = modelList.filter (model)->
+			model.categoryID == $scope.thisCategory.ID
+
+	$scope.onModelClick = ->
+		$scope.thisModel = this.model
+		$scope.deviceDisabled = false
+
+	$scope.onSupplyClick = ->
+		$scope.thisSupply = this.supply
+
+	$scope.addField = ->
+		$scope.thisModel.field['NEW'] = 'NEW'
 ]
 
 adminCtrl.controller 'frontHierarchy', ['$scope', 'FrontHierarchy', ($scope, FrontHierarchy)->

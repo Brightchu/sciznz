@@ -36,6 +36,8 @@ html
 						a(href="#/data-payment") 支付统计
 				accordion-group(heading="前台管理")
 					p
+						a(href="#/front-add") 录入系统
+					p
 						a(href="#/front-hierarchy") 层级管理
 					p
 						a(href="#/front-category") 分类管理
@@ -62,6 +64,9 @@ html
 				accordion-group(heading="预约管理")
 					p
 						a(href="#/order-admin") 预约管理
+				accordion-group(heading="账号信息")
+					p
+						a(ng-click="logout()") 退出当前账号
 
 		#main(class="view-frame" ng-view)
 

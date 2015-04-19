@@ -15,7 +15,7 @@ sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', '$document', '$wi
 		openLoginModel($modal, $scope)
 
 	$scope.scrollTo = (selector)->
-		if $window.location.hash == '#/list'
+		if $window.location.hash != '/'
 			$window.location.hash = '/'
 		else
 			$document.scrollToElementAnimated($(document.querySelector(selector)), 100);

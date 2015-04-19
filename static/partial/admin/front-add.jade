@@ -1,0 +1,59 @@
+form#table.form-horizontal
+	p#title 录入系统
+
+	.form-group
+		label.col-sm-2 一. 选择分类:
+		.col-sm-4(dropdown)
+			button.btn.btn-success.dropdown-toggle(type='button' dropdown-toggle) {{thisCategory.name}}
+				span.caret
+			ul.dropdown-menu(role='menu')
+				li.entry(ng-repeat='category in categoryList' ng-click='onCategoryClick()')
+					a {{category.name}}
+				li.divider
+					li.entry
+						a 添加新分类
+
+	.form-group
+		label.col-sm-2 二. 选择型号:
+		.col-sm-4(dropdown)
+			button.btn.btn-warning.dropdown-toggle(type='button' dropdown-toggle ng-disabled="modelDisabled") {{thisModel.name}}
+				span.caret
+			ul.dropdown-menu(role='menu')
+				li.entry(ng-repeat='model in modelList' ng-click='onModelClick()')
+					a {{model.name}}
+				li.divider
+					li.entry
+						a 添加新型号
+
+	.form-group
+		label.col-sm-2 三. 选择供应商:
+		.col-sm-4(dropdown)
+			button.btn.btn-info.dropdown-toggle(type='button' dropdown-toggle) {{thisSupply.name}}
+				span.caret
+			ul.dropdown-menu(role='menu')
+				li.entry(ng-repeat='supply in supplyList' ng-click='onSupplyClick()')
+					a {{supply.name}}
+				li.divider
+					li.entry
+						a 添加供应商
+
+	label 四. 录入仪器:
+	.form-group(ng-hide='deviceDisabled')
+		.field-area
+			label 仪器参数:
+			button.btn.btn-default.btn-sm(ng-click='addField()') 添加参数
+			.field-item.form-group(ng-repeat='(name, default) in thisModel.field')
+				.col-sm-2
+					input.form-control(type='text' ng-model='name')
+				.col-sm-2
+					input.form-control(type='text' ng-model='default')
+		.field-area
+			label 备注信息:
+			textarea
+		.field-area
+			label 图片URL:
+			textarea
+
+	br
+	br
+	button.btn.btn-success(type="button" ng-click="stage()") 保存并录入
