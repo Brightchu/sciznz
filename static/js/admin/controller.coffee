@@ -96,7 +96,6 @@ adminCtrl.controller 'frontCategory', ['$scope', 'FrontCategory', ($scope, Front
 		{name: 'ID', enableCellEdit: false}
 		{name: 'name'}
 		{name: 'field'}
-		{name: 'info'}
 	])
 ]
 
@@ -105,10 +104,10 @@ adminCtrl.controller 'frontModel', ['$scope', 'FrontModel', ($scope, FrontModel)
 	gridBuilder.call(this, $scope, FrontModel, [
 		{name: 'ID', enableCellEdit: false}
 		{name: 'categoryID'}
-		{name: 'vendor'}
 		{name: 'name'}
 		{name: 'field'}
-		{name: 'info'}
+		{name: 'img'}
+		{name: 'spec'}
 	])
 ]
 

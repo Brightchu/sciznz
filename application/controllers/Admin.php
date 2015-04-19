@@ -49,12 +49,12 @@ class Admin extends Account {
 
 	public function frontCategory()
 	{
-		$this->handler('category');
+		$this->handler('category_model');
 	}
 
 	public function frontModel()
 	{
-		$this->handler('model');
+		$this->handler('model_model');
 	}
 
 	public function frontDevice()
