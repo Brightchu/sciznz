@@ -56,9 +56,9 @@ adminApp.config(['$routeProvider', ($routeProvider)->
 	).when('/people-admin'
 		templateUrl: '/static/partial/admin/generic-table.html'
 		controller: 'peopleAdmin'
-	).when('/booking-admin'
+	).when('/order-admin'
 		templateUrl: '/static/partial/admin/generic-blank.html'
-		controller: 'bookingAdmin'
+		controller: 'orderAdmin'
 	).otherwise(
 		redirectTo: '/data-overview'
 	)

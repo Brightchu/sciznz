@@ -226,6 +226,6 @@ adminCtrl.controller 'peopleAdmin', ['$scope', 'Admin', ($scope, Admin)->
 	])
 ]
 
-adminCtrl.controller 'bookingAdmin', ['$scope', ($scope)->
+adminCtrl.controller 'orderAdmin', ['$scope', ($scope)->
 	$scope.title = '预约管理'
 ]

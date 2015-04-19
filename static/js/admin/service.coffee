@@ -51,4 +51,3 @@ adminService.factory('Admin', ['$resource', ($resource)->
 		info:
 			url: '/admin/info'
 ])
-
