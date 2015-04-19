@@ -33,15 +33,15 @@ class Admin extends Account {
 
 	public function frontHierarchy()
 	{
-		$this->load->model('hierarchy');
+		$this->load->model('config_model');
 
 		switch ($this->input->method()) {
 			case 'get':
-				$this->output->set_content_type('application/json')->set_output($this->hierarchy->get());
+				$this->output->set_json($this->config_model->hierarchy());
 				break;
 
 			case 'put':
-				$result = $this->hierarchy->set(file_get_contents('php://input'));
+				$result = $this->config_model->hierarchy($this->input->raw_input_stream);
 				$this->output->set_status_header($result ? 200 : 403);
 				break;
 		}

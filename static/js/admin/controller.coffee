@@ -74,9 +74,13 @@ adminCtrl.controller 'dataPayment', ['$scope', ($scope)->
 adminCtrl.controller 'frontHierarchy', ['$scope', 'FrontHierarchy', ($scope, FrontHierarchy)->
 	$scope.title = '层级管理'
 	$scope.editor = new JSONEditor(document.querySelector('#jsoneditor'))
-
-	FrontHierarchy.query().$promise.then (data)->
-		$scope.editor.set(data)
+	
+	FrontHierarchy.get().$promise.then (data)->
+		local = {}
+		for name, value of data
+			if name.indexOf('$') == -1
+				local[name] = value
+		$scope.editor.set(local)
 
 	$scope.save = ->
 		FrontHierarchy.update($scope.editor.get()).$promise.then ->
