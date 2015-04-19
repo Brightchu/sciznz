@@ -116,15 +116,14 @@ adminCtrl.controller 'frontDevice', ['$scope', 'FrontDevice', ($scope, FrontDevi
 	gridBuilder.call(this, $scope, FrontDevice, [
 		{name: 'ID', enableCellEdit: false}
 		{name: 'modelID'}
-		{name: 'instituteID'}
-		{name: 'city'}
-		{name: 'location'}
-		{name: 'address'}
-		{name: 'price'}
-		{name: 'unit'}
+		{name: 'supplyID'}
 		{name: 'field'}
 		{name: 'info'}
-		{name: 'credit'}
+		{name: 'img'}
+		{name: 'spec'}
+		{name: 'schedule'}
+		{name: 'contract'}
+		{name: 'memo'}
 		{name: 'online'}
 	])
 ]
@@ -168,54 +167,62 @@ adminCtrl.controller 'cacheAdmin', ['$scope', 'CacheAdmin', ($scope, CacheAdmin)
 		gridApi.rowEdit.on.saveRow($scope, $scope.saveRow)
 ]
 
-adminCtrl.controller 'instituteAdmin', ['$scope', 'Institute', ($scope, Institute)->
-	$scope.title = '机构管理'
-	gridBuilder.call(this, $scope, Institute, [
-		{name: 'ID', enableCellEdit: false}
-		{name: 'chief'}
-		{name: 'name'}
-		{name: 'info'}
-	])
-]
-
 adminCtrl.controller 'peopleUser', ['$scope', 'User', ($scope, User)->
 	$scope.title = '用户管理'
 	gridBuilder.call(this, $scope, User, [
 		{name: 'ID', enableCellEdit: false}
 		{name: 'name'}
-		{name: 'username'}
+		{name: 'email'}
 		{name: 'password'}
 		{name: 'phone'}
-		{name: 'email'}
-		{name: 'credit'}
 	])
 ]
 
-adminCtrl.controller 'peopleStaff', ['$scope', 'Operator', ($scope, Operator)->
-	$scope.title = '操作员管理'
-	gridBuilder.call(this, $scope, Operator, [
+adminCtrl.controller 'peopleSupply', ['$scope', 'Supply', ($scope, Supply)->
+	$scope.title = '供应商管理'
+	gridBuilder.call(this, $scope, Supply, [
 		{name: 'ID', enableCellEdit: false}
-		{name: 'orgID'}
 		{name: 'name'}
-		{name: 'username'}
+		{name: 'email'}
 		{name: 'password'}
 		{name: 'phone'}
-		{name: 'email'}
-		{name: 'credit'}
+		{name: 'city'}
+		{name: 'locale'}
+		{name: 'address'}
+		{name: 'memo'}
 	])
 ]
 
-adminCtrl.controller 'peopleAdmin', ['$scope', 'Supervisor', ($scope, Supervisor)->
-	$scope.title = '监督员管理'
-	gridBuilder.call(this, $scope, Supervisor, [
+adminCtrl.controller 'peopleGroup', ['$scope', 'Group', ($scope, Group)->
+	$scope.title = '科研团体管理'
+	gridBuilder.call(this, $scope, Group, [
 		{name: 'ID', enableCellEdit: false}
-		{name: 'privilege'}
 		{name: 'name'}
-		{name: 'username'}
+		{name: 'email'}
 		{name: 'password'}
 		{name: 'phone'}
+	])
+]
+
+adminCtrl.controller 'peopleHelper', ['$scope', 'Helper', ($scope, Helper)->
+	$scope.title = '客服管理'
+	gridBuilder.call(this, $scope, Helper, [
+		{name: 'ID', enableCellEdit: false}
+		{name: 'name'}
 		{name: 'email'}
-		{name: 'credit'}
+		{name: 'password'}
+		{name: 'phone'}
+	])
+]
+
+adminCtrl.controller 'peopleAdmin', ['$scope', 'Admin', ($scope, Admin)->
+	$scope.title = '管理员管理'
+	gridBuilder.call(this, $scope, Admin, [
+		{name: 'ID', enableCellEdit: false}
+		{name: 'name'}
+		{name: 'email'}
+		{name: 'password'}
+		{name: 'phone'}
 	])
 ]
 

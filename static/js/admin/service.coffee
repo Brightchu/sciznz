@@ -6,12 +6,6 @@ adminService.config(['$resourceProvider', ($resourceProvider)->
 		method: 'PUT'
 ])
 
-adminService.factory('Admin', ['$resource', ($resource)->
-	$resource '/admin/', {},
-		info:
-			url: '/admin/info'
-])
-
 adminService.factory('FrontHierarchy', ['$resource', ($resource)->
 	$resource('/admin/frontHierarchy')
 ])
@@ -36,18 +30,25 @@ adminService.factory('CacheAdmin', ['$resource', ($resource)->
 	$resource('/admin/cacheAdmin')
 ])
 
-adminService.factory('Institute', ['$resource', ($resource)->
-	$resource('/admin/instituteAdmin')
-])
-
 adminService.factory('User', ['$resource', ($resource)->
 	$resource('/admin/peopleUser')
 ])
 
-adminService.factory('Operator', ['$resource', ($resource)->
-	$resource('/admin/peopleStaff')
+adminService.factory('Supply', ['$resource', ($resource)->
+	$resource('/admin/peopleSupply')
 ])
 
-adminService.factory('Supervisor', ['$resource', ($resource)->
-	$resource('/admin/peopleAdmin')
+adminService.factory('Group', ['$resource', ($resource)->
+	$resource('/admin/peopleGroup')
 ])
+
+adminService.factory('Helper', ['$resource', ($resource)->
+	$resource('/admin/peopleHelper')
+])
+
+adminService.factory('Admin', ['$resource', ($resource)->
+	$resource '/admin/peopleAdmin', {},
+		info:
+			url: '/admin/info'
+])
+

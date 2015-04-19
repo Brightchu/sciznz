@@ -59,7 +59,7 @@ class Admin extends Account {
 
 	public function frontDevice()
 	{
-		$this->handler('device');
+		$this->handler('device_model');
 	}
 
 	public function frontCache()
@@ -69,37 +69,43 @@ class Admin extends Account {
 
 	public function cacheAdmin()
 	{
-		$this->load->model('kvadmin');
+		$this->load->model('kvdb_model');
 		switch ($this->input->method()) {
 			case 'get':
-				$this->output->set_json($this->kvadmin->query());
+				$this->output->set_json($this->kvdb_model->query());
 				break;
 
 			case 'put':
-				$result = $this->kvadmin->update($this->input->json());
+				$result = $this->kvdb_model->update($this->input->json());
 				$this->output->set_status_header($result ? 200 : 403);
 				break;
 
 			case 'delete':
-				$result = $this->kvadmin->delete($this->input->get('key'));
+				$result = $this->kvdb_model->delete($this->input->get('key'));
 				$this->output->set_status_header($result ? 200 : 403);
 				break;
 		}
 	}
 
-	public function supplyAdmin()
-	{
-		$this->handler('supply');
-	}
 
 	public function peopleUser()
 	{
-		$this->handler('user');
+		$this->handler('user_model');
 	}
 
-	public function peopleStaff()
+	public function peopleSupply()
 	{
-		$this->handler('operator');
+		$this->handler('supply_model');
+	}
+
+	public function peopleGroup()
+	{
+		$this->handler('group_model');
+	}
+
+	public function peopleHelper()
+	{
+		$this->handler('helper_model');
 	}
 
 	public function peopleAdmin()
