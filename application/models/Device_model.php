@@ -56,7 +56,7 @@ class Device_model extends CI_Model {
 
 	public function checkout() {
 		$device = [];
-		$sql = 'SELECT `device`.`ID`, `supply`.`locale`, `supply`.`name` AS `supply`, `category`.`name` AS `category`, `model`.`name` AS `model`, `model`.`field`, `device`.`field` AS `subfield`, `device`.`info`, `model`.`img` AS `img`, `device`.`img` AS `subimg`, `model`.`spec` AS `spec`, `device`.`spec` AS `subspec`, `schedule` FROM `device` JOIN `supply` ON `device`.`supplyID` = `supply`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID`';
+		$sql = 'SELECT `device`.`ID`, `supply`.`locale`, `supply`.`name` AS `supply`, `category`.`name` AS `category`, `model`.`name` AS `model`, `model`.`field`, `device`.`field` AS `subfield`, `device`.`info`, `model`.`img` AS `img`, `device`.`img` AS `subimg`, `model`.`spec` AS `spec`, `device`.`spec` AS `subspec`, `schedule` FROM `device` JOIN `supply` ON `device`.`supplyID` = `supply`.`ID` AND `device`.`online` = 1 JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID`';
 
 		$deviceList = $this->db->query($sql)->result_array();
 

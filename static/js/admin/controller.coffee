@@ -76,7 +76,7 @@ adminCtrl.controller 'dataPayment', ['$scope', ($scope)->
 	$scope.title = '支付统计'
 ]
 
-adminCtrl.controller 'frontAdd', ['$scope', 'FrontCategory', 'FrontModel', 'Supply', 'RandomString', ($scope, FrontCategory, FrontModel, Supply, RandomString)->
+adminCtrl.controller 'frontAdd', ['$scope', 'FrontCategory', 'FrontModel', 'FrontDevice', 'Supply', ($scope, FrontCategory, FrontModel, FrontDevice, Supply)->
 	$scope.thisCategory =
 		name: '请选择分类'
 	$scope.newCategory =
@@ -84,10 +84,27 @@ adminCtrl.controller 'frontAdd', ['$scope', 'FrontCategory', 'FrontModel', 'Supp
 		field: ['新指标']
 	$scope.thisModel =
 		name: '请选择型号'
+
 	$scope.thisSupply =
 		name: '请选择供应商'
 	$scope.thisDevice =
-		field: {}
+		addfield: []
+		img: ''
+		spec: '{}'
+		method: {}
+		workday:
+			d1: true
+			d2: true
+			d3: true
+			d4: true
+			d5: true
+			d6: false
+			d7: false
+		unlimited:
+			price: 0
+			unit: '元'
+		resource: []
+		online: true
 
 	modelList = []
 	FrontModel.query().$promise.then (data)->
@@ -123,17 +140,102 @@ adminCtrl.controller 'frontAdd', ['$scope', 'FrontCategory', 'FrontModel', 'Supp
 		, ->
 			alert('保存失败')
 
-	$scope.onModelClick = ->
-		$scope.thisModel = this.model
+	$scope.onModelClick = (model)->
+		$scope.thisModel = this.model || model
 		$scope.deviceDisabled = false
+
+	$scope.addNewModel = ->
+		fieldMap = {}
+		for field in JSON.parse($scope.thisCategory.field)
+			fieldMap[field] = ''
+		$scope.newModel =
+			categoryID: $scope.thisCategory.ID
+			name: '新型号'
+			field: fieldMap
+			addfield: []
+			img: ''
+			spec: '{}'
+		$scope.showNewModel = true
+
+	$scope.newModelAddField = ->
+		$scope.newModel.addfield.push
+			name: '新指标'
+			value: '新参数'
+
+	$scope.saveNewModel = ->
+		for addfield in $scope.newModel.addfield
+			$scope.newModel.field[addfield.name] = addfield.value
+
+		payload = angular.copy($scope.newModel)
+		payload.field = JSON.stringify(payload.field)
+
+		FrontModel.save(payload).$promise.then ->
+			$scope.modelList.push($scope.newModel)
+			$scope.thisModel = $scope.newModel
+			$scope.showNewModel = false
+			$scope.onModelClick($scope.newModel)
+		, ->
+			alert('保存失败')
 
 	$scope.onSupplyClick = ->
 		$scope.thisSupply = this.supply
 
 	$scope.addField = ->
-		salt = RandomString(4)
-		$scope.thisDevice.field['name_' + salt] = 'value_' + salt
+		$scope.thisDevice.addfield.push
+			name: '新指标'
+			value: '新参数'
 
+	$scope.addResource = ->
+		$scope.thisDevice.resource.push
+			name: '新项目'
+			price: '0'
+			unit: '元'
+			capacity: '1'
+
+	$scope.stage = ->
+		field = {}
+		for addfield in $scope.thisDevice.addfield
+			field[addfield.name] = addfield.value
+
+		schedule =
+			method: []
+			workday: []
+			unlimited: $scope.thisDevice.unlimited
+			resource: {}
+
+		for res in $scope.thisDevice.resource
+			schedule.resource[res.name] =
+				price: res.price
+				unit: res.unit
+				capacity: res.capacity
+				count: 0
+
+		if $scope.thisDevice.method.resource
+			schedule.method.push('RESOURCE')
+		if $scope.thisDevice.method.unlimited
+			schedule.method.push('UNLIMITED')
+
+		for day, status of $scope.thisDevice.workday
+			if status
+				schedule.workday.push(parseInt(day.charAt(1)))
+
+		payload =
+			modelID: $scope.thisModel.ID
+			supplyID: $scope.thisSupply.ID
+			field: JSON.stringify(field)
+			info: $scope.thisDevice.info
+			img: $scope.thisDevice.img
+			spec: $scope.thisDevice.spec
+			schedule: JSON.stringify(schedule)
+			contract: $scope.thisDevice.contract
+			memo: $scope.thisDevice.memo
+			online: $scope.thisDevice.online
+
+		FrontDevice.save(payload).$promise.then ->
+			alert('保存成功')
+			window.location.reload()
+		, ->
+			alert('保存失败')
 ]
 
 adminCtrl.controller 'frontHierarchy', ['$scope', 'FrontHierarchy', ($scope, FrontHierarchy)->

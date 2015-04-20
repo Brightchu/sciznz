@@ -14,10 +14,16 @@ form#table.form-horizontal
 						a 添加新分类
 
 	.form-group(ng-show='showNewCategory')
-		label.col-sm-2 新分类名称
-			input.form-control(type='text' ng-model='newCategory.name')
-		label.col-sm-2 参数指标
-			input.form-control(type='text' ng-model='field' ng-repeat='field in newCategory.field track by $index')
+		.form-group
+			.col-sm-2
+				label 新分类名称
+			.col-sm-4
+				input.form-control(type='text' ng-model='newCategory.name')
+		.form-group
+			.col-sm-2
+				label 参数指标
+			.col-sm-4
+				input.form-control(type='text' ng-model='newCategory.field[$index]' ng-repeat='field in newCategory.field track by $index')
 		button.btn.btn-default(ng-click='addNewField()') 添加指标
 		button.btn.btn-success(ng-click='saveNewCategory()') 保存新分类
 
@@ -30,8 +36,38 @@ form#table.form-horizontal
 				li.entry(ng-repeat='model in modelList' ng-click='onModelClick()')
 					a {{model.name}}
 				li.divider
-					li.entry
+					li.entry(ng-click='addNewModel()')
 						a 添加新型号
+
+	.form-group(ng-show='showNewModel')
+		.form-group
+			.col-sm-2
+				label 新型号名称
+			.col-sm-4
+				input.form-control(type='text' ng-model='newModel.name')
+		.form-group(ng-repeat='(name, default) in newModel.field')
+			.col-sm-2
+				label {{name}}
+			.col-sm-4
+				input.form-control(type='text' ng-model='newModel.field[name]')
+		.form-group(ng-repeat='field in newModel.addfield track by $index')
+			.col-sm-2
+				input.form-control(type='text' ng-model='newModel.addfield[$index].name')
+			.col-sm-4
+				input.form-control(type='text' ng-model='newModel.addfield[$index].value')
+		.form-group
+			.col-sm-2
+				label 图片URL
+			.col-sm-4
+				textarea.form-control(ng-model='newModel.img')
+		.form-group
+			.col-sm-2
+				label 附件
+			.col-sm-4
+				textarea.form-control(ng-model='newModel.spec')
+
+		button.btn.btn-default(ng-click='newModelAddField()') 添加参数
+		button.btn.btn-success(ng-click='saveNewModel()') 保存新型号
 
 	.form-group
 		label.col-sm-2 三. 选择供应商:
@@ -51,75 +87,85 @@ form#table.form-horizontal
 		.form-group(ng-repeat='(name, default) in thisModel.field')
 			span.col-sm-2.control-label {{name}}:
 			label.col-sm-4 {{default}}
-
+		
 		label 设备参数:
-		button.btn.btn-default.btn-sm(ng-click='addField()') 添加参数
-		.form-group(ng-repeat='(name, default) in thisDevice.field')
+			button.btn.btn-default.btn-sm(ng-click='addField()') 添加参数
+		.form-group(ng-repeat='field in thisDevice.addfield track by $index')
 			.col-sm-2
-				input.form-control.control-label(type='text' ng-model='name')
+				input.form-control(type='text' ng-model='thisDevice.addfield[$index].name')
 			.col-sm-4
-				input.form-control(type='text' ng-model='default')
+				input.form-control(type='text' ng-model='thisDevice.addfield[$index].value')
 
 		.form-group
 			.col-sm-2
 				label 备注信息:
 			.col-sm-4
-				textarea.form-control
+				textarea.form-control(ng-model='thisDevice.info')
 		.form-group
 			.col-sm-2
 				label 图片URL:
 			.col-sm-4
-				textarea.form-control
+				textarea.form-control(ng-model='thisDevice.img')
 		.form-group
 			.col-sm-2
 				label 附件:
 			.col-sm-4
-				textarea.form-control
+				textarea.form-control(ng-model='thisDevice.spec')
 		.form-group
 			.col-sm-2
 				label 预约方式：
 			.btn-group.col-sm-4
-				label.btn.btn-default(ng-model='checkModel.left', btn-checkbox) {{'RESOURCE' | translate}}
-				label.btn.btn-default(ng-model='checkModel.middle', btn-checkbox) {{'UNLIMITED' | translate}}
+				label.btn.btn-default(ng-model='thisDevice.method.resource', btn-checkbox) {{'RESOURCE' | translate}}
+				label.btn.btn-default(ng-model='thisDevice.method.unlimited', btn-checkbox) {{'UNLIMITED' | translate}}
 		.form-group
 			.col-sm-2
 				label 工作日：
 			.btn-group.col-sm-4
-				label.btn.btn-default(ng-model='checkModel2.left', btn-checkbox) 一
-				label.btn.btn-default(ng-model='checkModel2.left2', btn-checkbox) 二
-				label.btn.btn-default(ng-model='checkModel2.left3', btn-checkbox) 三
-				label.btn.btn-default(ng-model='checkModel2.left4', btn-checkbox) 四
-				label.btn.btn-default(ng-model='checkModel2.left5', btn-checkbox) 五
-				label.btn.btn-default(ng-model='checkModel2.left6', btn-checkbox) 六
-				label.btn.btn-default(ng-model='checkModel2.left7', btn-checkbox) 日
+				label.btn.btn-default(ng-model='thisDevice.workday.d1', btn-checkbox) 一
+				label.btn.btn-default(ng-model='thisDevice.workday.d2', btn-checkbox) 二
+				label.btn.btn-default(ng-model='thisDevice.workday.d3', btn-checkbox) 三
+				label.btn.btn-default(ng-model='thisDevice.workday.d4', btn-checkbox) 四
+				label.btn.btn-default(ng-model='thisDevice.workday.d5', btn-checkbox) 五
+				label.btn.btn-default(ng-model='thisDevice.workday.d6', btn-checkbox) 六
+				label.btn.btn-default(ng-model='thisDevice.workday.d7', btn-checkbox) 日
 		.form-group
 			label.col-sm-2 无担保预约(也用作首页显示价格):
 			.col-sm-10
 				label 价格
-					input.form-control(type='text' ng-model='default')
+					input.form-control(type='text' ng-model='thisDevice.unlimited.price')
 				label 单位
-					input.form-control(type='text' ng-model='default')
+					input.form-control(type='text' ng-model='thisDevice.unlimited.unit')
 		.form-group
 			label.col-sm-2 担保预约:
-			.col-sm-10
-				label 项目
-					input.form-control(type='text' ng-model='default')
-				label 容量
-					input.form-control(type='text' ng-model='default')
-				label 价格
-					input.form-control(type='text' ng-model='default')
-				label 单位
-					input.form-control(type='text' ng-model='default')
+				button.btn.btn-default.btn-sm(ng-click='addResource()') 添加项目
+			div(ng-repeat='res in thisDevice.resource track by $index')
+				.col-sm-2
+				.col-sm-10
+					label 项目
+						input.form-control(type='text' ng-model='thisDevice.resource[$index].name')
+					label 价格
+						input.form-control(type='text' ng-model='thisDevice.resource[$index].price')
+					label 单位
+						input.form-control(type='text' ng-model='thisDevice.resource[$index].unit')
+					label 容量
+						input.form-control(type='text' ng-model='thisDevice.resource[$index].capacity')
 		.form-group
 			.col-sm-2
 				label 联系信息(用户预约后可见):
 			.col-sm-4
-				textarea.form-control
+				textarea.form-control(ng-model='thisDevice.contract')
 		.form-group
 			.col-sm-2
 				label 备注(仅自己可见):
 			.col-sm-4
-				textarea.form-control
+				textarea.form-control(ng-model='thisDevice.memo')
+
+		.form-group
+			.col-sm-2
+				label 立即上线
+			.col-sm-2
+				input(type='checkbox' value='online' ng-model='thisDevice.online')
+
 	br
 	br
-	button.btn.btn-success(type="button" ng-click="stage()") 保存并录入
+	button.btn.btn-success(type="button" ng-click="stage()") 保存新仪器
