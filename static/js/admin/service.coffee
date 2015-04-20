@@ -51,3 +51,11 @@ adminService.factory('Admin', ['$resource', ($resource)->
 		info:
 			url: '/admin/info'
 ])
+
+adminService.factory 'RandomString', ->
+	possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+	return (length)->
+		text = ''
+		for i in [0...length]
+			text += possible.charAt(Math.floor(Math.random() * possible.length))
+		return text

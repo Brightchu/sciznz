@@ -9,7 +9,7 @@ window.$.prototype.click = ->
 		element.dispatchEvent(clickEvent)
 
 # glue modules
-adminApp = angular.module('adminApp', ['ngRoute', 'ngAnimate', 'adminCtrl', 'adminService'])
+adminApp = angular.module('adminApp', ['ngRoute', 'ngAnimate', 'ui.utils', 'pascalprecht.translate', 'adminCtrl', 'adminService'])
 adminApp.config(['$routeProvider', ($routeProvider)->
 	$routeProvider.when('/data-overview'
 		templateUrl: '/static/partial/admin/generic-blank.html'
@@ -69,4 +69,13 @@ adminApp.config(['$routeProvider', ($routeProvider)->
 
 adminApp.config(['$compileProvider', ($compileProvider)->
 	$compileProvider.debugInfoEnabled(false)
+])
+
+adminApp.config(['$translateProvider', ($translateProvider)->
+	$translateProvider.translations 'zh',
+		RESOURCE: '担保预约'
+		UNLIMITED: '无担保预约'
+
+	$translateProvider.preferredLanguage('zh')
+
 ])

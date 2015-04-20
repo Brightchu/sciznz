@@ -76,13 +76,18 @@ adminCtrl.controller 'dataPayment', ['$scope', ($scope)->
 	$scope.title = '支付统计'
 ]
 
-adminCtrl.controller 'frontAdd', ['$scope', 'FrontCategory', 'FrontModel', 'Supply', ($scope, FrontCategory, FrontModel, Supply)->
+adminCtrl.controller 'frontAdd', ['$scope', 'FrontCategory', 'FrontModel', 'Supply', 'RandomString', ($scope, FrontCategory, FrontModel, Supply, RandomString)->
 	$scope.thisCategory =
 		name: '请选择分类'
+	$scope.newCategory =
+		name: '新分类'
+		field: ['新指标']
 	$scope.thisModel =
 		name: '请选择型号'
 	$scope.thisSupply =
 		name: '请选择供应商'
+	$scope.thisDevice =
+		field: {}
 
 	modelList = []
 	FrontModel.query().$promise.then (data)->
@@ -97,11 +102,26 @@ adminCtrl.controller 'frontAdd', ['$scope', 'FrontCategory', 'FrontModel', 'Supp
 	$scope.modelDisabled = true
 	$scope.deviceDisabled = true
 
-	$scope.onCategoryClick = ->
-		$scope.thisCategory = this.category
+	$scope.onCategoryClick = (category)->
+		$scope.thisCategory = this.category || category
 		$scope.modelDisabled = false
 		$scope.modelList = modelList.filter (model)->
 			model.categoryID == $scope.thisCategory.ID
+
+	$scope.addNewField = ->
+		$scope.newCategory.field.push('新指标')
+
+	$scope.saveNewCategory = ->
+		payload =
+			name: $scope.newCategory.name
+			field: JSON.stringify($scope.newCategory.field)
+		FrontCategory.save(payload).$promise.then ->
+			$scope.categoryList.push($scope.newCategory)
+			$scope.thisCategory = $scope.newCategory
+			$scope.showNewCategory = false
+			$scope.onCategoryClick($scope.newCategory)
+		, ->
+			alert('保存失败')
 
 	$scope.onModelClick = ->
 		$scope.thisModel = this.model
@@ -111,7 +131,9 @@ adminCtrl.controller 'frontAdd', ['$scope', 'FrontCategory', 'FrontModel', 'Supp
 		$scope.thisSupply = this.supply
 
 	$scope.addField = ->
-		$scope.thisModel.field['NEW'] = 'NEW'
+		salt = RandomString(4)
+		$scope.thisDevice.field['name_' + salt] = 'value_' + salt
+
 ]
 
 adminCtrl.controller 'frontHierarchy', ['$scope', 'FrontHierarchy', ($scope, FrontHierarchy)->

@@ -10,8 +10,16 @@ form#table.form-horizontal
 				li.entry(ng-repeat='category in categoryList' ng-click='onCategoryClick()')
 					a {{category.name}}
 				li.divider
-					li.entry
+					li.entry(ng-click='showNewCategory = true')
 						a 添加新分类
+
+	.form-group(ng-show='showNewCategory')
+		label.col-sm-2 新分类名称
+			input.form-control(type='text' ng-model='newCategory.name')
+		label.col-sm-2 参数指标
+			input.form-control(type='text' ng-model='field' ng-repeat='field in newCategory.field track by $index')
+		button.btn.btn-default(ng-click='addNewField()') 添加指标
+		button.btn.btn-success(ng-click='saveNewCategory()') 保存新分类
 
 	.form-group
 		label.col-sm-2 二. 选择型号:
@@ -39,21 +47,79 @@ form#table.form-horizontal
 
 	label 四. 录入仪器:
 	.form-group(ng-hide='deviceDisabled')
-		.field-area
-			label 仪器参数:
-			button.btn.btn-default.btn-sm(ng-click='addField()') 添加参数
-			.field-item.form-group(ng-repeat='(name, default) in thisModel.field')
-				.col-sm-2
-					input.form-control(type='text' ng-model='name')
-				.col-sm-2
-					input.form-control(type='text' ng-model='default')
-		.field-area
-			label 备注信息:
-			textarea
-		.field-area
-			label 图片URL:
-			textarea
+		label 型号参数:
+		.form-group(ng-repeat='(name, default) in thisModel.field')
+			span.col-sm-2.control-label {{name}}:
+			label.col-sm-4 {{default}}
 
+		label 设备参数:
+		button.btn.btn-default.btn-sm(ng-click='addField()') 添加参数
+		.form-group(ng-repeat='(name, default) in thisDevice.field')
+			.col-sm-2
+				input.form-control.control-label(type='text' ng-model='name')
+			.col-sm-4
+				input.form-control(type='text' ng-model='default')
+
+		.form-group
+			.col-sm-2
+				label 备注信息:
+			.col-sm-4
+				textarea.form-control
+		.form-group
+			.col-sm-2
+				label 图片URL:
+			.col-sm-4
+				textarea.form-control
+		.form-group
+			.col-sm-2
+				label 附件:
+			.col-sm-4
+				textarea.form-control
+		.form-group
+			.col-sm-2
+				label 预约方式：
+			.btn-group.col-sm-4
+				label.btn.btn-default(ng-model='checkModel.left', btn-checkbox) {{'RESOURCE' | translate}}
+				label.btn.btn-default(ng-model='checkModel.middle', btn-checkbox) {{'UNLIMITED' | translate}}
+		.form-group
+			.col-sm-2
+				label 工作日：
+			.btn-group.col-sm-4
+				label.btn.btn-default(ng-model='checkModel2.left', btn-checkbox) 一
+				label.btn.btn-default(ng-model='checkModel2.left2', btn-checkbox) 二
+				label.btn.btn-default(ng-model='checkModel2.left3', btn-checkbox) 三
+				label.btn.btn-default(ng-model='checkModel2.left4', btn-checkbox) 四
+				label.btn.btn-default(ng-model='checkModel2.left5', btn-checkbox) 五
+				label.btn.btn-default(ng-model='checkModel2.left6', btn-checkbox) 六
+				label.btn.btn-default(ng-model='checkModel2.left7', btn-checkbox) 日
+		.form-group
+			label.col-sm-2 无担保预约(也用作首页显示价格):
+			.col-sm-10
+				label 价格
+					input.form-control(type='text' ng-model='default')
+				label 单位
+					input.form-control(type='text' ng-model='default')
+		.form-group
+			label.col-sm-2 担保预约:
+			.col-sm-10
+				label 项目
+					input.form-control(type='text' ng-model='default')
+				label 容量
+					input.form-control(type='text' ng-model='default')
+				label 价格
+					input.form-control(type='text' ng-model='default')
+				label 单位
+					input.form-control(type='text' ng-model='default')
+		.form-group
+			.col-sm-2
+				label 联系信息(用户预约后可见):
+			.col-sm-4
+				textarea.form-control
+		.form-group
+			.col-sm-2
+				label 备注(仅自己可见):
+			.col-sm-4
+				textarea.form-control
 	br
 	br
 	button.btn.btn-success(type="button" ng-click="stage()") 保存并录入

@@ -39,7 +39,7 @@ class Category_model extends CI_Model {
 	public function save($row)
 	{
 		$sql = 'INSERT INTO `category`(`name`, `field`) VALUES (?, ?)';
-		$data = [$row['name'], $row['field'], $row['info']];
+		$data = [$row['name'], $row['field']];
 		return $this->db->query($sql, $data);
 	}
 
