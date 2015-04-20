@@ -26,8 +26,8 @@ class Order_model extends CI_Model {
 		}
 
 		if ($method === 'UNLIMITED') {
-			$sql = 'INSERT INTO `order`(`userID`, `deviceID`, `detail`, `method`) VALUES (?, ?, "{}", "UNLIMITED")';
-			return $this->db->query($sql, [$userID, $deviceID]);
+			$sql = 'INSERT INTO `order`(`userID`, `deviceID`, `note`, `detail`, `method`) VALUES (?, ?, ?, "{}", "UNLIMITED")';
+			return $this->db->query($sql, [$userID, $deviceID, $note]);
 		}
 
 		return FALSE;
