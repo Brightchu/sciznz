@@ -133,10 +133,8 @@ adminCtrl.controller 'frontAdd', ['$scope', 'FrontCategory', 'FrontModel', 'Fron
 			name: $scope.newCategory.name
 			field: JSON.stringify($scope.newCategory.field)
 		FrontCategory.save(payload).$promise.then ->
-			$scope.categoryList.push($scope.newCategory)
-			$scope.thisCategory = $scope.newCategory
-			$scope.showNewCategory = false
-			$scope.onCategoryClick($scope.newCategory)
+			alert('保存成功')
+			location.reload()
 		, ->
 			alert('保存失败')
 
@@ -170,10 +168,8 @@ adminCtrl.controller 'frontAdd', ['$scope', 'FrontCategory', 'FrontModel', 'Fron
 		payload.field = JSON.stringify(payload.field)
 
 		FrontModel.save(payload).$promise.then ->
-			$scope.modelList.push($scope.newModel)
-			$scope.thisModel = $scope.newModel
-			$scope.showNewModel = false
-			$scope.onModelClick($scope.newModel)
+			alert('保存成功')
+			location.reload()
 		, ->
 			alert('保存失败')
 
