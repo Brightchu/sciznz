@@ -88,7 +88,6 @@ adminCtrl.controller 'frontAdd', ['$scope', '$upload', 'FrontCategory', 'FrontMo
 		name: '请选择供应商'
 	$scope.thisDevice =
 		addfield: []
-		info: ''
 		img: ''
 		spec: '{}'
 		method: {}
@@ -104,6 +103,9 @@ adminCtrl.controller 'frontAdd', ['$scope', '$upload', 'FrontCategory', 'FrontMo
 			price: 0
 			unit: '元'
 		resource: []
+		info: ''
+		contract: ''
+		memo: ''
 		online: true
 
 	modelList = []
@@ -188,7 +190,7 @@ adminCtrl.controller 'frontAdd', ['$scope', '$upload', 'FrontCategory', 'FrontMo
 			unit: '元'
 			capacity: 1
 
-	$scope.stage = ->
+	$scope.saveThisDevice = ->
 		if not $scope.thisSupply.ID?
 			return alert('请选择供应商')
 
@@ -285,7 +287,7 @@ adminCtrl.controller 'frontAdd', ['$scope', '$upload', 'FrontCategory', 'FrontMo
 			fileMap = {}
 			for file in files
 				$upload.upload(
-					url: '/admin/upload/model-spec'
+					url: '/admin/upload/device-spec'
 					file: file
 				).success((body)->
 					fileMap[body.raw_name] = body.web_path
