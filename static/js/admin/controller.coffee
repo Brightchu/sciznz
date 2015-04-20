@@ -184,26 +184,30 @@ adminCtrl.controller 'frontAdd', ['$scope', 'FrontCategory', 'FrontModel', 'Fron
 	$scope.addResource = ->
 		$scope.thisDevice.resource.push
 			name: '新项目'
-			price: '0'
+			price: 0
 			unit: '元'
-			capacity: '1'
+			capacity: 1
 
 	$scope.stage = ->
 		field = {}
 		for addfield in $scope.thisDevice.addfield
 			field[addfield.name] = addfield.value
 
+		unlimited =
+			price: parseInt($scope.thisDevice.unlimited.price)
+			unit: $scope.thisDevice.unlimited.unit
+
 		schedule =
 			method: []
 			workday: []
-			unlimited: $scope.thisDevice.unlimited
+			unlimited: unlimited
 			resource: {}
 
 		for res in $scope.thisDevice.resource
 			schedule.resource[res.name] =
-				price: res.price
+				price: parseInt(res.price)
 				unit: res.unit
-				capacity: res.capacity
+				capacity: parseInt(res.capacity)
 				count: 0
 
 		if $scope.thisDevice.method.resource
