@@ -61,14 +61,14 @@ form#table.form-horizontal
 			.col-sm-4
 				textarea.form-control(ng-model='newModel.img' disabled)
 			.col-sm-2
-				button.btn.btn-success(ng-file-select ng-file-change='uploadModelImage($files)') 该型号仪器照片
+				button.btn.btn-success(ng-file-select ng-file-change='uploadModelImage($files)') 型号照片
 		.form-group
 			.col-sm-2
 				label 附件
 			.col-sm-4
 				textarea.form-control(ng-model='newModel.spec' disabled)
 			.col-sm-2
-				button.btn.btn-success(ng-file-select ng-file-change='uploadModelSpec($files)' ng-multiple='true') 该型号仪器附件
+				button.btn.btn-success(ng-file-select ng-file-change='uploadModelSpec($files)' ng-multiple='true') 型号附件
 		button.btn.btn-default(ng-click='newModelAddField()') 添加参数
 		button.btn.btn-success(ng-click='saveNewModel()') 保存新型号
 
@@ -110,14 +110,14 @@ form#table.form-horizontal
 			.col-sm-4
 				textarea.form-control(ng-model='thisDevice.img' disabled)
 			.col-sm-2
-				button.btn.btn-success(ng-file-select ng-file-change='uploadDeviceImage($files)') 该仪器的照片
+				button.btn.btn-success(ng-file-select ng-file-change='uploadDeviceImage($files)') 仪器照片
 		.form-group
 			.col-sm-2
 				label 附件:
 			.col-sm-4
 				textarea.form-control(ng-model='thisDevice.spec' disabled)
 			.col-sm-2
-				button.btn.btn-success(ng-file-select ng-file-change='uploadDeviceSpec($files)' ng-multiple='true') 该仪器的附件
+				button.btn.btn-success(ng-file-select ng-file-change='uploadDeviceSpec($files)' ng-multiple='true') 仪器附件
 		.form-group
 			.col-sm-2
 				label 预约方式：

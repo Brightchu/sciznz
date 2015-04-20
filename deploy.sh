@@ -38,6 +38,7 @@ uglifyjs static/js/group.js --mangle --compress --screw-ie8 -o static/js/group.j
 
 # clean up
 rm -rf doc
+rm -rf upload
 find . -name "*.coffee" -exec rm -fv {} \;
 find . -name "*.less" -exec rm -fv {} \;
 find . -name "*.jade" -exec rm -fv {} \;

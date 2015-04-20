@@ -84,7 +84,6 @@ adminCtrl.controller 'frontAdd', ['$scope', '$upload', 'FrontCategory', 'FrontMo
 		field: ['新指标']
 	$scope.thisModel =
 		name: '请选择型号'
-
 	$scope.thisSupply =
 		name: '请选择供应商'
 	$scope.thisDevice =
@@ -190,6 +189,9 @@ adminCtrl.controller 'frontAdd', ['$scope', '$upload', 'FrontCategory', 'FrontMo
 			capacity: 1
 
 	$scope.stage = ->
+		if not $scope.thisSupply.ID?
+			return alert('请选择供应商')
+
 		field = {}
 		for addfield in $scope.thisDevice.addfield
 			field[addfield.name] = addfield.value
