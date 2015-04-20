@@ -18,12 +18,12 @@ form#table.form-horizontal
 			.col-sm-2
 				label 新分类名称
 			.col-sm-4
-				input.form-control(type='text' ng-model='newCategory.name')
+				input.form-control(ng-model='newCategory.name')
 		.form-group
 			.col-sm-2
 				label 参数指标
 			.col-sm-4
-				input.form-control(type='text' ng-model='newCategory.field[$index]' ng-repeat='field in newCategory.field track by $index')
+				input.form-control(ng-model='newCategory.field[$index]' ng-repeat='field in newCategory.field track by $index')
 		button.btn.btn-default(ng-click='addNewField()') 添加指标
 		button.btn.btn-success(ng-click='saveNewCategory()') 保存新分类
 
@@ -44,28 +44,31 @@ form#table.form-horizontal
 			.col-sm-2
 				label 新型号名称
 			.col-sm-4
-				input.form-control(type='text' ng-model='newModel.name')
+				input.form-control(ng-model='newModel.name')
 		.form-group(ng-repeat='(name, default) in newModel.field')
 			.col-sm-2
 				label {{name}}
 			.col-sm-4
-				input.form-control(type='text' ng-model='newModel.field[name]')
+				input.form-control(ng-model='newModel.field[name]')
 		.form-group(ng-repeat='field in newModel.addfield track by $index')
 			.col-sm-2
-				input.form-control(type='text' ng-model='newModel.addfield[$index].name')
+				input.form-control(ng-model='newModel.addfield[$index].name')
 			.col-sm-4
-				input.form-control(type='text' ng-model='newModel.addfield[$index].value')
+				input.form-control(ng-model='newModel.addfield[$index].value')
 		.form-group
 			.col-sm-2
 				label 图片URL
 			.col-sm-4
-				textarea.form-control(ng-model='newModel.img')
+				textarea.form-control(ng-model='newModel.img' disabled)
+			.col-sm-2
+				button.btn.btn-success(ng-file-select ng-file-change='uploadModelImage($files)') 该型号仪器照片
 		.form-group
 			.col-sm-2
 				label 附件
 			.col-sm-4
-				textarea.form-control(ng-model='newModel.spec')
-
+				textarea.form-control(ng-model='newModel.spec' disabled)
+			.col-sm-2
+				button.btn.btn-success(ng-file-select ng-file-change='uploadModelSpec($files)' ng-multiple='true') 该型号仪器附件
 		button.btn.btn-default(ng-click='newModelAddField()') 添加参数
 		button.btn.btn-success(ng-click='saveNewModel()') 保存新型号
 
@@ -92,9 +95,9 @@ form#table.form-horizontal
 			button.btn.btn-default.btn-sm(ng-click='addField()') 添加参数
 		.form-group(ng-repeat='field in thisDevice.addfield track by $index')
 			.col-sm-2
-				input.form-control(type='text' ng-model='thisDevice.addfield[$index].name')
+				input.form-control(ng-model='thisDevice.addfield[$index].name')
 			.col-sm-4
-				input.form-control(type='text' ng-model='thisDevice.addfield[$index].value')
+				input.form-control(ng-model='thisDevice.addfield[$index].value')
 
 		.form-group
 			.col-sm-2
@@ -105,12 +108,16 @@ form#table.form-horizontal
 			.col-sm-2
 				label 图片URL:
 			.col-sm-4
-				textarea.form-control(ng-model='thisDevice.img')
+				textarea.form-control(ng-model='thisDevice.img' disabled)
+			.col-sm-2
+				button.btn.btn-success(ng-file-select ng-file-change='uploadDeviceImage($files)') 该仪器的照片
 		.form-group
 			.col-sm-2
 				label 附件:
 			.col-sm-4
-				textarea.form-control(ng-model='thisDevice.spec')
+				textarea.form-control(ng-model='thisDevice.spec' disabled)
+			.col-sm-2
+				button.btn.btn-success(ng-file-select ng-file-change='uploadDeviceSpec($files)' ng-multiple='true') 该仪器的附件
 		.form-group
 			.col-sm-2
 				label 预约方式：
@@ -132,9 +139,9 @@ form#table.form-horizontal
 			label.col-sm-2 无担保预约(也用作首页显示价格):
 			.col-sm-10
 				label 价格
-					input.form-control(type='text' ng-model='thisDevice.unlimited.price')
+					input.form-control(ng-model='thisDevice.unlimited.price')
 				label 单位
-					input.form-control(type='text' ng-model='thisDevice.unlimited.unit')
+					input.form-control(ng-model='thisDevice.unlimited.unit')
 		.form-group
 			label.col-sm-2 担保预约:
 				button.btn.btn-default.btn-sm(ng-click='addResource()') 添加项目
@@ -142,13 +149,13 @@ form#table.form-horizontal
 				.col-sm-2
 				.col-sm-10
 					label 项目
-						input.form-control(type='text' ng-model='thisDevice.resource[$index].name')
+						input.form-control(ng-model='thisDevice.resource[$index].name')
 					label 价格
-						input.form-control(type='text' ng-model='thisDevice.resource[$index].price')
+						input.form-control(ng-model='thisDevice.resource[$index].price')
 					label 单位
-						input.form-control(type='text' ng-model='thisDevice.resource[$index].unit')
+						input.form-control(ng-model='thisDevice.resource[$index].unit')
 					label 容量
-						input.form-control(type='text' ng-model='thisDevice.resource[$index].capacity')
+						input.form-control(ng-model='thisDevice.resource[$index].capacity')
 		.form-group
 			.col-sm-2
 				label 联系信息(用户预约后可见):

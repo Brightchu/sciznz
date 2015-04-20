@@ -1,6 +1,6 @@
 'use strict'
 
-adminCtrl = angular.module('adminCtrl', ['ngCookies', 'ui.bootstrap', 'ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav'])
+adminCtrl = angular.module('adminCtrl', ['ngCookies', 'ui.bootstrap', 'ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav', 'angularFileUpload'])
 
 adminCtrl.controller 'topCtrl', ['$scope', 'Admin', ($scope, Admin)->
 	$scope.info = Admin.info()
@@ -76,7 +76,7 @@ adminCtrl.controller 'dataPayment', ['$scope', ($scope)->
 	$scope.title = '支付统计'
 ]
 
-adminCtrl.controller 'frontAdd', ['$scope', 'FrontCategory', 'FrontModel', 'FrontDevice', 'Supply', ($scope, FrontCategory, FrontModel, FrontDevice, Supply)->
+adminCtrl.controller 'frontAdd', ['$scope', '$upload', 'FrontCategory', 'FrontModel', 'FrontDevice', 'Supply', ($scope, $upload, FrontCategory, FrontModel, FrontDevice, Supply)->
 	$scope.thisCategory =
 		name: '请选择分类'
 	$scope.newCategory =
@@ -89,6 +89,7 @@ adminCtrl.controller 'frontAdd', ['$scope', 'FrontCategory', 'FrontModel', 'Fron
 		name: '请选择供应商'
 	$scope.thisDevice =
 		addfield: []
+		info: ''
 		img: ''
 		spec: '{}'
 		method: {}
@@ -236,6 +237,62 @@ adminCtrl.controller 'frontAdd', ['$scope', 'FrontCategory', 'FrontModel', 'Fron
 			window.location.reload()
 		, ->
 			alert('保存失败')
+
+	$scope.uploadModelImage = (files)->
+		if files and files.length
+			$scope.newModel.img = files[0].name
+			$upload.upload(
+				url: '/admin/upload/model-image'
+				file: files[0]
+			).success((body)->
+				$scope.newModel.img = body.web_path
+			).error((body)->
+				alert(body)
+			)
+
+	$scope.uploadDeviceImage = (files)->
+		if files and files.length
+			$scope.thisDevice.img = files[0].name
+			$upload.upload(
+				url: '/admin/upload/device-image'
+				file: files[0]
+			).success((body)->
+				$scope.thisDevice.img = body.web_path
+			).error((body)->
+				alert(body)
+			)
+
+	$scope.uploadModelSpec = (files)->
+		if files and files.length
+			fileMap = {}
+			for file in files
+				$upload.upload(
+					url: '/admin/upload/model-spec'
+					file: file
+				).success((body)->
+					fileMap[body.raw_name] = body.web_path
+					$scope.newModel.spec += body.file_name + ' '
+					if Object.keys(fileMap).length == files.length
+						$scope.newModel.spec = JSON.stringify(fileMap)
+				).error((body)->
+					alert(body)
+				)
+
+	$scope.uploadDeviceSpec = (files)->
+		if files and files.length
+			fileMap = {}
+			for file in files
+				$upload.upload(
+					url: '/admin/upload/model-spec'
+					file: file
+				).success((body)->
+					fileMap[body.raw_name] = body.web_path
+					$scope.thisDevice.spec += body.file_name + ' '
+					if Object.keys(fileMap).length == files.length
+						$scope.thisDevice.spec = JSON.stringify(fileMap)
+				).error((body)->
+					alert(body)
+				)
 ]
 
 adminCtrl.controller 'frontHierarchy', ['$scope', 'FrontHierarchy', ($scope, FrontHierarchy)->

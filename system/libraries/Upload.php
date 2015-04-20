@@ -978,17 +978,16 @@ class CI_Upload {
 			return FALSE;
 		}
 
-		if (realpath($this->upload_path) !== FALSE)
-		{
-			$this->upload_path = str_replace('\\', '/', realpath($this->upload_path));
-		}
-
 		if (defined('SAE_APPNAME'))
 		{
 			$this->upload_path = 'saestor://' . $this->upload_path;
 		}
 		else
 		{
+			if (realpath($this->upload_path) !== FALSE)
+			{
+				$this->upload_path = str_replace('\\', '/', realpath($this->upload_path));
+			}
 			if ( ! is_dir($this->upload_path))
 			{
 				$this->set_error('upload_no_filepath');

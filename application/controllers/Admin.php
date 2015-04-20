@@ -113,4 +113,20 @@ class Admin extends Account {
 		$this->handler('admin_model');
 	}
 
+	public function upload($path) {
+		$config = [
+			'upload_path' => 'upload/' . $path,
+			'allowed_types' => '*',
+		];
+		$this->load->library('upload', $config);
+
+		if ($this->upload->do_upload('file')) {
+			$result = $this->upload->data();
+			$result['web_path'] = "http://sciclubs-upload.stor.sinaapp.com/{$path}/" . $result['file_name'];
+			$this->output->set_json($result);
+		} else {
+			$this->output->set_status_header(403);
+			$this->output->set_output($this->upload->display_errors());
+		}
+	}
 }
