@@ -26,8 +26,8 @@ class Device_model extends CI_Model {
 	 */
 	public function update($row)
 	{
-		$sql = 'UPDATE `device` SET `modelID`=?, `supplyID`=?, `field`=?, `info`=, `img`=, `spec`=, `schedule`=, `contract`=？, `memo`=？, `online`=？ WHERE `ID` = ?';
-		$data = array($row['modelID'], $row['supplyID'], $row['field'], $row['info'], $row['img'], $row['spec'], $row['schedule'], $row['contract'], $row['memo'], $row['online'], $row['ID']);
+		$sql = 'UPDATE `device` SET `modelID`=?, `supplyID`=?, `field`=?, `info`=?, `img`=?, `spec`=?, `schedule`=?, `contract`=?, `memo`=?, `online`=? WHERE `ID` = ?';
+		$data = [$row['modelID'], $row['supplyID'], $row['field'], $row['info'], $row['img'], $row['spec'], $row['schedule'], $row['contract'], $row['memo'], $row['online'], $row['ID']];
 		return $this->db->query($sql, $data);
 	}
 
@@ -39,7 +39,7 @@ class Device_model extends CI_Model {
 	public function save($row)
 	{
 		$sql = 'INSERT INTO `device`(`modelID`, `supplyID`, `field`, `info`, `img`, `spec`, `schedule`, `contract`, `memo`, `online`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-		$data = array($row['modelID'], $row['supplyID'], $row['field'], $row['info'], $row['img'], $row['spec'], $row['schedule'], $row['contract'], $row['memo'], $row['online']);
+		$data = [$row['modelID'], $row['supplyID'], $row['field'], $row['info'], $row['img'], $row['spec'], $row['schedule'], $row['contract'], $row['memo'], $row['online']];
 		return $this->db->query($sql, $data);
 	}
 

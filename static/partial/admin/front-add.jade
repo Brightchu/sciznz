@@ -98,7 +98,7 @@ form#table.form-horizontal
 
 		.form-group
 			.col-sm-2
-				label 备注信息:
+				label 其他公开信息:
 			.col-sm-4
 				textarea.form-control(ng-model='thisDevice.info')
 		.form-group
@@ -121,13 +121,13 @@ form#table.form-horizontal
 			.col-sm-2
 				label 工作日：
 			.btn-group.col-sm-4
+				label.btn.btn-default(ng-model='thisDevice.workday.d0', btn-checkbox) 日
 				label.btn.btn-default(ng-model='thisDevice.workday.d1', btn-checkbox) 一
 				label.btn.btn-default(ng-model='thisDevice.workday.d2', btn-checkbox) 二
 				label.btn.btn-default(ng-model='thisDevice.workday.d3', btn-checkbox) 三
 				label.btn.btn-default(ng-model='thisDevice.workday.d4', btn-checkbox) 四
 				label.btn.btn-default(ng-model='thisDevice.workday.d5', btn-checkbox) 五
 				label.btn.btn-default(ng-model='thisDevice.workday.d6', btn-checkbox) 六
-				label.btn.btn-default(ng-model='thisDevice.workday.d7', btn-checkbox) 日
 		.form-group
 			label.col-sm-2 无担保预约(也用作首页显示价格):
 			.col-sm-10

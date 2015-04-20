@@ -93,13 +93,13 @@ adminCtrl.controller 'frontAdd', ['$scope', 'FrontCategory', 'FrontModel', 'Fron
 		spec: '{}'
 		method: {}
 		workday:
+			d0: false
 			d1: true
 			d2: true
 			d3: true
 			d4: true
 			d5: true
 			d6: false
-			d7: false
 		unlimited:
 			price: 0
 			unit: '元'

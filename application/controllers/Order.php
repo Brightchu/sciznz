@@ -191,7 +191,7 @@ class Order extends CI_Controller {
 				'category' => $deviceInfo['category'],
 				'supply' => $deviceInfo['supply'],
 			];
-			$this->order_mail->create($userInfo['email'], $deviceInfo['supplyEmail'], $data);
+			$this->order_mail->cancel($userInfo['email'], $deviceInfo['supplyEmail'], $data);
 			$this->output->set_status_header(200);
 		} else {
 			$this->output->set_status_header(403);
