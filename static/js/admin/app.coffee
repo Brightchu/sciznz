@@ -9,7 +9,7 @@ window.$.prototype.click = ->
 		element.dispatchEvent(clickEvent)
 
 # glue modules
-adminApp = angular.module('adminApp', ['ngRoute', 'ngAnimate', 'adminCtrl', 'adminService'])
+adminApp = angular.module('adminApp', ['ngRoute', 'ngAnimate', 'ui.utils', 'pascalprecht.translate', 'adminCtrl', 'adminService'])
 adminApp.config(['$routeProvider', ($routeProvider)->
 	$routeProvider.when('/data-overview'
 		templateUrl: '/static/partial/admin/generic-blank.html'
@@ -23,6 +23,9 @@ adminApp.config(['$routeProvider', ($routeProvider)->
 	).when('/data-payment'
 		templateUrl: '/static/partial/admin/generic-blank.html'
 		controller: 'dataPayment'
+	).when('/front-add'
+		templateUrl: '/static/partial/admin/front-add.html'
+		controller: 'frontAdd'
 	).when('/front-hierarchy'
 		templateUrl: '/static/partial/admin/generic-json.html'
 		controller: 'frontHierarchy'
@@ -41,21 +44,24 @@ adminApp.config(['$routeProvider', ($routeProvider)->
 	).when('/cache-admin'
 		templateUrl: '/static/partial/admin/generic-table.html'
 		controller: 'cacheAdmin'
-	).when('/institute-admin'
-		templateUrl: '/static/partial/admin/generic-table.html'
-		controller: 'instituteAdmin'
 	).when('/people-user'
 		templateUrl: '/static/partial/admin/generic-table.html'
 		controller: 'peopleUser'
-	).when('/people-staff'
+	).when('/people-supply'
 		templateUrl: '/static/partial/admin/generic-table.html'
-		controller: 'peopleStaff'
+		controller: 'peopleSupply'
+	).when('/people-group'
+		templateUrl: '/static/partial/admin/generic-table.html'
+		controller: 'peopleGroup'
+	).when('/people-helper'
+		templateUrl: '/static/partial/admin/generic-table.html'
+		controller: 'peopleHelper'
 	).when('/people-admin'
 		templateUrl: '/static/partial/admin/generic-table.html'
 		controller: 'peopleAdmin'
-	).when('/booking-admin'
+	).when('/order-admin'
 		templateUrl: '/static/partial/admin/generic-blank.html'
-		controller: 'bookingAdmin'
+		controller: 'orderAdmin'
 	).otherwise(
 		redirectTo: '/data-overview'
 	)
@@ -63,4 +69,13 @@ adminApp.config(['$routeProvider', ($routeProvider)->
 
 adminApp.config(['$compileProvider', ($compileProvider)->
 	$compileProvider.debugInfoEnabled(false)
+])
+
+adminApp.config(['$translateProvider', ($translateProvider)->
+	$translateProvider.translations 'zh',
+		RESOURCE: '担保预约'
+		UNLIMITED: '无担保预约'
+
+	$translateProvider.preferredLanguage('zh')
+
 ])

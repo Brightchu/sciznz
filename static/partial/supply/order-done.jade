@@ -10,9 +10,9 @@
 			tr
 				th 订单号
 				th 仪器
+				th 用户
 				th 预约时间
-				th 使用日期
-				th 使用区段
+				th 使用项目
 				th 实验预算
 				th 订单状态
 				th 订单备注
@@ -23,9 +23,9 @@
 				td {{order.ID}}
 				td
 					a(href="/#/device/{{order.deviceID}}") {{order.category}} - {{order.model}}
+				td {{order.name}} / {{order.email}} / {{order.phone}}
 				td {{order.date}}
-				td {{order.useDate}}
-				td {{order.resource}}
+				td {{order.useDate}} / {{order.resource}}
 				td {{order.budget}} 元
 				td {{order.status | statusFilter}}
 				td {{order.note}}

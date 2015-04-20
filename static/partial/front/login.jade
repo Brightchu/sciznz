@@ -9,8 +9,8 @@
 	form
 		input(type="email" ng-model="email" class="form-control" placeholder="邮箱" required autofocus)
 		input(type="password" ng-model="password" class="form-control" placeholder="密码" required)
-		button(type="submit" ng-click='action()' style='display: none')
+		button(type="submit" ng-click='signup()' style='display: none')
 
 .modal-footer
-	button.btn.btn-info(ng-click='switch()' style="float: left") {{switchText}}
-	button.btn.btn-primary(ng-click='action()') {{actionText}}
+	button.btn.btn-info(ng-click='signin()' style="float: left") 登录
+	button.btn.btn-primary(ng-click='signup()') 注册

@@ -44,3 +44,4 @@ sciApp.config(['$translateProvider', ($translateProvider)->
 	$translateProvider.preferredLanguage('zh')
 
 ])
+

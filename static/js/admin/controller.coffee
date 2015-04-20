@@ -1,12 +1,12 @@
 'use strict'
 
-adminCtrl = angular.module('adminCtrl', ['ngCookies', 'ui.bootstrap', 'ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav'])
+adminCtrl = angular.module('adminCtrl', ['ngCookies', 'ui.bootstrap', 'ui.grid', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav', 'angularFileUpload'])
 
 adminCtrl.controller 'topCtrl', ['$scope', 'Admin', ($scope, Admin)->
 	$scope.info = Admin.info()
 ]
 
-adminCtrl.controller 'accordionCtrl', ['$scope', '$location', ($scope, $location)->
+adminCtrl.controller 'accordionCtrl', ['$scope', '$location', '$cookies', ($scope, $location, $cookies)->
 	$(document).ready ->
 		heading = $(document.querySelectorAll('.panel-heading'))
 		heading.on 'click', ->
@@ -22,6 +22,11 @@ adminCtrl.controller 'accordionCtrl', ['$scope', '$location', ($scope, $location
 		link.parent().click()
 		$($(link.parent().parent().parent().parent().children()[0]).children()[0]).children().click()
 
+	$scope.logout = ->
+		if confirm('退出当前账号？')
+			for key, value of $cookies
+				delete $cookies[key]
+			window.location = '/admin/login'
 ]
 
 gridBuilder = ($scope, Model, columnDefs)->
@@ -71,12 +76,239 @@ adminCtrl.controller 'dataPayment', ['$scope', ($scope)->
 	$scope.title = '支付统计'
 ]
 
+adminCtrl.controller 'frontAdd', ['$scope', '$upload', 'FrontCategory', 'FrontModel', 'FrontDevice', 'Supply', ($scope, $upload, FrontCategory, FrontModel, FrontDevice, Supply)->
+	$scope.thisCategory =
+		name: '请选择分类'
+	$scope.newCategory =
+		name: '新分类'
+		field: ['新指标']
+	$scope.thisModel =
+		name: '请选择型号'
+	$scope.thisSupply =
+		name: '请选择供应商'
+	$scope.thisDevice =
+		addfield: []
+		img: ''
+		spec: '{}'
+		method: {}
+		workday:
+			d0: false
+			d1: true
+			d2: true
+			d3: true
+			d4: true
+			d5: true
+			d6: false
+		unlimited:
+			price: 0
+			unit: '元'
+		resource: []
+		info: ''
+		contract: ''
+		memo: ''
+		online: true
+
+	modelList = []
+	FrontModel.query().$promise.then (data)->
+		for model in data
+			model.field = JSON.parse(model.field)
+			model.spec = JSON.parse(model.spec)
+		modelList = data
+
+	$scope.categoryList = FrontCategory.query()
+	$scope.supplyList = Supply.query()
+
+	$scope.modelDisabled = true
+	$scope.deviceDisabled = true
+
+	$scope.onCategoryClick = (category)->
+		$scope.thisCategory = this.category || category
+		$scope.modelDisabled = false
+		$scope.modelList = modelList.filter (model)->
+			model.categoryID == $scope.thisCategory.ID
+
+	$scope.addNewField = ->
+		$scope.newCategory.field.push('新指标')
+
+	$scope.saveNewCategory = ->
+		payload =
+			name: $scope.newCategory.name
+			field: JSON.stringify($scope.newCategory.field)
+		FrontCategory.save(payload).$promise.then ->
+			alert('保存成功')
+			location.reload()
+		, ->
+			alert('保存失败')
+
+	$scope.onModelClick = (model)->
+		$scope.thisModel = this.model || model
+		$scope.deviceDisabled = false
+
+	$scope.addNewModel = ->
+		fieldMap = {}
+		for field in JSON.parse($scope.thisCategory.field)
+			fieldMap[field] = ''
+		$scope.newModel =
+			categoryID: $scope.thisCategory.ID
+			name: '新型号'
+			field: fieldMap
+			addfield: []
+			img: ''
+			spec: '{}'
+		$scope.showNewModel = true
+
+	$scope.newModelAddField = ->
+		$scope.newModel.addfield.push
+			name: '新指标'
+			value: '新参数'
+
+	$scope.saveNewModel = ->
+		for addfield in $scope.newModel.addfield
+			$scope.newModel.field[addfield.name] = addfield.value
+
+		payload = angular.copy($scope.newModel)
+		payload.field = JSON.stringify(payload.field)
+
+		FrontModel.save(payload).$promise.then ->
+			alert('保存成功')
+			location.reload()
+		, ->
+			alert('保存失败')
+
+	$scope.onSupplyClick = ->
+		$scope.thisSupply = this.supply
+
+	$scope.addField = ->
+		$scope.thisDevice.addfield.push
+			name: '新指标'
+			value: '新参数'
+
+	$scope.addResource = ->
+		$scope.thisDevice.resource.push
+			name: '新项目'
+			price: 0
+			unit: '元'
+			capacity: 1
+
+	$scope.saveThisDevice = ->
+		if not $scope.thisSupply.ID?
+			return alert('请选择供应商')
+
+		field = {}
+		for addfield in $scope.thisDevice.addfield
+			field[addfield.name] = addfield.value
+
+		unlimited =
+			price: parseInt($scope.thisDevice.unlimited.price)
+			unit: $scope.thisDevice.unlimited.unit
+
+		schedule =
+			method: []
+			workday: []
+			unlimited: unlimited
+			resource: {}
+
+		for res in $scope.thisDevice.resource
+			schedule.resource[res.name] =
+				price: parseInt(res.price)
+				unit: res.unit
+				capacity: parseInt(res.capacity)
+				count: 0
+
+		if $scope.thisDevice.method.resource
+			schedule.method.push('RESOURCE')
+		if $scope.thisDevice.method.unlimited
+			schedule.method.push('UNLIMITED')
+
+		for day, status of $scope.thisDevice.workday
+			if status
+				schedule.workday.push(parseInt(day.charAt(1)))
+
+		payload =
+			modelID: $scope.thisModel.ID
+			supplyID: $scope.thisSupply.ID
+			field: JSON.stringify(field)
+			info: $scope.thisDevice.info
+			img: $scope.thisDevice.img
+			spec: $scope.thisDevice.spec
+			schedule: JSON.stringify(schedule)
+			contract: $scope.thisDevice.contract
+			memo: $scope.thisDevice.memo
+			online: $scope.thisDevice.online
+
+		FrontDevice.save(payload).$promise.then ->
+			alert('保存成功')
+			window.location.reload()
+		, ->
+			alert('保存失败')
+
+	$scope.uploadModelImage = (files)->
+		if files and files.length
+			$scope.newModel.img = files[0].name
+			$upload.upload(
+				url: '/admin/upload/model-image'
+				file: files[0]
+			).success((body)->
+				$scope.newModel.img = body.web_path
+			).error((body)->
+				alert(body)
+			)
+
+	$scope.uploadDeviceImage = (files)->
+		if files and files.length
+			$scope.thisDevice.img = files[0].name
+			$upload.upload(
+				url: '/admin/upload/device-image'
+				file: files[0]
+			).success((body)->
+				$scope.thisDevice.img = body.web_path
+			).error((body)->
+				alert(body)
+			)
+
+	$scope.uploadModelSpec = (files)->
+		if files and files.length
+			fileMap = {}
+			for file in files
+				$upload.upload(
+					url: '/admin/upload/model-spec'
+					file: file
+				).success((body)->
+					fileMap[body.raw_name] = body.web_path
+					$scope.newModel.spec += body.file_name + ' '
+					if Object.keys(fileMap).length == files.length
+						$scope.newModel.spec = JSON.stringify(fileMap)
+				).error((body)->
+					alert(body)
+				)
+
+	$scope.uploadDeviceSpec = (files)->
+		if files and files.length
+			fileMap = {}
+			for file in files
+				$upload.upload(
+					url: '/admin/upload/device-spec'
+					file: file
+				).success((body)->
+					fileMap[body.raw_name] = body.web_path
+					$scope.thisDevice.spec += body.file_name + ' '
+					if Object.keys(fileMap).length == files.length
+						$scope.thisDevice.spec = JSON.stringify(fileMap)
+				).error((body)->
+					alert(body)
+				)
+]
+
 adminCtrl.controller 'frontHierarchy', ['$scope', 'FrontHierarchy', ($scope, FrontHierarchy)->
 	$scope.title = '层级管理'
 	$scope.editor = new JSONEditor(document.querySelector('#jsoneditor'))
-
-	FrontHierarchy.query().$promise.then (data)->
-		$scope.editor.set(data)
+	
+	FrontHierarchy.get().$promise.then (data)->
+		local = {}
+		for name, value of data
+			if name.indexOf('$') == -1
+				local[name] = value
+		$scope.editor.set(local)
 
 	$scope.save = ->
 		FrontHierarchy.update($scope.editor.get()).$promise.then ->
@@ -92,7 +324,6 @@ adminCtrl.controller 'frontCategory', ['$scope', 'FrontCategory', ($scope, Front
 		{name: 'ID', enableCellEdit: false}
 		{name: 'name'}
 		{name: 'field'}
-		{name: 'info'}
 	])
 ]
 
@@ -101,10 +332,10 @@ adminCtrl.controller 'frontModel', ['$scope', 'FrontModel', ($scope, FrontModel)
 	gridBuilder.call(this, $scope, FrontModel, [
 		{name: 'ID', enableCellEdit: false}
 		{name: 'categoryID'}
-		{name: 'vendor'}
 		{name: 'name'}
 		{name: 'field'}
-		{name: 'info'}
+		{name: 'img'}
+		{name: 'spec'}
 	])
 ]
 
@@ -113,15 +344,14 @@ adminCtrl.controller 'frontDevice', ['$scope', 'FrontDevice', ($scope, FrontDevi
 	gridBuilder.call(this, $scope, FrontDevice, [
 		{name: 'ID', enableCellEdit: false}
 		{name: 'modelID'}
-		{name: 'instituteID'}
-		{name: 'city'}
-		{name: 'location'}
-		{name: 'address'}
-		{name: 'price'}
-		{name: 'unit'}
+		{name: 'supplyID'}
 		{name: 'field'}
 		{name: 'info'}
-		{name: 'credit'}
+		{name: 'img'}
+		{name: 'spec'}
+		{name: 'schedule'}
+		{name: 'contract'}
+		{name: 'memo'}
 		{name: 'online'}
 	])
 ]
@@ -165,57 +395,65 @@ adminCtrl.controller 'cacheAdmin', ['$scope', 'CacheAdmin', ($scope, CacheAdmin)
 		gridApi.rowEdit.on.saveRow($scope, $scope.saveRow)
 ]
 
-adminCtrl.controller 'instituteAdmin', ['$scope', 'Institute', ($scope, Institute)->
-	$scope.title = '机构管理'
-	gridBuilder.call(this, $scope, Institute, [
-		{name: 'ID', enableCellEdit: false}
-		{name: 'chief'}
-		{name: 'name'}
-		{name: 'info'}
-	])
-]
-
 adminCtrl.controller 'peopleUser', ['$scope', 'User', ($scope, User)->
 	$scope.title = '用户管理'
 	gridBuilder.call(this, $scope, User, [
 		{name: 'ID', enableCellEdit: false}
 		{name: 'name'}
-		{name: 'username'}
+		{name: 'email'}
 		{name: 'password'}
 		{name: 'phone'}
-		{name: 'email'}
-		{name: 'credit'}
 	])
 ]
 
-adminCtrl.controller 'peopleStaff', ['$scope', 'Operator', ($scope, Operator)->
-	$scope.title = '操作员管理'
-	gridBuilder.call(this, $scope, Operator, [
+adminCtrl.controller 'peopleSupply', ['$scope', 'Supply', ($scope, Supply)->
+	$scope.title = '供应商管理'
+	gridBuilder.call(this, $scope, Supply, [
 		{name: 'ID', enableCellEdit: false}
-		{name: 'orgID'}
 		{name: 'name'}
-		{name: 'username'}
+		{name: 'email'}
 		{name: 'password'}
 		{name: 'phone'}
-		{name: 'email'}
-		{name: 'credit'}
+		{name: 'city'}
+		{name: 'locale'}
+		{name: 'address'}
+		{name: 'memo'}
 	])
 ]
 
-adminCtrl.controller 'peopleAdmin', ['$scope', 'Supervisor', ($scope, Supervisor)->
-	$scope.title = '监督员管理'
-	gridBuilder.call(this, $scope, Supervisor, [
+adminCtrl.controller 'peopleGroup', ['$scope', 'Group', ($scope, Group)->
+	$scope.title = '科研团体管理'
+	gridBuilder.call(this, $scope, Group, [
 		{name: 'ID', enableCellEdit: false}
-		{name: 'privilege'}
 		{name: 'name'}
-		{name: 'username'}
+		{name: 'email'}
 		{name: 'password'}
 		{name: 'phone'}
-		{name: 'email'}
-		{name: 'credit'}
 	])
 ]
 
-adminCtrl.controller 'bookingAdmin', ['$scope', ($scope)->
+adminCtrl.controller 'peopleHelper', ['$scope', 'Helper', ($scope, Helper)->
+	$scope.title = '客服管理'
+	gridBuilder.call(this, $scope, Helper, [
+		{name: 'ID', enableCellEdit: false}
+		{name: 'name'}
+		{name: 'email'}
+		{name: 'password'}
+		{name: 'phone'}
+	])
+]
+
+adminCtrl.controller 'peopleAdmin', ['$scope', 'Admin', ($scope, Admin)->
+	$scope.title = '管理员管理'
+	gridBuilder.call(this, $scope, Admin, [
+		{name: 'ID', enableCellEdit: false}
+		{name: 'name'}
+		{name: 'email'}
+		{name: 'password'}
+		{name: 'phone'}
+	])
+]
+
+adminCtrl.controller 'orderAdmin', ['$scope', ($scope)->
 	$scope.title = '预约管理'
 ]

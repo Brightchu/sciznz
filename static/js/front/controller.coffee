@@ -15,8 +15,8 @@ sciCtrl.controller 'navCtrl', ['$scope', '$modal', '$cookies', '$document', '$wi
 		openLoginModel($modal, $scope)
 
 	$scope.scrollTo = (selector)->
-		if $window.location.hash == '#/list'
-			$window.location.hash = '/'
+		if $window.location.hash != '#/'
+			$window.location.hash = '#/'
 		else
 			$document.scrollToElementAnimated($(document.querySelector(selector)), 100);
 
@@ -33,12 +33,8 @@ openLoginModel = ($modal, $scope)->
 	modalInstance.result.then (name)->
 		$scope.name = name
 
-sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout', '$filter', ($scope, $modalInstance, User, $timeout, $filter)->
-	signup = true
-	$scope.actionText = $filter('translate')('signup')
-	$scope.switchText = $filter('translate')('goSignin')
-
-	signup = ->
+sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout', ($scope, $modalInstance, User, $timeout)->
+	$scope.signup = ->
 		form =
 			email: $scope.email
 			password: $scope.password
@@ -52,7 +48,7 @@ sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout',
 				$modalInstance.close(data.name)
 			, 1000
 
-	signin = ->
+	$scope.signin = ->
 		form =
 			email: $scope.email
 			password: $scope.password
@@ -62,22 +58,6 @@ sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout',
 			$scope.error = true
 		promise.then (data)->
 			$modalInstance.close(data.name)
-
-	$scope.switch = ->
-		signup = !signup
-		if signup
-			$scope.actionText = $filter('translate')('signup')
-			$scope.switchText = $filter('translate')('goSignin')
-		else
-			$scope.actionText = $filter('translate')('signin')
-			$scope.switchText = $filter('translate')('goSignup')
-
-	$scope.action = ->
-		if signup
-			signup()
-		else
-			signin()
-
 ]
 
 sciCtrl.controller 'homeCtrl', ['$scope', '$document', 'data', ($scope, $document, data)->
@@ -182,6 +162,7 @@ sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Device', '$
 ]
 
 sciCtrl.controller 'confirmCtrl', ['$scope', '$modalInstance', 'Order', 'payload', ($scope, $modalInstance, Order, payload)->
+	payload.note = ''
 	$scope.payload = payload
 
 	$scope.order = ->

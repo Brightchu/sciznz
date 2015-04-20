@@ -1,0 +1,178 @@
+form#table.form-horizontal
+	p#title 录入系统
+
+	.form-group
+		label.col-sm-2 一. 选择分类:
+		.col-sm-4(dropdown)
+			button.btn.btn-success.dropdown-toggle(type='button' dropdown-toggle) {{thisCategory.name}}
+				span.caret
+			ul.dropdown-menu(role='menu')
+				li.entry(ng-repeat='category in categoryList' ng-click='onCategoryClick()')
+					a {{category.name}}
+				li.divider
+					li.entry(ng-click='showNewCategory = true')
+						a 添加新分类
+
+	.form-group(ng-show='showNewCategory')
+		.form-group
+			.col-sm-2
+				label 新分类名称
+			.col-sm-4
+				input.form-control(ng-model='newCategory.name')
+		.form-group
+			.col-sm-2
+				label 参数指标
+			.col-sm-4
+				input.form-control(ng-model='newCategory.field[$index]' ng-repeat='field in newCategory.field track by $index')
+		button.btn.btn-default(ng-click='addNewField()') 添加指标
+		button.btn.btn-success(ng-click='saveNewCategory()') 保存新分类
+
+	.form-group
+		label.col-sm-2 二. 选择型号:
+		.col-sm-4(dropdown)
+			button.btn.btn-warning.dropdown-toggle(type='button' dropdown-toggle ng-disabled="modelDisabled") {{thisModel.name}}
+				span.caret
+			ul.dropdown-menu(role='menu')
+				li.entry(ng-repeat='model in modelList' ng-click='onModelClick()')
+					a {{model.name}}
+				li.divider
+					li.entry(ng-click='addNewModel()')
+						a 添加新型号
+
+	.form-group(ng-show='showNewModel')
+		.form-group
+			.col-sm-2
+				label 新型号名称
+			.col-sm-4
+				input.form-control(ng-model='newModel.name')
+		.form-group(ng-repeat='(name, default) in newModel.field')
+			.col-sm-2
+				label {{name}}
+			.col-sm-4
+				input.form-control(ng-model='newModel.field[name]')
+		.form-group(ng-repeat='field in newModel.addfield track by $index')
+			.col-sm-2
+				input.form-control(ng-model='newModel.addfield[$index].name')
+			.col-sm-4
+				input.form-control(ng-model='newModel.addfield[$index].value')
+		.form-group
+			.col-sm-2
+				label 图片URL
+			.col-sm-4
+				textarea.form-control(ng-model='newModel.img' disabled)
+			.col-sm-2
+				button.btn.btn-success(ng-file-select ng-file-change='uploadModelImage($files)') 型号照片
+		.form-group
+			.col-sm-2
+				label 附件
+			.col-sm-4
+				textarea.form-control(ng-model='newModel.spec' disabled)
+			.col-sm-2
+				button.btn.btn-success(ng-file-select ng-file-change='uploadModelSpec($files)' ng-multiple='true') 型号附件
+		button.btn.btn-default(ng-click='newModelAddField()') 添加参数
+		button.btn.btn-success(ng-click='saveNewModel()') 保存新型号
+
+	.form-group
+		label.col-sm-2 三. 选择供应商:
+		.col-sm-4(dropdown)
+			button.btn.btn-info.dropdown-toggle(type='button' dropdown-toggle) {{thisSupply.name}}
+				span.caret
+			ul.dropdown-menu(role='menu')
+				li.entry(ng-repeat='supply in supplyList' ng-click='onSupplyClick()')
+					a {{supply.name}}
+				li.divider
+					li.entry
+						a 添加供应商
+
+	label 四. 录入仪器:
+	.form-group(ng-hide='deviceDisabled')
+		label 型号参数:
+		.form-group(ng-repeat='(name, default) in thisModel.field')
+			span.col-sm-2.control-label {{name}}:
+			label.col-sm-4 {{default}}
+		
+		label 设备参数:
+			button.btn.btn-default.btn-sm(ng-click='addField()') 添加参数
+		.form-group(ng-repeat='field in thisDevice.addfield track by $index')
+			.col-sm-2
+				input.form-control(ng-model='thisDevice.addfield[$index].name')
+			.col-sm-4
+				input.form-control(ng-model='thisDevice.addfield[$index].value')
+
+		.form-group
+			.col-sm-2
+				label 其他公开信息:
+			.col-sm-4
+				textarea.form-control(ng-model='thisDevice.info')
+		.form-group
+			.col-sm-2
+				label 图片URL:
+			.col-sm-4
+				textarea.form-control(ng-model='thisDevice.img' disabled)
+			.col-sm-2
+				button.btn.btn-success(ng-file-select ng-file-change='uploadDeviceImage($files)') 仪器照片
+		.form-group
+			.col-sm-2
+				label 附件:
+			.col-sm-4
+				textarea.form-control(ng-model='thisDevice.spec' disabled)
+			.col-sm-2
+				button.btn.btn-success(ng-file-select ng-file-change='uploadDeviceSpec($files)' ng-multiple='true') 仪器附件
+		.form-group
+			.col-sm-2
+				label 预约方式：
+			.btn-group.col-sm-4
+				label.btn.btn-default(ng-model='thisDevice.method.resource', btn-checkbox) {{'RESOURCE' | translate}}
+				label.btn.btn-default(ng-model='thisDevice.method.unlimited', btn-checkbox) {{'UNLIMITED' | translate}}
+		.form-group
+			.col-sm-2
+				label 工作日：
+			.btn-group.col-sm-4
+				label.btn.btn-default(ng-model='thisDevice.workday.d0', btn-checkbox) 日
+				label.btn.btn-default(ng-model='thisDevice.workday.d1', btn-checkbox) 一
+				label.btn.btn-default(ng-model='thisDevice.workday.d2', btn-checkbox) 二
+				label.btn.btn-default(ng-model='thisDevice.workday.d3', btn-checkbox) 三
+				label.btn.btn-default(ng-model='thisDevice.workday.d4', btn-checkbox) 四
+				label.btn.btn-default(ng-model='thisDevice.workday.d5', btn-checkbox) 五
+				label.btn.btn-default(ng-model='thisDevice.workday.d6', btn-checkbox) 六
+		.form-group
+			label.col-sm-2 无担保预约(也用作首页显示价格):
+			.col-sm-10
+				label 价格
+					input.form-control(ng-model='thisDevice.unlimited.price')
+				label 单位
+					input.form-control(ng-model='thisDevice.unlimited.unit')
+		.form-group
+			label.col-sm-2 担保预约:
+				button.btn.btn-default.btn-sm(ng-click='addResource()') 添加项目
+			div(ng-repeat='res in thisDevice.resource track by $index')
+				.col-sm-2
+				.col-sm-10
+					label 项目
+						input.form-control(ng-model='thisDevice.resource[$index].name')
+					label 价格
+						input.form-control(ng-model='thisDevice.resource[$index].price')
+					label 单位
+						input.form-control(ng-model='thisDevice.resource[$index].unit')
+					label 容量
+						input.form-control(ng-model='thisDevice.resource[$index].capacity')
+		.form-group
+			.col-sm-2
+				label 联系信息(用户预约后可见):
+			.col-sm-4
+				textarea.form-control(ng-model='thisDevice.contract')
+		.form-group
+			.col-sm-2
+				label 备注(仅自己可见):
+			.col-sm-4
+				textarea.form-control(ng-model='thisDevice.memo')
+
+		.form-group
+			.col-sm-2
+				label 立即上线
+			.col-sm-2
+				input(type='checkbox' value='online' ng-model='thisDevice.online')
+
+	br
+	br
+	button.btn.btn-success(type="button" ng-click="saveThisDevice()") 保存新仪器

@@ -16,7 +16,11 @@ class Order_service extends CI_Model {
 	public function create($userID, $deviceID, $method, $date, $resource, $note) {
 		$this->load->model('device_model');
 		$schedule = json_decode($this->device_model->info($deviceID)['schedule'], TRUE);
-		$budget = $schedule[strtolower($method)][$resource]['price'];
+		if ($method === 'RESOURCE') {
+			$budget = $schedule[strtolower($method)][$resource]['price'];
+		} else {
+			$budget = $schedule[strtolower($method)]['price'];
+		}
 
 		return $this->order_model->create($userID, $deviceID, $method, $date, $resource, $budget, $note);
 	}
