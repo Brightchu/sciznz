@@ -162,6 +162,7 @@ sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Device', '$
 ]
 
 sciCtrl.controller 'confirmCtrl', ['$scope', '$modalInstance', 'Order', 'payload', ($scope, $modalInstance, Order, payload)->
+	payload.note = ''
 	$scope.payload = payload
 
 	$scope.order = ->

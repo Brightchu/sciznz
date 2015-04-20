@@ -27,7 +27,7 @@
 							p.left(ng-show="orderModel.method == 'RESOURCE'")
 								span.tip 预约项目：
 								span.content.btn-group
-									label.btn.btn-default(ng-repeat='(name, value) in resource' ng-hide='value.capacity == value.count' ng-model="orderModel.resource" btn-radio="'{{name}}'") {{name}}
+									label.btn.btn-default(ng-repeat='(name, value) in resource' ng-hide='value.count >= value.capacity' ng-model="orderModel.resource" btn-radio="'{{name}}'") {{name}}
 							div.price(ng-show="orderModel.method == 'RESOURCE'")
 								span.tip 项目容量及预算：
 								div(ng-repeat='(name, value) in resource')
