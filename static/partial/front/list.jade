@@ -1,7 +1,9 @@
 #list.container
 	#suggestion
 		p 请旋转至横屏以获得更好的排版效果
-
+	#search
+		span#searchText 快速搜索：
+		input#keyword.form-control(ng-model='keyword' placeholder='关键词' autofocus)
 	#filter
 		.row
 			.col-xs-2
@@ -72,11 +74,11 @@
 					label.btn.btn-sm.btn-default(ng-repeat="value in data | fieldFilter:filterModel:field | unique" ng-model="filterModel.field[field]" btn-radio="'{{value}}'") {{value}}
 
 	#content
-		.device.row(ng-repeat="device in data | listFilter:filterModel:this")
+		.device.row(ng-repeat='device in data | listFilter:filterModel:this | keywordFilter:this')
 			include ./deviceMixin.jade
 			+device(false)
 
-		.nodevice(ng-show="nodevice")
+		.nodevice(ng-show='nodevice')
 			p 没有合适的仪器，要求不要那么高嘛
 
 include ./footer.jade

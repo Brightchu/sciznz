@@ -7,7 +7,6 @@ sciFilter.filter 'listFilter', ['$filter', ($filter)->
 		# return if no filter label selected
 		if filterModel.category == $filter('translate')('unlimit')
 			if filterModel.locale == $filter('translate')('unlimit')
-				$scope.nodevice = false
 				return data.device
 			else
 				deviceList = []
@@ -15,7 +14,6 @@ sciFilter.filter 'listFilter', ['$filter', ($filter)->
 					if device.locale == filterModel.locale
 						deviceList.push(device)
 
-				$scope.nodevice = false
 				return deviceList
 
 		# selected category
@@ -24,7 +22,6 @@ sciFilter.filter 'listFilter', ['$filter', ($filter)->
 			deviceList = IDList.map (deviceID)->
 				data.device[deviceID]
 		else
-			$scope.nodevice = true
 			return []
 
 		# filter locale
@@ -51,11 +48,6 @@ sciFilter.filter 'listFilter', ['$filter', ($filter)->
 
 				return true
 
-		if not deviceList.length
-			$scope.nodevice = true
-		else
-			$scope.nodevice = false
-
 		return deviceList
 ]
 
@@ -72,3 +64,26 @@ sciFilter.filter 'fieldFilter', ['$filter', ($filter)->
 		else
 			return []
 ]
+
+sciFilter.filter 'keywordFilter', ->
+	(data, $scope)->
+		if angular.isArray(data)
+			if $scope.keyword? and $scope.keyword.length
+				result = data.filter (device)->
+					return JSON.stringify(device).indexOf($scope.keyword) != -1
+				$scope.nodevice = (result.length == 0)
+				return result
+			else
+				$scope.nodevice = (data.length == 0)
+				return data
+		else
+			if $scope.keyword? and $scope.keyword.length
+				result = []
+				for _, device of data
+					if JSON.stringify(device).indexOf($scope.keyword) != -1
+						result.push(device)
+				$scope.nodevice = (result.length == 0)
+				return result
+			else
+				$scope.nodevice = false
+				return data

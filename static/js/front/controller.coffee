@@ -95,7 +95,6 @@ sciCtrl.controller 'homeCtrl', ['$scope', '$document', 'data', ($scope, $documen
 
 sciCtrl.controller 'listCtrl', ['$scope', '$rootScope', '$filter', 'data', ($scope, $rootScope, $filter, data)->
 	$scope.data = data
-
 	$scope.hideMoreFeature = true
 	$scope.hideMoreCategory = true
 
