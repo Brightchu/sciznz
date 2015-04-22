@@ -3,14 +3,14 @@
 	p 让实验更轻松
 
 .modal-body
-	.alert.alert-danger(ng-if="error") 邮箱密码有误
-	.alert.alert-warning(ng-if="warning") 邮箱已被注册，登录试试？
+	.alert.alert-danger(ng-if="error") {{errorText}}
 	.alert.alert-success(ng-if="success") 注册成功
 	form
-		input(type="email" ng-model="email" class="form-control" placeholder="邮箱" required autofocus)
+		input(type="email" ng-model="email" class="form-control" placeholder="邮箱地址" required autofocus)
 		input(type="password" ng-model="password" class="form-control" placeholder="密码" required)
-		button(type="submit" ng-click='signup()' style='display: none')
+		button(type="submit" ng-click='signin()' style='display: none')
 
 .modal-footer
-	button.btn.btn-info(ng-click='signin()' style="float: left") 登录
-	button.btn.btn-primary(ng-click='signup()') 注册
+	button.btn.btn-primary.btn-block(ng-click='signin()') 登录
+	hr.divide
+	button.btn.btn-info.btn-block(ng-click='signup()') 注册

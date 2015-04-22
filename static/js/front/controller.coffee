@@ -35,20 +35,32 @@ openLoginModel = ($modal, $scope)->
 
 sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout', ($scope, $modalInstance, User, $timeout)->
 	$scope.signup = ->
+		if not ($scope.email? and $scope.password?)
+			$scope.error = true
+			$scope.errorText = '请输入将要注册的邮箱和密码'
+			return
+
 		form =
 			email: $scope.email
 			password: $scope.password
 
 		result = User.register(form).$promise
 		result.catch ->
-			$scope.warning = true
+			$scope.error = true
+			$scope.errorText = '邮箱已被注册，请登录'
 		result.then (data)->
+			$scope.error = false
 			$scope.success = true
 			$timeout ->
 				$modalInstance.close(data.name)
 			, 1000
 
 	$scope.signin = ->
+		if not ($scope.email? and $scope.password?)
+			$scope.error = true
+			$scope.errorText = '请输入将要登录的邮箱和密码'
+			return
+
 		form =
 			email: $scope.email
 			password: $scope.password
@@ -56,7 +68,10 @@ sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout',
 		promise = User.auth(form).$promise
 		promise.catch ->
 			$scope.error = true
+			$scope.errorText = '邮箱或密码错误'
 		promise.then (data)->
+			$scope.error = false
+			$scope.success = true
 			$modalInstance.close(data.name)
 ]
 

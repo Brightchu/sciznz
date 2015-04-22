@@ -31,7 +31,7 @@ sciApp.config(['$compileProvider', ($compileProvider)->
 
 sciApp.config(['$translateProvider', ($translateProvider)->
 	$translateProvider.translations 'zh',
-		login: '登录'
+		login: '登录 / 注册'
 		all: '全部'
 		unlimit: '不限'
 		signin: '登录'
