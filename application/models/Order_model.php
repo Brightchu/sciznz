@@ -48,6 +48,11 @@ class Order_model extends CI_Model {
 		return $this->db->query($sql, $ID)->row_array();
 	}
 
+	public function allInfo($ID) {
+		$sql = 'SELECT `order`.`ID`, `category`.`name` AS `category`, `model`.`name` AS `model`, `device`.`ID` AS `deviceID`, `user`.`name`, `user`.`email`, `user`.`phone`, `order`.`date`, `usage`.`date` AS `useDate`, `usage`.`resource`, `status`, `note`, `detail`, `budget`, `fill` FROM `order` JOIN `device` ON `order`.`ID` = ? AND `order`.`deviceID` = `device`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID` JOIN `user` ON `order`.`userID` = `user`.`ID` JOIN `usage` ON `order`.`usageID` = `usage`.`ID`';
+		return $this->db->query($sql, $ID)->row_array();
+	}
+
 	public function budget($ID, $budgetID) {
 		$sql = 'UPDATE `order` SET `status` = "BUDGET", `budgetID` = ? WHERE `ID` = ?';
 		return $this->db->query($sql, [$budgetID, $ID]);
