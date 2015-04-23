@@ -71,7 +71,6 @@ sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout',
 			$scope.errorText = '邮箱或密码错误'
 		promise.then (data)->
 			$scope.error = false
-			$scope.success = true
 			$modalInstance.close(data.name)
 ]
 
