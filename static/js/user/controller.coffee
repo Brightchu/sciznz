@@ -95,7 +95,10 @@ userCtrl.controller 'payCtrl', ['$scope', '$modalInstance', '$timeout', '$filter
 					, ->
 						alert($filter('translate')('fillPayFail'))
 			else
-				window.location.href = "/alipay/create/#{order.ID}"
+				if type == 'budget'
+					window.location.href = "/alipay/budgetCreate/#{order.ID}"
+				else if type == 'fill'
+					window.location.href = "/alipay/fillCreate/#{order.ID}"
 		else
 			alert('请选择支付方式')
 ]

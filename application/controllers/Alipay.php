@@ -31,7 +31,7 @@ class Alipay extends CI_Controller {
 	public function fillNotify() {
 		$this->load->model('order_service');
 		$trade_no = $this->input->post('trade_no');
-		$orderID = $this->input->post('out_trade_no');
+		$orderID = explode('_', $this->input->post('out_trade_no'))[1];
 		$buyer_email = $this->input->post('buyer_email');
 
 		if ($this->order_service->fill($orderID, 'ALIPAY', $buyer_email, $trade_no)) {

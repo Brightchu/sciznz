@@ -47,7 +47,7 @@ class Alipay_service extends CI_Model {
 			'partner' => $this->partnerID,
 			'_input_charset' => 'utf-8',
 			'notify_url' => site_url('alipay/fillNotify'),
-			'out_trade_no' => $info['ID'],
+			'out_trade_no' => 'fill_' . $info['ID'],
 			'subject' => $info['model'] . ' - 耗材费用',
 			'payment_type'=> '1',
 			'logistics_type' => 'EXPRESS',
