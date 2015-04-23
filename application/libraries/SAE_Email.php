@@ -72,7 +72,7 @@ class SAE_Email extends CI_Email {
 			$this->_set_error_message($this->_sae_mail->errmsg());
 			log_message('error', 'Mail service error: ' . $this->_sae_mail->errno() . ' ' . $this->_sae_mail->errmsg());
 
-			$result = parent::send(FALSE);
+			//$result = parent::send(FALSE);
 		}
 
 		if ($result && $auto_clear)
