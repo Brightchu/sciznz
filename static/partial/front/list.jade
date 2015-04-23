@@ -5,6 +5,7 @@
 		span.glyphicon.glyphicon-search
 		span#searchText 快速搜索：
 		input#keyword.form-control(ng-model='keyword' placeholder='关键词' autofocus)
+		p#count {{count}} 台合适的仪器
 	#filter
 		.row
 			.col-xs-2
@@ -79,7 +80,7 @@
 			include ./deviceMixin.jade
 			+device(false)
 
-		.nodevice(ng-show='nodevice')
+		.nodevice(ng-show='count == 0')
 			p 没有合适的仪器，要求不要那么高嘛
 
 include ./footer.jade
