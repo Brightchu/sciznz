@@ -4,7 +4,6 @@
 			span.cube(class='cube-' + _cube)
 				each _i in [1, 2, 3, 4, 5, 6]
 					i
-
 	#slogan
 		p.big 科学指南针
 		p.little 让实验更简单
@@ -14,6 +13,9 @@
 			#go.ellipse 立即体验
 				span.glyphicon.glyphicon-chevron-right
 		#view.ellipse(ng-click="scrollTo('#flow')") 查看流程
+
+	#count
+		p 已有 {{data.index.locale.length}} 家供应商， {{Utils.keys(data.index.category).length}} 个分类， {{Utils.keys(data.device).length}} 台仪器入驻，就等你来！
 
 	#flow.container
 		p#flow-name 只需四步！解决仪器难题
