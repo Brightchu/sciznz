@@ -1,5 +1,5 @@
 name: sciclubs
-version: 2
+version: 1
 
 handle:
 - rewrite: if (!-d && !-f) goto "/index.php/%{REQUEST_URI}"
