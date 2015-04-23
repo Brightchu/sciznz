@@ -13,4 +13,14 @@ class Alipay extends CI_Controller {
 		redirect($this->alipay_service->create($orderID));
 	}
 
+	public function notify() {
+		$this->load->model('order_service');
+		$trade_no = $this->input->post('trade_no');
+		$orderID = $this->input->post('out_trade_no');
+		$buyer_email = $this->input->post('buyer_email');
+
+		if ($this->order_service->budget($orderID, 'ALIPAY', $buyer_email, $trade_no)) {
+			$this->output->set_output('success');
+		}
+	}
 }

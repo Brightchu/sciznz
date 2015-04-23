@@ -37,7 +37,9 @@ class Order_service extends CI_Model {
 				$budget = $this->order_model->info($ID)['budget'];
 				$payID = $this->pay_model->pay($budget, 'GROUP', $account, $transaction);
 				return $this->order_model->budget($ID, $payID);
-			
+			case 'ALIPAY':
+				$payID = $this->pay_model->pay($budget, 'ALIPAY', $account, $transaction);
+				return $this->order_model->budget($ID, $payID);
 			default:
 				return FALSE;
 		}
