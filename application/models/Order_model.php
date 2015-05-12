@@ -26,8 +26,8 @@ class Order_model extends CI_Model {
 		}
 
 		if ($method === 'UNLIMITED') {
-			$sql = 'INSERT INTO `order`(`userID`, `deviceID`, `note`, `detail`, `method`) VALUES (?, ?, ?, "{}", "UNLIMITED")';
-			return $this->db->query($sql, [$userID, $deviceID, $note]);
+			$sql = 'INSERT INTO `order`(`userID`, `deviceID`, `note`, `detail`, `method`, `budget`) VALUES (?, ?, ?, "{}", "UNLIMITED", ?)';
+			return $this->db->query($sql, [$userID, $deviceID, $note, $budget]);
 		}
 
 		return FALSE;
@@ -74,7 +74,7 @@ class Order_model extends CI_Model {
 	}
 
 	public function userActive($userID) {
-		$sql = 'SELECT `order`.`ID`, `category`.`name` AS `category`, `model`.`name` AS `model`, `device`.`ID` AS `deviceID`, `supply`.`name` AS `supply`, `supply`.`email` AS `email`, `supply`.`phone` AS `phone`, `device`.`contract` AS `contract`, `order`.`date`, `usage`.`date` AS `useDate`, `usage`.`resource`, `status`, `note`, `detail`, `budget`, `fill` FROM `order` JOIN `device` ON `userID` = ? AND (`status` != "DONE" AND `status` != "CANCEL") AND `order`.`deviceID` = `device`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID` JOIN `supply` ON `device`.`supplyID` = `supply`.`ID` JOIN `usage` ON `order`.`usageID` = `usage`.`ID` ORDER BY `order`.`ID` DESC';
+		$sql = 'SELECT `order`.`ID`, `category`.`name` AS `category`, `model`.`name` AS `model`, `device`.`ID` AS `deviceID`, `supply`.`name` AS `supply`, `supply`.`email` AS `email`, `supply`.`phone` AS `phone`, `device`.`contract` AS `contract`, `order`.`date`, `usage`.`date` AS `useDate`, `usage`.`resource`, `status`, `note`, `detail`, `budget`, `fill` FROM `order` JOIN `device` ON `userID` = ? AND (`status` != "DONE" AND `status` != "CANCEL") AND `order`.`deviceID` = `device`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID` JOIN `supply` ON `device`.`supplyID` = `supply`.`ID` LEFT JOIN `usage` ON `order`.`usageID` = `usage`.`ID` ORDER BY `order`.`ID` DESC';
 		return $this->db->query($sql, $userID)->result_array();
 	}
 
