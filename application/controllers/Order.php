@@ -72,27 +72,29 @@ class Order extends CI_Controller {
 		$this->load->model('user_model');
 		$this->load->model('device_model');
 
-		$orderID = $this->input->json('orderID');
 		$method = $this->input->json('method');
-		$account = $this->input->json('account');
-		$transaction = $this->encryption->decrypt($this->input->cookie('userID'));
+		if ($method == 'GROUP') {
+			$orderID = $this->input->json('orderID');
+			$account = $this->input->json('account');
+			$transaction = $this->encryption->decrypt($this->input->cookie('userID'));
 
-		$result = $this->order_service->budget($orderID, $method, $account, $transaction);
-		if ($result) {
-			$orderInfo = $this->order_service->info($orderID);
-			$userInfo = $this->user_model->info($orderInfo['userID']);
-			$deviceInfo = $this->device_model->textInfo($orderInfo['deviceID']);
+			$result = $this->order_service->budget($orderID, $method, $account, $transaction);
+			if ($result) {
+				$orderInfo = $this->order_service->info($orderID);
+				$userInfo = $this->user_model->info($orderInfo['userID']);
+				$deviceInfo = $this->device_model->textInfo($orderInfo['deviceID']);
 
-			$data = [
-				'name' => $userInfo['name'],
-				'model' => $deviceInfo['model'],
-				'category' => $deviceInfo['category'],
-				'supply' => $deviceInfo['supply'],
-			];
-			$this->order_mail->budget($deviceInfo['supplyEmail'], $data);
-			$this->output->set_status_header(200);
-		} else {
-			$this->output->set_status_header(403);
+				$data = [
+					'name' => $userInfo['name'],
+					'model' => $deviceInfo['model'],
+					'category' => $deviceInfo['category'],
+					'supply' => $deviceInfo['supply'],
+				];
+				$this->order_mail->budget($deviceInfo['supplyEmail'], $data);
+				$this->output->set_status_header(200);
+			} else {
+				$this->output->set_status_header(403);
+			}
 		}
 	}
 
@@ -151,27 +153,29 @@ class Order extends CI_Controller {
 		$this->load->model('user_model');
 		$this->load->model('device_model');
 
-		$orderID = $this->input->json('orderID');
 		$method = $this->input->json('method');
-		$account = $this->input->json('account');
-		$transaction = $this->encryption->decrypt($this->input->cookie('userID'));
+		if ($method == 'GROUP') {
+			$orderID = $this->input->json('orderID');
+			$account = $this->input->json('account');
+			$transaction = $this->encryption->decrypt($this->input->cookie('userID'));
 
-		$result = $this->order_service->fill($orderID, $method, $account, $transaction);
-		if ($result) {
-			$orderInfo = $this->order_service->info($orderID);
-			$userInfo = $this->user_model->info($orderInfo['userID']);
-			$deviceInfo = $this->device_model->textInfo($orderInfo['deviceID']);
+			$result = $this->order_service->fill($orderID, $method, $account, $transaction);
+			if ($result) {
+				$orderInfo = $this->order_service->info($orderID);
+				$userInfo = $this->user_model->info($orderInfo['userID']);
+				$deviceInfo = $this->device_model->textInfo($orderInfo['deviceID']);
 
-			$data = [
-				'name' => $userInfo['name'],
-				'model' => $deviceInfo['model'],
-				'category' => $deviceInfo['category'],
-				'supply' => $deviceInfo['supply'],
-			];
-			$this->order_mail->fill($deviceInfo['supplyEmail'], $data);
-			$this->output->set_status_header(200);
-		} else {
-			$this->output->set_status_header(403);
+				$data = [
+					'name' => $userInfo['name'],
+					'model' => $deviceInfo['model'],
+					'category' => $deviceInfo['category'],
+					'supply' => $deviceInfo['supply'],
+				];
+				$this->order_mail->fill($deviceInfo['supplyEmail'], $data);
+				$this->output->set_status_header(200);
+			} else {
+				$this->output->set_status_header(403);
+			}
 		}
 	}
 

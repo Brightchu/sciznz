@@ -16,22 +16,17 @@ class Alipay_service extends CI_Model {
 	public function budgetCreate($orderID) {
 		$info = $this->order_model->allInfo($orderID);
 		$config = [
-			'service' => 'create_partner_trade_by_buyer',
+			'service' => 'create_direct_pay_by_user',
 			'partner' => $this->partnerID,
 			'_input_charset' => 'utf-8',
 			'notify_url' => site_url('alipay/budgetNotify'),
 			'out_trade_no' => $info['ID'],
 			'subject' => $info['model'] . ' - 实验预算',
 			'payment_type'=> '1',
-			'logistics_type' => 'EXPRESS',
-			'logistics_fee' => '0',
-			'logistics_payment' => 'SELLER_PAY',
-			'price' => $info['budget'],
-			'quantity' => 1,
+			'total_fee' => $info['budget'],
 			'seller_id' => $this->partnerID,
 			'body' => "{$info['category']} - {$info['model']} - {$info['useDate']} - 实验预算",
 			'show_url' => site_url("/#/device/{$info['deviceID']}"),
-			'receive_name' => $info['name'],
 		];
 
 		$config['sign'] = $this->sign($config, $this->key);
@@ -43,22 +38,17 @@ class Alipay_service extends CI_Model {
 	public function fillCreate($orderID) {
 		$info = $this->order_model->allInfo($orderID);
 		$config = [
-			'service' => 'create_partner_trade_by_buyer',
+			'service' => 'create_direct_pay_by_user',
 			'partner' => $this->partnerID,
 			'_input_charset' => 'utf-8',
 			'notify_url' => site_url('alipay/fillNotify'),
 			'out_trade_no' => 'fill_' . $info['ID'],
 			'subject' => $info['model'] . ' - 耗材费用',
 			'payment_type'=> '1',
-			'logistics_type' => 'EXPRESS',
-			'logistics_fee' => '0',
-			'logistics_payment' => 'SELLER_PAY',
-			'price' => $info['fill'],
-			'quantity' => 1,
+			'total_fee' => $info['fill'],
 			'seller_id' => $this->partnerID,
 			'body' => "{$info['category']} - {$info['model']} - {$info['useDate']} - 耗材费用",
 			'show_url' => site_url("/#/device/{$info['deviceID']}"),
-			'receive_name' => $info['name'],
 		];
 
 		$config['sign'] = $this->sign($config, $this->key);
