@@ -26,8 +26,8 @@ class Order_model extends CI_Model {
 		}
 
 		if ($method === 'UNLIMITED') {
-			$sql = 'INSERT INTO `order`(`userID`, `deviceID`, `note`, `detail`, `method`) VALUES (?, ?, ?, "{}", "UNLIMITED")';
-			return $this->db->query($sql, [$userID, $deviceID, $note]);
+			$sql = 'INSERT INTO `order`(`userID`, `deviceID`, `note`, `detail`, `method`, `budget`) VALUES (?, ?, ?, "{}", "UNLIMITED", ?)';
+			return $this->db->query($sql, [$userID, $deviceID, $note, $budget]);
 		}
 
 		return FALSE;
@@ -45,6 +45,11 @@ class Order_model extends CI_Model {
 
 	public function info($ID) {
 		$sql = 'SELECT `userID`, `deviceID`, `date`, `status`, `detail`, `method`, `usageID`, `budget`, `budgetID`, `fill`, `fillID` FROM `order` WHERE `ID` = ?';
+		return $this->db->query($sql, $ID)->row_array();
+	}
+
+	public function allInfo($ID) {
+		$sql = 'SELECT `order`.`ID`, `category`.`name` AS `category`, `model`.`name` AS `model`, `device`.`ID` AS `deviceID`, `user`.`name`, `user`.`email`, `user`.`phone`, `order`.`date`, `usage`.`date` AS `useDate`, `usage`.`resource`, `status`, `note`, `detail`, `budget`, `fill` FROM `order` JOIN `device` ON `order`.`ID` = ? AND `order`.`deviceID` = `device`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID` JOIN `user` ON `order`.`userID` = `user`.`ID` LEFT JOIN `usage` ON `order`.`usageID` = `usage`.`ID`';
 		return $this->db->query($sql, $ID)->row_array();
 	}
 
@@ -69,7 +74,7 @@ class Order_model extends CI_Model {
 	}
 
 	public function userActive($userID) {
-		$sql = 'SELECT `order`.`ID`, `category`.`name` AS `category`, `model`.`name` AS `model`, `device`.`ID` AS `deviceID`, `supply`.`name` AS `supply`, `supply`.`email` AS `email`, `supply`.`phone` AS `phone`, `device`.`contract` AS `contract`, `order`.`date`, `usage`.`date` AS `useDate`, `usage`.`resource`, `status`, `note`, `detail`, `budget`, `fill` FROM `order` JOIN `device` ON `userID` = ? AND (`status` != "DONE" AND `status` != "CANCEL") AND `order`.`deviceID` = `device`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID` JOIN `supply` ON `device`.`supplyID` = `supply`.`ID` JOIN `usage` ON `order`.`usageID` = `usage`.`ID` ORDER BY `order`.`ID` DESC';
+		$sql = 'SELECT `order`.`ID`, `category`.`name` AS `category`, `model`.`name` AS `model`, `device`.`ID` AS `deviceID`, `supply`.`name` AS `supply`, `supply`.`email` AS `email`, `supply`.`phone` AS `phone`, `device`.`contract` AS `contract`, `order`.`date`, `usage`.`date` AS `useDate`, `usage`.`resource`, `status`, `note`, `detail`, `budget`, `fill` FROM `order` JOIN `device` ON `userID` = ? AND (`status` != "DONE" AND `status` != "CANCEL") AND `order`.`deviceID` = `device`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID` JOIN `supply` ON `device`.`supplyID` = `supply`.`ID` LEFT JOIN `usage` ON `order`.`usageID` = `usage`.`ID` ORDER BY `order`.`ID` DESC';
 		return $this->db->query($sql, $userID)->result_array();
 	}
 
@@ -79,7 +84,7 @@ class Order_model extends CI_Model {
 	}
 
 	public function supplyActive($supplyID) {
-		$sql = 'SELECT `order`.`ID`, `category`.`name` AS `category`, `model`.`name` AS `model`, `device`.`ID` AS `deviceID`, `user`.`name`, `user`.`email`, `user`.`phone`, `order`.`date`, `usage`.`date` AS `useDate`, `usage`.`resource`, `status`, `note`, `detail`, `budget`, `fill` FROM `order` JOIN `device` ON `supplyID` = ? AND (`status` != "DONE" AND `status` != "CANCEL") AND `order`.`deviceID` = `device`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID` JOIN `user` ON `order`.`userID` = `user`.`ID` JOIN `usage` ON `order`.`usageID` = `usage`.`ID` ORDER BY `order`.`ID` DESC';
+		$sql = 'SELECT `order`.`ID`, `category`.`name` AS `category`, `model`.`name` AS `model`, `device`.`ID` AS `deviceID`, `user`.`name`, `user`.`email`, `user`.`phone`, `order`.`date`, `usage`.`date` AS `useDate`, `usage`.`resource`, `status`, `note`, `detail`, `budget`, `fill` FROM `order` JOIN `device` ON `supplyID` = ? AND (`status` != "DONE" AND `status` != "CANCEL") AND `order`.`deviceID` = `device`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID` JOIN `user` ON `order`.`userID` = `user`.`ID` LEFT JOIN `usage` ON `order`.`usageID` = `usage`.`ID` ORDER BY `order`.`ID` DESC';
 		return $this->db->query($sql, $supplyID)->result_array();
 	}
 
@@ -89,7 +94,7 @@ class Order_model extends CI_Model {
 	}
 
 	public function helperActive() {
-		$sql = 'SELECT `order`.`ID`, `category`.`name` AS `category`, `model`.`name` AS `model`, `device`.`ID` AS `deviceID`, `user`.`name` AS `uname`, `user`.`email` AS `uemail`, `user`.`phone` AS `uphone`, `supply`.`name` AS `sname`, `supply`.`email` AS `semail`, `supply`.`phone` AS `sphone`, `device`.`contract` AS `contract`, `order`.`date`, `usage`.`date` AS `useDate`, `usage`.`resource`, `status`, `note`, `detail`, `budget`, `fill` FROM `order` JOIN `device` ON (`status` != "DONE" AND `status` != "CANCEL") AND `order`.`deviceID` = `device`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID` JOIN `user` ON `order`.`userID` = `user`.`ID` JOIN `supply` ON `device`.`supplyID` = `supply`.`ID` JOIN `usage` ON `order`.`usageID` = `usage`.`ID` ORDER BY `order`.`ID` DESC';
+		$sql = 'SELECT `order`.`ID`, `category`.`name` AS `category`, `model`.`name` AS `model`, `device`.`ID` AS `deviceID`, `user`.`name` AS `uname`, `user`.`email` AS `uemail`, `user`.`phone` AS `uphone`, `supply`.`name` AS `sname`, `supply`.`email` AS `semail`, `supply`.`phone` AS `sphone`, `device`.`contract` AS `contract`, `order`.`date`, `usage`.`date` AS `useDate`, `usage`.`resource`, `status`, `note`, `detail`, `budget`, `fill` FROM `order` JOIN `device` ON (`status` != "DONE" AND `status` != "CANCEL") AND `order`.`deviceID` = `device`.`ID` JOIN `model` ON `device`.`modelID` = `model`.`ID` JOIN `category` ON `model`.`categoryID` = `category`.`ID` JOIN `user` ON `order`.`userID` = `user`.`ID` JOIN `supply` ON `device`.`supplyID` = `supply`.`ID` LEFT JOIN `usage` ON `order`.`usageID` = `usage`.`ID` ORDER BY `order`.`ID` DESC';
 		return $this->db->query($sql)->result_array();
 	}
 

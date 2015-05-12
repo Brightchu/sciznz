@@ -80,9 +80,6 @@ form#table.form-horizontal
 			ul.dropdown-menu(role='menu')
 				li.entry(ng-repeat='supply in supplyList' ng-click='onSupplyClick()')
 					a {{supply.name}}
-				li.divider
-					li.entry
-						a 添加供应商
 
 	label 四. 录入仪器:
 	.form-group(ng-hide='deviceDisabled')

@@ -31,13 +31,15 @@ class Order_service extends CI_Model {
 
 	public function budget($ID, $method, $account, $transaction) {
 		$this->load->model('pay_model');
+		$budget = $this->order_model->info($ID)['budget'];
 
 		switch ($method) {
 			case 'GROUP':
-				$budget = $this->order_model->info($ID)['budget'];
 				$payID = $this->pay_model->pay($budget, 'GROUP', $account, $transaction);
 				return $this->order_model->budget($ID, $payID);
-			
+			case 'ALIPAY':
+				$payID = $this->pay_model->pay($budget, 'ALIPAY', $account, $transaction);
+				return $this->order_model->budget($ID, $payID);
 			default:
 				return FALSE;
 		}
@@ -53,16 +55,16 @@ class Order_service extends CI_Model {
 
 	public function fill($ID, $method, $account, $transaction) {
 		$this->load->model('pay_model');
-
+		$fill = $this->order_model->info($ID)['fill'];
 		switch ($method) {
 			case 'GROUP':
-				$fill = $this->order_model->info($ID)['fill'];
 				$payID = $this->pay_model->pay($fill, 'GROUP', $account, $transaction);
 				return $this->order_model->fill($ID, $payID);
-			
+			case 'ALIPAY':
+				$payID = $this->pay_model->pay($fill, 'ALIPAY', $account, $transaction);
+				return $this->order_model->fill($ID, $payID);
 			case 'NONE':
 				return $this->order_model->fill($ID, 0);
-
 			default:
 				return FALSE;
 		}

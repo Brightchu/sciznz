@@ -1,35 +1,49 @@
-mixin infoRow
-	.row
-		p.category {{device.category}}
-		span.col-xs-4
-			span.glyphicon.glyphicon-tag
-			span.model {{device.vendor}} - {{device.model}}
-		span.col-xs-4
-			span.glyphicon.glyphicon-flag
-			span.locale {{device.locale}}
-		span.col-xs-4
-			span.glyphicon.glyphicon-earphone
-			span.supply {{device.supply}}
-	hr
-	.row
-		label.btn.btn-info.btn-xs(ng-repeat="(key, value) in device.field") {{key}} {{value}}
-	.more
-		h4 {{device.info}}
-
 mixin device(single)
 	img.col-xs-2.shot(ng-src="{{device.img}}")
 
 	if single
 		.info.col-xs-10
-			+infoRow
+			.row
+				p.category {{device.category}}
+				span.col-xs-4
+					span.glyphicon.glyphicon-tag
+					span.model {{device.vendor}} - {{device.model}}
+				span.col-xs-4
+					span.glyphicon.glyphicon-flag
+					span.locale {{device.locale}}
+				span.col-xs-4
+					span.glyphicon.glyphicon-map-marker
+					span.supply {{device.supply}}
+			hr
+			.row
+				label.btn.btn-info.btn-xs(ng-repeat="(key, value) in device.field") {{key}} {{value}}
+			.more
+				h4 {{device.info}}
 			.more.spec(ng-if="device.spec")
 				a(ng-repeat="(title, link) in device.spec" href="{{link}}") {{title}}
 
 	else
 		.info.col-xs-8
-			+infoRow
+			.row
+				p.category {{device.category}}
+				span.col-xs-3
+					span.glyphicon.glyphicon-tag
+					span.model {{device.vendor}} - {{device.model}}
+				span.col-xs-3
+					span.glyphicon.glyphicon-flag
+					span.locale {{device.locale}}
+				span.col-xs-3
+					span.glyphicon.glyphicon-map-marker
+					span.supply {{device.supply}}
+				span.col-xs-3
+					span.glyphicon.glyphicon-yen
+					span.supply {{device.schedule.unlimited.price}} {{device.schedule.unlimited.unit}}
+			hr
+			.row
+				label.btn.btn-info.btn-xs(ng-repeat="(key, value) in device.field") {{key}} {{value}}
+			.more
+				h4 {{device.info}}
 
 		.action.col-xs-2
-			label.btn.btn-default.btn-block.price {{device.schedule.unlimited.price}} {{device.schedule.unlimited.unit}}
 			a(href="#/device/{{device.ID}}")
 				label.btn.btn-success.btn-block.booking 立即预约

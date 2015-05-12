@@ -7,8 +7,10 @@
 			label
 				input(type='radio' name="payMethod" ng-model="payMethod.groupID" btn-radio="'{{method.groupID}}'")
 				|     科研团体： {{method.groupName}}
-	div(ng-if='! methodList.length')
-		p 当前仅支持科研团体支付，请与我们联系
+	.radio
+		label
+			input(type='radio' name="payMethod" ng-model="payMethod.groupID" btn-radio='0')
+			|    支付宝
 
 .modal-footer
 	button.btn.btn-primary(ng-if='methodList.length' ng-click='pay()') 确认支付

@@ -71,10 +71,10 @@ sciFilter.filter 'keywordFilter', ->
 			if $scope.keyword? and $scope.keyword.length
 				result = data.filter (device)->
 					return JSON.stringify(device).indexOf($scope.keyword) != -1
-				$scope.nodevice = (result.length == 0)
+				$scope.count = result.length
 				return result
 			else
-				$scope.nodevice = (data.length == 0)
+				$scope.count = data.length
 				return data
 		else
 			if $scope.keyword? and $scope.keyword.length
@@ -82,8 +82,8 @@ sciFilter.filter 'keywordFilter', ->
 				for _, device of data
 					if JSON.stringify(device).indexOf($scope.keyword) != -1
 						result.push(device)
-				$scope.nodevice = (result.length == 0)
+				$scope.count = result.length
 				return result
 			else
-				$scope.nodevice = false
+				$scope.count = Object.keys(data).length
 				return data

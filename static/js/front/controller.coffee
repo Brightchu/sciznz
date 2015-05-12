@@ -71,12 +71,11 @@ sciCtrl.controller 'loginCtrl', ['$scope', '$modalInstance', 'User', '$timeout',
 			$scope.errorText = '邮箱或密码错误'
 		promise.then (data)->
 			$scope.error = false
-			$scope.success = true
 			$modalInstance.close(data.name)
 ]
 
 sciCtrl.controller 'homeCtrl', ['$scope', '$document', 'data', ($scope, $document, data)->
-	$scope.groupList = data.hierarchy
+	$scope.data = data
 	$scope.scrollTo = (selector)->
 		$document.scrollToElementAnimated($(document.querySelector(selector)), 100);
 

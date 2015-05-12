@@ -45,3 +45,7 @@ sciApp.config(['$translateProvider', ($translateProvider)->
 
 ])
 
+sciApp.run(['$rootScope', ($rootScope)->
+	$rootScope.Utils =
+		keys : Object.keys
+])

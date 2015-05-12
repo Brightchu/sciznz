@@ -73,26 +73,32 @@ userCtrl.controller 'payCtrl', ['$scope', '$modalInstance', '$timeout', '$filter
 	$scope.payMethod = {}
 
 	$scope.pay = ->
-		if $scope.payMethod.groupID
-			payload =
-				orderID: order.ID
-				method: 'GROUP'
-				account: $scope.payMethod.groupID
-			
-			if type == 'budget'
-				Order.budget(payload).$promise.then ->
-					alert($filter('translate')('budgetPayed'))
-					order.status = 'BUDGET'
-					$modalInstance.close()
-				, ->
-					alert($filter('translate')('budgetPayFail'))
+		if $scope.payMethod.groupID?
+			if $scope.payMethod.groupID
+				payload =
+					orderID: order.ID
+					method: 'GROUP'
+					account: $scope.payMethod.groupID
+
+				if type == 'budget'
+					Order.budget(payload).$promise.then ->
+						alert($filter('translate')('budgetPayed'))
+						order.status = 'BUDGET'
+						$modalInstance.close()
+					, ->
+						alert($filter('translate')('budgetPayFail'))
+				else
+					Order.fill(payload).$promise.then ->
+						alert($filter('translate')('fillPayed'))
+						order.status = 'DONE'
+						$modalInstance.close()
+					, ->
+						alert($filter('translate')('fillPayFail'))
 			else
-				Order.fill(payload).$promise.then ->
-					alert($filter('translate')('fillPayed'))
-					order.status = 'DONE'
-					$modalInstance.close()
-				, ->
-					alert($filter('translate')('fillPayFail'))
+				if type == 'budget'
+					window.location.href = "/alipay/budgetCreate/#{order.ID}"
+				else if type == 'fill'
+					window.location.href = "/alipay/fillCreate/#{order.ID}"
 		else
 			alert('请选择支付方式')
 ]
