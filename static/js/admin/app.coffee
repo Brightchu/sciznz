@@ -73,8 +73,8 @@ adminApp.config(['$compileProvider', ($compileProvider)->
 
 adminApp.config(['$translateProvider', ($translateProvider)->
 	$translateProvider.translations 'zh',
-		RESOURCE: '担保预约'
-		UNLIMITED: '无担保预约'
+		RESOURCE: '现场实验'
+		UNLIMITED: '送样实验'
 
 	$translateProvider.preferredLanguage('zh')
 

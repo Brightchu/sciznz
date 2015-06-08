@@ -21,15 +21,15 @@
 							span.content {{date | date:'yyyy-MM-dd' }}
 						div(ng-show='inWork')
 							p.left
-								span.tip 预约方式：
+								span.tip 实验方式：
 								span.content.btn-group
 									label.btn.btn-default(ng-repeat="method in device.schedule.method" ng-model="orderModel.method" btn-radio="'{{method}}'") {{method | translate}}
 							p.left(ng-show="orderModel.method == 'RESOURCE'")
-								span.tip 预约项目：
+								span.tip 实验时间：
 								span.content.btn-group
 									label.btn.btn-default(ng-repeat='(name, value) in resource' ng-hide='value.count >= value.capacity' ng-model="orderModel.resource" btn-radio="'{{name}}'") {{name}}
 							div.price(ng-show="orderModel.method == 'RESOURCE'")
-								span.tip 项目容量及预算：
+								span.tip 实验容量及价格：
 								div(ng-repeat='(name, value) in resource')
 									b
 										span {{name}}

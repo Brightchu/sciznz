@@ -7,7 +7,7 @@ userFilter.filter 'statusFilter', ->
 		CONFIRM: '已确认，待付款'
 		BUDGET: '已付款，等候实验'
 		BEGIN: '正在实验'
-		END: '待支付耗材费用'
+		END: '待支付实验费用'
 		DONE: '已完成'
 		CANCEL: '已取消'
 	(status)->

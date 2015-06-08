@@ -141,7 +141,7 @@ sciCtrl.controller 'deviceCtrl', ['$scope', '$routeParams', 'data', 'Device', '$
 				resource: $scope.orderModel.resource
 
 			if not payload.resource? and payload.method == 'RESOURCE'
-				return alert('请选择预约项目')
+				return alert('请选择实验时间')
 			
 			modalInstance = $modal.open
 				templateUrl: '/static/partial/front/confirm.html'

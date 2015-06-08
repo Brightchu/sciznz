@@ -7,9 +7,9 @@
 		label {{payload.model}}
 	p 预约日期：
 		label {{payload.date}}
-	p 预约方式：
+	p 实验方式：
 		label {{payload.method | translate}}
-	p(ng-if='payload.resource') 预约项目：
+	p(ng-if='payload.resource') 实验时间：
 		label {{payload.resource}}
 	label 备注：
 	textarea.form-control(ng-model='payload.note')

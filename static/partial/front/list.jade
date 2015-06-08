@@ -11,7 +11,7 @@
 			.col-xs-2
 				.key
 					span.glyphicon.glyphicon-list
-					span.type 领域：
+					span.type 应用领域：
 			.col-xs-10
 				.value
 					label.btn.btn-sm.btn-default(ng-model="filterModel.domain" btn-radio="'不限'") 不限
@@ -21,7 +21,7 @@
 			.col-xs-2
 				.key
 					span.glyphicon.glyphicon-th
-					span.type 性质：
+					span.type 仪器大类：
 			.col-xs-10
 				.value
 					label.btn.btn-sm.btn-default(ng-model="filterModel.feature" btn-radio="filterModel.domain") {{filterModel.domain}}
@@ -40,7 +40,7 @@
 			.col-xs-2
 				.key
 					span.glyphicon.glyphicon-th-large
-					span.type 类别：
+					span.type 仪器子类：
 			.col-xs-10
 				.value
 					label.btn.btn-sm.btn-default(ng-model="filterModel.category" btn-radio="filterModel.feature") {{filterModel.feature}}
@@ -59,7 +59,7 @@
 			.col-xs-2
 				.key
 					span.glyphicon.glyphicon-flag
-					span.type 地点：
+					span.type 仪器地点：
 			.col-xs-10
 				.value
 					label.btn.btn-sm.btn-default(ng-model="filterModel.locale" btn-radio="'不限'") 不限

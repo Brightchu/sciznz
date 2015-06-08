@@ -43,11 +43,11 @@ class Alipay_service extends CI_Model {
 			'_input_charset' => 'utf-8',
 			'notify_url' => site_url('alipay/fillNotify'),
 			'out_trade_no' => 'fill_' . $info['ID'],
-			'subject' => $info['model'] . ' - 耗材费用',
+			'subject' => $info['model'] . ' - 实验费用',
 			'payment_type'=> '1',
 			'total_fee' => $info['fill'],
 			'seller_id' => $this->partnerID,
-			'body' => "{$info['category']} - {$info['model']} - {$info['useDate']} - 耗材费用",
+			'body' => "{$info['category']} - {$info['model']} - {$info['useDate']} - 实验费用",
 			'show_url' => site_url("/#/device/{$info['deviceID']}"),
 		];
 

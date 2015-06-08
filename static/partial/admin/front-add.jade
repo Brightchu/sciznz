@@ -117,7 +117,7 @@ form#table.form-horizontal
 				button.btn.btn-success(ng-file-select ng-file-change='uploadDeviceSpec($files)' ng-multiple='true') 仪器附件
 		.form-group
 			.col-sm-2
-				label 预约方式：
+				label 实验方式：
 			.btn-group.col-sm-4
 				label.btn.btn-default(ng-model='thisDevice.method.resource', btn-checkbox) {{'RESOURCE' | translate}}
 				label.btn.btn-default(ng-model='thisDevice.method.unlimited', btn-checkbox) {{'UNLIMITED' | translate}}
@@ -133,14 +133,14 @@ form#table.form-horizontal
 				label.btn.btn-default(ng-model='thisDevice.workday.d5', btn-checkbox) 五
 				label.btn.btn-default(ng-model='thisDevice.workday.d6', btn-checkbox) 六
 		.form-group
-			label.col-sm-2 无担保预约(也用作首页显示价格):
+			label.col-sm-2 送样实验(也用作首页显示价格):
 			.col-sm-10
 				label 价格
 					input.form-control(ng-model='thisDevice.unlimited.price')
 				label 单位
 					input.form-control(ng-model='thisDevice.unlimited.unit')
 		.form-group
-			label.col-sm-2 担保预约:
+			label.col-sm-2 现场实验:
 				button.btn.btn-default.btn-sm(ng-click='addResource()') 添加项目
 			div(ng-repeat='res in thisDevice.resource track by $index')
 				.col-sm-2
