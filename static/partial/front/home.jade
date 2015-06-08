@@ -6,19 +6,19 @@
 					i
 	#slogan
 		p.big 科学指南针
-		p.little 让实验更简单
+		p.little 科研仪器，我帮你约
 
 	#action
 		a(href='#/list')
-			#go.ellipse 立即体验
+			#go.ellipse 立刻预约
 				span.glyphicon.glyphicon-chevron-right
 		#view.ellipse(ng-click="scrollTo('#flow')") 查看流程
 
 	#count
-		p 已有 {{data.index.locale.length}} 家供应商， {{Utils.keys(data.index.category).length}} 个分类， {{Utils.keys(data.device).length}} 台仪器入驻，就等你来！
+		p 已有 {{data.index.locale.length}} 家实验室加盟， {{Utils.keys(data.index.category).length}} 种型号， {{Utils.keys(data.device).length}} 台仪器入驻，就等你来"约"！
 
 	#flow.container
-		p#flow-name 只需四步！解决仪器难题
+		p#flow-name 只需四步，闪电预约！
 		.row
 			.col-md-3.col-sm-6
 				a(href='#/list'  style='color: inherit')
@@ -26,57 +26,58 @@
 						span.glyphicon.glyphicon-pencil
 						p.name 在线预约
 						.detail
-							p 电脑 / 平板 / 手机 均可预约
-							p 实时显示仪器的空闲时段
+							p 30秒，极速完成仪器预约
+							p 仪器空闲实时显示
 			.col-md-3.col-sm-6
 				#confirm.step
 					span.glyphicon.glyphicon-ok
 					p.name 供应方确认
 					.detail
-						p 短信 / 微信 / 邮件 总在第一时间
-						p 三小时快速反馈
-			.col-md-3.col-sm-6
-				#payment.step
-					span.glyphicon.glyphicon-yen
-					p.name 支付费用
-					.detail
-						p 在线支付 / 定期结账 灵活选择
-						p 支付宝 / 微信支付 全线接入
+						p 预约订单三小时确认
+						p 邮件提醒实时反馈
 			.col-md-3.col-sm-6
 				#experiment.step
 					span.glyphicon.glyphicon-send
-					p.name 去实验！
+					p.name 去实验
 					.detail
-						p 今天下单，明天即可实验
-						p 走，闪人去！
+						p 今天下单，明天即可实验	
+						p 专业人员操作			
+			.col-md-3.col-sm-6
+				#payment.step
+					span.glyphicon.glyphicon-yen
+					p.name 快捷支付
+					.detail
+						p 多种支付方式，享受最低价格
+						p 票据免费邮寄
+			
 
 	#supply.container
-		p#suppy-name 多渠道仪器供应，稳定可靠
+		p#suppy-name 严格筛选的仪器供应方，保证实验质量
 		.row
 			.col-md-2.col-sm-3.col-xs-4
 				img.img-circle(src='/static/3rdparty/zju.png' tooltip='浙江大学')
 			.col-md-2.col-sm-3.col-xs-4
 				img.img-circle(src='/static/3rdparty/zju-medicine.png' tooltip='浙江大学医学院')
 			.col-md-2.col-sm-3.col-xs-4
-				img.img-circle(src='/static/3rdparty/zjut.png' tooltip='浙江理工大学')
+				img.img-circle(src='/static/3rdparty/zjut.png' tooltip='浙江工业大学')
 			.col-md-2.col-sm-3.col-xs-4
 				img.img-circle(src='/static/3rdparty/jiliang.png' tooltip='中国计量学院')
 			.col-md-2.col-sm-3.col-xs-4
 				img.img-circle(src='/static/3rdparty/zju-medicine.png' tooltip='浙江大学医学院')
 			.col-md-2.col-sm-3.col-xs-4
-				img.img-circle(src='/static/3rdparty/zjut.png' tooltip='浙江理工大学')
+				img.img-circle(src='/static/3rdparty/zjslb.jpg' tooltip='水利部杭州机械设计研究所')
 			.col-md-2.col-sm-3.col-xs-4
 				img.img-circle(src='/static/3rdparty/zju-medicine.png' tooltip='浙江大学医学院')
 			.col-md-2.col-sm-3.col-xs-4
-				img.img-circle(src='/static/3rdparty/zjut.png' tooltip='浙江理工大学')
+				img.img-circle(src='/static/3rdparty/zjut.png' tooltip='浙江工业大学分析测试中心')
 			.col-md-2.col-sm-3.col-xs-4
-				img.img-circle(src='/static/3rdparty/jiliang.png' tooltip='中国计量学院')
+				img.img-circle(src='/static/3rdparty/gtcl.jpg' tooltip='浙江省先进钢铁材料工程技术研究中心')
 			.col-md-2.col-sm-3.col-xs-4
-				img.img-circle(src='/static/3rdparty/zju-medicine.png' tooltip='浙江大学医学院')
+				img.img-circle(src='/static/3rdparty/zju.png' tooltip='浙江大学环境与资源公共平台')
 			.col-md-2.col-sm-3.col-xs-4
-				img.img-circle(src='/static/3rdparty/zjut.png' tooltip='浙江理工大学')
+				img.img-circle(src='/static/3rdparty/hzspsb.png' tooltip='中科院杭州射频识别技术研发中心')
 			.col-md-2.col-sm-3.col-xs-4
-				img.img-circle(src='/static/3rdparty/zju.png' tooltip='浙江大学')
+				img.img-circle(src='/static/3rdparty/hyes.jpg' tooltip='中国国家海洋局第二研究所')
 
 	#user.container
 		p#user-name 实实在在的口碑
@@ -105,7 +106,7 @@
 		hr
 		#slogan-bottom 科学指南针，让实验更简单
 		a(href='#/list')
-			#go-bottom.ellipse 立即体验
+			#go-bottom.ellipse 立刻预约
 				span.glyphicon.glyphicon-chevron-right
 		hr
 
